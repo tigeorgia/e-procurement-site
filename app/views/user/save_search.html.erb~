@@ -1,0 +1,6 @@
+<script type="text/javascript">
+
+<% button_html = button_to( "remove search", {:controller => :user, :action => "remove_search", :remote => true, :search_string => @thisSearchString, :searchParams => @searchParams, :user_id => current_user.id }) %>
+  $("#search_serialization").html("<%= escape_javascript( button_html ) %>");
+return false
+</script>

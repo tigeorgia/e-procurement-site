@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  bidder_id: 1
+  bid_date: 2012-10-06
+  value: 9.99
+
+two:
+  bidder_id: 1
+  bid_date: 2012-10-06
+  value: 9.99

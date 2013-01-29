@@ -1,0 +1,73 @@
+<% title "Account Page" %>
+
+<h2>Tenders You are watching</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>type</th>
+      <th>status</th>
+      <th>estimated value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tenders.each do |tender| %>
+      <tr>
+        <td><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
+        <td><%= tender.tender_type %></td>
+        <td><%= tender.tender_status %></td>
+        <td><%= tender.estimated_value %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Your saved searches</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>type</th>
+      <th>date saved</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @savedSearches.each do |search| %>
+      <tr>
+        <td><%= link_to search.name, :action => "rebuild_search", :searchtype => search.searchtype, :searchString => search.search_string %></td>
+        <td><%= search.searchtype %></td>
+        <td><%= search.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Your CPV groups</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>date saved</th>
+      <th>cpv codes</th>
+      <th>cpv description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cpvGroups.each do |cpvGroup| %>
+      <tr>
+        <td><%= cpvGroup.name %></td>
+        <td><%= cpvGroup.created_at %></td>
+      </tr>
+      <% cpvGroup.tender_cpv_classifiers.each do |classifier| %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= classifier.cpv_code %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,61 @@
+<%- model_class = Organization -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="info-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @organization.name %></dd>
+  <dt><strong>Identification code:</strong></dt>
+  <dd><%= @organization.code %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:org_type) %>:</strong></dt>
+  <dd><%= @organization.org_type %></dd>
+  <dt><strong>Tenders Bid On:</strong></dt>
+  <dd><%= @numTenders  %></dd>
+  <dt><strong>Tenders Won:</strong></dt>
+  <dd><%= @numTendersWon  %></dd>
+  <dt><strong>Win/Loss Ratio</strong></dt>
+  <dd><%= @WLR  %></dd>
+</dl>
+
+<br></br>
+<h3>Tenders Bid On</h3>
+<br></br>
+
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Tender</th>
+      <th>Success?</th>
+      <th>No. Bidders</th>
+      <th>Procurer</th>
+      <th>Annoucement Date</th>
+      <th>Bid Duration</th>
+      <th>Procurer Estimate</th>
+      <th>First Bid</th>
+      <th>Last Bid</th>
+      <th>Number of Bids</th>
+    </tr>
+  </thead>
+  <tbody>      
+    <% @tenderInfo.each do |tender| %>
+      <tr>
+        <td><%= link_to tender[:tenderCode], tender_path(tender[:id]) %></td> 
+        <% if tender[:won] %>
+          <td><font color="green"><strong>YES</strong></font></td>
+        <% else %>
+          <td><font color="red">NO</font></td>
+        <% end %>
+        <td><%= tender[:numBidders]%></td>
+        <td><%= link_to tender[:procurerName], :controller => "organizations", :action => "show_procurer", :id => tender[:procurerID] %></td>
+        <td><%= tender[:tenderAnnouncementDate]%></td>
+        <td><%= tender[:bidDuration]%> Days</td>
+        <td><%= tender[:start_amount] %></td>
+        <td><%= tender[:highest_bid] %></td>
+        <td><%= tender[:lowest_bid] %></td>
+        <td><%= tender[:numBids] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

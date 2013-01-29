@@ -1,0 +1,30 @@
+class User < ActiveRecord::Base
+  has_many :watch_tenders
+  has_many :searches
+  has_many :cpvGroups
+  
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+	# :registerable, :recoverable,
+  devise  :registerable, :database_authenticatable,
+         :rememberable, :trackable, :validatable
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :role
+
+  validates :role, :presence => true
+
+  def self.no_admins
+    where("role != ?", ROLES[1])
+  end
+
+
+  # use role inheritence
+  ROLES = %w[user admin]
+  def role?(base_role)
+    if base_role && ROLES.index(base_role.to_s)
+      return ROLES.index(base_role.to_s) <= ROLES.index(role)
+    end
+    return false
+  end
+end

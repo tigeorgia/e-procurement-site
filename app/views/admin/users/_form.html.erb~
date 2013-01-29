@@ -1,0 +1,16 @@
+<%= semantic_form_for([:admin,@user]) do |f| %>
+	<%= f.error_messages %>
+
+	<%= f.inputs do %>
+		<%= f.input :email, :input_html => {:size =>35} %>
+		<%= f.input :password, :input_html => {:size => 35}, :label => t('app.common.new_password')  %>
+		<%= f.input :password_confirmation, :input_html => {:size => 35}  %>
+			<%= f.input :role, :as => :select, :collection => User::ROLES.map{|x| [x.humanize, x.to_s]}  %>
+
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+	  <%= f.submit nil, :class => 'btn btn-warning', :type => :reset, :value => t('app.buttons.reset'), :name => :reset %>
+	  <%= link_to t('app.buttons.cancel'), admin_users_path, :class => 'btn btn-mini btn-warning' %>
+  </div>
+<% end %>

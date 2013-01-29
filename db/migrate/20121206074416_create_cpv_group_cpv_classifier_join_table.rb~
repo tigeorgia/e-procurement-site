@@ -1,0 +1,8 @@
+class CreateCpvGroupCpvClassifierJoinTable < ActiveRecord::Migration
+  def change
+    create_table :cpvGroup_CpvClassifier, :id => false do |t|
+      t.integer :cpv_group_id
+      t.integer :tender_cpv_classifier
+    end
+  end
+end

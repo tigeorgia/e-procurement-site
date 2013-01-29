@@ -1,0 +1,27 @@
+<%- model_class = Organization -%>
+<div class="page-header">
+  <h1>Procurers</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th>Identification code</th>
+      <th><%= model_class.human_attribute_name(:org_type) %></th>
+      <th><%= model_class.human_attribute_name(:country) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @organizations.each do |organization| %>
+      <tr>
+        <td><%= link_to organization.name, :controller => "organizations", :action => "show_procurer", :id => organization %></td>
+        <td><%= organization.code %></td>
+        <td><%= organization.org_type %></td>
+        <td><%= organization.country %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= page_navigation_links @organizations %>
+

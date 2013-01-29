@@ -1,0 +1,21 @@
+production:
+  adapter: mysql2
+  database: procurement
+  username: root
+  password: root
+  encoding: utf8
+  host: localhost
+  port: 3306
+  reconnect: true
+  pool: 5
+
+development:
+  adapter: mysql2
+  database: procurement
+  username: root
+  password: root
+  encoding: utf8
+  host: localhost
+  port: 3306
+  reconnect: true
+  pool: 5

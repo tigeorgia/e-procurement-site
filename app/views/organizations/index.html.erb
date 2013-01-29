@@ -1,0 +1,34 @@
+<%- model_class = Organization -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:organization_url) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:org_type) %></th>
+      <th><%= model_class.human_attribute_name(:country) %></th>
+      <th><%= model_class.human_attribute_name(:is_bidder) %></th>
+      <th><%= model_class.human_attribute_name(:is_procurer) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @organizations.each do |organization| %>
+      <tr>
+        <td><%= link_to organization.id, organization_path(organization) %></td>
+        <td><%= organization.organization_url %></td>
+        <td><%= organization.name %></td>
+        <td><%= organization.org_type %></td>
+        <td><%= organization.country %></td>
+        <td><%= organization.is_bidder %></td>
+        <td><%= organization.is_procurer %></td>
+        <td><%=l organization.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= page_navigation_links @index %>

@@ -1,0 +1,17 @@
+class CreateAgreements < ActiveRecord::Migration
+  def change
+    create_table :agreements do |t|
+      t.integer :tender_id
+      t.integer :organization_id
+      t.integer :organization_url
+      t.decimal :amount, :precision => 11, :scale => 2
+      t.date :start_date
+      t.date :expiry_date
+      t.string :documentation_url
+
+      t.timestamps
+    end
+
+    add_index :agreements, [:tender_id, :organization_id]
+  end
+end

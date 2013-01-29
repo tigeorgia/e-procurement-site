@@ -1,0 +1,8 @@
+class AddDatesToBidders < ActiveRecord::Migration
+  def change
+    add_column :bidders, :firstBidAmount, :integer
+    add_column :bidders, :firstBidDate, :datetime
+		add_column :bidders, :lastBidAmount, :integer
+		add_column :bidders, :lastBidDate, :datetime
+  end
+end

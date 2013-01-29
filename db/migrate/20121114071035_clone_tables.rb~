@@ -1,0 +1,36 @@
+class CloneTables < ActiveRecord::Migration
+  def up
+    execute <<-SQL 
+      CREATE TABLE tenders_new LIKE tenders
+    SQL
+    execute <<-SQL
+      CREATE TABLE organizations_new LIKE organizations
+    SQL
+    execute <<-SQL
+      CREATE TABLE bidders_new LIKE bidders
+    SQL
+    execute <<-SQL
+      CREATE TABLE agreements_new LIKE agreements
+    SQL
+    execute <<-SQL
+      CREATE TABLE documents_new LIKE documents
+    SQL
+  end
+  def down
+        execute <<-SQL
+      DROP TABLE tenders_new
+    SQL
+    execute <<-SQL
+      DROP TABLE organizations_new
+    SQL
+    execute <<-SQL
+      DROP TABLE bidders_new
+    SQL
+    execute <<-SQL
+      DROP TABLE agreements_new
+    SQL
+    execute <<-SQL
+      DROP TABLE documents_new
+    SQL
+  end
+end

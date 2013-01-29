@@ -1,0 +1,11 @@
+class Admin:UsersController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :requires_admin
+
+  def requires_admin
+    if current_user.role != 'admin'
+      redirect_to "/"
+    end
+  end
+
+end

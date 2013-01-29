@@ -1,0 +1,8 @@
+class AggregateCpvRevenue < ActiveRecord::Base
+  belongs_to :organization
+  belongs_to :tenderCpvClassifier  
+  attr_accessible :id,
+      :organization_id,
+      :cpv_code,
+      :total_value
+end

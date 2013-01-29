@@ -1,0 +1,32 @@
+<h2>CPV categories</h2>
+
+<div class="AddCPVGroup">
+  <%= render "user/_cpv_create_button" %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Category name</th>
+      <th>Date saved</th>
+      <th>CPV codes</th>
+      <th>CPV description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |cpvGroup| %>
+      <tr>
+        <td><%= cpvGroup.name %></td>
+        <td><%= cpvGroup.created_at %></td>
+      </tr>
+      <% cpvGroup.tender_cpv_classifiers.each do |classifier| %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= classifier.cpv_code %></td>
+          <td><%= classifier.description %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

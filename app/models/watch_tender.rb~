@@ -1,0 +1,5 @@
+class WatchTender < ActiveRecord::Base
+  attr_accessible :id,
+      :tender_url,
+      :user_id
+end

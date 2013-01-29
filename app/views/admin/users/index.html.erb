@@ -1,0 +1,36 @@
+<% title t('.title') %>
+
+<div class="form-actions">
+<%= link_to t('app.buttons.new'),
+            new_admin_user_path,
+            :class => 'btn btn-primary' %>
+<%= link_to t('app.buttons.admin'), admin_path,
+:class => 'btn' %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= t('app.common.email') %></th>
+      <th><%= t('app.common.role') %></th>
+      <th><%=	t('app.common.actions') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.role.humanize %></td>
+        <td>
+          <%= link_to t('app.buttons.edit'),
+                      edit_admin_user_path(user), :class => 'btn btn-mini' %>
+          <%= link_to t('app.buttons.delete'),
+                      admin_user_path(user),
+                      :method => :delete,
+                      :confirm => t('app.buttons.confirm'),
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

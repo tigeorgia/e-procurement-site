@@ -1,0 +1,83 @@
+# encoding: utf-8
+ka:
+  Proposals process started: წინადადებების მიღება დაწყებულია
+  The Winner revealed: გამარჯვებული გამოვლენილია
+  Completed negative result: დასრულებულია უარყოფითი შედეგით 
+  Preparation of contract: მიმდინარეობს ხელშეკრულების მომზადება
+  Bidding failed: ტენდერი არ შედგა
+  Tender announced: ტენდერი გამოცხადებულია
+  Tender terminated: ტენდერი შეწყვეტილია
+  Selection/Evaluation: შერჩევა/შეფასება
+  Completed proposals: წინადადებების მიღება დასრულებულია
+  Bids starting: წინადადებების მიღება დაწყებული
+  Agreement concluded: ხელშეკრულება დადებულია
+
+
+en:
+  წინადადებების მიღება დაწყებულია: Proposals process started
+  გამარჯვებული გამოვლენილია: The Winner revealed
+  დასრულებულია უარყოფითი შედეგით: Completed negative result
+  მიმდინარეობს ხელშეკრულების მომზადება: Preparation of contract
+  ტენდერი არ შედგა: Bidding failed
+  ტენდერი გამოცხადებულია: Tender announced
+  ტენდერი შეწყვეტილია: Tender terminated
+  შერჩევა/შეფასება: Selection/Evaluation
+  წინადადებების მიღება დასრულებულია: Completed proposals
+  წინადადებების მიღება დაწყებული: Bids starting
+  ხელშეკრულება დადებულია: Agreement concluded
+  app:
+    language:
+      en: English
+      ka: ქართული
+    buttons:
+      back: Back
+      list: View All
+      admin: Admin Section
+      delete: Delete
+      edit: Edit
+      show: Show
+      cancel: Cancel
+      update: Update
+      save: Save
+      create: Create
+      reset: Reset
+      remove: Remove
+      confirm: Are you sure?
+      new: New
+    common:
+      app_name: ProcWatch
+  layouts:
+    application:
+      admin: Admin
+      sign_out: Sign Out
+      js_link_title: "Visit JumpStart Georgia's website"
+      js_link_text: Built by
+      ti_link_title: "Visit JumpStart Georgia's website"
+    unsupported_browser:
+      title: Unsupported Browser
+      p1: We are sorry to report that your browser is out of date and will not properly render the content from this website.
+      p2: On the bright side, there are several free browsers that you can download that are compatible with this site.
+      chrome: Chrome
+      firefox: Firefox
+      ie: Internet Explorer (Windows only)
+      opera: Opera
+      Safari: Safari
+      admin: Admin
+      sign_out: Sign Out
+      js_link_title: "Visit JumpStart Georgia's website"
+      js_link_text: Built by
+  admin:
+    index:
+      title: Administration Section
+      users_header: Users
+      new_users: Add User
+      view_users: View Users
+    users:
+      edit:
+        title: Editing User
+      index:
+        title: Users
+      new:
+        title: New User
+      show:
+        title: User Details

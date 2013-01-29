@@ -1,0 +1,5 @@
+<% button_html = button_to( "Unsubscribe", {:controller => :user, :action => "unsubscribe_tender",:tender_url => @tenderUrl, :user_id => current_user.id}, :remote => true) %>
+$(function () {
+  $(".tender_subscription").html("<%= escape_javascript( button_html ) %>");
+  return false;
+});

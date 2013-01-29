@@ -1,0 +1,9 @@
+
+<%= form_tag( {:controller => :user, :action => "create_group",:user_id => @userID }, :remote => true) do %>
+  <%= label_tag(:name, "Group Name:") %>
+  <%= text_field_tag(:name) %>
+  <%= submit_tag("new group") %>
+<% end %>
+
+
+  <%= button_to "Add New Category", {:controller => "user", :action => "newCPVGroup", :user_id => @adminID}, :remote => true %>

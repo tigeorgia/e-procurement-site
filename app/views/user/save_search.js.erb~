@@ -1,0 +1,8 @@
+$(function () {
+  $(".search_serialization").html("<%= escape_javascript( render partial => "user/remove_form" ) %>");
+  return false;
+});
+
+
+
+

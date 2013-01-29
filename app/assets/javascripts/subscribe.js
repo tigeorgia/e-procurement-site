@@ -1,0 +1,6 @@
+$(document).ready(function(){
+  $('.button_to submit').click(function () {
+          alert("POW");
+          return false;
+  });
+});

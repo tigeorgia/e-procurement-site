@@ -1,0 +1,109 @@
+<!-- <div class="row" id="top-row">
+  <div class="span7">
+<p>The ProcWatch Project enables citizens to understand how the Georgian government spends money. Georgian ministries and offices pays companies and organizations to render services to perform its daily functions and implement projects dictated by public policy. To ensure proper use, it is neccessary for the public to be able to not only access the information, but be able pose questions.</p>
+
+<p>The current Georgain government's online procurement database is unable to accomodate the questions civil society needs to pose. This project seeks to overcome that limitation by providing a more flexible interface to the vast amount of procurement information that exists and is publically available.</p>
+  </div>
+  <div class="span4" id="front-box">
+    <p>How is Georgia spending <span>your</span> money?<?p>
+  </div>
+</div>
+
+-->
+
+
+<div class="row" id="mid-row">
+  <div class="span4 latest-box tender-box">
+    <h3>New Tenders</<h3>
+    <ul>
+    <% @recent_tenders.each do |tender| %>
+        <li><%= link_to tender.tender_registration_number, tender %></li>
+    <% end %>
+    </ul>
+  </div>
+<!--
+-->
+  <div class="span4 latest-box org-box">
+    <h3>New Companies</<h3>
+    <ul>
+    <% @recent_orgs.each do |org| %>
+        <li><%= link_to org.name, org, :method => :get %> <%= org.country %></li>
+    <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="row" id="mid-row">
+  <div class="span4 search-org">
+    <h3>Search Companies</<h3>
+    <%= form_for Organization.new, :url => "#{I18n.default_locale}/organization/search" do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field  :name %>
+
+      <%= f.label :code %>
+      <%= f.text_field :code %>
+
+      <%= f.label :type %>
+      <%= f.text_field :org_type %>
+      <br>
+      <%= submit_tag "Search" %>
+    <% end %>
+  </div>
+
+  <div class="span4 search-org">
+    <h3>Search Procurers</<h3>
+    <%= form_for Organization.new, :url => "#{I18n.default_locale}/organization/search_procurer" do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field  :name %>
+
+      <%= f.label :code %>
+      <%= f.text_field :code %>
+
+      <%= f.label :type %>
+      <%= f.text_field :org_type %>
+      <br>
+      <%= submit_tag "Search" %>
+    <% end %>
+  </div>
+
+  <div class="span4 search-tender">
+    <h3>Search Tenders</<h3>
+    <%= form_for Tender.new, :url => "#{I18n.default_locale}/tender/search" do |f| %>
+      <%= f.label :status %>
+      <% options = [] %>
+      <% @uniqueStatus.each do |status| %>
+        <% options.push(item = [""]) %>
+        <% options.push(item = [t(status)]) %>
+      <%end%>
+      <% puts options %>
+      <%= select_tag(:tender_status, options_for_select(options))  %>
+
+      <%= f.label :"registration code" %>
+      <%= f.text_field :tender_registration_number %>
+
+      
+      <label for="announced_after">Announced After</label>
+      <input name="announced_after" type="text" class="dp2" value="01/01/2010" data-date-format="dd/mm/yyyy" id="dp2" >
+      <label for="announced_before">Announced Before</label>
+      <input name="announced_before" type="text" class="dp2" value="01/01/2013" data-date-format="dd/mm/yyyy" id="dp3" >
+
+      <label for="min_estimate">Minimum Cost Estimate</label>
+      <input name="min_estimate" type="text"></text_field>
+      <label for="max_estimate">Maximum Cost Estimate</label>
+      <input name="max_estimate" type="text"></text_field>
+      <br>
+      <%= submit_tag "Search" %>
+    <% end %>
+  </div>
+</div>
+
+
+
+<!--<div class="row" style="margin-top: 1em;">
+  <div class="span6">
+    <h3 style="text-align: center;">Percent Tenders by Status</h3>
+    <div id="tender_piechart"></div>
+  </div>
+    <h3 style="text-align: center;">Sum Estimated Value by CPV Code (GEL)</h3>
+    <div id="top_cpv_estimated_values_barchart"></div>
+</div>-->

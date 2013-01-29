@@ -1,0 +1,136 @@
+# encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended to check this file into your version control system.
+
+ActiveRecord::Schema.define(:version => 20121122105659) do
+
+  create_table "agreements", :force => true do |t|
+    t.integer  "tender_id"
+    t.integer  "organization_id"
+    t.integer  "organization_url"
+    t.decimal  "amount",            :precision => 11, :scale => 2
+    t.date     "start_date"
+    t.date     "expiry_date"
+    t.string   "documentation_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "amendment_number"
+  end
+
+  add_index "agreements", ["tender_id", "organization_id"], :name => "index_agreements_on_tender_id_and_organization_id"
+
+  create_table "bidders", :force => true do |t|
+    t.integer  "tender_id"
+    t.integer  "organization_url"
+    t.integer  "organization_id"
+    t.decimal  "first_bid_amount", :precision => 11, :scale => 2
+    t.date     "first_bid_date"
+    t.decimal  "last_bid_amount",  :precision => 11, :scale => 2
+    t.date     "last_bid_date"
+    t.integer  "number_of_bids"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bidders", ["tender_id", "organization_id"], :name => "index_bidders_on_tender_id_and_organization_id"
+
+  create_table "datasets", :force => true do |t|
+    t.boolean  "is_live"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "documents", :force => true do |t|
+    t.integer  "tender_id"
+    t.string   "document_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "organizations", :force => true do |t|
+    t.integer  "code",             :limit => 8
+    t.string   "organization_url"
+    t.string   "name"
+    t.string   "country"
+    t.string   "org_type"
+    t.boolean  "is_bidder",                     :default => false
+    t.boolean  "is_procurer",                   :default => false
+    t.string   "city"
+    t.string   "address"
+    t.string   "phone_number"
+    t.string   "fax_number"
+    t.string   "email"
+    t.string   "webpage"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "dataset_id"
+  end
+
+  add_index "organizations", ["organization_url", "name"], :name => "index_organizations_on_organization_url_and_name"
+
+  create_table "tender_cpv_classifiers", :force => true do |t|
+    t.integer  "tender_id"
+    t.string   "cpv_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tender_cpv_classifiers", ["tender_id"], :name => "index_tender_cpv_classifiers_on_tender_id"
+
+  create_table "tenders", :force => true do |t|
+    t.integer  "procurring_entity_id"
+    t.string   "tender_type"
+    t.string   "tender_registration_number"
+    t.string   "tender_status"
+    t.date     "tender_announcement_date"
+    t.date     "bid_start_date"
+    t.date     "bid_end_date"
+    t.decimal  "estimated_value",            :precision => 11, :scale => 2
+    t.boolean  "include_vat",                                               :default => false
+    t.string   "cpv_code"
+    t.string   "addition_info"
+    t.string   "units_to_supply"
+    t.string   "supply_period"
+    t.string   "offer_step"
+    t.string   "guarantee_amount"
+    t.string   "guarantee_period"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "dataset_id"
+    t.integer  "url_id"
+  end
+
+  add_index "tenders", ["estimated_value"], :name => "index_tenders_on_estimated_value"
+  add_index "tenders", ["procurring_entity_id"], :name => "index_tenders_on_procurring_entity_id"
+  add_index "tenders", ["tender_status"], :name => "index_tenders_on_tender_status"
+  add_index "tenders", ["tender_type"], :name => "index_tenders_on_tender_type"
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "admin",                  :default => false
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+end

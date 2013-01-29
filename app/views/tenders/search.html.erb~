@@ -1,0 +1,52 @@
+<%= javascript_include_tag "tenders" %>
+
+<%- model_class = Tender -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+
+<% if user_signed_in? %>
+  <div class="search_serialization">
+    <% if @searchIsSaved %>
+      <%= render "user/remove_form" %>
+    <% else %>
+      <%= render "user/save_form" %>
+    <% end %>
+  </div>
+<% end %>
+
+<table class="table table-striped>
+  <thead>
+    <tr>
+      <th><%= sortable(@params, "tender") %></th>
+      <th>Procurer</th>
+      <th><%= sortable(@params, "tender_type") %></th> 
+      <th><%= sortable(@params, "tender_status") %></th>
+      <th><%= sortable(@params, "tender_announcement_date") %></th>
+      <th><%= sortable(@params, "bid_start_date") %></th>
+      <th><%= sortable(@params, "bid_end_date") %></th>
+      <th><%= sortable(@params, "estimated_value") %></th>
+      <th><%= sortable(@params, "include_vat")%></th>
+      <th><%= sortable(@params, "cpv_code")%></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @results.each do |item| %>
+      <% tender = item[:tender] %>
+      <% procurer = item[:procurer] %>
+      <tr>
+        <td><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
+        <td><%= link_to procurer, :controller => "organizations", :action => "show_procurer", :id => tender.procurring_entity_id %></td>
+        <td><%= tender.tender_type %></td>
+        <td><%= tender.tender_status %></td>
+        <td><%= tender.tender_announcement_date %></td>
+        <td><%= tender.bid_start_date %></td>
+        <td><%= tender.bid_end_date %></td>
+        <td><%= tender.estimated_value %></td>
+        <td><%= tender.include_vat %></td>
+        <td><%= tender.cpv_code %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= page_navigation_links @tenders %>

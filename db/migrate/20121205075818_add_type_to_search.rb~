@@ -1,0 +1,9 @@
+class AddTypeToSearch < ActiveRecord::Migration
+def up
+    add_column :searches, :type, :string
+  end
+
+  def down
+    remove_column :searches, :type
+  end
+end

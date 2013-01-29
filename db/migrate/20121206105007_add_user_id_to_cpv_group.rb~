@@ -1,0 +1,9 @@
+class AddUserIdToCpvGroup < ActiveRecord::Migration
+  def up
+    add_column :cpv_group, :user_id, :integer
+  end
+
+  def down
+    remove_column :cpv_group, :user_id
+  end
+end

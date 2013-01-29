@@ -1,0 +1,54 @@
+<%- model_class = Organization -%>
+<div class="page-header">
+  <h1>Procurer</h1>
+</div>
+
+<dl class="info-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @organization.name %></dd>
+  <dt><strong>Identification code:</strong></dt>
+  <dd><%= @organization.code %></dd>
+  <dt><strong>Tenders Offered:</strong></dt>
+  <dd><%= @numTenders  %></dd>
+  <dt><strong>Tenders Awarded</strong></dt>
+  <dd><%= @numAgreements %></dd>
+  <dt><strong>Tenders Not Awarded</strong></dt>
+  <dd><%= @numNoAgreements  %></dd>
+
+  <dt><strong>Estimated Cost: All Tenders</strong></dt>
+  <dd>$<%= @totalEstimate  %></dd>
+  <dt><strong>Actual Cost: All Tenders</strong></dt>
+  <dd>$<%= @actualCost  %></dd>
+  <dt><strong>Savings percentage</strong></dt>
+  <dd>%<%= @costVsEstimateSaving  %></dd>
+  <dt><strong>Average Bidders</strong></dt>
+  <dd><%= @averageBidders  %></dd>
+  <dt><strong>Average Bids</strong></dt>
+  <dd><%= @averageBids  %></dd>
+</dl>
+
+<br></br>
+<h3>Tenders Issued</h3>
+<br></br>
+
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Tender</th>
+      <th>Announcement Date</th>
+      <th>Estimated Value</th>
+      <th>CPV Code</th>
+    </tr>
+  </thead>
+  <tbody>      
+    <% @tendersOffered.each do |tender| %>
+      <tr>
+        <td><%= link_to tender.tender_registration_number, tender_path(tender[:id]) %></td> 
+        <td><%= tender.tender_announcement_date%></td>
+        <td><%= tender.estimated_value%></td>
+        <td><%= tender.cpv_code%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

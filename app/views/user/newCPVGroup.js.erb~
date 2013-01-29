@@ -1,0 +1,8 @@
+$(function () {
+  $(".AddCPVGroup").html("<%= escape_javascript( button_html ) %>");
+  return false;
+});
+
+
+
+

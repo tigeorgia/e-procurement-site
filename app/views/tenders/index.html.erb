@@ -1,0 +1,41 @@
+<%- model_class = Tender -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:procurring_entity_id) %></th>
+      <th><%= model_class.human_attribute_name(:tender_type) %></th>
+      <th><%= model_class.human_attribute_name(:tender_registration_number) %></th>
+      <th><%= model_class.human_attribute_name(:tender_status) %></th>
+      <th><%= model_class.human_attribute_name(:tender_announcement_date) %></th>
+      <th><%= model_class.human_attribute_name(:bid_start_date) %></th>
+      <th><%= model_class.human_attribute_name(:bid_end_date) %></th>
+      <th><%= model_class.human_attribute_name(:estimated_value) %></th>
+      <th><%= model_class.human_attribute_name(:include_vat) %></th>
+      <th><%= model_class.human_attribute_name(:cpv_code) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tenders.each do |tender| %>
+      <tr>
+        <td><%= link_to tender.id, tender_path(tender) %></td>
+        <td><%= tender.procurring_entity_id%></td>
+        <td><%= tender.tender_type %></td>
+        <td><%= tender.tender_registration_number %></td>
+        <td><%= tender.tender_status %></td>
+        <td><%= tender.tender_announcement_date %></td>
+        <td><%= tender.bid_start_date %></td>
+        <td><%= tender.bid_end_date %></td>
+        <td><%= tender.estimated_value %></td>
+        <td><%= tender.include_vat %></td>
+        <td><%= tender.cpv_code %></td>
+        <td><%=l tender.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= page_navigation_links @index %>

@@ -1,0 +1,8 @@
+<%= form_tag( {:controller => :user, :action => "save_search",:searchtype => @@searchType ,:search_string => @thisSearchString, :user_id => current_user.id}, :remote => true) do %>
+  <%= label_tag(:name, "Search Name:") %>
+  <%= text_field_tag(:name) %>
+  <%= submit_tag("save search") %>
+<% end %>
+
+
+

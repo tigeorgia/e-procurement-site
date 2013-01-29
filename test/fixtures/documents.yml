@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tender_id: 1
+  document_url: MyString
+
+two:
+  tender_id: 1
+  document_url: MyString

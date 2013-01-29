@@ -1,0 +1,24 @@
+// set focus to first text box on page
+$(document).ready(function(){
+	if (gon.highlight_first_form_field){
+	  $(":input:visible:enabled:first").focus();
+	}
+});
+
+$(function() {
+  initDatePickers();
+});
+
+initDatePickers = function ()
+{
+  $('.dp2').datepicker();
+}
+
+initTree = function()
+{
+  $("#toggle_node").click(function () {
+      $("#demo1").jstree("toggle_node","#phtml_1");
+  });
+  $("#demo1").bind("open_node.jstree close_node.jstree", function (e) {}).jstree({ "plugins" : [ "themes", "html_data" ] });
+}
+

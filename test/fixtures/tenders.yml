@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  procurring_entity_id: 1
+  tender_type: MyString
+  tender_registration_number: MyString
+  tender_status: MyString
+  tender_announcement_date: 2012-10-06
+  bid_start_date: 2012-10-06
+  bid_end_date: 2012-10-06
+  estimated_value: 9.99
+  include_vat: false
+  cpv_code: MyString
+  winning_bid_id: 1
+  start_date: 2012-10-06
+  end_date: 2012-10-06
+
+two:
+  procurring_entity_id: 1
+  tender_type: MyString
+  tender_registration_number: MyString
+  tender_status: MyString
+  tender_announcement_date: 2012-10-06
+  bid_start_date: 2012-10-06
+  bid_end_date: 2012-10-06
+  estimated_value: 9.99
+  include_vat: false
+  cpv_code: MyString
+  winning_bid_id: 1
+  start_date: 2012-10-06
+  end_date: 2012-10-06

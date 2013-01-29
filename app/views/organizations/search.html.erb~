@@ -1,0 +1,30 @@
+<%- model_class = Organization -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th>Identification code</th>
+      <th><%= model_class.human_attribute_name(:org_type) %></th>
+      <th><%= model_class.human_attribute_name(:country) %></th>
+      <th>Email</th>
+      <th>Phone Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @organizations.each do |organization| %>
+      <tr>
+        <td><%= link_to organization.name, organization_path(organization) %></td>
+        <td><%= organization.code %></td>
+        <td><%= organization.org_type %></td>
+        <td><%= organization.country %></td>
+        <td><%= organization.email %></td>
+        <td><%= organization.phone_number %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @organizations %>

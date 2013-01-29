@@ -1,0 +1,83 @@
+#top-row {
+  margin-bottom: 20px;
+}
+
+#front-box {
+  margin: 5;
+  padding: 10px;  
+  font-size: 2.4em;
+  text-align: center;
+  background-color: #eee;
+  
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 2px solid #666;
+}
+
+#mid-row {
+  margin-top: 30px;
+}
+
+.tender-box {
+  width: 27%;
+  padding: 5px;
+  background-color: #eee;
+  text-align: center;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 2px solid #666;
+}
+
+.bid-box {
+  width: 27%;
+  padding: 5px;
+  background-color: #eee;
+  text-align: center;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 2px solid #666;
+}
+
+.search-tender {
+  width: 27%;
+  padding: 5px;
+  background-color: #eee;
+  border-radius: 10px;
+  border: 2px solid #666;
+}
+
+.search-org {
+  width: 27%;
+  padding: 5px;
+  background-color: #eee;
+  border-radius: 10px;
+  border: 2px solid #666;
+}
+
+.search-field {
+  width: 100%;
+  padding: 5px;
+}
+
+
+.org-box {
+  width: 40%;
+  padding: 5px;
+  background-color: #eee;
+  text-align: center;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 2px solid #666;
+}
+
+.latest-box ul {
+  margin-top: 10px;
+}
+
+.latest-box li {
+  font-size: .8em;
+}

@@ -1,0 +1,22 @@
+module ScraperFile
+
+  FILE_TRANSLATIONS = "translations.json"
+	
+  def self.processTranslationFile
+    translations_file_path = "#{Rails.root}/app/assets/translations/#{FILE_TRANSLATIONS}"
+    translations_file_data = File.open(tender_file_path, "r") {|f| f.read()}
+
+    if translations_file_data
+      #clean up formatting and parse
+      json_translations = JSON.parse(tender_file_data.gsub("},]", "}]"))
+      Translations.delete_all
+      json_translations.each_with_index do |item, index|
+        translation = Translations.new
+        Translations.transaction do
+       
+          tender.guarantee_amount = item["guaranteeAmount"]
+          tender.guarantee_period = item["guaranteePeriod"]
+      end#for each json translation
+    end#if data exists
+  end #processTranslationFile
+end
