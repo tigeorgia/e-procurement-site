@@ -1,5 +1,0 @@
-Usage:
-
-  script/generate has_permalink Class
-
-This will create a migration that will add the proper columns to your class's table.
