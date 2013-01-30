@@ -56,6 +56,14 @@
       <input name="min_estimate" type="text"></text_field>
       <label for="max_estimate">Maximum Cost Estimate</label>
       <input name="max_estimate" type="text"></text_field>
+
+      <% if false %>
+      <label for="min_num_bids">Min Number of Bids</label>
+      <input name="min_num_bids" type="text"></text_field>
+      <label for="max_num_bids">Max Number of Bids</label>
+      <input name="max_num_bids" type="text"></text_field>
+      <% end %>
+      
       <br>
       <%= submit_tag "Search" %>
     <% end %>
@@ -64,7 +72,7 @@
 
  <div class="span4 aggregate-data">
     <h3>Show Major Players</<h3>
-    <%= form_tag( {:controller => :aggregate, :action => "cpvVsCompany"}, :remote => true) do %>
+    <%= form_tag( {:controller => :aggregate, :action => "cpvVsCompany"}, :remote => false) do %>
       <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name))  %>
       <%= submit_tag "Generate Graph" %>
     <% end %>

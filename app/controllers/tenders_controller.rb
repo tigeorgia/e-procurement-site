@@ -14,15 +14,30 @@ class TendersController < ApplicationController
 
     strDate = params[:announced_before].gsub('/','-')
     endDate = Date.strptime(strDate,'%d-%m-%Y')
-    min = -1
-    max = 99999999
+
     minStr = params[:min_estimate]
     maxStr = params[:max_estimate]
+
+    minBidStr = params[:min_num_bids]
+    maxBidStr = params[:max_num_bids]
+
+    minVal = -1
+    maxVal = 99999999
+    minbids = -1
+    maxbids = 99999999
+
+
     if not minStr == ""
-      min = minStr.to_i
+      minVal = minStr.to_i
     end
     if not maxStr == ""
-      max = maxStr.to_i
+      maxVal = maxStr.to_i
+    end
+    if not minBidStr == ""
+      minBids = minBidStr.to_i
+    end
+    if not maxBidStr == ""
+      maxBids = maxBidStr.to_i
     end
     
     translated_status =  "%%"
@@ -40,8 +55,8 @@ class TendersController < ApplicationController
             " AND tender_status LIKE '"+translated_status+"'"+
             " AND tender_announcement_date >= '"+startDate.to_s+"'"+
             " AND tender_announcement_date <= '"+endDate.to_s+"'"+
-            " AND estimated_value >= '"+min.to_s+"'"+
-            " AND estimated_value <= '"+max.to_s+"'"
+            " AND estimated_value >= '"+minVal.to_s+"'"+
+            " AND estimated_value <= '"+maxVal.to_s+"'"
 
     if not cpvGroupID or cpvGroup.id == 1
     else      
@@ -57,6 +72,18 @@ class TendersController < ApplicationController
       end
     end
     resultTenders = Tender.where(query)
+    @numResults = resultTenders.count
+=begin    @numSingleBids = 0
+    @numBidTenders = 0
+    resultTenders.each do |tender|
+      if tender.bidders.count >= 1
+        @numBidTenders = @numBidTenders + 1
+        if tender.bidders.count == 1
+          @numSingleBids = @numSingleBids + 1
+        end
+      end    
+    end
+=end
     @tenders = resultTenders.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
     @results = []

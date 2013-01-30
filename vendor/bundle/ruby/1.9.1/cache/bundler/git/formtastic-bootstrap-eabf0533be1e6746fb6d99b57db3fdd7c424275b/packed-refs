@@ -1,0 +1,12 @@
+# pack-refs with: peeled 
+f1acce518d9729e5233b85f41f91c2f06f1af215 refs/heads/2.0
+3428fef4f7870b01241d65893b882ad32cfc18d8 refs/heads/bootstrap-2
+4e6a7f50153af805470d43a2bd2c9885a902e4a6 refs/heads/bootstrap2-rails3-2-formtastic-2-1
+771aab119bc1df0225ef27975a84796cc7bffec6 refs/heads/master
+6d8658cc4b8dea1644b0ea6f4450491b78496e45 refs/tags/v1.0.0
+3ac2ae1ab71393847e59386dfb6b9af2de72f1bc refs/tags/v1.0.1
+a009dec548e513e39ff0c80ea0aa57b19d9e7a61 refs/tags/v1.0.2
+3f2c32dc895a6b2606b4b4f2a06eb58c59c89c1a refs/tags/v1.0.3
+ecf4debf3c73affccff6837f13bd638b282577cc refs/tags/v1.1.0
+4adb6d0230bc9262b6f9c084b206fdd2ed52ab9c refs/tags/v1.1.1
+771aab119bc1df0225ef27975a84796cc7bffec6 refs/tags/v1.1.2

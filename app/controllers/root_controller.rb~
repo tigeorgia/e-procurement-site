@@ -15,9 +15,9 @@ class RootController < ApplicationController
       @cpvGroups.push(group)
     end
     if user_signed_in?
-			current_user.cpvGroups.each do |group|
-				@cpvGroups.push(group)
-    	end
+      current_user.cpvGroups.each do |group|
+        @cpvGroups.push(group)
+      end
 		end
   end
 

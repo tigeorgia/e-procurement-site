@@ -15,10 +15,18 @@
   </div>
 <% end %>
 
-<table class="table table-striped>
+
+Number of Results = <%= @numResults %><br>
+<% if false %>
+Number of Tender Bid on = <%= @numBidTenders %><br>
+Number of Tenders with Single Bid Only = <%= @numSingleBids %><br>
+Single Bid Percentage = <%= @numSingleBids/@numBidTenders %><br>
+<% end %>
+
+<table class="table table-striped">
   <thead>
     <tr>
-      <th><%= sortable(@params, "tender") %></th>
+      <th><%= sortable(@params, "tender_registration_number") %></th>
       <th>Procurer</th>
       <th><%= sortable(@params, "tender_type") %></th> 
       <th><%= sortable(@params, "tender_status") %></th>

@@ -9,7 +9,7 @@ initDatePickers = function ()
 
 
 $(document).ready(function() {
-    $('.dataTable').dataTable( {
+    $('#dataTable').dataTable( {
         "sDom": '<"top"flp><"bottom"irt><"clear">',
         "sPaginationType": "full_numbers"
     } );

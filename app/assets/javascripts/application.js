@@ -12,11 +12,9 @@
 //= require dataTables/jquery.dataTables
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
-//= require vendor
 //= require ./jtree/jquery.jstree
 //= require ./highcharts/js/highcharts.js
 //= require_tree ./site
-//= require_self
 
 
 
