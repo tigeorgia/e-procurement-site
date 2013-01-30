@@ -30,7 +30,7 @@ class OrganizationsController < ApplicationController
     name = "%"+name+"%"
     code = "%"+code+"%"
     org_type = "%"+org_type+"%"
-    @organizations = Organization.order_by_name.paginate( :page => params[:page], :conditions => ["dataset_id = ? AND is_procurer=true AND name LIKE ? AND code LIKE ? AND org_type LIKE ?",liveDataSetID, name, code, org_type]	).order(sort_column + ' ' + sort_direction)
+    @organizations = Organization.paginate( :page => params[:page], :conditions => ["dataset_id = ? AND is_procurer=true AND name LIKE ? AND code LIKE ? AND org_type LIKE ?",liveDataSetID, name, code, org_type]	).order(sort_column + ' ' + sort_direction)
   end
 
   def show_procurer
@@ -58,6 +58,8 @@ class OrganizationsController < ApplicationController
         @actualCost += lastAgreement.amount
         @numAgreements += agreements.count
         @totalEstimate += tender.estimated_value
+      else
+        puts tender.id
       end
 
       #now look at bid stats

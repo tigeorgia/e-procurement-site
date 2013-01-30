@@ -56,8 +56,10 @@ class OrganizationsController < ApplicationController
       end
       if lastAgreement
         @actualCost += lastAgreement.amount
-        @numAgreements += agreements.count
+        @numAgreements += 1
         @totalEstimate += tender.estimated_value
+      else
+        puts tender.id
       end
 
       #now look at bid stats
