@@ -64,7 +64,7 @@
 
 
 .org-box {
-  width: 40%;
+  width: 27%;
   padding: 5px;
   background-color: #eee;
   text-align: center;
@@ -81,3 +81,33 @@
 .latest-box li {
   font-size: .8em;
 }
+
+.dataTable label {
+    width: 460px;
+    float: left;
+    text-align: left;
+}
+ 
+.dataTable select {
+    width: 75px;
+}
+ 
+.dataTable label {
+    float: right;
+    width: 460px;
+}
+ 
+.dataTable {
+    padding-top: 8px;
+}
+ 
+.dataTables_paginate {
+    float: right;
+    margin: 0;
+}
+ 
+table {
+    margin: 1em 0;
+    clear: both;
+}
+

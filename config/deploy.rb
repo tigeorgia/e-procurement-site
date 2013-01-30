@@ -6,7 +6,7 @@ require "rvm/capistrano"                               # Load RVM's capistrano p
 set :application, "procurement"
 set :scm, "git"
 set :branch, "master"
-set :repository, "git://github.com/tigeorgia/e-procurement-app.git"
+set :repository, "git://github.com/ChrisTIGeorgia/e-procurement-site.git"
 server "192.168.0.241", :app, :web, :db, :primary => true
 set :user, "tigeorgia"
 default_run_options[:pty] = true

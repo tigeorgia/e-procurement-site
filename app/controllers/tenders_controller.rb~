@@ -58,9 +58,6 @@ class TendersController < ApplicationController
     end
     resultTenders = Tender.where(query)
     @tenders = resultTenders.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
-    puts "DIR: " + sort_direction
-    puts "SORT: " + sort_column
-
 
     @results = []
     @tenders.each do |tender|

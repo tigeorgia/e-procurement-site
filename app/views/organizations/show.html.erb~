@@ -22,7 +22,7 @@
 <h3>Tenders Bid On</h3>
 <br></br>
 
-  <table class="table table-striped">
+  <table class="dataTable" cellpadding="0" cellspacing="0" border="0" >
   <thead>
     <tr>
       <th>Tender</th>
@@ -48,7 +48,6 @@
         <% end %>
         <td><%= tender[:numBidders]%></td>
         <td><%= link_to tender[:procurerName], :controller => "organizations", :action => "show_procurer", :id => tender[:procurerID] %></td>
-        <td><%= link_to tender[:procurerName], organization_path(tender[:procurerID]) %></td>
         <td><%= tender[:tenderAnnouncementDate]%></td>
         <td><%= tender[:bidDuration]%> Days</td>
         <td><%= tender[:start_amount] %></td>

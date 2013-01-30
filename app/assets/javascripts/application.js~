@@ -9,8 +9,8 @@
 //= require jquery 
 //= require jquery_ujs
 //= require jquery-ui
-//= require dataTables/jquery.dataTables\
 //= require twitter/bootstrap
+//= require dataTables/jquery.dataTables
 //= require bootstrap-datepicker
 //= require vendor
 //= require ./jtree/jquery.jstree

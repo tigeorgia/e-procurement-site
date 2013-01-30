@@ -8,7 +8,7 @@
     <% if @isWatched %>
       <%= button_to "Unsubscribe", {:controller => :user, :action => "unsubscribe_tender", :tender_url => @tenderUrl, :user_id => current_user.id}, :remote => true %>
     <% else %>
-      <%= button_to "Subscribe", {:controller => :user, :action => "subscribe_tender", :tender_url => @tenderUrl, :user_id => current_user.id}, :disabled => true, :remote => true %>
+      <%= button_to "Subscribe", {:controller => :user, :action => "subscribe_tender", :tender_url => @tenderUrl, :user_id => current_user.id}, :remote => true %>
     <% end %>
   </div>
 <% end %>
@@ -67,7 +67,7 @@
 <br><br><br>
 <h3>Participants</h3>
 
-<table class="table table-striped">
+<table class="dataTable" cellpadding="0" cellspacing="0" border="0">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>

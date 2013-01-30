@@ -6,12 +6,12 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th>Identification code</th>
-      <th><%= model_class.human_attribute_name(:org_type) %></th>
-      <th><%= model_class.human_attribute_name(:country) %></th>
-      <th>Email</th>
-      <th>Phone Number</th>
+      <th><%= sortable(@params, "name") %></th>
+      <th><%= sortable(@params, "code") %></th>
+      <th><%= sortable(@params, "org_type") %></th>
+      <th><%= sortable(@params, "country") %></th>
+      <th><%= sortable(@params, "email") %></th>
+      <th><%= sortable(@params, "phone_number") %></th>
     </tr>
   </thead>
   <tbody>
@@ -27,4 +27,4 @@
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @organizations %>
+<%= page_navigation_links @organizations %>

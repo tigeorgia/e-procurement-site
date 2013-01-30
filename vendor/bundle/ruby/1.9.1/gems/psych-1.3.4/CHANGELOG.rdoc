@@ -1,0 +1,249 @@
+Thu Jul 19 09:33:46 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/emitter.c (initialize): allow a configuration object to be
+	  passed to the constructor so that mutation isn't required after
+	  instantiation.
+
+	* ext/psych/lib/psych/handler.rb: add configuration object
+
+	* ext/psych/lib/psych/visitors/emitter.rb: use configuration object if
+	  extra configuration is present.
+
+Fri May 18 01:28:21 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/parser.c (transcode_string): fix encoding index names.
+	  Thanks markizko for reporting.
+
+Wed May 16 05:11:29 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/visitors/to_ruby.rb: fix a bug with string
+	  subclass dumping and loading.
+
+	* test/psych/test_array.rb: pertinent tests
+
+	* test/psych/test_string.rb: ditto
+
+Wed May 16 01:31:21 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/visitors/to_ruby.rb: convert omap tagged maps to
+	  Psych::Omap objects rather than hashes. [Bug #6425]
+
+	* test/psych/test_omap.rb: pertinent test.
+
+Wed May 16 01:15:45 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/visitors/yaml_tree.rb: keep a reference to
+	  custom coders so that GC does not impact dumped yaml reference ids.
+
+Mon Apr 30 04:43:53 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/json/yaml_events.rb: implicit styles should not
+	  be changeable for JSON events.
+
+Sat Apr  7 02:07:00 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/parser.c: fall back to any encoding if the external
+	  encoding is wrong.  [ruby-core:44163]
+	* test/psych/test_encoding.rb: fix test
+
+Fri Mar  9 06:29:22 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych.rb (load, parse): stop parsing or loading after
+	  the first document has been parsed.
+
+	* test/psych/test_stream.rb: pertinent tests.
+
+Fri Mar  9 06:17:05 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych.rb (parse_stream, load_stream): if a block is
+	  given, documents will be yielded to the block as they are parsed.
+	  [ruby-core:42404] [Bug #5978]
+
+	* ext/psych/lib/psych/handlers/document_stream.rb: add a handler that
+	  yields documents as they are parsed
+
+	* test/psych/test_stream.rb: corresponding tests.
+
+Tue Mar  6 02:31:20 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/core_ext.rb: only extend Kernel if IRB is loaded
+	  in order to stop method pollution.
+
+Tue Feb 28 10:28:51 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych.rb: default open YAML files with utf8 external
+	  encoding. [ruby-core:42967]
+	* test/psych/test_tainted.rb: ditto
+
+Fri Feb 24 13:54:33 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/parser.c: prevent a memory leak by protecting calls to
+	  handler callbacks.
+	* test/psych/test_parser.rb: test to demonstrate leak.
+
+Fri Feb 24 08:08:38 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/parser.c: set parser encoding based on the YAML input
+	  rather than user configuration.
+	* test/psych/test_encoding.rb: corresponding tests.
+	* test/psych/test_parser.rb: ditto
+	* test/psych/test_tainted.rb: ditto
+
+Fri Feb 10 03:41:31 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/parser.c: removed external encoding setter, allow parser
+	  to be reused.
+	* ext/psych/lib/psych/parser.rb: added external encoding setter.
+	* test/psych/test_parser.rb: test parser reuse
+
+Wed Jan 18 12:49:15 2012  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/visitors/to_ruby.rb: Added support for loading
+	  subclasses of String with ivars
+	* ext/psych/lib/psych/visitors/yaml_tree.rb: Added support for dumping
+	  subclasses of String with ivars
+	* test/psych/test_string.rb: corresponding tests
+
+Sun Dec 18 12:42:48 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/visitors/to_ruby.rb: BigDecimals can be restored
+	  from YAML.
+	* ext/psych/lib/psych/visitors/yaml_tree.rb: BigDecimals can be dumped
+	  to YAML.
+	* test/psych/test_numeric.rb: tests for BigDecimal serialization
+
+Sun Dec 18 12:03:13 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/scalar_scanner.rb: Strings that look like dates
+	  should be treated as strings and not dates.
+
+	* test/psych/test_scalar_scanner.rb: corresponding tests.
+
+Wed Dec  7 08:04:31 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych.rb (module Psych): parse and load methods take
+	  an optional file name that is used when raising Psych::SyntaxError
+	  exceptions
+	* ext/psych/lib/psych/syntax_error.rb (module Psych): allow nil file
+	  names and handle nil file names in the exception message
+	* test/psych/test_exception.rb (module Psych): Tests for changes.
+
+Wed Nov 30 09:09:37 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/parser.c (parse): parse method can take an option file
+	  name for use in exception messages.
+	* test/psych/test_parser.rb: corresponding tests.
+
+Tue Nov 22 04:46:22 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych.rb: remove autoload from psych
+	* ext/psych/lib/psych/json.rb: ditto
+
+Thu Nov 17 10:36:46 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych.rb (load_file): make sure opened yaml files are
+	  also closed. [ruby-core:41088]
+
+Wed Nov  9 04:52:16 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/tree_builder.rb: dump complex numbers,
+	  rationals, etc with reference ids.
+	* ext/psych/lib/psych/visitors/yaml_tree.rb: ditto
+	* ext/psych/lib/psych/visitors/to_ruby.rb: loading complex numbers,
+	  rationals, etc with reference ids.
+	* test/psych/test_object_references.rb: corresponding tests
+
+Mon Nov  7 20:31:52 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/scalar_scanner.rb: make sure strings that look
+	  like base 60 numbers are serialized as quoted strings.
+	* test/psych/test_string.rb: test for change.
+
+Wed Oct  5 02:50:27 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/syntax_error.rb: Add file, line, offset, and
+	  message attributes during parse failure.
+	* ext/psych/parser.c: Update parser to raise exception with correct
+	  values.
+	* test/psych/test_exception.rb: corresponding tests.
+
+Wed Oct  5 01:52:16 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/parser.c (parse): Use context_mark for indicating error
+	  line and column.
+
+Tue Oct  4 06:29:55 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych.rb: calling `yaml` rather than `to_yaml`.
+	* ext/psych/lib/psych/nodes/node.rb: Rename `to_yaml` to just `yaml`
+	  in order to avoid YAML::ENGINE switching from replacing this method.
+	* test/psych/helper.rb: fix tests for method name change.
+	* test/psych/test_document.rb: ditto
+	* test/psych/visitors/test_emitter.rb: ditto
+
+Tue Oct  4 06:20:19 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/scalar_scanner.rb: Match values against the
+	  floating point spec defined in YAML to avoid erronious parses.
+	* test/psych/test_numeric.rb: corresponding test.
+
+Tue Oct  4 05:59:24 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/visitors/to_ruby.rb: ToRuby visitor can be
+	  constructed with a ScalarScanner.
+	* ext/psych/lib/psych/visitors/yaml_tree.rb: ScalarScanner can be
+	  passed to the YAMLTree visitor.
+
+Tue Oct  4 05:47:23 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/visitors/to_ruby.rb: Define Regexp::NOENCODING
+	  for 1.9.2 backwards compatibility.
+	* ext/psych/lib/psych/visitors/yaml_tree.rb: Fix Date string
+	  generation for 1.9.2 backwards compatibility.
+
+Fri Sep  2 04:05:25 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/visitors/yaml_tree.rb: emit strings tagged as
+	  ascii-8bit as binary in YAML.
+	* test/psych/test_string.rb: corresponding test.
+
+Thu Aug 25 06:11:35 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/nodes/node.rb: default `to_yaml` encoding to be
+	  UTF-8.
+	* test/psych/test_encoding.rb: test yaml dump encoding.
+
+Wed Jun 22 03:20:52 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/visitors/to_ruby.rb: Fix cyclic references of
+	  objects.  Thanks to CvX for reporting the bug and a test case.
+	* test/psych/test_object.rb: test for cyclic object references.
+
+Thu Jun  9 10:57:03 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/visitors/to_ruby.rb: Hash subclasses can be read
+	  from YAML files.
+	* ext/psych/lib/psych/visitors/yaml_tree.rb: Hash subclasses can be
+	  dumped to YAML files.
+	* test/psych/test_hash.rb: corresponding test.
+
+Thu Jun  9 09:18:51 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/visitors/to_ruby.rb: Ruby modules can be loaded
+	  from YAML files.
+	* ext/psych/lib/psych/visitors/yaml_tree.rb: Ruby modules can be
+	  dumped to YAML files.
+	* test/psych/test_class.rb: corresponding test.
+
+Thu Jun  9 09:05:04 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/lib/psych/visitors/to_ruby.rb: Ruby classes can be loaded
+	  from YAML files.
+	* ext/psych/lib/psych/visitors/yaml_tree.rb: Ruby classes can be
+	  dumped to YAML files.
+	* test/psych/test_class.rb: corresponding test.
+
+Mon Jun  6 09:39:43 2011  Aaron Patterson <aaron@tenderlovemaking.com>
+
+	* ext/psych/parser.c (parse): release event objects to plug memory
+	leak.  Thanks Mark J. Titorenko!

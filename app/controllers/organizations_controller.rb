@@ -1,8 +1,8 @@
-# encoding: utf-8
-
+# encoding: utf-8 
 class OrganizationsController < ApplicationController
+  helper_method :sort_column, :sort_direction
   def search
-    puts params
+    @params = params
     liveDataSetID = Dataset.where(:is_live => true).first.id
     name = params[:organization][:name]
     code = params[:organization][:code]
@@ -18,10 +18,11 @@ class OrganizationsController < ApplicationController
       conditions = ["dataset_id = ? AND is_bidder=true AND name LIKE ? AND code LIKE ? AND org_type LIKE ? AND country NOT LIKE ?",liveDataSetID, name, code, org_type, "საქართველო"]
     end  
 
-    @organizations = Organization.paginate( :page => params[:page], :conditions => conditions	)
+    @organizations = Organization.paginate( :page => params[:page], :conditions => conditions	).order(sort_column + ' ' + sort_direction)
   end
 
   def search_procurer
+    @params = params
     liveDataSetID = Dataset.where(:is_live => true).first.id
     name = params[:organization][:name]
     code = params[:organization][:code]
@@ -29,7 +30,7 @@ class OrganizationsController < ApplicationController
     name = "%"+name+"%"
     code = "%"+code+"%"
     org_type = "%"+org_type+"%"
-    @organizations = Organization.order_by_name.paginate( :page => params[:page], :conditions => ["dataset_id = ? AND is_procurer=true AND name LIKE ? AND code LIKE ? AND org_type LIKE ?",liveDataSetID, name, code, org_type]	)
+    @organizations = Organization.paginate( :page => params[:page], :conditions => ["dataset_id = ? AND is_procurer=true AND name LIKE ? AND code LIKE ? AND org_type LIKE ?",liveDataSetID, name, code, org_type]	).order(sort_column + ' ' + sort_direction)
   end
 
   def show_procurer
@@ -128,4 +129,15 @@ class OrganizationsController < ApplicationController
     end
     @tenderInfo.sort! { |a,b| (a[:won] ? -1 : 1) }
   end
+
+  private
+
+  def sort_column
+    params[:sort] || "name"
+  end
+
+  def sort_direction
+    params[:direction] || "asc"
+  end
+
 end

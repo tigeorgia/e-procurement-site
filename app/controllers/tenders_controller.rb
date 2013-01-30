@@ -135,7 +135,6 @@ class TendersController < ApplicationController
   end
 
   private
-
   def sort_column
     params[:sort] || "tender_registration_number"
   end

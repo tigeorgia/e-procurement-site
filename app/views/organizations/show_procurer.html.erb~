@@ -27,26 +27,11 @@
   <dd><%= @averageBids  %></dd>
 </dl>
 
-<table class="table">
-<thead>
-	<tr>
-		<th>Start date<a href="#" class="btn small" id="dp4" data-date-format="yyyy-mm-dd" data-date="2012-02-20">Change</a></th>
-		<th>End date<a href="#" class="btn small" id="dp5" data-date-format="yyyy-mm-dd" data-date="2012-02-25">Change</a></th>
-	</tr>
-</thead>
-  <tbody>
-	  <tr>
-		  <td id="startDate">2012-02-20</td>
-		  <td id="endDate">2012-02-25</td>
-	  </tr>
-  </tbody>
-</table>
-
 <br></br>
 <h3>Tenders Issued</h3>
 <br></br>
 
-  <table class="table table-striped">
+  <table class="dataTable" cellpadding="0" cellspacing="0" border="0" >
   <thead>
     <tr>
       <th>Tender</th>
