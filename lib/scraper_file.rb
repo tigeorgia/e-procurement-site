@@ -248,7 +248,7 @@ module ScraperFile
           agreement.amendment_number = item["AmendmentNumber"]
           agreement.documentation_url = item["documentUrl"]
           
-          if agreement.documentation_url == "disqualified" or agreement.documentation_url == "bidder refused agreement":
+          if agreement.documentation_url == "disqualified" or agreement.documentation_url == "bidder refused agreement"
             organization = Organization.where("name = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id).first
             agreement.organization_url = organization.organization_url
             agreement.organization_id = organization.id
@@ -474,7 +474,7 @@ module ScraperFile
   end
   
   def competitionAssessment(indicator)
-    riskyTenders = Tender.where(["dataset_id = ? AND num_bidders == 1", @dataset.id.first]).find_each do |tender|
+    Tender.where(:dataset_id => @dataset.id.first, num_bidders => 1).find_each do |tender|
       corruptionFlag = TenderCorruptionFlag.new
       corruptionFlag.tender_id = tender.id
       corruptionFlag.corruption_indicator_id = indicator.id
@@ -485,7 +485,7 @@ module ScraperFile
 
   def biddingWarAccessment(indicator)
     #get all tenders that has a bidding war
-    riskyTenders = Tender.where(["dataset_id = ? AND num_bidders > 1", @dataset.id.first]).find_each do |tender|
+    Tender.where(:dataset_id => @dataset.id.first, :num_bidders => 1).find_each do |tender|
       #now check the winning bid and compare this to the estimated value
       winningVal = nil
       tender.agreements.each do |agreement|
