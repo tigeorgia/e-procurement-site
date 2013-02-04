@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123124245) do
+ActiveRecord::Schema.define(:version => 20130204114725) do
 
   create_table "aggregate_cpv_group_revenues", :force => true do |t|
     t.datetime "created_at"
@@ -55,6 +55,14 @@ ActiveRecord::Schema.define(:version => 20130123124245) do
   end
 
   add_index "bidders", ["tender_id", "organization_id"], :name => "index_bidders_on_tender_id_and_organization_id"
+
+  create_table "corruption_indicator", :force => true do |t|
+    t.integer  "weight"
+    t.string   "description"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cpv_groups", :force => true do |t|
     t.datetime "created_at"
@@ -111,6 +119,14 @@ ActiveRecord::Schema.define(:version => 20130123124245) do
     t.string   "searchtype"
   end
 
+  create_table "tender_corruption_flag", :force => true do |t|
+    t.integer  "tender_id"
+    t.integer  "corruption_indicator_id"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tender_cpv_classifiers", :force => true do |t|
     t.string   "cpv_code"
     t.datetime "created_at"
@@ -140,6 +156,8 @@ ActiveRecord::Schema.define(:version => 20130123124245) do
     t.datetime "updated_at"
     t.integer  "dataset_id"
     t.integer  "url_id"
+    t.integer  "num_bids"
+    t.integer  "num_bidders"
   end
 
   add_index "tenders", ["estimated_value"], :name => "index_tenders_on_estimated_value"

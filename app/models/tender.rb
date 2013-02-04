@@ -24,7 +24,9 @@
       :supply_period,
       :offer_step,
       :guarantee_amount,
-      :guarantee_period
+      :guarantee_period,
+      :num_bids,
+      :num_bidders
 
   validates :url_id, :tender_type, :tender_registration_number, :tender_status, :presence => true
   

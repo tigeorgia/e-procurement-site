@@ -1,7 +1,7 @@
 class CreateOrganizations < ActiveRecord::Migration
   def change
     create_table :organizations do |t|
-      t.integer :org_id, :limit => 8
+      t.integer :code, :limit => 8
       t.string :organization_url
       t.string :name
       t.string :country

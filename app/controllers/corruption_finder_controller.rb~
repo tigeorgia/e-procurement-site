@@ -1,0 +1,9 @@
+class CorruptionFinderController < ApplicationController
+
+  def index
+  end
+
+  def search
+    criteria = params[:criteria]
+  end
+end

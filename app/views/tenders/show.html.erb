@@ -21,7 +21,7 @@
   <dt><strong><%= model_class.human_attribute_name(:tender_registration_number) %>:</strong></dt>
   <dd><%= @tender.tender_registration_number %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tender_status) %>:</strong></dt>
-  <dd><%= @tender.tender_status %></dd>
+  <dd><%= t(@tender.tender_status) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tender_announcement_date) %>:</strong></dt>
   <dd><%= @tender.tender_announcement_date %></dd>
   <dt><strong><%= model_class.human_attribute_name(:bid_start_date) %>:</strong></dt>

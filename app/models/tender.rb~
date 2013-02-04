@@ -1,6 +1,5 @@
  class Tender < ActiveRecord::Base
 
-  has_many :tender_cpv_classifiers, :dependent => :destroy
   has_many :bidders, :dependent => :destroy
   has_many :agreements, :dependent => :destroy
   has_many :documents, :dependent => :destroy

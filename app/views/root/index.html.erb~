@@ -57,12 +57,15 @@
       <label for="max_estimate">Maximum Cost Estimate</label>
       <input name="max_estimate" type="text"></text_field>
 
-      <% if false %>
       <label for="min_num_bids">Min Number of Bids</label>
       <input name="min_num_bids" type="text"></text_field>
       <label for="max_num_bids">Max Number of Bids</label>
       <input name="max_num_bids" type="text"></text_field>
-      <% end %>
+
+      <label for="min_num_bidders">Min Number of Bidders</label>
+      <input name="min_num_bidders" type="text"></text_field>
+      <label for="max_num_bidders">Max Number of Bidders</label>
+      <input name="max_num_bidders" type="text"></text_field>
       
       <br>
       <%= submit_tag "Search" %>

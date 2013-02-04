@@ -114,6 +114,8 @@ module ScraperFile
           tender.offer_step = item["offerStep"]
           tender.guarantee_amount = item["guaranteeAmount"]
           tender.guarantee_period = item["guaranteePeriod"]
+          tender.num_bids = 0
+          tender.num_bidders = 0
 
           organization = Organization.where("organization_url = ? AND dataset_id = ?",item["procuringEntityUrl"],@dataset.id).first      
           if organization             
@@ -204,6 +206,8 @@ module ScraperFile
             bidder.last_bid_date = nil         
           end
           bidder.number_of_bids = item["numberOfBids"]
+          tender.num_bids = tender.num_of_bids + bidder.number_of_bids
+          tender.num_bidders = tender.num_bidders + 1
           
           organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id).first
           if !organization
@@ -217,6 +221,7 @@ module ScraperFile
           end
           if bidder.valid?
             bidder.save
+            tender.save
           else
             raise ActiveRecord::Rollback
             break
@@ -240,30 +245,40 @@ module ScraperFile
           end
           tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@dataset.id).first
           agreement.tender_id = tender.id
-          agreement.organization_url = item["OrgUrl"]
-          agreement.amount = item["Amount"]
           agreement.amendment_number = item["AmendmentNumber"]
-          begin
-            agreement.start_date = Date.parse(item["StartDate"])
-          rescue
-            agreement.start_date = nil         
-          end
-          begin
-            agreement.expiry_date = Date.parse(item["ExpiryDate"])
-          rescue
-            agreement.expiry_date = nil         
-          end
           agreement.documentation_url = item["documentUrl"]
-
-          #The organisation that won this contract should have bid so it should have already been created
-          #so lets check the organisation database and cross-reference the org-url to get the org-id
-          organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id).first
-          if !organization
-            #wtf where is the org?
-          else
-            agreement.organization_id = organization.id
-          end
           
+          if agreement.documentation_url == "disqualified" or agreement.documentation_url == "bidder refused agreement":
+            organization = Organization.where("name = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id).first
+            agreement.organization_url = organization.organization_url
+            agreement.organization_id = organization.id
+            agreement.amount = item["Amount"]
+            agreement.start_date = Date.parse(item["StartDate"])
+            agreement.expiry_date = "NULL"
+          else
+            agreement.organization_url = item["OrgUrl"]
+            agreement.amount = item["Amount"]
+            begin
+              agreement.start_date = Date.parse(item["StartDate"])
+            rescue
+              agreement.start_date = nil         
+            end
+            begin
+              agreement.expiry_date = Date.parse(item["ExpiryDate"])
+            rescue
+              agreement.expiry_date = nil         
+            end
+
+            #The organisation that won this contract should have bid so it should have already been created
+            #so lets check the organisation database and cross-reference the org-url to get the org-id
+            organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id).first
+            if !organization
+              #wtf where is the org?
+            else
+              agreement.organization_id = organization.id
+            end
+          end
+                
           if agreement.valid?
             agreement.save
           else
@@ -389,6 +404,118 @@ module ScraperFile
     end
   end
 
+  def self.generateRiskFactors
+    #this is all done manually
+
+    holidayIndicator = CorruptionIndicator.new
+    holidayIndicator.name = "Holiday Procurement"
+    holidayIndicator.id = 1     
+    holidayIndicator.weight = 5
+    holidayIndicator.description = "This tender was announced during the holiday period which seems like a strange time to start procurements"
+    holidayIndicator.save
+
+    compeitionIndicator = CorruptionIndicator.new
+    compeitionIndicator.name = "Low Competition"
+    compeitionIndicator.id = 2     
+    compeitionIndicator.weight = 1
+    compeitionIndicator.description = "This tender only had 1 bidder while this is quite common in Georgia this could have be caused by a number of corrupt factors"
+    compeitionIndicator.save
+    
+    biddingIndicator = CorruptionIndicator.new
+    biddingIndicator.name = "Tame bidding exchange"
+    biddingIndicator.id = 3     
+    biddingIndicator.weight = 3
+    biddingIndicator.description = "When two or more companies are bidding for a contract it is expected that a bidding war should lower the price a reasonble amount this has not happened in this case"
+    biddingIndicator.save
+
+    cpvRiskIndicator = CorruptionIndicator.new
+    cpvRiskIndicator.name = "Risky Contract Type"
+    cpvRiskIndicator.id = 4     
+    cpvRiskIndicator.weight = 1
+    cpvRiskIndicator.description = "This contract has been identified as being in a procurement area that is at higher risk of corruption"
+    cpvRiskIndicator.save
+
+    majorPlayerIndicator = CorruptionIndicator.new
+    majorPlayerIndicator.name = "Major players not competiting"
+    majorPlayerIndicator.id = 5     
+    majorPlayerIndicator.weight = 2
+    majorPlayerIndicator.description = "Only one major player has been a bid on this contract"
+    majorPlayerIndicator.save
+
+
+    self.identifyHolidayPeriodTenders(holidayIndicator)   
+    self.competitionAssessment(compeitionIndicator)
+    self.biddingWarAccessmentbiddingIndicator)
+    self.identifyRiskyCPVCodes(cpvRiskIndicator)
+    self.majorPlayerCompetitionAssessment(majorPlayerIndicator)
+  end
+
+  def identifyHolidayPeriodTenders(indicator)
+    sql = "dataset_id = " + @dataset.id.first
+    for year in (2010..Time.now.year)
+      conjuction = " OR "
+      if year == 2010
+        conjuction = " AND "
+      end
+      sql = sql + conjuction
+      holidayStart = Date.new(year,12,30)
+      holidayEnd = Date.new(year+1,1,11)
+
+      sql = sql + "(tender_announcement_date > "+holidayStart+" AND tender_announcement_date < "+holidayEnd+")"
+    end
+
+    riskyTenders = Tender.where(sql).find_each do |tender|
+      corruptionFlag = TenderCorruptionFlag.new
+      corruptionFlag.tender_id = tender.id
+      corruptionFlag.corruption_indicator_id = indicator.id
+      corruptionFlag.value = 1 # maybe certain dates within this are even worse?
+      corruptionFlag.save
+    end
+  end
+  
+  def competitionAssessment(indicator)
+    riskyTenders = Tender.where(["dataset_id = ? AND num_bidders == 1", @dataset.id.first]).find_each do |tender|
+      corruptionFlag = TenderCorruptionFlag.new
+      corruptionFlag.tender_id = tender.id
+      corruptionFlag.corruption_indicator_id = indicator.id
+      corruptionFlag.value = 1
+      corruptionFlag.save
+    end
+  end
+
+  def biddingWarAccessment(indicator)
+    #get all tenders that has a bidding war
+    riskyTenders = Tender.where(["dataset_id = ? AND num_bidders > 1", @dataset.id.first]).find_each do |tender|
+      #now check the winning bid and compare this to the estimated value
+      winningVal = nil
+      tender.agreements.each do |agreement|
+        if agreement.amendment_number == 0
+          winningVal = agreement.amount
+          break
+        end
+      end
+      if winningVal
+        savingsPercentage = 1 - winningVal/tender.estimated_value
+        if savingsPercentage <= 0.02
+          #risky tender!
+          corruptionFalg = TenderCorruptionFlag.new
+          corruptionFlag.tender_id = tender.id
+          corruptionFlag.corruption_indicator_id = indicator.id
+          corruptionFlag.value = 1 #could have more for %1 and %0.5 etc
+          corruptionFlag.save
+        end
+      end
+    end
+  end
+
+  def identifyRiskyCPVCodes(indicator)
+  end
+
+  #tough one
+  def majorPlayerCompetitionAssessment(indicator)
+  end
+
+
 =begin	def self.createCPVTree
 
 		def countZeros( string )
@@ -492,6 +619,10 @@ module ScraperFile
     self.processAggregateData
     puts "setting up users"
     self.createUsers
+    puts "creating risk types"
+    self.generateRiskFactors
+    puts "finding corruption"
+    self.calculateRisk
   end
 
   def self.processFullScrape
