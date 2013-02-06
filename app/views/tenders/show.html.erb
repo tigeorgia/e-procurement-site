@@ -53,14 +53,23 @@
   </thead>
   <tbody>
     <% @agreementInfo.each do |agreement| %>
-      <tr>
-        <td><%= agreement[:Type] %></td>
-        <td><%= link_to agreement[:OrgName], organization_path(agreement[:OrgID]) %></td>
-        <td><%= agreement[:value] %></td>
-        <td><%= agreement[:startDate] %></td>
-        <td><%= agreement[:expiryDate] %></td>
-        <td><a href=<%= agreement[:document] %>>link</a></td>
-      </tr>
+      <% if agreement[:value] == -1 %>
+        <tr>
+          <td><%= agreement[:Type] %></td>
+          <td><%= link_to agreement[:OrgName], organization_path(agreement[:OrgID]) %></td>
+          <td><%= agreement[:document] %></td>
+          <td><%= agreement[:startDate] %></td>        
+        </tr> 
+     <% else %>
+        <tr>
+          <td><%= agreement[:Type] %></td>
+          <td><%= link_to agreement[:OrgName], organization_path(agreement[:OrgID]) %></td>
+          <td><%= agreement[:value] %></td>
+          <td><%= agreement[:startDate] %></td>
+          <td><%= agreement[:expiryDate] %></td>
+          <td><a href=<%= agreement[:document] %>>link</a></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

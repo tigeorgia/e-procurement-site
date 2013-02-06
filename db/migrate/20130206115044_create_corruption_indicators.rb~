@@ -1,4 +1,4 @@
-class CreateCorruptionIndicator < ActiveRecord::Migration
+class CreateCorruptionIndicators < ActiveRecord::Migration
   def change
     create_table :corruption_indicator do |t|
       t.integer :weight

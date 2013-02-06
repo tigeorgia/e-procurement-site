@@ -63,17 +63,19 @@ class TendersController < ApplicationController
       cpvCategories = cpvGroup.tender_cpv_classifiers
       count = 1
       cpvCategories.each do |category|
-        conjunction = " AND"
+        conjunction = " AND ("
         if count > 1
           conjunction = " OR"
         end
         query = query + conjunction+" cpv_code = "+category.cpv_code
         count = count + 1
       end
+      query = query + " )"
     end
+    puts query
     resultTenders = Tender.where(query)
     @numResults = resultTenders.count
-    @numSingleBids = 0
+=begin    @numSingleBids = 0
     @numBidTenders = 0
     resultTenders.each do |tender|
       if tender.bidders.count >= 1
@@ -83,6 +85,7 @@ class TendersController < ApplicationController
         end
       end    
     end
+=end
     @tenders = resultTenders.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
     @results = []

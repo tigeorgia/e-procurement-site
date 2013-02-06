@@ -8,6 +8,17 @@ class CpvTreeController < ApplicationController
     end
   end
 
+  def showRiskyCPVs
+    showCPVTree()
+    
+    #get special cpv group and fill out selected items
+    #1 is all 2 is risky    
+    riskyGroup = CpvGroup.find(2)
+    riskyGroup.tender_cpv_classifiers.each do |cpv|
+      @checkedNodes = @checkedNodes +","+ cpv.cpv_code.to_s
+    end
+  end
+
   def showCPVTree
     if not @root
 		  cpvs = TenderCpvClassifier.find(:all)
@@ -15,15 +26,10 @@ class CpvTreeController < ApplicationController
 		  cpvs.sort! {|x,y| sortDescending(x,y) }
 
 		  createTree( root, cpvs )
-		  #printTree( root )
-			puts "BOO SLOW"
 		  @root = root
-		else
-			puts "YAY FAST"
 		end
     @userID = params[:user_id]
-		puts "ID"
-		puts @userID
+    @checkedNodes = ""
   end
 
   def countZeros( string )

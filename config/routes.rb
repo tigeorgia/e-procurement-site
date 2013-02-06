@@ -17,7 +17,7 @@ BootstrapStarter::Application.routes.draw do
     resources :tenders
     resources :organizations
 
-    match ':controller/:action'
+    
     match '/organization/search_procurer' => 'organizations#search_procurer'
     match '/organization/search' => 'organizations#search'
     match '/tender/search' => 'tenders#search'
@@ -26,7 +26,7 @@ BootstrapStarter::Application.routes.draw do
     match '/watch_tender/subscribe' => 'watch_tender#subscribe'
     match '/watch_tender/unsubscribe' => 'watch_tender#unsubscribe'
     match '/cpv_tree/showCPVtree' => 'cpv_tree#showCPVTree'
-
+    match ':controller/:action'
     match '/build_user_data', :to => 'root#build_user_data', :as => :build_user_data, :via => :get
     match '/generate_cpv_codes', :to => 'root#generate_cpv_codes', :as => :generate_cpv_codes, :via => :get
     match '/process_full_scrape', :to => 'root#process_full_scrape', :as => :process_full_scrape, :via => :get

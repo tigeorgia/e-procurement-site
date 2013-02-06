@@ -21,7 +21,7 @@
   <dt><strong><%= model_class.human_attribute_name(:tender_registration_number) %>:</strong></dt>
   <dd><%= @tender.tender_registration_number %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tender_status) %>:</strong></dt>
-  <dd><%= @tender.tender_status %></dd>
+  <dd><%= t(@tender.tender_status) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tender_announcement_date) %>:</strong></dt>
   <dd><%= @tender.tender_announcement_date %></dd>
   <dt><strong><%= model_class.human_attribute_name(:bid_start_date) %>:</strong></dt>
@@ -53,14 +53,23 @@
   </thead>
   <tbody>
     <% @agreementInfo.each do |agreement| %>
-      <tr>
-        <td><%= agreement[:Type] %></td>
-        <td><%= link_to agreement[:OrgName], organization_path(agreement[:OrgID]) %></td>
-        <td><%= agreement[:value] %></td>
-        <td><%= agreement[:startDate] %></td>
-        <td><%= agreement[:expiryDate] %></td>
-        <td><a href=<%= agreement[:document] %>>link</a></td>
-      </tr>
+      <% if agreement[:value] == -1 %>
+        <tr>
+          <td><%= agreement[:Type] %></td>
+          <td><%= link_to agreement[:OrgName], organization_path(agreement[:OrgID]) %></td>
+          <td><%= agreement[:document] %></td>
+          <td><%= agreement[:startDate] %></td>        
+        </tr> 
+     <% else %>
+        <tr>
+          <td><%= agreement[:Type] %></td>
+          <td><%= link_to agreement[:OrgName], organization_path(agreement[:OrgID]) %></td>
+          <td><%= agreement[:value] %></td>
+          <td><%= agreement[:startDate] %></td>
+          <td><%= agreement[:expiryDate] %></td>
+          <td><a href=<%= agreement[:document] %>>link</a></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

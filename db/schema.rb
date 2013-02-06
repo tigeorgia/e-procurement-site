@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130204114725) do
+ActiveRecord::Schema.define(:version => 20130206115044) do
 
   create_table "aggregate_cpv_group_revenues", :force => true do |t|
     t.datetime "created_at"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20130204114725) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "amendment_number"
+    t.string   "currency"
   end
 
   add_index "agreements", ["tender_id", "organization_id"], :name => "index_agreements_on_tender_id_and_organization_id"
@@ -56,7 +57,15 @@ ActiveRecord::Schema.define(:version => 20130204114725) do
 
   add_index "bidders", ["tender_id", "organization_id"], :name => "index_bidders_on_tender_id_and_organization_id"
 
-  create_table "corruption_indicator", :force => true do |t|
+  create_table "competitors", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "rival_org_id"
+    t.integer  "num_tenders"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "corruption_indicators", :force => true do |t|
     t.integer  "weight"
     t.string   "description"
     t.string   "name"
@@ -119,7 +128,7 @@ ActiveRecord::Schema.define(:version => 20130204114725) do
     t.string   "searchtype"
   end
 
-  create_table "tender_corruption_flag", :force => true do |t|
+  create_table "tender_corruption_flags", :force => true do |t|
     t.integer  "tender_id"
     t.integer  "corruption_indicator_id"
     t.integer  "value"

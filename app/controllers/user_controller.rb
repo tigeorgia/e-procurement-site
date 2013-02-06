@@ -78,7 +78,6 @@ class UserController < ApplicationController
   end
 
   def save_cpv_group
-    
     codes = params[:codes].split(",")
     category = params[:category]
     cpvGroup = CpvGroup.new

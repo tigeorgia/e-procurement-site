@@ -18,4 +18,19 @@ class AdminController < ApplicationController
     @categories = profileAccount.cpvGroups 
   end
 
+  def save_risky_group
+    codes = params[:codes].split(",")
+    category = params[:category]
+    cpvGroup = CpvGroup.find(2)
+    cpvGroup.tender_cpv_classifiers.delete_all
+    
+    codes.each do |code|
+      cpv = TenderCpvClassifier.where( :cpv_code => code.to_i ).first
+      cpvGroup.tender_cpv_classifiers << cpv
+    end
+    cpvGroup.save
+
+    redirect_to :controller => :cpv_tree, :action =>:showRiskyCPVs
+  end
+
 end

@@ -3,7 +3,7 @@
 <%= form_tag( { :controller => :user, :action => "save_cpv_group", :user_id => @userID }, {:id => "saveTree"} ) do %>
   <%= label_tag(:category, "Category Name:") %>
   <%= text_field_tag(:category) %>
-  <%= hidden_field_tag(:codes, "none") %>
+  <%= hidden_field_tag(:codes, "") %>
   <%= submit_tag("Save Category") %>
 <% end %>
 

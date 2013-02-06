@@ -1,6 +1,8 @@
 class Organization < ActiveRecord::Base
   has_many :bidders, :dependent => :destroy
   has_many :agreements, :dependent => :destroy
+  has_many :competitors, :dependent => :destroy
+
   belongs_to :datasets
   
   attr_accessible :id,

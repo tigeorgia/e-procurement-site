@@ -206,7 +206,7 @@ module ScraperFile
             bidder.last_bid_date = nil         
           end
           bidder.number_of_bids = item["numberOfBids"]
-          tender.num_bids = tender.num_of_bids + bidder.number_of_bids
+          tender.num_bids = tender.num_bids + bidder.number_of_bids
           tender.num_bidders = tender.num_bidders + 1
           
           organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id).first
@@ -243,21 +243,30 @@ module ScraperFile
           if index%100 == 0
             puts "agreement: #{index}"
           end
-          tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@dataset.id).first
+          puts item["tenderID"]
+          tender = Tender.where(["url_id = ? AND dataset_id = ?",item["tenderID"],@dataset.id]).first
           agreement.tender_id = tender.id
           agreement.amendment_number = item["AmendmentNumber"]
           agreement.documentation_url = item["documentUrl"]
           
-          if agreement.documentation_url == "disqualified" or agreement.documentation_url == "bidder refused agreement"
-            organization = Organization.where("name = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id).first
+          if agreement.documentation_url == "disqualifed" or agreement.documentation_url == "bidder refused agreement"
+            puts item["OrgUrl"]
+            organization = Organization.where(["name = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id]).first
             agreement.organization_url = organization.organization_url
             agreement.organization_id = organization.id
-            agreement.amount = item["Amount"]
+            agreement.amount = -1
+            agreement.currency ="NULL"
             agreement.start_date = Date.parse(item["StartDate"])
             agreement.expiry_date = "NULL"
           else
             agreement.organization_url = item["OrgUrl"]
-            agreement.amount = item["Amount"]
+            string_arr = item["Amount"].gsub(/\s+/m, ' ').strip.split(" ")
+            agreement.amount = string_arr[0]
+            currency = "NONE"
+            if string_arr[1]
+              currency = string_arr[1]
+            end
+            agreement.currency = currency
             begin
               agreement.start_date = Date.parse(item["StartDate"])
             rescue
@@ -271,12 +280,14 @@ module ScraperFile
 
             #The organisation that won this contract should have bid so it should have already been created
             #so lets check the organisation database and cross-reference the org-url to get the org-id
-            organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id).first
+            puts agreement.documentation_url
+            organization = Organization.where(["organization_url = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id]).first
             if !organization
               #wtf where is the org?
             else
               agreement.organization_id = organization.id
             end
+            puts "works"
           end
                 
           if agreement.valid?
@@ -353,12 +364,11 @@ module ScraperFile
   def self.processAggregateData
     #for each CPV code calculate the revenue generated for each company and store these entries in the database
     #this way when aggregate data is requested instead of running this expensive process everytime we can just look up the pre-calculated entries in the db.
-  AggregateCpvRevenue.delete_all
-  classifiers = TenderCpvClassifier.find(:all)
+    AggregateCpvRevenue.delete_all
+    classifiers = TenderCpvClassifier.find(:all)
     classifiers.each do |classifier|
       puts classifier.cpv_code
-      tenders = Tender.where(:cpv_code => classifier.cpv_code)
-      tenders.each do |tender|      
+      Tender.find_each(:conditions => "cpv_code = " + classifier.cpv_code.to_s) do |tender|      
         last = nil
         tender.agreements.each do |agreement|
           #find lastest agreement
@@ -384,7 +394,7 @@ module ScraperFile
             aggregateData.total_value = aggregateData.total_value + tenderValue
           end
           aggregateData.save
-        end
+        end#if last
       end
     end
   end#process aggregate data
@@ -402,69 +412,94 @@ module ScraperFile
       allGroup.name = "All"
       allGroup.save
     end
+    #create risky special cpv group
+    risky = CpvGroup.new
+    risky.id = 2
+    risky.user_id = profileAccount.id
+    risky.name = "Risky"
+    risky.save
   end
 
   def self.generateRiskFactors
     #this is all done manually
 
-    holidayIndicator = CorruptionIndicator.new
-    holidayIndicator.name = "Holiday Procurement"
-    holidayIndicator.id = 1     
-    holidayIndicator.weight = 5
-    holidayIndicator.description = "This tender was announced during the holiday period which seems like a strange time to start procurements"
-    holidayIndicator.save
+    holidayIndicator = CorruptionIndicator.find(1)
+    if not holidayIndicator
+      holidayIndicator = CorruptionIndicator.new
+      holidayIndicator.name = "Holiday Procurement"
+      holidayIndicator.id = 1     
+      holidayIndicator.weight = 5
+      holidayIndicator.description = "This tender was announced during the holiday period which seems like a strange time to start procurements"
+      holidayIndicator.save
+    end
 
-    compeitionIndicator = CorruptionIndicator.new
-    compeitionIndicator.name = "Low Competition"
-    compeitionIndicator.id = 2     
-    compeitionIndicator.weight = 1
-    compeitionIndicator.description = "This tender only had 1 bidder while this is quite common in Georgia this could have be caused by a number of corrupt factors"
-    compeitionIndicator.save
-    
-    biddingIndicator = CorruptionIndicator.new
-    biddingIndicator.name = "Tame bidding exchange"
-    biddingIndicator.id = 3     
-    biddingIndicator.weight = 3
-    biddingIndicator.description = "When two or more companies are bidding for a contract it is expected that a bidding war should lower the price a reasonble amount this has not happened in this case"
-    biddingIndicator.save
+    compeitionIndicator = CorruptionIndicator.find(2)
+    if not compeitionIndicator
+      compeitionIndicator = CorruptionIndicator.new
+      compeitionIndicator.name = "Low Competition"
+      compeitionIndicator.id = 2     
+      compeitionIndicator.weight = 1
+      compeitionIndicator.description = "This tender only had 1 bidder while this is quite common in Georgia this could have be caused by a number of corrupt factors"
+      compeitionIndicator.save
+    end
 
-    cpvRiskIndicator = CorruptionIndicator.new
-    cpvRiskIndicator.name = "Risky Contract Type"
-    cpvRiskIndicator.id = 4     
-    cpvRiskIndicator.weight = 1
-    cpvRiskIndicator.description = "This contract has been identified as being in a procurement area that is at higher risk of corruption"
-    cpvRiskIndicator.save
+    biddingIndicator = CorruptionIndicator.find(3)
+    if not biddingIndicator
+      biddingIndicator = CorruptionIndicator.new
+      biddingIndicator.name = "Tame bidding exchange"
+      biddingIndicator.id = 3     
+      biddingIndicator.weight = 3
+      biddingIndicator.description = "When two or more companies are bidding for a contract it is expected that a bidding war should lower the price a reasonble amount this has not happened in this case"
+      biddingIndicator.save
+    end
 
-    majorPlayerIndicator = CorruptionIndicator.new
-    majorPlayerIndicator.name = "Major players not competiting"
-    majorPlayerIndicator.id = 5     
-    majorPlayerIndicator.weight = 2
-    majorPlayerIndicator.description = "Only one major player has been a bid on this contract"
-    majorPlayerIndicator.save
+    cpvRiskIndicator = CorruptionIndicator.find(4)
+    if not cpvRiskIndicator
+      cpvRiskIndicator = CorruptionIndicator.new
+      cpvRiskIndicator.name = "Risky Contract Type"
+      cpvRiskIndicator.id = 4     
+      cpvRiskIndicator.weight = 1
+      cpvRiskIndicator.description = "This contract has been identified as being in a procurement area that is at higher risk of corruption"
+      cpvRiskIndicator.save
+    end
 
+    majorPlayerIndicator = CorruptionIndicator.find(5)
+    if not majorPlayerIndicator
+      majorPlayerIndicator = CorruptionIndicator.new
+      majorPlayerIndicator.name = "Major players not competiting"
+      majorPlayerIndicator.id = 5     
+      majorPlayerIndicator.weight = 2
+      majorPlayerIndicator.description = "Only one major player has been a bid on this contract"
+      majorPlayerIndicator.save
+    end
 
+    puts "holiday"
     self.identifyHolidayPeriodTenders(holidayIndicator)   
+    puts "competition"
     self.competitionAssessment(compeitionIndicator)
-    self.biddingWarAccessmentbiddingIndicator)
+    puts "bidding"
+    self.biddingWarAccessment(biddingIndicator)
+    puts "risky codes"
     self.identifyRiskyCPVCodes(cpvRiskIndicator)
+    puts "Major players"
     self.majorPlayerCompetitionAssessment(majorPlayerIndicator)
   end
 
-  def identifyHolidayPeriodTenders(indicator)
-    sql = "dataset_id = " + @dataset.id.first
+  def self.identifyHolidayPeriodTenders(indicator)
+    sql = "dataset_id = " + @dataset.id.to_s
     for year in (2010..Time.now.year)
       conjuction = " OR "
       if year == 2010
         conjuction = " AND "
       end
       sql = sql + conjuction
-      holidayStart = Date.new(year,12,30)
-      holidayEnd = Date.new(year+1,1,11)
+      holidayStart = Date.new(year,12,30).to_s
+      holidayEnd = Date.new(year+1,1,11).to_s
 
       sql = sql + "(tender_announcement_date > "+holidayStart+" AND tender_announcement_date < "+holidayEnd+")"
     end
 
-    riskyTenders = Tender.where(sql).find_each do |tender|
+    Tender.find_each(:conditions => sql) do |tender|
       corruptionFlag = TenderCorruptionFlag.new
       corruptionFlag.tender_id = tender.id
       corruptionFlag.corruption_indicator_id = indicator.id
@@ -473,8 +508,8 @@ module ScraperFile
     end
   end
   
-  def competitionAssessment(indicator)
-    Tender.where(:dataset_id => @dataset.id.first, num_bidders => 1).find_each do |tender|
+  def self.competitionAssessment(indicator)
+    Tender.find_each(:conditions => "dataset_id = "+@dataset.id.to_s+" AND num_bidders = 1") do |tender|
       corruptionFlag = TenderCorruptionFlag.new
       corruptionFlag.tender_id = tender.id
       corruptionFlag.corruption_indicator_id = indicator.id
@@ -483,9 +518,9 @@ module ScraperFile
     end
   end
 
-  def biddingWarAccessment(indicator)
-    #get all tenders that has a bidding war
-    Tender.where(:dataset_id => @dataset.id.first, :num_bidders => 1).find_each do |tender|
+  def self.biddingWarAccessment(indicator)
+    #get all tenders that had a bidding war
+    Tender.find_each(:conditions => "dataset_id = "+@dataset.id.to_s+" AND num_bidders > 1") do |tender|
       #now check the winning bid and compare this to the estimated value
       winningVal = nil
       tender.agreements.each do |agreement|
@@ -498,7 +533,7 @@ module ScraperFile
         savingsPercentage = 1 - winningVal/tender.estimated_value
         if savingsPercentage <= 0.02
           #risky tender!
-          corruptionFalg = TenderCorruptionFlag.new
+          corruptionFlag = TenderCorruptionFlag.new
           corruptionFlag.tender_id = tender.id
           corruptionFlag.corruption_indicator_id = indicator.id
           corruptionFlag.value = 1 #could have more for %1 and %0.5 etc
@@ -508,11 +543,82 @@ module ScraperFile
     end
   end
 
-  def identifyRiskyCPVCodes(indicator)
+  def self.identifyRiskyCPVCodes(indicator)
+    riskyGroup = CpvGroup.find(2)
+    sql = "dataset_id = "+@dataset.id.to_s
+    conjuction = " AND "
+    riskyGroup.tender_cpv_classifiers.each do |cpv|
+      sql = sql + conjuction + "cpv_code = " + cpv.cpv_code.to_s
+      conjuction = " OR "
+    end
+
+    Tender.find_each(:conditions => sql) do |tender|
+      corruptionFlag = TenderCorruptionFlag.new
+      corruptionFlag.tender_id = tender.id
+      corruptionFlag.corruption_indicator_id = indicator.id
+      corruptionFlag.value = 1 #perhaps we could add different values for different codes
+      corruptionFlag.save
+    end
   end
 
   #tough one
-  def majorPlayerCompetitionAssessment(indicator)
+  def self.majorPlayerCompetitionAssessment(indicator)
+    puts "not done"
+  end
+
+  def self.findCompetitors
+    Competitor.delete_all
+    #this is going to take some memory
+    companies = {}
+    Tender.find_each do |tender|
+      ids = []
+      tender.bidders.each do |bidder|
+        ids.push(bidder.organization_id)
+      end
+      ids.each do |org_id|
+        if not companies[org_id]
+          companies[org_id] = {}
+        end
+        ids.each do |competitor_id|
+          if not competitor_id == org_id
+            count = companies[org_id][competitor_id]
+            if not count
+              count = 0
+            end
+            count = count + 1
+            companies[org_id][competitor_id] = count
+          end#if not same org
+        end#for all competitor ids
+      end#for all orgs
+    end#for all tenders
+
+    def self.competitorSort(a,b)
+      if a[1] < b[1]
+        return 1
+      else
+        return -1
+      end
+    end
+    # we now have a list of companies each with a list of companies they have competed with
+    # go through each company find its top 3 competitors and store this in the db
+
+    companies.each do |org_id, competitors|
+      competitors = competitors.sort {|a,b| self.competitorSort(a,b) }
+      #store top 3
+      count = 0
+      competitors.each do |competitor_id, value|
+        count = count + 1
+        if value < 2 or count > 3
+          break
+        end
+        puts "org: " + org_id.to_s + " comp: "+ competitor_id.to_s + " count: " + value.to_s
+        db_competitor = Competitor.new
+        db_competitor.organization_id = org_id
+        db_competitor.rival_org_id = competitor_id
+        db_competitor.num_tenders = value
+        db_competitor.save
+      end
+    end
   end
 
 
@@ -596,6 +702,7 @@ module ScraperFile
     printTree( root )
 	end
 =end
+
   def self.process
     start = Time.now
     msg = nil
@@ -613,10 +720,15 @@ module ScraperFile
     self.processAgreements
     puts "processing docs"
     self.processDocuments
+  end
+
+  def self.generateMetaData
     puts "generate cpv codes"
     self.createCPVCodes
     puts "generating aggregate data"
     self.processAggregateData
+    puts "finding competitors"
+    self.findCompetitors
     puts "setting up users"
     self.createUsers
     puts "finding corruption"
@@ -633,13 +745,18 @@ module ScraperFile
     self.process
     puts "diffing"
     #for now diff only removes the old dataset once we are sure the scrape went smoothly
+    #THIS NEED TO HAPPEN BEFORE WE DO AGGREGATE DATA ETC
     self.diffData
+
+    self.generateMetaData
+  
   end
 
   def self.processIncrementalScrape
     #get current dataset
     @dataset = Dataset.last
     self.process
+    self.generateMetaData
   end
 
   def self.buildUserDataOnly
@@ -650,4 +767,12 @@ module ScraperFile
     puts "setting up users"
     self.createUsers
   end
+  
+  #filled out with tasks to test
+  def self.runStuff
+    puts "finding competitors"
+    self.findCompetitors
+  end
+
 end
+

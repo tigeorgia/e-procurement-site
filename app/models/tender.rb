@@ -3,6 +3,7 @@
   has_many :bidders, :dependent => :destroy
   has_many :agreements, :dependent => :destroy
   has_many :documents, :dependent => :destroy
+  has_many :tender_corruption_flags, :dependent => :destroy
   belongs_to :datasets
   belongs_to :watch_tenders
 

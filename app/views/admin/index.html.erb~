@@ -2,16 +2,20 @@
 
   <% if current_user.role? :admin %>
    <div class="span4">
-  <h3><%= t('.users_header')%></h3>
-  <ul class="standard">
-  <li>
-       <%= link_to t('.view_users'), admin_users_path %>
+
+
+    <h2><%= t('.users_header')%></h3>
+    <ul class="standard">
+      <li>
+        <%= link_to t('.view_users'), admin_users_path %>
       </li>
       <li>
-       <%= link_to t('.new_users'), new_admin_user_path %>
+        <%= link_to t('.new_users'), new_admin_user_path %>
       </li>
-      <li>
-        <%= link_to "manage CPV Categories", {:controller => "admin", :action => "manageCPVs"} %>
-  </ul>
+    </ul>
+    <br>
+    <%= button_to "manage CPV Categories", {:action => "manageCPVs"} %>
+    <br>
+    <%= button_to "Manage risky cpv codes", {:action => "showRiskyCPVs", :user_id => @userID} %>
   </div>
   <% end %>

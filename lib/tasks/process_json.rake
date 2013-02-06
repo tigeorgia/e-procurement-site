@@ -10,4 +10,10 @@ namespace :procurement do
     require "scraper_file"
     ScraperFile.processIncrementalScrape
   end
+
+  desc "do debug tasks"
+  task:test_code => :environment do
+    require "test_code"
+    TestFile.run
+  end
 end

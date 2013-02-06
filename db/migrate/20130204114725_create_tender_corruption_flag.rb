@@ -1,6 +1,6 @@
 class CreateTenderCorruptionFlag < ActiveRecord::Migration
   def change
-    create_table :tender_corruption_flag do |t|
+    create_table :tender_corruption_flags do |t|
       t.integer :tender_id
       t.integer :corruption_indicator_id
       t.integer :value

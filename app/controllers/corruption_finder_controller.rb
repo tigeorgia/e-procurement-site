@@ -6,6 +6,7 @@ class CorruptionFinderController < ApplicationController
   def search
     criteria = params[:criteria]
     if criteria == "all"
+      
     end
   end
 end

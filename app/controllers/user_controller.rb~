@@ -13,6 +13,7 @@ class UserController < ApplicationController
 
     @savedSearches = current_user.searches
     @cpvGroups = current_user.cpvGroups
+    @userID = current_user.id
   end
 
   def save_search

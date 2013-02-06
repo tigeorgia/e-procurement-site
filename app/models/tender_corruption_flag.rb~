@@ -1,4 +1,4 @@
-class TenderCorruptionFlag < ActiveRecord::Base
+class TenderCorruptionFlags < ActiveRecord::Base
   belongs_to :tender
   belongs_to :corruption_indicator
 

@@ -50,7 +50,7 @@ class TendersController < ApplicationController
       cpvGroup = CpvGroup.find(cpvGroupID)
     end
     
-    query = "dataset_id = " + liveDataSetID.to_s +
+    query = "dataset_id = '" +liveDataSetID.to_s+"'"+
             " AND tender_registration_number LIKE '"+reg_num+"'"+
             " AND tender_status LIKE '"+translated_status+"'"+
             " AND tender_announcement_date >= '"+startDate.to_s+"'"+
@@ -63,14 +63,16 @@ class TendersController < ApplicationController
       cpvCategories = cpvGroup.tender_cpv_classifiers
       count = 1
       cpvCategories.each do |category|
-        conjunction = " AND"
+        conjunction = " AND ("
         if count > 1
           conjunction = " OR"
         end
         query = query + conjunction+" cpv_code = "+category.cpv_code
         count = count + 1
       end
+      query = query + " )"
     end
+    puts query
     resultTenders = Tender.where(query)
     @numResults = resultTenders.count
 =begin    @numSingleBids = 0

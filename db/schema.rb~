@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122105659) do
+ActiveRecord::Schema.define(:version => 20130206081202) do
+
+  create_table "aggregate_cpv_group_revenues", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aggregate_cpv_revenues", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "cpv_code"
+    t.decimal  "total_value",     :precision => 11, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "agreements", :force => true do |t|
     t.integer  "tender_id"
@@ -24,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20121122105659) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "amendment_number"
+    t.string   "currency"
   end
 
   add_index "agreements", ["tender_id", "organization_id"], :name => "index_agreements_on_tender_id_and_organization_id"
@@ -42,6 +56,34 @@ ActiveRecord::Schema.define(:version => 20121122105659) do
   end
 
   add_index "bidders", ["tender_id", "organization_id"], :name => "index_bidders_on_tender_id_and_organization_id"
+
+  create_table "competitors", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "rival_org_id"
+    t.integer  "num_tenders"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "corruption_indicator", :force => true do |t|
+    t.integer  "weight"
+    t.string   "description"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cpv_groups", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "name"
+  end
+
+  create_table "cpv_groups_tender_cpv_classifiers", :id => false, :force => true do |t|
+    t.integer "cpv_group_id"
+    t.integer "tender_cpv_classifier_id"
+  end
 
   create_table "datasets", :force => true do |t|
     t.boolean  "is_live"
@@ -77,14 +119,30 @@ ActiveRecord::Schema.define(:version => 20121122105659) do
 
   add_index "organizations", ["organization_url", "name"], :name => "index_organizations_on_organization_url_and_name"
 
-  create_table "tender_cpv_classifiers", :force => true do |t|
+  create_table "searches", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "search_string"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "searchtype"
+  end
+
+  create_table "tender_corruption_flag", :force => true do |t|
     t.integer  "tender_id"
-    t.string   "cpv_code"
+    t.integer  "corruption_indicator_id"
+    t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "tender_cpv_classifiers", ["tender_id"], :name => "index_tender_cpv_classifiers_on_tender_id"
+  create_table "tender_cpv_classifiers", :force => true do |t|
+    t.string   "cpv_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "description"
+    t.string   "description_english"
+  end
 
   create_table "tenders", :force => true do |t|
     t.integer  "procurring_entity_id"
@@ -107,6 +165,8 @@ ActiveRecord::Schema.define(:version => 20121122105659) do
     t.datetime "updated_at"
     t.integer  "dataset_id"
     t.integer  "url_id"
+    t.integer  "num_bids"
+    t.integer  "num_bidders"
   end
 
   add_index "tenders", ["estimated_value"], :name => "index_tenders_on_estimated_value"
@@ -115,8 +175,9 @@ ActiveRecord::Schema.define(:version => 20121122105659) do
   add_index "tenders", ["tender_type"], :name => "index_tenders_on_tender_type"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "",    :null => false
-    t.string   "encrypted_password",     :default => "",    :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "role",                   :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -127,10 +188,16 @@ ActiveRecord::Schema.define(:version => 20121122105659) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                  :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "watch_tenders", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "tender_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
