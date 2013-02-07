@@ -82,17 +82,6 @@ class TendersController < ApplicationController
     puts query
     resultTenders = Tender.where(query)
     @numResults = resultTenders.count
-=begin    @numSingleBids = 0
-    @numBidTenders = 0
-    resultTenders.each do |tender|
-      if tender.bidders.count >= 1
-        @numBidTenders = @numBidTenders + 1
-        if tender.bidders.count == 1
-          @numSingleBids = @numSingleBids + 1
-        end
-      end    
-    end
-=end
     @tenders = resultTenders.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
     @results = []
@@ -139,6 +128,17 @@ class TendersController < ApplicationController
         end
       end
     end
+
+
+    @risks = []
+    flags = TenderCorruptionFlag.where(:tender_id => @tender.id)
+    @totalRisk = 0
+    flags.each do |flag|
+      indicator = CorruptionIndicator.find( flag.corruption_indicator_id )
+      @totalRisk = @totalRisk + (indicator.weight * flag.value)
+      @risks.push(indicator)
+    end
+
     @procurer = Organization.find(@tender.procurring_entity_id).name
     agreements = @tender.agreements
     @agreementInfo = []

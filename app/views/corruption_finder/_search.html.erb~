@@ -18,7 +18,6 @@
       <tr>
         <td><%= link_to tender[:code], tender_path(tender[:id]) %></td>
         <td><%= tender[:value] %></td>
-        <td><%= tender[:info] %></td>
       </tr>
     <% end %>
   </tbody>

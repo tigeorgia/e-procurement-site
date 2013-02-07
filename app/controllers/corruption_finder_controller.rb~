@@ -5,19 +5,11 @@ class CorruptionFinderController < ApplicationController
 
   def search
     criteria = params[:criteria]
-
-    respond_to do |format|  
-      format.js   
-    end
   
     if criteria == "all"
       tenders = {}
       count = 0
       TenderCorruptionFlag.find_each do | flag |
-        count = count + 1
-        if count > 10 
-          break
-        end
         riskAssessment = tenders[flag.tender_id]
         if not riskAssessment
           riskAssessment = {}
@@ -26,7 +18,7 @@ class CorruptionFinderController < ApplicationController
         end
         indicator = CorruptionIndicator.find( flag.corruption_indicator_id )
         riskAssessment[:total] = riskAssessment[:total] + (indicator.weight * flag.value)
-        riskAssessment[:indicators].push(indicator.id)
+        riskAssessment[:indicators].push(indicator)
         tenders[flag.tender_id] = riskAssessment
       end
       
@@ -50,7 +42,16 @@ class CorruptionFinderController < ApplicationController
         tenderData[:id] = tender_id
         tenderData[:code] = Tender.find(tender_id).tender_registration_number
         tenderData[:value] = risk[:total]
+        tenderData[:info] = ""
+        risk[:indicators].each do |indicator|
+          tenderData[:info]+=indicator.name+", "
+        end
+        tenderData[:info].chop!.chop!
         @riskyTenders.push(tenderData)
+      end
+
+      respond_to do |format|  
+        format.js   
       end
     end
     

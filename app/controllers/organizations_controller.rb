@@ -103,7 +103,17 @@ class OrganizationsController < ApplicationController
         end
       end
     end
-    
+
+    #find all competitors
+    @competitors = []
+    org_competitors = Competitor.where("organization_id = "+id)
+    org_competitors.each do | competitor |
+      info = []
+      info.push(Organization.find(competitor.rival_org_id))
+      info.push(competitor.num_tenders)
+      @competitors.push( info )
+    end
+
     @numTenders = allTenders.count
     @numTendersWon = tendersWon.size
     @WLR = @numTendersWon.to_f()/@numTenders.to_f()
@@ -111,7 +121,6 @@ class OrganizationsController < ApplicationController
     @tenderInfo = []
     #create a hash with tasty info
     allTenders.each do |tender|
-
       tenderDuration = (tender.bid_end_date - tender.bid_start_date).to_i
       infoItem = { :id => tender.id, :tenderCode => tender.tender_registration_number, :numBidders => tender.bidders.count, :bidDuration => tenderDuration, :highest_bid => nil, :lowest_bid => nil, :numBids => nil, :start_amount => tender.estimated_value, :won => false, :procurerName => nil, :procurerID => tender.procurring_entity_id, :tenderAnnouncementDate => tender.tender_announcement_date}
       infoItem[:procurerName] = Organization.find(tender.procurring_entity_id).name

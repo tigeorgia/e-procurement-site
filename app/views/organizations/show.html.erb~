@@ -17,12 +17,22 @@
   <dt><strong>Win/Loss Ratio</strong></dt>
   <dd><%= @WLR  %></dd>
 </dl>
+<br>
+<% if @competitors.length > 0 %>
+  Main Competitors<br>
+  <% @competitors.each do |competitor| %>
+     <%= link_to competitor[0].name, organization_path(competitor[0].id) %>
+     Competed in <%= competitor[1] %> tenders<br>
+  <% end %>
+<% end %>
+
+
 
 <br></br>
 <h3>Tenders Bid On</h3>
 <br></br>
 
-  <table class="dataTable" cellpadding="0" cellspacing="0" border="0" >
+  <table class="dataTable" cellpadding="0" cellspacing="0" border="0" width="100%">
   <thead>
     <tr>
       <th>Tender</th>
