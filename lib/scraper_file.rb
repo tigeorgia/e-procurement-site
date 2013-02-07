@@ -401,6 +401,14 @@ module ScraperFile
 
 
   def self.createUsers
+
+    #NEEDS TO BE REMOVED LATER
+    myAdminAccount = User.find(1)
+    if not myAdminAccount
+      myAdminAccount = User.create!({:email => "chris@transparency.ge", :role => "admin", :password => "password84", :password_confirmation => "password84" })
+      myAdminAccount.save
+    end
+
     #Get special profile account cpv groups
     profileAccount = User.where( :role => "profile" ).first
     if not profileAccount
@@ -412,6 +420,8 @@ module ScraperFile
       allGroup.name = "All"
       allGroup.save
     end
+
+
     #create risky special cpv group
     risky = CpvGroup.new
     risky.id = 2
@@ -611,7 +621,6 @@ module ScraperFile
         if value < 2 or count > 3
           break
         end
-        puts "org: " + org_id.to_s + " comp: "+ competitor_id.to_s + " count: " + value.to_s
         db_competitor = Competitor.new
         db_competitor.organization_id = org_id
         db_competitor.rival_org_id = competitor_id
@@ -725,12 +734,12 @@ module ScraperFile
   def self.generateMetaData
     puts "generate cpv codes"
     self.createCPVCodes
+    puts "setting up users"
+    self.createUsers
     puts "generating aggregate data"
     self.processAggregateData
     puts "finding competitors"
     self.findCompetitors
-    puts "setting up users"
-    self.createUsers
     puts "finding corruption"
     self.generateRiskFactors
   end

@@ -1,0 +1,16 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td>Tender ID</td>
+      <td>Risk Value</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @riskyTenders.each do |tender| %>
+      <tr>
+        <td><%= link_to tender[:code], tender_path(tender[:id]) %></td>
+        <td><%= tender[:value] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

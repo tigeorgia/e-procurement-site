@@ -15,31 +15,34 @@ class TendersController < ApplicationController
     strDate = params[:announced_before].gsub('/','-')
     endDate = Date.strptime(strDate,'%d-%m-%Y')
 
-    minStr = params[:min_estimate]
-    maxStr = params[:max_estimate]
+    minVal = params[:min_estimate]
+    maxVal = params[:max_estimate]
 
-    minBidStr = params[:min_num_bids]
-    maxBidStr = params[:max_num_bids]
-
-    minVal = -1
-    maxVal = 99999999
-    minbids = -1
-    maxbids = 99999999
-
-
-    if not minStr == ""
-      minVal = minStr.to_i
-    end
-    if not maxStr == ""
-      maxVal = maxStr.to_i
-    end
-    if not minBidStr == ""
-      minBids = minBidStr.to_i
-    end
-    if not maxBidStr == ""
-      maxBids = maxBidStr.to_i
-    end
+    minBids = params[:min_num_bids]
+    maxBids = params[:max_num_bids]
     
+    minBidders = params[:min_num_bidders]
+    maxBidders = params[:max_num_bidders]
+
+    if minVal == ""
+      minVal = "-1"
+    end
+    if maxVal == ""
+      maxVal = "99999999"
+    end
+    if minBids == ""
+      minBids = "-1"
+    end
+    if maxBids == ""
+      maxBids = "99999999"
+    end
+    if minBidders == ""
+      minBidders = "-1"
+    end
+    if maxBidders == ""
+      maxBidders = "99999999"
+    end    
+     
     translated_status =  "%%"
     if not status == "%%"
       translated_status = t(status.gsub('%',''), :locale => :ka)
@@ -55,8 +58,12 @@ class TendersController < ApplicationController
             " AND tender_status LIKE '"+translated_status+"'"+
             " AND tender_announcement_date >= '"+startDate.to_s+"'"+
             " AND tender_announcement_date <= '"+endDate.to_s+"'"+
-            " AND estimated_value >= '"+minVal.to_s+"'"+
-            " AND estimated_value <= '"+maxVal.to_s+"'"
+            " AND estimated_value >= '"+minVal+"'"+
+            " AND estimated_value <= '"+maxVal+"'"+
+            " AND num_bids >= '"+minBids+"'"+
+            " AND num_bids <= '"+maxBids+"'"+
+            " AND num_bidders >= '"+minBidders+"'"+
+            " AND num_bidders <= '"+maxBidders+"'"
 
     if not cpvGroupID or cpvGroup.id == 1
     else      
