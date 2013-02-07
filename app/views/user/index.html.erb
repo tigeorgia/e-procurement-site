@@ -3,6 +3,10 @@
 
 <h2>Tenders You are watching</h2>
 
+ <%if false%>
+  <%= button_to "Test email", {:action => "sendAlert", :user_id => @userID}, :remote => true %>
+ <%end%>
+
 <table class="table table-striped">
   <thead>
     <tr>

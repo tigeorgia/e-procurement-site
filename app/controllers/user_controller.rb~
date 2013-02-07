@@ -69,6 +69,11 @@ class UserController < ApplicationController
     @userID = params[:user_id]
   end
   
+  def sendAlert
+    user = User.find(params[:user_id])
+    AlertMailer.search_alert(user).deliver
+  end
+
   def create_group
     user = User.find(params[:user_id])
     group = CpvGroup.new
@@ -78,7 +83,6 @@ class UserController < ApplicationController
   end
 
   def save_cpv_group
-    
     codes = params[:codes].split(",")
     category = params[:category]
     cpvGroup = CpvGroup.new

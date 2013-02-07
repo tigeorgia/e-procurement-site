@@ -1,6 +1,9 @@
 <% title "Account Page" %>
 
+
 <h2>Tenders You are watching</h2>
+
+ <%= button_to "Test email", {:action => "sendAlert", :user_id => @userID}, :remote => true %>
 
 <table class="table table-striped">
   <thead>
@@ -46,6 +49,9 @@
 
 <h2>Your CPV groups</h2>
 
+<div class="AddCPVGroup">
+  <%= render "user/cpv_create_button" %>
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -66,6 +72,7 @@
           <td></td>
           <td></td>
           <td><%= classifier.cpv_code %></td>
+          <td><%= classifier.description %></td>
         </tr>
       <% end %>
     <% end %>

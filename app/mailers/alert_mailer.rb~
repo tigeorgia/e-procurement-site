@@ -1,0 +1,3 @@
+class AlertMailer < ActionMailer::Base
+  default from: "alerts@procwatch.com"
+end
