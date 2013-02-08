@@ -140,8 +140,9 @@ module ScraperFile
     org_file_path = "#{Rails.root}/public/system/#{FILE_ORGANISATIONS}"
     org_file_data = File.open(org_file_path, "r") {|f| f.read()}
     puts org_file_path
-    if org_file_data   
-      json_org = JSON.parse(org_file_data.gsub("},]", "}]"))
+    if org_file_data
+      puts org_file_data
+      json_org = JSON.parse(org_file_data.gsub("},]", "}]").delete("\n"))
       json_org.each_with_index do |item, index|
         # if the procurer does not exist in organization yet, add it
         organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id).first
