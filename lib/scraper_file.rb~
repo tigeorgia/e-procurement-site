@@ -85,18 +85,16 @@ module ScraperFile
 
   def self.processTenders
     tender_file_path = "#{Rails.root}/public/system/#{FILE_TENDER}"
-    tender_file_data = File.open(tender_file_path, "r") {|f| f.read()}
-
-    if tender_file_data
-      #clean up formatting and parse
-      json_tender = JSON.parse(tender_file_data.gsub("},]", "}]"))
-
-      json_tender.each_with_index do |item, index|
+    File.open(tender_file_path, "r") do |infile|
+      count = 0
+      while(line = infile.gets)
+        count = count + 1
+        item = JSON.parse(line)
         tender = Tender.new
         Tender.transaction do
           # basic tender info
-          if index%100 == 0
-            puts "tender: #{index}"
+          if count%100 == 0
+            puts "tender: #{count}"
           end
           tender.url_id = item["tenderID"]
           tender.dataset_id = @dataset.id
@@ -132,25 +130,24 @@ module ScraperFile
 		        break
           end #if tender valid
         end #transaction
-      end#for each json tender
-    end#if data exists
+      end#while
+    end#file
   end #processTenders
 
   def self.processOrganizations
     org_file_path = "#{Rails.root}/public/system/#{FILE_ORGANISATIONS}"
-    org_file_data = File.open(org_file_path, "r") {|f| f.read()}
-    puts org_file_path
-    if org_file_data
-      puts org_file_data
-      json_org = JSON.parse(org_file_data.gsub("},]", "}]").delete("\n")
-      json_org.each_with_index do |item, index|
+    File.open(org_file_path, "r") do |infile|
+      count = 0
+      while(line = infile.gets)
+        count = count + 1
+        item = JSON.parse(line)
         # if the procurer does not exist in organization yet, add it
         organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id).first
         if !organization
           organization = Organization.new
           Organization.transaction do
-            if index%100 == 0
-              puts "organization: #{index}"
+            if count%100 == 0
+              puts "organization: #{count}"
             end
             organization.dataset_id = @dataset.id
             organization.organization_url = item["OrgUrl"]
@@ -169,27 +166,28 @@ module ScraperFile
             if organization.valid?
               organization.save
             else
-		          raise ActiveRecord::Rollback
-		          break
+	            raise ActiveRecord::Rollback
+	            break
             end
           end#transaction
-        end
-      end #for each json org
-    end #if data exists
-    
+        end#if
+      end#while
+    end#do
   end#process org
 
 
   def self.processBidders
     bidder_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_BIDDERS}" 
-    bidder_file_data = File.open(bidder_file_path, "r") {|f| f.read()}
-    if bidder_file_data
-      json_bidders = JSON.parse(bidder_file_data.gsub("},]", "}]"))
-      json_bidders.each_with_index do |item, index|
+    File.open(bidder_file_path, "r") do |infile|
+      count = 0
+      while(line = infile.gets)
+        count = count + 1
+        item = JSON.parse(line)
+
         bidder = Bidder.new
         Bidder.transaction do
-          if index%100 == 0
-            puts "bidder: #{index}"
+          if count%100 == 0
+            puts "bidder: #{count}"
           end
           tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@dataset.id).first
           bidder.tender_id = tender.id
@@ -228,21 +226,22 @@ module ScraperFile
             break
           end
         end
-      end#for each json item
-    end#if data exists
-    
+      end#while
+    end#file  
   end#processBidders
 
   def self.processAgreements
     agreement_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_AGREEMENTS}"
-    agreement_file_data = File.open(agreement_file_path, "r") {|f| f.read()}
-    if agreement_file_data
-      json_agreement = JSON.parse(agreement_file_data.gsub("},]", "}]"))
-      json_agreement.each_with_index do |item, index|
+    File.open(agreement_file_path, "r") do |infile|
+      count = 0
+      while(line = infile.gets)
+        count = count + 1
+        item = JSON.parse(line)
+
         agreement = Agreement.new
         Agreement.transaction do
-          if index%100 == 0
-            puts "agreement: #{index}"
+          if count%100 == 0
+            puts "agreement: #{count}"
           end
           puts item["tenderID"]
           tender = Tender.where(["url_id = ? AND dataset_id = ?",item["tenderID"],@dataset.id]).first
@@ -288,7 +287,6 @@ module ScraperFile
             else
               agreement.organization_id = organization.id
             end
-            puts "works"
           end
                 
           if agreement.valid?
@@ -298,18 +296,19 @@ module ScraperFile
             break
           end
         end
-      end#for each json item
-    end#if data exists
-    
+      end#while
+    end#file
   end#processAgreements
 
 
   def self.processDocuments
     document_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_DOCUMENTS}"
-    document_file_data = File.open(document_file_path, "r") {|f| f.read()}
-    if document_file_data
-      json_documents = JSON.parse(document_file_data.gsub("},]", "}]"))
-      json_documents.each_with_index do |item, index|       
+     File.open(document_file_path, "r") do |infile|
+      count = 0
+      while(line = infile.gets)
+        count = count + 1
+        item = JSON.parse(line)  
+     
         document = Document.new
         Document.transaction do
           tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@dataset.id).first
@@ -325,8 +324,8 @@ module ScraperFile
             break
           end
         end
-      end #foreach document
-    end #if data exists
+      end #while
+    end #file
   end #processDocuments
 
   #go through all tenders and find all unqiue cpv codes
