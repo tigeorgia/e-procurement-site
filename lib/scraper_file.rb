@@ -555,19 +555,22 @@ module ScraperFile
 
   def self.identifyRiskyCPVCodes(indicator)
     riskyGroup = CpvGroup.find(2)
-    sql = "dataset_id = "+@dataset.id.to_s
-    conjuction = " AND "
-    riskyGroup.tender_cpv_classifiers.each do |cpv|
-      sql = sql + conjuction + "cpv_code = " + cpv.cpv_code.to_s
-      conjuction = " OR "
-    end
+    classifiers = riskyGroup.tender_cpv_classifiers
+    if classifiers.length > 0
+      sql = "dataset_id = "+@dataset.id.to_s
+      conjuction = " AND "
+      classifiers.each do |cpv|
+        sql = sql + conjuction + "cpv_code = " + cpv.cpv_code.to_s
+        conjuction = " OR "
+      end
 
-    Tender.find_each(:conditions => sql) do |tender|
-      corruptionFlag = TenderCorruptionFlag.new
-      corruptionFlag.tender_id = tender.id
-      corruptionFlag.corruption_indicator_id = indicator.id
-      corruptionFlag.value = 1 #perhaps we could add different values for different codes
-      corruptionFlag.save
+      Tender.find_each(:conditions => sql) do |tender|
+        corruptionFlag = TenderCorruptionFlag.new
+        corruptionFlag.tender_id = tender.id
+        corruptionFlag.corruption_indicator_id = indicator.id
+        corruptionFlag.value = 1 #perhaps we could add different values for different codes
+        corruptionFlag.save
+      end
     end
   end
 
