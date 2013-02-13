@@ -37,7 +37,12 @@ class AggregateController < ApplicationController
 =end 
     companies = {}
     cpvGroup = CpvGroup.find(params[:cpvGroup])
-    cpvGroup.tender_cpv_classifiers.each do |classifier|
+    classifiers = cpvGroup.tender_cpv_classifiers
+    #change this to look at cpv type
+    if cpvGroup.id == 1
+      classifiers = TenderCpvClassifier.all
+    end
+    classifiers.each do |classifier|
       cpvAggregates = AggregateCpvRevenue.where(:cpv_code => classifier.cpv_code)
       cpvAggregates.each do |companyAggregate|
         companyData = companies[companyAggregate.organization_id]

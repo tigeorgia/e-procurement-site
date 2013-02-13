@@ -3,10 +3,14 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
 
+ *= require_self
+ *= require bootstrap-datepicker
  *= require formtastic
  *= require formtastic-bootstrap
+ *= require jquery.ui.core
+ *= require jquery.ui.theme
+ *= require dataTables/src/demo_table_jui
  *= require_tree .
- *= require_self
 */
 
 /* clear floats */
@@ -229,4 +233,35 @@ footer, footer ul li, footer div#right ul li {
 #nested_form_container .nested_form_item {
   background-color: #eee;
   padding: 0.5em 1em;
+}
+
+
+div.dataTables_length label {
+    width: 460px;
+    float: left;
+    text-align: left;
+}
+ 
+div.dataTables_length select {
+    width: 75px;
+}
+ 
+div.dataTables_filter label {
+    float: right;
+    width: 460px;
+}
+ 
+div.dataTables_info {
+    padding-top: 8px;
+}
+ 
+div.dataTables_paginate {
+    float: right;
+    margin: 0;
+}
+ 
+table {
+    margin: 10em 0;
+    clear: both;
+    text-align: center;
 }

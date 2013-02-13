@@ -8,7 +8,7 @@
     <% if @isWatched %>
       <%= button_to "Unsubscribe", {:controller => :user, :action => "unsubscribe_tender", :tender_url => @tenderUrl, :user_id => current_user.id}, :remote => true %>
     <% else %>
-      <%= button_to "Subscribe", {:controller => :user, :action => "subscribe_tender", :tender_url => @tenderUrl, :user_id => current_user.id}, :remote => true %>
+      <%= button_to "Subscribe", {:controller => :user, :action => "subscribe_tender", :tender_url => @tenderUrl, :tender_id => @tender.id, :user_id => current_user.id}, :remote => true %>
     <% end %>
   </div>
 <% end %>
@@ -17,7 +17,7 @@
   <dt><strong><%= model_class.human_attribute_name(:procurring_entity_id) %>:</strong></dt>
   <td><%= link_to @procurer, :controller => "organizations", :action => "show_procurer", :id => @tender.procurring_entity_id %></td>
   <dt><strong><%= model_class.human_attribute_name(:tender_type) %>:</strong></dt>
-  <dd><%= @tender.tender_type %></dd>
+  <dd><%= t(@tender.tender_type) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tender_registration_number) %>:</strong></dt>
   <dd><%= @tender.tender_registration_number %></dd>
   <dt><strong><%= model_class.human_attribute_name(:tender_status) %>:</strong></dt>
@@ -35,7 +35,8 @@
   <dt><strong><%= model_class.human_attribute_name(:estimated_value) %>:</strong></dt>
   <dd><%= @tender.estimated_value %></dd>
   <dt><strong><%= model_class.human_attribute_name(:cpv_code) %>:</strong></dt>
-  <dd><%= @tender.cpv_code %></dd>
+  <dd><%= @tender.cpv_code %> - <%= @cpv.description_english %></dd>
+  
 </dl>
 
   <br><br>

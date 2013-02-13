@@ -9,7 +9,7 @@
   <dt><strong>Identification code:</strong></dt>
   <dd><%= @organization.code %></dd>
   <dt><strong><%= model_class.human_attribute_name(:org_type) %>:</strong></dt>
-  <dd><%= @organization.org_type %></dd>
+  <dd><%= t(@organization.org_type) %></dd>
   <dt><strong>Tenders Bid On:</strong></dt>
   <dd><%= @numTenders  %></dd>
   <dt><strong>Tenders Won:</strong></dt>

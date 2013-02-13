@@ -12,7 +12,7 @@ $(document).ready(function() {
        xAxis: {
           categories: [
              <% @TopTen.each do |info| %>
-              "<%= info[:company].name %>",
+              '<%= link_to info[:company].name, organization_path(info[:company]) %>',
              <% end %>
           ]
        },
@@ -43,7 +43,7 @@ $(document).ready(function() {
     <tbody>      
       <% @TopTen.each do |info| %>
       <tr>
-        <td><%= info[:company].name %></td>
+        <td><%= link_to info[:company].name, organization_path(info[:company]) %></td>
         <td><%= info[:total] %></td>
       </tr>
       <% end %>

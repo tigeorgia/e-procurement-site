@@ -13,8 +13,10 @@ module ScraperFile
     #delete all old data if we have a similar version of the data in the current set    
 
     #make the new dataset the live dataset
-    if not Dataset.find(@dataset.id-1)
+    if not Dataset.where( :id => @dataset.id-1).first
       #there is nothing to diff we are done
+      @dataset.is_live = true
+      @dataset.save
       return    
     end
     prevID = @dataset.id-1
@@ -243,14 +245,12 @@ module ScraperFile
           if count%100 == 0
             puts "agreement: #{count}"
           end
-          puts item["tenderID"]
           tender = Tender.where(["url_id = ? AND dataset_id = ?",item["tenderID"],@dataset.id]).first
           agreement.tender_id = tender.id
           agreement.amendment_number = item["AmendmentNumber"]
           agreement.documentation_url = item["documentUrl"]
           
           if agreement.documentation_url == "disqualifed" or agreement.documentation_url == "bidder refused agreement"
-            puts item["OrgUrl"]
             organization = Organization.where(["name = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id]).first
             agreement.organization_url = organization.organization_url
             agreement.organization_id = organization.id
@@ -267,20 +267,12 @@ module ScraperFile
               currency = string_arr[1]
             end
             agreement.currency = currency
-            begin
-              agreement.start_date = Date.parse(item["StartDate"])
-            rescue
-              agreement.start_date = nil         
-            end
-            begin
-              agreement.expiry_date = Date.parse(item["ExpiryDate"])
-            rescue
-              agreement.expiry_date = nil         
-            end
+            agreement.start_date = Date.parse(item["StartDate"])
+            agreement.expiry_date = Date.parse(item["ExpiryDate"])
+
 
             #The organisation that won this contract should have bid so it should have already been created
             #so lets check the organisation database and cross-reference the org-url to get the org-id
-            puts agreement.documentation_url
             organization = Organization.where(["organization_url = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id]).first
             if !organization
               #wtf where is the org?
@@ -314,8 +306,8 @@ module ScraperFile
           tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@dataset.id).first
           document.tender_id = tender.id
           document.document_url = item["documentUrl"]
-          if index%100 == 0
-            puts "document: #{index}"
+          if count%100 == 0
+            puts "document: #{count}"
           end
           if document.valid?
             document.save
@@ -384,16 +376,18 @@ module ScraperFile
           id = last.organization_url
           tenderValue = last.amount
           company = Organization.where(["dataset_id = ? AND organization_url = ?", liveDataSetID, id]).first
-          aggregateData = AggregateCpvRevenue.where(:cpv_code => classifier.cpv_code, :organization_id => company.id).first
-          if not aggregateData
-            aggregateData = AggregateCpvRevenue.new
-            aggregateData.organization_id = company.id
-            aggregateData.cpv_code = classifier.cpv_code
-            aggregateData.total_value = tenderValue
-          else
-            aggregateData.total_value = aggregateData.total_value + tenderValue
+          if company
+            aggregateData = AggregateCpvRevenue.where(:cpv_code => classifier.cpv_code, :organization_id => company.id).first
+            if not aggregateData
+              aggregateData = AggregateCpvRevenue.new
+              aggregateData.organization_id = company.id
+              aggregateData.cpv_code = classifier.cpv_code
+              aggregateData.total_value = tenderValue
+            else
+              aggregateData.total_value = aggregateData.total_value + tenderValue
+            end
+            aggregateData.save
           end
-          aggregateData.save
         end#if last
       end
     end
@@ -403,7 +397,7 @@ module ScraperFile
   def self.createUsers
 
     #NEEDS TO BE REMOVED LATER
-    myAdminAccount = User.find(1)
+    myAdminAccount = User.where(:id => 1).first
     if not myAdminAccount
       myAdminAccount = User.create!({:email => "chris@transparency.ge", :role => "admin", :password => "password84", :password_confirmation => "password84" })
       myAdminAccount.save
@@ -423,17 +417,19 @@ module ScraperFile
 
 
     #create risky special cpv group
-    risky = CpvGroup.new
-    risky.id = 2
-    risky.user_id = profileAccount.id
-    risky.name = "Risky"
-    risky.save
+    if not CpvGroup.where( :id => 2).first
+      risky = CpvGroup.new
+      risky.id = 2
+      risky.user_id = profileAccount.id
+      risky.name = "Risky"
+      risky.save
+    end
   end
 
   def self.generateRiskFactors
     #this is all done manually
 
-    holidayIndicator = CorruptionIndicator.find(1)
+    holidayIndicator = CorruptionIndicator.where(:id => 1).first
     if not holidayIndicator
       holidayIndicator = CorruptionIndicator.new
       holidayIndicator.name = "Holiday Procurement"
@@ -443,7 +439,7 @@ module ScraperFile
       holidayIndicator.save
     end
 
-    compeitionIndicator = CorruptionIndicator.find(2)
+    compeitionIndicator = CorruptionIndicator.where(:id => 2).first
     if not compeitionIndicator
       compeitionIndicator = CorruptionIndicator.new
       compeitionIndicator.name = "Low Competition"
@@ -453,7 +449,7 @@ module ScraperFile
       compeitionIndicator.save
     end
 
-    biddingIndicator = CorruptionIndicator.find(3)
+    biddingIndicator = CorruptionIndicator.where(:id => 3).first
     if not biddingIndicator
       biddingIndicator = CorruptionIndicator.new
       biddingIndicator.name = "Tame bidding exchange"
@@ -463,7 +459,7 @@ module ScraperFile
       biddingIndicator.save
     end
 
-    cpvRiskIndicator = CorruptionIndicator.find(4)
+    cpvRiskIndicator = CorruptionIndicator.where(:id => 4).first
     if not cpvRiskIndicator
       cpvRiskIndicator = CorruptionIndicator.new
       cpvRiskIndicator.name = "Risky Contract Type"
@@ -473,7 +469,7 @@ module ScraperFile
       cpvRiskIndicator.save
     end
 
-    majorPlayerIndicator = CorruptionIndicator.find(5)
+    majorPlayerIndicator = CorruptionIndicator.where(:id => 5).first
     if not majorPlayerIndicator
       majorPlayerIndicator = CorruptionIndicator.new
       majorPlayerIndicator.name = "Major players not competiting"
@@ -482,6 +478,10 @@ module ScraperFile
       majorPlayerIndicator.description = "Only one major player has been a bid on this contract"
       majorPlayerIndicator.save
     end
+
+
+    #remove old flags
+    TenderCorruptionFlag.delete_all
 
     puts "holiday"
     self.identifyHolidayPeriodTenders(holidayIndicator)   
@@ -631,6 +631,53 @@ module ScraperFile
   end
 
 
+  def self.sendTenderAlertMail
+    #go through all saved Tenders and alert users to changes
+    WatchTender.all.each do |watch_tender|
+      #get the latest version of this tender by looking up the URL
+      tender = Tender.where(:url_id => watch_tender.tender_url, :dataset_id => @dataset.id)
+      #rebuild hash
+      hash = tender.tender_type+
+       "#"+tender.tender_status+
+       "#"+tender.bid_start_date.to_s+
+       "#"+tender.bid_end_date.to_s+
+       "#"+tender.num_bids.to_s+
+       "#"+tender.estimate_value.to_s
+      if not hash == watch_tender.hash
+        #a change has been detected send an alert email
+        user = User.find(watch_tender.user_id)
+        AlertMailer.tender_alert(user).deliver
+      end
+    end
+  end
+
+  def self.sendSearchAlertMail
+    Search.all.each do |search|
+      #rerun search and see if we get a different result
+      fields = search.search_string.split("#")
+      queryData = {:cpvGroupID => fields[0],
+                   :datasetID => @dataset.id.to_s,
+                   :registration_number => fields[1],
+                   :tender_status => fields[2],
+                   :announced_after => fields[3],
+                   :announced_before => fields[4],
+                   :minVal => fields[6],
+                   :maxVal => fields[5],
+                   :min_bids => fields[7],
+                   :max_bids => fields[8],
+                   :min_bidders => fields[9],
+                   :max_bidders => fields[10],
+                  }
+    query = buildTenderSearchQuery(queryData)
+    newCount = Tender.where(query).count
+    if not newCount == search.count
+      #search count changed there must be new data
+      user = User.find(search.user_id)
+      AlertMailer.search_alert(user).deliver
+    end
+  end
+
+
 =begin	def self.createCPVTree
 
 		def countZeros( string )
@@ -744,6 +791,13 @@ module ScraperFile
     self.generateRiskFactors
   end
 
+  def self.generateAlerts
+    puts "sending tender watch alerts"
+    self.sendTenderAlertMail
+    puts "sending tender search alerts"
+    self.sendSearchAlertMail
+  end
+
   def self.processFullScrape
     #lets create a new dataset record
     @dataset = Dataset.new
@@ -756,9 +810,7 @@ module ScraperFile
     #for now diff only removes the old dataset once we are sure the scrape went smoothly
     #THIS NEED TO HAPPEN BEFORE WE DO AGGREGATE DATA ETC
     self.diffData
-
     self.generateMetaData
-  
   end
 
   def self.processIncrementalScrape
@@ -766,6 +818,7 @@ module ScraperFile
     @dataset = Dataset.last
     self.process
     self.generateMetaData
+    self.generateAlerts
   end
 
   def self.buildUserDataOnly

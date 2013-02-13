@@ -52,34 +52,22 @@ class TendersController < ApplicationController
     if cpvGroupID
       cpvGroup = CpvGroup.find(cpvGroupID)
     end
-    
-    query = "dataset_id = '" +liveDataSetID.to_s+"'"+
-            " AND tender_registration_number LIKE '"+reg_num+"'"+
-            " AND tender_status LIKE '"+translated_status+"'"+
-            " AND tender_announcement_date >= '"+startDate.to_s+"'"+
-            " AND tender_announcement_date <= '"+endDate.to_s+"'"+
-            " AND estimated_value >= '"+minVal+"'"+
-            " AND estimated_value <= '"+maxVal+"'"+
-            " AND num_bids >= '"+minBids+"'"+
-            " AND num_bids <= '"+maxBids+"'"+
-            " AND num_bidders >= '"+minBidders+"'"+
-            " AND num_bidders <= '"+maxBidders+"'"
 
-    if not cpvGroupID or cpvGroup.id == 1
-    else      
-      cpvCategories = cpvGroup.tender_cpv_classifiers
-      count = 1
-      cpvCategories.each do |category|
-        conjunction = " AND ("
-        if count > 1
-          conjunction = " OR"
-        end
-        query = query + conjunction+" cpv_code = "+category.cpv_code
-        count = count + 1
-      end
-      query = query + " )"
-    end
-    puts query
+    queryData = {:cpvGroupID => cpvGroupID.to_s,
+                 :datasetID => liveDataSetID.to_s,
+                 :registration_number => reg_num,
+                 :tender_status => translated_status,
+                 :announced_after => startDate.to_s,
+                 :announced_before => endDate.to_s,
+                 :minVal => minVal.to_s,
+                 :maxVal => maxVal.to_s,
+                 :min_bids => minBids,
+                 :max_bids => maxBids,
+                 :min_bidders => minBidders,
+                 :max_bidders => maxBidders,
+            }
+
+    query = buildTenderSearchQuery(queryData)
     resultTenders = Tender.where(query)
     @numResults = resultTenders.count
     @tenders = resultTenders.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
@@ -105,7 +93,11 @@ class TendersController < ApplicationController
         params[:announced_after] + delim +
         params[:announced_before] + delim +
         params[:max_estimate] + delim +
-        params[:min_estimate]
+        params[:min_estimate] + delim +
+        params[:min_num_bids] + delim +
+        params[:max_num_bids] + delim +
+        params[:min_num_bidders] + delim +
+        params[:max_num_bidders]
       results = Search.where( :user_id => current_user.id, :searchtype => @searchType, :search_string => @thisSearchString )
       if results.count > 0
         @searchIsSaved = true
@@ -117,6 +109,7 @@ class TendersController < ApplicationController
 
   def show
     @tender = Tender.find(params[:id])
+    @cpv = TenderCpvClassifier.where(:cpv_code => @tender.cpv_code).first
     @tenderUrl = @tender.url_id
     @isWatched = false
     if current_user

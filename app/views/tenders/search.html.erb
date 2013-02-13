@@ -45,8 +45,8 @@ Single Bid Percentage = <%= @numSingleBids/@numBidTenders %><br>
       <tr>
         <td><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
         <td><%= link_to procurer, :controller => "organizations", :action => "show_procurer", :id => tender.procurring_entity_id %></td>
-        <td><%= tender.tender_type %></td>
-        <td><%= tender.tender_status %></td>
+        <td><%= t(tender.tender_type) %></td>
+        <td><%= t(tender.tender_status) %></td>
         <td><%= tender.tender_announcement_date %></td>
         <td><%= tender.bid_start_date %></td>
         <td><%= tender.bid_end_date %></td>

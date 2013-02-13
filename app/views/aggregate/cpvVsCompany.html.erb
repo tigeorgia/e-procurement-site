@@ -43,7 +43,7 @@ $(document).ready(function() {
     <tbody>      
       <% @TopTen.each do |info| %>
       <tr>
-        <td><%= info[:company].name %></td>
+        <td><%= link_to info[:company].name, organization_path(info[:company]) %></td>
         <td><%= info[:total] %></td>
       </tr>
       <% end %>

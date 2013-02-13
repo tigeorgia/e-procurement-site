@@ -1,5 +1,16 @@
 # encoding: utf-8
 ka:
+  Proposals process started: წინადადებების მიღება დაწყებულია
+  The Winner revealed: გამარჯვებული გამოვლენილია
+  Completed negative result: დასრულებულია უარყოფითი შედეგით 
+  Preparation of contract: მიმდინარეობს ხელშეკრულების მომზადება
+  Bidding failed: ტენდერი არ შედგა
+  Tender announced: ტენდერი გამოცხადებულია
+  Tender terminated: ტენდერი შეწყვეტილია
+  Selection/Evaluation: შერჩევა/შეფასება
+  Completed proposals: წინადადებების მიღება დასრულებულია
+  Bids starting: წინადადებების მიღება დაწყებული
+  Agreement concluded: ხელშეკრულება დადებულია
   app:
     language:
       en: English

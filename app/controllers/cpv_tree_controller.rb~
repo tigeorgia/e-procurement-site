@@ -8,15 +8,52 @@ class CpvTreeController < ApplicationController
     end
   end
 
-  def showRiskyCPVs
+
+  def deleteCPVTree
+    cpvGroup = CpvGroup.find(params[:cpvGroup])
+    cpvGroup.destroy
+    
+
+    redirect_to :controller => :user, :action =>:index
+  end
+
+  def save_cpv_group
+    codes = params[:codes].split(",")
+    category = params[:category]
+    cpvGroup = CpvGroup.find(params[:cpvGroup])
+    cpvGroup.tender_cpv_classifiers.delete_all
+    
+    codes.each do |code|
+      cpv = TenderCpvClassifier.where( :cpv_code => code.to_i ).first
+      cpvGroup.tender_cpv_classifiers << cpv
+    end
+    cpvGroup.save
+
+    if params[:referrer] == 'admin'
+      redirect_to :controller => :admin, :action =>:manageCPVs
+    else
+      redirect_to :controller => :user, :action =>:index
+    end
+  end
+
+  def editCPVTree
     showCPVTree()
     
-    #get special cpv group and fill out selected items
-    #1 is all 2 is risky    
-    riskyGroup = CpvGroup.find(2)
-    riskyGroup.tender_cpv_classifiers.each do |cpv|
-      @checkedNodes = @checkedNodes +","+ cpv.code.to_s
+    group = nil
+    if params[:cpvGroup]
+      group = CpvGroup.find(params[:cpvGroup]) 
+    else
+      #get special cpv group and fill out selected items
+      #1 is all 2 is risky    
+      group = CpvGroup.find(2)
     end
+
+    group.tender_cpv_classifiers.each do |cpv|
+      @checkedNodes = @checkedNodes +","+ cpv.cpv_code.to_s
+    end
+    @cpvGroup = group.id
+    @cpvName = group.name
+    @referrer = params[:referrer]
   end
 
   def showCPVTree

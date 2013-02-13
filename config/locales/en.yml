@@ -11,8 +11,6 @@ ka:
   Completed proposals: წინადადებების მიღება დასრულებულია
   Bids starting: წინადადებების მიღება დაწყებული
   Agreement concluded: ხელშეკრულება დადებულია
-
-
 en:
   წინადადებების მიღება დაწყებულია: Proposals process started
   გამარჯვებული გამოვლენილია: The Winner revealed
@@ -25,6 +23,24 @@ en:
   წინადადებების მიღება დასრულებულია: Completed proposals
   წინადადებების მიღება დაწყებული: Bids starting
   ხელშეკრულება დადებულია: Agreement concluded
+  საჯარო სამართლის იურიდიული პირი (სსიპ): Legal entity
+  არასამეწარმეო არაკომერციული იურიდიული პირი (ააიპ): Non-profit legal entity (NNLS)
+  ადგილობრივი თვითმართველობის ორგანო: Local government body
+  ავტონომიური რესპუბლიკის ორგანო: Autonomous Republic body
+  სახელმწიფო ორგანო: State Authority
+  
+  შეზღუდული პასუხისმგებლობის საზოგადოება (შპს): Limited Liability Company (LLC)
+  ინდივიდუალური მეწარმე (ი/მ): Sole proprietor (I/M)
+  სოლიდარული პასუხისმგებლობის საზოგადოება (სპს): Solidary Liability Company (JLC)
+  სააქციო საზოგადოება (სს): Joint stock company (JSC)
+  სხვა: Other
+  ფიზიკური პირი (ფ/პ): Individual (W/O)
+  კომანდიტური საზოგადოება (კს): Limited Company (SP)
+
+  ტენდერის ტიპი: Tender type
+ 
+
+  საქართველო: Georgia
   app:
     language:
       en: English

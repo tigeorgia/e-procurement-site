@@ -1,13 +1,14 @@
 <% title "Account Page" %>
-
-
 <h2>Tenders You are watching</h2>
 
- <%= button_to "Test email", {:action => "sendAlert", :user_id => @userID}, :remote => true %>
+ <%if false%>
+  <%= button_to "Test email", {:action => "sendAlert", :user_id => @userID}, :remote => true %>
+ <%end%>
 
 <table class="table table-striped">
   <thead>
     <tr>
+      <th></th>
       <th>name</th>
       <th>type</th>
       <th>status</th>
@@ -17,6 +18,7 @@
   <tbody>
     <% @tenders.each do |tender| %>
       <tr>
+        <td><%= button_to "Unsubcribe", {:action => "unsubscribe_tender", :tender_url => tender.url_id, :user_id => @userID}, :remote => true %></td>
         <td><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
         <td><%= tender.tender_type %></td>
         <td><%= tender.tender_status %></td>
@@ -48,33 +50,4 @@
 </table>
 
 <h2>Your CPV groups</h2>
-
-<div class="AddCPVGroup">
-  <%= render "user/cpv_create_button" %>
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>name</th>
-      <th>date saved</th>
-      <th>cpv codes</th>
-      <th>cpv description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @cpvGroups.each do |cpvGroup| %>
-      <tr>
-        <td><%= cpvGroup.name %></td>
-        <td><%= cpvGroup.created_at %></td>
-      </tr>
-      <% cpvGroup.tender_cpv_classifiers.each do |classifier| %>
-        <tr>
-          <td></td>
-          <td></td>
-          <td><%= classifier.cpv_code %></td>
-          <td><%= classifier.description %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<%= render :partial => "user/cpvGroups", :locals => {:cpvGroups => @cpvGroups, :referrer => "user"} %>

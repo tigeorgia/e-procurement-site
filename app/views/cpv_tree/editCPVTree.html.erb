@@ -1,7 +1,7 @@
 <%= javascript_include_tag "cpvTree" %>
 
-<%= form_tag( { :controller => :admin, :action => "save_risky_group", :user_id => @userID }, {:id => "saveTree"} ) do %>
-  <%= label_tag(:category, "Risky Codes") %>
+<%= form_tag( { :controller => :cpv_tree, :action => "save_cpv_group", :user_id => @userID, :cpvGroup => @cpvGroup, :referrer => @referrer}, {:id => "saveTree"} ) do %>
+  <%= label_tag(:category, @cpvName) %>
   <%= hidden_field_tag(:codes, @checkedNodes) %>
   <%= submit_tag("Save Category") %>
 <% end %>

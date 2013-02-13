@@ -4,4 +4,8 @@ class AlertMailer < ActionMailer::Base
   def search_alert(user)
     mail(:to => user.email, :subject => "New Search Updates")
   end
+
+  def tender_alert(user)
+    mail(:to => user.email, :subject => "New Tender Updates")
+  end
 end

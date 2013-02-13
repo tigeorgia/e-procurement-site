@@ -2,8 +2,6 @@
 
   <% if current_user.role? :admin %>
    <div class="span4">
-
-
     <h2><%= t('.users_header')%></h3>
     <ul class="standard">
       <li>
@@ -14,8 +12,8 @@
       </li>
     </ul>
     <br>
-    <%= button_to "manage CPV Categories", {:action => "manageCPVs"} %>
+    <%= button_to "manage global CPV Categories", {:action => "manageCPVs"} %>
     <br>
-    <%= button_to "Manage risky cpv codes", {:action => "showRiskyCPVs", :user_id => @userID} %>
+    <%= button_to "Manage risky cpv codes", {:controller => "cpv_tree", :action => "editCPVTree", :user_id => @userID} %>
   </div>
   <% end %>

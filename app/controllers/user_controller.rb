@@ -41,6 +41,16 @@ class UserController < ApplicationController
     watch_item = WatchTender.new
     watch_item.tender_url = params[:tender_url]
     watch_item.user_id = params[:user_id]
+
+    #generate a hash of tender info so we know if this gets updated
+    tender = Tender.find(params[:tender_id])   
+    hash = tender.tender_type+
+         "#"+tender.tender_status+
+         "#"+tender.bid_start_date.to_s+
+         "#"+tender.bid_end_date.to_s+
+         "#"+num_bids.to_s+
+         "#"+estimate_value.to_s
+    watch_item.hash = hash
     watch_item.save
   end
 
@@ -61,7 +71,11 @@ class UserController < ApplicationController
       :announced_after => fields[3],
       :announced_before => fields[4],
       :max_estimate => fields[5],
-      :min_estimate => fields[6]
+      :min_estimate => fields[6],
+      :min_num_bids => fields[7],
+      :max_num_bids => fields[8],
+      :min_num_bidders => fields[9],
+      :max_num_bidders => fields[10]
     end
   end
 
