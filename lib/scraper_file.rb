@@ -668,12 +668,13 @@ module ScraperFile
                    :min_bidders => fields[9],
                    :max_bidders => fields[10],
                   }
-    query = buildTenderSearchQuery(queryData)
-    newCount = Tender.where(query).count
-    if not newCount == search.count
-      #search count changed there must be new data
-      user = User.find(search.user_id)
-      AlertMailer.search_alert(user).deliver
+      query = buildTenderSearchQuery(queryData)
+      newCount = Tender.where(query).count
+      if not newCount == search.count
+        #search count changed there must be new data
+        user = User.find(search.user_id)
+        AlertMailer.search_alert(user).deliver
+      end
     end
   end
 

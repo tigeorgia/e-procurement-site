@@ -1,5 +1,5 @@
 class TendersController < ApplicationController
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_column, :sort_direction, :buildTenderSearchQuery
   def search
     @params = params
     liveDataSetID = Dataset.where(:is_live => true).first.id
@@ -170,6 +170,38 @@ class TendersController < ApplicationController
 
   def sort_direction
     params[:direction] || "asc"
+  end
+
+  def buildTenderSearchQuery(params)
+    #all params should already be in string format
+    query = "dataset_id = '" +params[:datasetID]+"'"+
+        " AND tender_registration_number LIKE '"+params[:registration_number]+"'"+
+        " AND tender_status LIKE '"+params[:tender_status]+"'"+
+        " AND tender_announcement_date >= '"+params[:announced_after]+"'"+
+        " AND tender_announcement_date <= '"+params[:announced_before]+"'"+
+        " AND estimated_value >= '"+params[:minVal]+"'"+
+        " AND estimated_value <= '"+params[:maxVal]+"'"+
+        " AND num_bids >= '"+params[:min_bids]+"'"+
+        " AND num_bids <= '"+params[:max_bids]+"'"+
+        " AND num_bidders >= '"+params[:min_bidders]+"'"+
+        " AND num_bidders <= '"+params[:max_bidders]+"'"
+
+    cpvGroup = CpvGroup.where(:id => params[:cpvGroupID]).first
+    if not cpvGroup or cpvGroup.id == 1
+    else      
+      cpvCategories = cpvGroup.tender_cpv_classifiers
+      count = 1
+      cpvCategories.each do |category|
+        conjunction = " AND ("
+        if count > 1
+          conjunction = " OR"
+        end
+        query = query + conjunction+" cpv_code = "+category.cpv_code
+        count = count + 1
+      end
+      query = query + " )"
+    end
+    return query
   end
 
 end
