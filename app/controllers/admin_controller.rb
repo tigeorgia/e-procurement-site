@@ -15,7 +15,13 @@ class AdminController < ApplicationController
   def manageCPVs
     profileAccount = User.where(:role => "profile").first
     @userID = profileAccount.id
-    @cpvGroups = profileAccount.cpvGroups 
+    @cpvGroups = []
+    groups = profileAccount.cpvGroups
+    groups.each do |group|
+      if group.id > 2
+        @cpvGroups.push(group)
+      end
+    end
   end
 
 end

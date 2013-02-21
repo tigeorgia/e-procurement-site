@@ -1,5 +1,8 @@
 $(function () {
-  $(".search_serialization").html("<%= escape_javascript( render partial => "user/save_form" ) %>");
+  $(".search_serialization").html("<%= escape_javascript( render :partial => "user/save_form" ) %>");
   return false;
 });
+
+
+
 

@@ -19,6 +19,11 @@
   margin-top: 30px;
 }
 
+h2 {
+  height: 100%;
+	font-size: 18px;
+}
+
 .tender-box {
   width: 27%;
   padding: 5px;
@@ -82,32 +87,40 @@
   font-size: .8em;
 }
 
-.dataTable label {
+
+div.dataTables_length label {
     width: 460px;
     float: left;
     text-align: left;
 }
  
-.dataTable select {
+div.dataTables_length select {
     width: 75px;
 }
  
-.dataTable label {
+div.dataTables_filter label {
     float: right;
     width: 460px;
 }
  
-.dataTable {
+div.dataTables_info {
     padding-top: 8px;
 }
  
-.dataTables_paginate {
+div.dataTables_paginate {
     float: right;
     margin: 0;
 }
  
 table {
-    margin: 1em 0;
+    margin: 3em 0;
     clear: both;
+    text-align: center;
+    font-size: 15px;
 }
 
+table, td, th
+{
+  padding:10px;
+  vertical-align:center;
+}

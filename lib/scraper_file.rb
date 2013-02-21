@@ -6,6 +6,7 @@ module ScraperFile
   FILE_TENDER_AGREEMENTS = "tenderAgreements.json"
   FILE_TENDER_DOCUMENTS = "tenderDocumentation.json"
   require 'csv'
+  require "query_helpers"
   
 
   def self.diffData
@@ -256,7 +257,11 @@ module ScraperFile
             agreement.organization_id = organization.id
             agreement.amount = -1
             agreement.currency ="NULL"
-            agreement.start_date = Date.parse(item["StartDate"])
+            begin
+              agreement.start_date = Date.parse(item["StartDate"])
+            rescue
+              agreement.state_date = "NULL"
+            end
             agreement.expiry_date = "NULL"
           else
             agreement.organization_url = item["OrgUrl"]
@@ -267,9 +272,16 @@ module ScraperFile
               currency = string_arr[1]
             end
             agreement.currency = currency
-            agreement.start_date = Date.parse(item["StartDate"])
-            agreement.expiry_date = Date.parse(item["ExpiryDate"])
-
+            begin
+              agreement.start_date = Date.parse(item["StartDate"])
+            rescue
+              agreement.state_date = "NULL"
+            end
+            begin
+              agreement.expiry_date = Date.parse(item["ExpiryDate"])
+            rescue
+              agreement.expiry_date = "NULL"
+            end
 
             #The organisation that won this contract should have bid so it should have already been created
             #so lets check the organisation database and cross-reference the org-url to get the org-id
@@ -479,10 +491,20 @@ module ScraperFile
       majorPlayerIndicator.save
     end
 
+    @totalIndicator = CorruptionIndicator.where(:id => 100).first
+    if not @totalIndicator
+      @totalIndicator = CorruptionIndicator.new
+      @totalIndicator.name = "Total risk score"
+      @totalIndicator.id = 100
+      @totalIndicator.weight = 0
+      @totalIndicator.description = "This is the total risk assessement score for this tender"
+      @totalIndicator.save
+    end
+
 
     #remove old flags
     TenderCorruptionFlag.delete_all
-
+    
     puts "holiday"
     self.identifyHolidayPeriodTenders(holidayIndicator)   
     puts "competition"
@@ -493,6 +515,21 @@ module ScraperFile
     self.identifyRiskyCPVCodes(cpvRiskIndicator)
     puts "Major players"
     self.majorPlayerCompetitionAssessment(majorPlayerIndicator)
+  end
+
+  def self.addToRiskTotal( tender, val )
+    totalScore = TenderCorruptionFlag.where(:corruption_indicator_id => 100,:tender_id => tender.id ).first
+    if not totalScore
+      puts "making"
+      totalScore = TenderCorruptionFlag.new
+      totalScore.tender_id = tender.id
+      totalScore.corruption_indicator_id = @totalIndicator.id
+      totalScore.value = val
+    else
+      puts "adding"
+      totalScore.value = totalScore.value + val
+    end
+    totalScore.save
   end
 
   def self.identifyHolidayPeriodTenders(indicator)
@@ -515,6 +552,7 @@ module ScraperFile
       corruptionFlag.corruption_indicator_id = indicator.id
       corruptionFlag.value = 1 # maybe certain dates within this are even worse?
       corruptionFlag.save
+      self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
     end
   end
   
@@ -525,6 +563,7 @@ module ScraperFile
       corruptionFlag.corruption_indicator_id = indicator.id
       corruptionFlag.value = 1
       corruptionFlag.save
+      self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
     end
   end
 
@@ -548,6 +587,7 @@ module ScraperFile
           corruptionFlag.corruption_indicator_id = indicator.id
           corruptionFlag.value = 1 #could have more for %1 and %0.5 etc
           corruptionFlag.save
+          self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
         end
       end
     end
@@ -570,6 +610,7 @@ module ScraperFile
         corruptionFlag.corruption_indicator_id = indicator.id
         corruptionFlag.value = 1 #perhaps we could add different values for different codes
         corruptionFlag.save
+        self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
       end
     end
   end
@@ -638,18 +679,18 @@ module ScraperFile
     #go through all saved Tenders and alert users to changes
     WatchTender.all.each do |watch_tender|
       #get the latest version of this tender by looking up the URL
-      tender = Tender.where(:url_id => watch_tender.tender_url, :dataset_id => @dataset.id)
+      tender = Tender.where(:url_id => watch_tender.tender_url, :dataset_id => @dataset.id).first
       #rebuild hash
       hash = tender.tender_type+
        "#"+tender.tender_status+
        "#"+tender.bid_start_date.to_s+
        "#"+tender.bid_end_date.to_s+
        "#"+tender.num_bids.to_s+
-       "#"+tender.estimate_value.to_s
+       "#"+tender.estimated_value.to_s
       if not hash == watch_tender.hash
         #a change has been detected send an alert email
         user = User.find(watch_tender.user_id)
-        AlertMailer.tender_alert(user).deliver
+        AlertMailer.tender_alert(user, tender).deliver
       end
     end
   end
@@ -657,26 +698,13 @@ module ScraperFile
   def self.sendSearchAlertMail
     Search.all.each do |search|
       #rerun search and see if we get a different result
-      fields = search.search_string.split("#")
-      queryData = {:cpvGroupID => fields[0],
-                   :datasetID => @dataset.id.to_s,
-                   :registration_number => fields[1],
-                   :tender_status => fields[2],
-                   :announced_after => fields[3],
-                   :announced_before => fields[4],
-                   :minVal => fields[6],
-                   :maxVal => fields[5],
-                   :min_bids => fields[7],
-                   :max_bids => fields[8],
-                   :min_bidders => fields[9],
-                   :max_bidders => fields[10],
-                  }
-      query = buildTenderSearchQuery(queryData)
+      queryData = QueryHelper.buildSearchParamsFromString(search.search_string)
+      query = QueryHelper.buildTenderSearchQuery(queryData)
       newCount = Tender.where(query).count
       if not newCount == search.count
         #search count changed there must be new data
         user = User.find(search.user_id)
-        AlertMailer.search_alert(user).deliver
+        AlertMailer.search_alert(user, search).deliver
       end
     end
   end
@@ -784,13 +812,13 @@ module ScraperFile
 
   def self.generateMetaData
     puts "generate cpv codes"
-    self.createCPVCodes
+    #self.createCPVCodes
     puts "setting up users"
-    self.createUsers
+    #self.createUsers
     puts "generating aggregate data"
-    self.processAggregateData
+    #self.processAggregateData
     puts "finding competitors"
-    self.findCompetitors
+    #self.findCompetitors
     puts "finding corruption"
     self.generateRiskFactors
   end
@@ -803,6 +831,7 @@ module ScraperFile
   end
 
   def self.processFullScrape
+    #wipe old data
     #lets create a new dataset record
     @dataset = Dataset.new
     #this won't be live until we do our diff
@@ -820,9 +849,9 @@ module ScraperFile
   def self.processIncrementalScrape
     #get current dataset
     @dataset = Dataset.last
-    self.process
+    #self.process
     self.generateMetaData
-    self.generateAlerts
+    #self.generateAlerts
   end
 
   def self.buildUserDataOnly

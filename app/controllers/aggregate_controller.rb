@@ -1,58 +1,29 @@
 class AggregateController < ApplicationController
   def cpvVsCompany
-=begin
-    sqlString = ""
-    cpvGroup.tender_cpv_classifiers.each do |classifier|
-      sqlString = sqlString + " cpv_code = " + classifier.cpv_code + " OR"
-    end
-    #remove last OR
-    sqlString = sqlString[0..-3]
-      
-    tenders = Tender.where(sqlString)
-    
-    companies = {}
-    tenders.each do |tender|
-      tenderValue = 0
-      last = nil
-      tender.agreements.each do |agreement|
-      #find lastest agreement
-        if not last or agreement.amendment_number > last.amendment_number
-          last = agreement
-        end
-      end # for each agreement
-      if last
-        liveDataSetID = Dataset.where(:is_live => true).first.id
-        id = last.organization_url
-        tenderValue = last.amount
-        company = Organization.where(["dataset_id = ? AND organization_url = ?", liveDataSetID, id]).first
-        companyData = companies[company.organization_url]
-        if not companyData
-          companies[company.organization_url] = { :total => 0, :company => company}
-        else
-          companyData[:total] = companyData[:total] + tenderValue  
-          companies[company.organization_url] = companyData
-        end
-      end
-    end# for all tenders   
-=end 
     companies = {}
     cpvGroup = CpvGroup.find(params[:cpvGroup])
     classifiers = cpvGroup.tender_cpv_classifiers
+    cpvAggregates = nil
+    sqlString = ''
     #change this to look at cpv type
     if cpvGroup.id == 1
-      classifiers = TenderCpvClassifier.all
+      cpvAggregates = AggregateCpvRevenue.all
+    else
+      classifiers.each do |classifier|
+        sqlString += "cpv_code = "+classifier.cpv_code.to_s+ " OR "
+      end
+      sqlString = sqlString[0..-4]
     end
-    classifiers.each do |classifier|
-      cpvAggregates = AggregateCpvRevenue.where(:cpv_code => classifier.cpv_code)
-      cpvAggregates.each do |companyAggregate|
-        companyData = companies[companyAggregate.organization_id]
-        company = Organization.find(companyAggregate.organization_id)
-        if not companyData
-          companies[companyAggregate.organization_id] = { :total => companyAggregate.total_value, :company => company }
-        else
-          companyData[:total] = companyData[:total] + companyAggregate.total_value  
-          companies[companyAggregate.organization_id] = companyData
-        end
+    cpvAggregates = AggregateCpvRevenue.where(sqlString)
+
+    cpvAggregates.each do |companyAggregate|
+      companyData = companies[companyAggregate.organization_id]
+      company = Organization.find(companyAggregate.organization_id)
+      if not companyData
+        companies[companyAggregate.organization_id] = { :total => companyAggregate.total_value, :company => company }
+      else
+        companyData[:total] = companyData[:total] + companyAggregate.total_value  
+        companies[companyAggregate.organization_id] = companyData
       end
     end
 

@@ -1,0 +1,4 @@
+$(function () {
+  $(".tender_subscription").html("<%= escape_javascript( button_to "Remove from Profile", {:controller => :user, :action => "remove_tender_watch", :tender_url => @tenderUrl, :user_id => current_user.id}, :remote => true) %>");
+  return false;
+});

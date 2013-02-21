@@ -1,0 +1,6 @@
+<% title "Procurement Analysis" %>
+
+<%= button_to "Find Risky Tenders", { :action => "search", :criteria => "all"}, :remote => true %>
+
+<div id="results">
+</div>

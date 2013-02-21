@@ -1,2 +1,2 @@
-<h1>Global CPV categories</h1>
+<h2>Global CPV categories</h2>
 <%= render :partial => "user/cpvGroups", :locals => {:cpvGroups => @cpvGroups, :referrer => "admin"}%>

@@ -1,9 +1,4 @@
-<% button_html =  <%= form_tag( {:controller => :user, :action => "save_search",:search_string => @thisSearchString, :user_id => current_user.id}, :remote => true) do %>
-        <%= label_tag(:name, "Search Name:") %>
-        <%= text_field_tag(:name) %>
-        <%= submit_tag("save search") %>
-       <% end %> %>
 $(function () {
-  $(".tender_subscription").html("<%= escape_javascript( button_html ) %>");
+  $("<%= "#"+@buttonID %>").html("<%= escape_javascript( button_to "Subscribe", {:action => "subscribe_tender", :tender_watch_id => @tender_watch_id, :buttonID => @buttonID}, :remote => true ) %>");
   return false;
 });

@@ -1,0 +1,31 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Email Alerts</th>
+      <th>name</th>
+      <th>type</th>
+      <th>status</th>
+      <th>estimated value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% count = 0>
+    <% watched_tenders.each do |watch_tender| %>
+      <% count = count + 1 %>
+      <% buttonID = "button_"+count.to_s %>
+      <tr>
+        <% if watch_tender.email_alert %>
+          <td <%= "id = "+buttonID %> ><%= button_to "Unsubscribe", {:action => "unsubscribe_tender", :tender_watch_id => watch_tender.id,}, :remote => true %></td>
+        <% else %>
+          <td <%= "id = "+buttonID %> ><%= button_to "Subscribe", {:action => "subscribe_tender", :tender_watch_id => watch_tender.id}, :remote => true %></td>
+        <% end %>
+        <% tender = Tender.where(:url_id => watch_tender.tender_url, :dataset_id => liveDataSetID).first %>
+        <td><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
+        <td><%= t(tender.tender_type) %></td>
+        <td><%= t(tender.tender_status) %></td>
+        <td><%= tender.estimated_value %></td>
+        <td><%= button_to "delete", {:action => "remove_tender_watch", :tender_url => tender.url_id}, :remote => true %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,3 +1,26 @@
+.bidwinner
+{
+    background-color: #12E254!important;
+}
+
+
+.info-horizontal dd {
+    padding: 3;
+    margin-left: 230px;
+}
+
+.info-horizontal dt {
+    padding: 3;
+    float: left;
+    width: 220px;
+    clear: left;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
 #top-row {
   margin-bottom: 20px;
 }
@@ -17,6 +40,11 @@
 
 #mid-row {
   margin-top: 30px;
+}
+
+h2 {
+  height: 100%;
+	font-size: 18px;
 }
 
 .tender-box {
@@ -83,3 +111,39 @@
 }
 
 
+div.dataTables_length label {
+    width: 460px;
+    float: left;
+    text-align: left;
+}
+ 
+div.dataTables_length select {
+    width: 75px;
+}
+ 
+div.dataTables_filter label {
+    float: right;
+    width: 460px;
+}
+ 
+div.dataTables_info {
+    padding-top: 8px;
+}
+ 
+div.dataTables_paginate {
+    float: right;
+    margin: 0;
+}
+ 
+table {
+    margin: 3em 0;
+    clear: both;
+    text-align: center;
+    font-size: 15px;
+}
+
+table, td, th
+{
+  padding:10px;
+  vertical-align:center;
+}

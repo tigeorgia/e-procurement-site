@@ -1,0 +1,2 @@
+<p>A Tender you are watching has been updated</p>
+<p><%= link_to @tender.tender_registration_number, tender_path(@tender)  %></p>

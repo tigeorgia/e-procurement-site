@@ -1,5 +1,5 @@
 <% title "Account Page" %>
-<h2>Tenders You are watching</h2>
+<h1>Tenders You are watching</h1>
 
  <%if false%>
   <%= button_to "Test email", {:action => "sendAlert", :user_id => @userID}, :remote => true %>
@@ -8,7 +8,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th></th>
+      <th>Email Alerts</th>
       <th>name</th>
       <th>type</th>
       <th>status</th>
@@ -16,13 +16,23 @@
     </tr>
   </thead>
   <tbody>
-    <% @tenders.each do |tender| %>
+    <% count = 0 %>
+    <% @watched_tenders.each do |watch_tender| %>
+      <% count = count + 1 %>
+      <% buttonID = "tender_watch_button_"+count.to_s %>
       <tr>
-        <td><%= button_to "Unsubcribe", {:action => "unsubscribe_tender", :tender_url => tender.url_id, :user_id => @userID}, :remote => true %></td>
+        <% if watch_tender.email_alert %>
+          <td><div <%= "id = "+buttonID %> ><%= button_to "Unsubscribe", {:action => "unsubscribe_tender", :tender_watch_id => watch_tender.id, :buttonID => buttonID}, :remote => true %></div></td>
+        <% else %>
+          <td><div <%= "id = "+buttonID %> ><%= button_to "Subscribe", {:action => "subscribe_tender", :tender_watch_id => watch_tender.id, :buttonID => buttonID}, :remote => true %></div></td>
+        <% end %>
+        <% tender = Tender.where(:url_id => watch_tender.tender_url, :dataset_id => @liveDataSetID).first %>
         <td><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
-        <td><%= tender.tender_type %></td>
-        <td><%= tender.tender_status %></td>
+        <td><%= t(tender.tender_type) %></td>
+        <td><%= t(tender.tender_status) %></td>
         <td><%= tender.estimated_value %></td>
+        <td><%= button_to "delete", {:action => "remove_tender_watch_from_account", :tender_url => tender.url_id} %></td>
+          <td><%= button_to "test_alert", {:action => "sendTenderAlert", :tender_id => tender.id}, :remote => true %></td> 
       </tr>
     <% end %>
   </tbody>
@@ -33,17 +43,27 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>name</th>
-      <th>type</th>
-      <th>date saved</th>
+      <th>Email Alerts</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Date saved</th>
     </tr>
   </thead>
   <tbody>
     <% @savedSearches.each do |search| %>
+      <% count = count + 1 %>
+      <% buttonID = "tender_watch_button_"+count.to_s %>
       <tr>
+        <% if search.email_alert %>
+          <td><div id="<%= buttonID %>"> <%= button_to "Unsubscribe", {:action => "unsubscribe_search", :search_id => search.id, :buttonID => buttonID}, :remote => true %></div></td>
+        <% else %>
+          <td><div id="<%= buttonID %>"> <%= button_to "Subscribe", {:action => "subscribe_search", :search_id => search.id, :buttonID => buttonID}, :remote => true %></div></td>
+        <% end %>
         <td><%= link_to search.name, :action => "rebuild_search", :searchtype => search.searchtype, :searchString => search.search_string %></td>
         <td><%= search.searchtype %></td>
         <td><%= search.created_at %></td>
+        <td><%= button_to "delete", {:action => "remove_search_from_account", :search_id => search.id} %></td>
+          <td><%= button_to "test_alert",{:action => "sendAlert", :search_id => search.id}, :remote => true %></td> 
       </tr>
     <% end %>
   </tbody>

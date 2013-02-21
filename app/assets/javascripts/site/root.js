@@ -4,7 +4,7 @@ $(function() {
 
 initDatePickers = function ()
 {
-  $('.dp2').datepicker();
+  $('.dp2').datepicker({ format: "yyyy/mm/dd"});
 }
 
 

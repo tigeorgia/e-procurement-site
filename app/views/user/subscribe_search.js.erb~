@@ -1,0 +1,4 @@
+$(function () {
+  $("<%= "#"+@buttonID %>").html("<%= escape_javascript( button_to "Unsubscribe", {:action => "unsubscribe_search", :search_id => @search.id, :buttonID => @buttonID}, :remote => true) %>");
+  return false;
+});

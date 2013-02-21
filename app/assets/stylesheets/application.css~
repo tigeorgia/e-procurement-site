@@ -261,7 +261,8 @@ div.dataTables_paginate {
 }
  
 table {
-    margin: 10em 0;
+    margin: 1em 0;
     clear: both;
     text-align: center;
+    font-size: 20px;
 }

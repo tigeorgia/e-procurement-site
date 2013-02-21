@@ -6,25 +6,15 @@
     <tr>
       <th>name</th>
       <th>date saved</th>
-      <th>cpv codes</th>
-      <th>cpv description</th>
-    </tr>
   </thead>
   <tbody>
     <% cpvGroups.each do |cpvGroup| %>
       <tr>
         <td><%= cpvGroup.name %></td>
-        <td><%= cpvGroup.created_at %> <%= render :partial => "user/cpv_edit_remove", :locals => {:cpvGroup => cpvGroup, :referrer => referrer} %></td>
+        <td><%= cpvGroup.created_at %></td>
+        <td><%= button_to "Edit Category", {:controller => "cpv_tree", :action => "editCPVTree", :cpvGroup => cpvGroup, :user_id => @userID, :referrer => referrer} %></td>
+        <td><%= button_to "Remove Category", {:controller => "cpv_tree", :action => "deleteCPVTree", :cpvGroup => cpvGroup, :user_id => @userID, :referrer => referrer} %></td>
       </tr>
-
-      <% cpvGroup.tender_cpv_classifiers.each do |classifier| %>
-        <tr>
-          <td></td>
-          <td></td>
-          <td><%= classifier.cpv_code %></td>
-          <td><%= classifier.description %></td>
-        </tr>
-      <% end %>
     <% end %>
   </tbody>
 </table>
