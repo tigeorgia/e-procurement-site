@@ -61,7 +61,7 @@ end
 class AnalysisController < ApplicationController
 
   def index 
-    tenders = Tender.where( "tender_announcement_date >= '2012-01-01' AND tender_announcement_date <= '2012-12-31'")
+    tenders = Tender.where( "tender_announcement_date >= '2013-01-01' AND tender_announcement_date <= '2013-12-31'")
     @total = TenderTypeStat.new("total")
     @simple_electronic = TenderTypeStat.new('Simple Electronic Tender')
     @electronic = TenderTypeStat.new('Electronic Tender')
@@ -69,11 +69,11 @@ class AnalysisController < ApplicationController
     @consolidated = TenderTypeStat.new('Consolidated Tender')
 
     tenders.each do |tender|
-      if tender.tender_type == "ელექტრონული ტენდერი"
-       @electronic.addStats(tender)
-      elsif tender.tender_type == "გამარტივებული ელექტრონული ტენდერი"
+      if tender.tender_type.strip() == "ელექტრონული ტენდერი"
+        @electronic.addStats(tender)
+      elsif tender.tender_type.strip() == "გამარტივებული ელექტრონული ტენდერი"
         @simple_electronic.addStats(tender)
-      elsif tender.tender_type == "კონსოლიდირებული ტენდერი"
+      elsif tender.tender_type.strip() == "კონსოლიდირებული ტენდერი"
         @consolidated.addStats(tender)
       else
         @procedure.addStats(tender)
