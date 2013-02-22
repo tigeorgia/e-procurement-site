@@ -12,8 +12,8 @@ class TenderTypeStat
   def addStats(tender)
     @count = @count + 1
     @value = @value + tender.estimated_value
-    @averageBidDuration += (tender.bid_end_date - tender.bid_start_date).to_i
-    @averageWarningPeriod += (tender.bid_start_date - tender.tender_announcement_date).to_i
+    @averageBidDuration += (tender.bid_end_date - tender.bid_start_date).to_f
+    @averageWarningPeriod += (tender.bid_start_date - tender.tender_announcement_date).to_f
   end
   def calcAverages()
     if @averageBidDuration > 0 
@@ -65,32 +65,22 @@ class AnalysisController < ApplicationController
     @total = TenderTypeStat.new("total")
     @simple_electronic = TenderTypeStat.new('Simple Electronic Tender')
     @electronic = TenderTypeStat.new('Electronic Tender')
-    @procedure = TenderTypeStat.new('Electronic procurement procedure')
-    @consolidated = TenderTypeStat.new('Consolidated Tender')
 
     tenders.each do |tender|
       if tender.tender_type.strip() == "ელექტრონული ტენდერი"
         @electronic.addStats(tender)
       elsif tender.tender_type.strip() == "გამარტივებული ელექტრონული ტენდერი"
         @simple_electronic.addStats(tender)
-      elsif tender.tender_type.strip() == "კონსოლიდირებული ტენდერი"
-        @consolidated.addStats(tender)
-      else
-        @procedure.addStats(tender)
       end
       @total.addStats(tender)
     end
     @total.calcAverages()
     @simple_electronic.calcAverages()
     @electronic.calcAverages()
-    @procedure.calcAverages()
-    @consolidated.calcAverages()
 
     @data = []
     @data.push(@simple_electronic)
     @data.push(@electronic)
-    @data.push(@procedure)
-    @data.push(@consolidated)
   end
 
 end
