@@ -812,13 +812,13 @@ module ScraperFile
 
   def self.generateMetaData
     puts "generate cpv codes"
-    #self.createCPVCodes
+    self.createCPVCodes
     puts "setting up users"
-    #self.createUsers
+    self.createUsers
     puts "generating aggregate data"
-    #self.processAggregateData
+    self.processAggregateData
     puts "finding competitors"
-    #self.findCompetitors
+    self.findCompetitors
     puts "finding corruption"
     self.generateRiskFactors
   end
@@ -849,9 +849,12 @@ module ScraperFile
   def self.processIncrementalScrape
     #get current dataset
     @dataset = Dataset.last
-    #self.process
+    AlertMailer.data_process_started().deliver
+    self.process
+    AlertMailer.meta_started().deliver
     self.generateMetaData
-    #self.generateAlerts
+    self.generateAlerts
+    AlertMailer.data_process_finished().deliver
   end
 
   def self.buildUserDataOnly
