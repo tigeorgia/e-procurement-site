@@ -260,7 +260,7 @@ module ScraperFile
             begin
               agreement.start_date = Date.parse(item["StartDate"])
             rescue
-              agreement.state_date = "NULL"
+              agreement.start_date = "NULL"
             end
             agreement.expiry_date = "NULL"
           else
@@ -275,7 +275,7 @@ module ScraperFile
             begin
               agreement.start_date = Date.parse(item["StartDate"])
             rescue
-              agreement.state_date = "NULL"
+              agreement.start_date = "NULL"
             end
             begin
               agreement.expiry_date = Date.parse(item["ExpiryDate"])
