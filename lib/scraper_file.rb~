@@ -127,7 +127,28 @@ module ScraperFile
             end
           end
           if tender.valid?
+            #is there an old tender with this url?
+            oldTender = Tender.where(:url_id => tender.url_id).first
+            if oldTender
+              watch_tender = WatchTender.where(:tender_url => tender.url_id).first
+              if watch_tender
+                differences = oldTender.findTenderDifferences(tender)
+                if differences.length > 0
+                  #store changed fields in hash
+                  hash = ""
+                  differences.each do |difference|
+                    hash += difference + "#"
+                  end
+                  watch_tender.hash = hash
+                  watch_tender.has_updated = true
+                end
+              end
+            end
             tender.save
+            @newTenders.push(tender)
+            if oldTender
+              oldTender.destroy
+            end
           else
 		        raise ActiveRecord::Rollback
 		        break
@@ -341,16 +362,13 @@ module ScraperFile
     #change this to make a full list via scraped data
     tenders = Tender.find(:all, :select =>'distinct cpv_code')
     TenderCpvClassifier.transaction do
-      TenderCpvClassifier.delete_all
       tenders.each do |tender|
-        code = TenderCpvClassifier.new
         if tender.cpv_code
-          data = tender.cpv_code.split("-")        
-          code.cpv_code = data[0]
-          code.description = data[1]
-          oldEntries = 0
-          if oldEntries < 1
-            #no point searching for english translation if it already exists so do it now
+          oldCode = TenderCpvClassifier.where(:cpv_code => tender.cpv_code).first
+          if not oldCode
+            data = tender.cpv_code.split("-")        
+            code.cpv_code = data[0]
+            code.description = data[1]
             intCode = code.cpv_code.to_i          
             csv.each do |pair|
               if pair[0].to_i == intCode
@@ -359,7 +377,7 @@ module ScraperFile
               end
             end#for each pair
             code.save
-          end#if doesn't exist
+          end#if this is a new cpv_code
         end#if tender has cpv_code
       end#tenders
     end#transaction
@@ -520,13 +538,11 @@ module ScraperFile
   def self.addToRiskTotal( tender, val )
     totalScore = TenderCorruptionFlag.where(:corruption_indicator_id => 100,:tender_id => tender.id ).first
     if not totalScore
-      puts "making"
       totalScore = TenderCorruptionFlag.new
       totalScore.tender_id = tender.id
       totalScore.corruption_indicator_id = @totalIndicator.id
       totalScore.value = val
     else
-      puts "adding"
       totalScore.value = totalScore.value + val
     end
     totalScore.save
@@ -678,33 +694,43 @@ module ScraperFile
   def self.sendTenderAlertMail
     #go through all saved Tenders and alert users to changes
     WatchTender.all.each do |watch_tender|
-      #get the latest version of this tender by looking up the URL
-      tender = Tender.where(:url_id => watch_tender.tender_url, :dataset_id => @dataset.id).first
-      #rebuild hash
-      hash = tender.tender_type+
-       "#"+tender.tender_status+
-       "#"+tender.bid_start_date.to_s+
-       "#"+tender.bid_end_date.to_s+
-       "#"+tender.num_bids.to_s+
-       "#"+tender.estimated_value.to_s
-      if not hash == watch_tender.hash
+      #check to see if there are any updates
+      if watch_tender.has_updated
+        attributes = watch_tender.hash.split("#")
+        tender = Tender.where(:url_id => watch_tender.tender_url).first
         #a change has been detected send an alert email
         user = User.find(watch_tender.user_id)
-        AlertMailer.tender_alert(user, tender).deliver
+        AlertMailer.tender_alert(user, tender, attributes).deliver
       end
     end
   end
 
   def self.sendSearchAlertMail
-    Search.all.each do |search|
-      #rerun search and see if we get a different result
-      queryData = QueryHelper.buildSearchParamsFromString(search.search_string)
-      query = QueryHelper.buildTenderSearchQuery(queryData)
-      newCount = Tender.where(query).count
-      if not newCount == search.count
-        #search count changed there must be new data
-        user = User.find(search.user_id)
-        AlertMailer.search_alert(user, search).deliver
+    if @newTenders
+      Search.all.each do |search|
+        #rerun search and check for new tenders
+        queryData = QueryHelper.buildSearchParamsFromString(search.search_string)
+        query = QueryHelper.buildTenderSearchQuery(queryData)
+        results = Tender.where(query)
+        searchUpdates = []
+        results.each do |tender|
+          if @newTenders.include?(tender)
+            searchUpdates.push(tender)
+          end
+        end
+        if searchUpdates.length > 0
+          user = User.find(search.user_id)
+
+          #this is a bit hacky since I need to update the has_updated flag but leave the timestamp of that last update of this search object
+          oldUpdateTime = search.updated_at
+          search.has_updated = true
+          #save the old time back in
+          search.updated_at = oldUpdateTime
+          search.save
+          if search.email_alert
+            AlertMailer.search_alert(user, search, searchUpdates).deliver
+          end
+        end
       end
     end
   end
@@ -793,10 +819,9 @@ module ScraperFile
 
   def self.process
     start = Time.now
-    msg = nil
-    msgs = []
     I18n.locale = :en # do this so formating of floats and dates is correct when reading in json
-    
+    @newTenders = []
+
     #parse orgs first so that other objects can sort out relationships
     puts "processing Orgs"
     self.processOrganizations
@@ -852,7 +877,7 @@ module ScraperFile
     AlertMailer.data_process_started().deliver
     self.process
     AlertMailer.meta_started().deliver
-    self.generateMetaData
+    #self.generateMetaData
     self.generateAlerts
     AlertMailer.data_process_finished().deliver
   end

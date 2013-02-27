@@ -14,28 +14,75 @@
 <% end %>
 
 <dl class="info-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:procurring_entity_id) %>:</strong></dt>
-  <td><%= link_to @procurer, :controller => "organizations", :action => "show_procurer", :id => @tender.procurring_entity_id %></td>
-  <dt><strong><%= model_class.human_attribute_name(:tender_type) %>:</strong></dt>
-  <dd><%= t(@tender.tender_type) %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:tender_registration_number) %>:</strong></dt>
-  <dd><%= @tender.tender_registration_number %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:tender_status) %>:</strong></dt>
-  <dd><%= t(@tender.tender_status) %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:tender_announcement_date) %>:</strong></dt>
-  <dd><%= @tender.tender_announcement_date %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:bid_start_date) %>:</strong></dt>
-  <dd><%= @tender.bid_start_date %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:bid_end_date) %>:</strong></dt>
-  <dd><%= @tender.bid_end_date %></dd>
+  <% highlightClass = "" %>
+  <% if @highlights.include?('procurring_entity_id') %>
+    <% highlightClass = 'class="bidwinner"'.html_safe %>
+  <% end %>
+  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:procurring_entity_id) %>:</strong></dt>
+  <dd <%=highlightClass%> ><%= link_to @procurer, :controller => "organizations", :action => "show_procurer", :id => @tender.procurring_entity_id %></td>
 
-  <dt><strong>Bidding Duration:</strong></dt>
-  <dd><%= (@tender.bid_end_date - @tender.bid_start_date).to_i %> days</dd>
+  <% highlightClass = "" %>
+  <% if @highlights.include?('tender_type') %>
+    <% highlightClass = 'class="bidwinner"'.html_safe %>
+  <% end %>
+  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:tender_type) %>:</strong></dt>
+  <dd <%=highlightClass%> ><%= t(@tender.tender_type) %></dd>
 
-  <dt><strong><%= model_class.human_attribute_name(:estimated_value) %>:</strong></dt>
-  <dd><%= @tender.estimated_value %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:cpv_code) %>:</strong></dt>
-  <dd><%= @tender.cpv_code %> - <%= @cpv.description_english %></dd>
+  <% highlightClass = "" %>
+  <% if @highlights.include?('tender_registration_number') %>
+    <% highlightClass = 'class="bidwinner"'.html_safe %>
+  <% end %>
+  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:tender_registration_number) %>:</strong></dt>
+  <dd <%=highlightClass%> ><%= @tender.tender_registration_number %></dd>
+
+  <% highlightClass = "" %>
+  <% if @highlights.include?('tender_status') %>
+    <% highlightClass = 'class="bidwinner"'.html_safe %>
+  <% end %>
+  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:tender_status) %>:</strong></dt>
+  <dd <%=highlightClass%> ><%= t(@tender.tender_status) %></dd>
+
+  <% highlightClass = "" %>
+  <% if @highlights.include?('tender_announcement_date') %>
+    <% highlightClass = 'class="bidwinner"'.html_safe %>
+  <% end %>
+  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:tender_announcement_date) %>:</strong></dt>
+  <dd <%=highlightClass%> ><%= @tender.tender_announcement_date %></dd>
+
+  <% highlightClass = "" %>
+  <% if @highlights.include?('bid_start_date') %>
+    <% highlightClass = 'class="bidwinner"'.html_safe %>
+  <% end %>
+  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:bid_start_date) %>:</strong></dt>
+  <dd <%=highlightClass%> ><%= @tender.bid_start_date %></dd>
+
+  <% highlightClass = "" %>
+  <% if @highlights.include?('bid_end_date') %>
+    <% highlightClass = 'class="bidwinner"'.html_safe %>
+  <% end %>
+  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:bid_end_date) %>:</strong></dt>
+  <dd <%=highlightClass%> ><%= @tender.bid_end_date %></dd>
+
+  <% highlightClass = "" %>
+  <% if @highlights.include?('bid_start_date') %>
+    <% highlightClass = 'class="bidwinner"'.html_safe %>
+  <% end %>
+  <dt <%=highlightClass%> ><strong>Bidding Duration:</strong></dt>
+  <dd <%=highlightClass%> ><%= (@tender.bid_end_date - @tender.bid_start_date).to_i %> days</dd>
+
+  <% highlightClass = "" %>
+  <% if @highlights.include?('estimated_value') %>
+    <% highlightClass = 'class="bidwinner"'.html_safe %>
+  <% end %>
+  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:estimated_value) %>:</strong></dt>
+  <dd <%=highlightClass%> ><%= @tender.estimated_value %></dd>
+
+  <% highlightClass = "" %>
+  <% if @highlights.include?('cpv_code') %>
+    <% highlightClass = 'class="bidwinner"'.html_safe %>
+  <% end %>
+  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:cpv_code) %>:</strong></dt>
+  <dd <%=highlightClass%> ><%= @tender.cpv_code %> - <%= @cpv.description_english %></dd>
   
 </dl>
 

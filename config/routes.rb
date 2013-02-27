@@ -21,6 +21,7 @@ BootstrapStarter::Application.routes.draw do
     match '/organization/search_procurer' => 'organizations#search_procurer'
     match '/organization/search' => 'organizations#search'
     match '/tender/search' => 'tenders#search'
+    match '/tender/search_via_saved' => 'tenders#search_via_saved'
     match '/tenders/index' => 'tenders#index'
     match '/procurer' => 'organizations#show_procurer'
     match '/watch_tender/subscribe' => 'watch_tender#subscribe'

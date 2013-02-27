@@ -41,18 +41,22 @@ Single Bid Percentage = <%= @numSingleBids/@numBidTenders %><br>
   <tbody>
     <% @results.each do |item| %>
       <% tender = item[:tender] %>
+      <% highlightClass = "" %>
+      <% if @search and @search.last_viewed < tender.updated_at %>
+        <% highlightClass = 'class="bidwinner"'.html_safe %>
+      <% end %>
       <% procurer = item[:procurer] %>
       <tr>
-        <td><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
-        <td><%= link_to procurer, :controller => "organizations", :action => "show_procurer", :id => tender.procurring_entity_id %></td>
-        <td><%= t(tender.tender_type) %></td>
-        <td><%= t(tender.tender_status) %></td>
-        <td><%= tender.tender_announcement_date %></td>
-        <td><%= tender.bid_start_date %></td>
-        <td><%= tender.bid_end_date %></td>
-        <td><%= tender.estimated_value %></td>
-        <td><%= tender.include_vat %></td>
-        <td><%= tender.cpv_code %></td>
+        <td <%=highlightClass%>><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
+        <td <%=highlightClass%>><%= link_to procurer, :controller => "organizations", :action => "show_procurer", :id => tender.procurring_entity_id %></td>
+        <td <%=highlightClass%>><%= t(tender.tender_type) %></td>
+        <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
+        <td <%=highlightClass%>><%= tender.tender_announcement_date %></td>
+        <td <%=highlightClass%>><%= tender.bid_start_date %></td>
+        <td <%=highlightClass%>><%= tender.bid_end_date %></td>
+        <td <%=highlightClass%>><%= tender.estimated_value %></td>
+        <td <%=highlightClass%>><%= tender.include_vat %></td>
+        <td <%=highlightClass%>><%= tender.cpv_code %></td>
       </tr>
     <% end %>
   </tbody>

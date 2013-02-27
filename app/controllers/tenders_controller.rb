@@ -2,31 +2,36 @@ class TendersController < ApplicationController
   require "query_helpers" 
   helper_method :sort_column, :sort_direction
 
-  def search
-    @params = params
+  def performSearch( data )
+    query = QueryHelper.buildTenderSearchQuery(data)
+    result = Tender.where(query)
+    return result
+  end
+
+  def buildQueryData( data )
     liveDataSetID = Dataset.where(:is_live => true).first.id
-    reg_num = params[:tender_registration_number]
-    status = params[:tender_status]
-    cpvGroupID = params[:cpvGroup]
+    reg_num = data[:tender_registration_number]
+    status = data[:tender_status]
+    cpvGroupID = data[:cpvGroup]
 
     
     reg_num = "%"+reg_num.gsub('%','')+"%"
     status = "%"+status.gsub('%','')+"%"
-    strDate = params[:announced_after].gsub('/','-')
+    strDate = data[:announced_after].gsub('/','-')
     startDate = Date.strptime(strDate,'%Y-%m-%d')
 
 
-    strDate = params[:announced_before].gsub('/','-')
+    strDate = data[:announced_before].gsub('/','-')
     endDate = Date.strptime(strDate,'%Y-%m-%d')
 
-    minVal = params[:min_estimate]
-    maxVal = params[:max_estimate]
+    minVal = data[:min_estimate]
+    maxVal = data[:max_estimate]
 
-    minBids = params[:min_num_bids]
-    maxBids = params[:max_num_bids]
+    minBids = data[:min_num_bids]
+    maxBids = data[:max_num_bids]
     
-    minBidders = params[:min_num_bidders]
-    maxBidders = params[:max_num_bidders]
+    minBidders = data[:min_num_bidders]
+    maxBidders = data[:max_num_bidders]
 
     if minVal == ""
       minVal = "-1"
@@ -73,12 +78,13 @@ class TendersController < ApplicationController
                  :min_num_bidders => minBidders,
                  :max_num_bidders => maxBidders,
             }
+    return queryData
+  end
 
-
-    query = QueryHelper.buildTenderSearchQuery(queryData)
-    resultTenders = Tender.where(query)
-    @numResults = resultTenders.count
-    @tenders = resultTenders.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
+  def generateViewData( tenders, queryData )
+    @params = params
+    @numResults = tenders.count
+    @tenders = tenders.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
     @results = []
     @tenders.each do |tender|
@@ -102,7 +108,25 @@ class TendersController < ApplicationController
         @savedName = results.first.name
       end
     end
+  end
 
+  def search
+    data = buildQueryData( params )
+    resultTenders = performSearch( data )
+    generateViewData( resultTenders, data )
+  end
+
+  def search_via_saved
+    search = Search.find(params[:search_id])
+    searchParams = QueryHelper.buildSearchParamsFromString(search.search_string)
+    data = buildQueryData( searchParams )
+    resultTenders = performSearch( data )
+    generateViewData( resultTenders, data )
+    @search = search
+    render "search"
+    @search.last_viewed = DateTime.now
+    @search.has_updated = false
+    @search.save
   end
 
   def show
@@ -110,11 +134,18 @@ class TendersController < ApplicationController
     @cpv = TenderCpvClassifier.where(:cpv_code => @tender.cpv_code).first
     @tenderUrl = @tender.url_id
     @isWatched = false
+    @highlights = ""
+    if params[:highlights]
+     @highlights = params[:highlights].split("#")
+    end
     if current_user
       watched_tenders = current_user.watch_tenders
       watched_tenders.each do |watched|
         if watched.tender_url.to_i == @tender.url_id.to_i
           @isWatched = true
+          #reset the update flag to false since this tender has now been viewed
+          watched.has_updated = false
+          watched.save
           break
         end
       end
@@ -165,10 +196,10 @@ class TendersController < ApplicationController
 
   private
   def sort_column
-    params[:sort] || "tender_registration_number"
+    params[:sort] || "updated_at"
   end
 
   def sort_direction
-    params[:direction] || "asc"
+    params[:direction] || "desc"
   end
 end

@@ -18,6 +18,7 @@ class UserController < ApplicationController
     newSearch.search_string = params[:search_string]
     newSearch.name = params[:name]
     newSearch.count = params[:count]
+    newSearch.last_viewed = Date.now
     @savedName = params[:name]
     newSearch.save
     @thisSearchString = params[:search_string]
@@ -93,15 +94,7 @@ class UserController < ApplicationController
       @tender_watch_id = params[:tender_watch_id]
     end
 
-    #generate a hash of tender info so we know if this gets updated
     tender = Tender.where(:url_id => tender_watch.tender_url, :dataset_id => Dataset.where(:is_live => true).first.id).first
-    hash = tender.tender_type+
-         "#"+tender.tender_status+
-         "#"+tender.bid_start_date.to_s+
-         "#"+tender.bid_end_date.to_s+
-         "#"+tender.num_bids.to_s+
-         "#"+tender.estimated_value.to_s
-    tender_watch.hash = hash
     tender_watch.email_alert = true
     tender_watch.save
   end
@@ -134,9 +127,9 @@ class UserController < ApplicationController
 
   def sendTenderAlert
     tender = Tender.find(params[:tender_id])
-    AlertMailer.tender_alert(current_user,tender).deliver
+    attributes = ["estimated_value", "test", "procurring_entity_id"]
+    AlertMailer.tender_alert(current_user,tender,attributes).deliver
   end
-
 
   def create_group
     user = User.find(params[:user_id])

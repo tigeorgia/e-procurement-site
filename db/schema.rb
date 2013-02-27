@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214065336) do
+ActiveRecord::Schema.define(:version => 20130227124302) do
 
   create_table "aggregate_cpv_group_revenues", :force => true do |t|
     t.datetime "created_at"
@@ -129,6 +129,8 @@ ActiveRecord::Schema.define(:version => 20130214065336) do
     t.string   "searchtype"
     t.integer  "count"
     t.boolean  "email_alert"
+    t.boolean  "has_updated"
+    t.datetime "last_viewed"
   end
 
   create_table "tender_corruption_flags", :force => true do |t|
@@ -203,6 +205,7 @@ ActiveRecord::Schema.define(:version => 20130214065336) do
     t.datetime "updated_at"
     t.string   "hash"
     t.boolean  "email_alert"
+    t.boolean  "has_updated"
   end
 
 end

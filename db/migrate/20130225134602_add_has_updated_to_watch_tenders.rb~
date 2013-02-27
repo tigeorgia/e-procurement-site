@@ -1,0 +1,10 @@
+class AddHasUpdatedToWatchTenders < ActiveRecord::Migration
+  def up
+    add_column :has_updated, :email_alert, :boolean
+  end
+
+  def down
+    remove_column :has_updated, :email_alert
+  end
+end
+

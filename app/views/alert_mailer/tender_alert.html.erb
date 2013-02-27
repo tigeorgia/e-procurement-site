@@ -1,2 +1,10 @@
 <p>A Tender you are watching has been updated</p>
-<p><%= link_to @tender.tender_registration_number,  tender_url(@tender)  %></p>
+<p>The following fields have been changed:
+<br>
+<% highlights = "" %>
+<% @attributes.each do |attribute| %>
+    <%= attribute %><br>
+    <% highlights += attribute+"#" %>
+<% end %>
+</p>
+<p><%= link_to @tender.tender_registration_number,  tender_url(:id => @tender.id, :highlights => highlights) %></p>

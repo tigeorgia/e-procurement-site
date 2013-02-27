@@ -10,12 +10,14 @@ class AggregateController < ApplicationController
       cpvAggregates = AggregateCpvRevenue.all
     else
       classifiers.each do |classifier|
+        puts classifier.cpv_code
         sqlString += "cpv_code = "+classifier.cpv_code.to_s+ " OR "
       end
+      puts sqlString
       sqlString = sqlString[0..-4]
+      cpvAggregates = AggregateCpvRevenue.where(sqlString)
     end
-    cpvAggregates = AggregateCpvRevenue.where(sqlString)
-
+   
     cpvAggregates.each do |companyAggregate|
       companyData = companies[companyAggregate.organization_id]
       company = Organization.find(companyAggregate.organization_id)
