@@ -114,7 +114,7 @@ class AnalysisController < ApplicationController
       @bidDurationVsBidders = []
       bidData.each do |key,data|
         average = data[0].to_f / data[1].to_f
-        dataPoint = [key,average]
+        dataPoint = [key,average,data[1].to_f/10]
         @bidDurationVsBidders.push( dataPoint )
       end
         

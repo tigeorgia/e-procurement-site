@@ -10,6 +10,14 @@ $(function () {
     var tenderTypeCountChart;
     var bidDurationChart;
     var warningPeriodChart;
+
+    var dataset = []
+    <%= @bidDurationVsBidders.each do |data| %>
+        var dataPoint = { x: <%=data[0]%>, y: <%=data[1]%>, marker: { <%=data[2]%> }}
+        dataset.push(dataPoint)
+    <% end %>
+
+    
     $(document).ready(function() {
         tenderTypeChart = new Highcharts.Chart({
             chart: {
@@ -264,10 +272,7 @@ $(function () {
             }, {
                 type: 'scatter',
                 name: 'Observations',
-                data: <%= @bidDurationVsBidders %>,
-                marker: {
-                    radius: 3
-                }
+                data: dataset
             }]
         });
     });
