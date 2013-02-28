@@ -13,7 +13,7 @@ $(function () {
 
     var dataset = []
     <%= @bidDurationVsBidders.each do |data| %>
-        var dataPoint = { x: <%=data[0]%>, y: <%=data[1]%>, marker: { radius: <%=data[2]%> }}
+        var dataPoint = { x: <%=data[0]%>, y: <%=data[1]%>, marker: { radius: <%=data[2]/100%> }, count: <%=data[2]%>}
         dataset.push(dataPoint)
     <% end %>
 
@@ -256,6 +256,14 @@ $(function () {
             title: {
                 text: 'Scatter plot with regression line'
             },
+            tooltip: {
+                formatter:function (){
+                  return ''+
+                  this.x +' days, '+ this.y +' average bidders';
+                }
+            },
+
+
             series: [{
                 type: 'line',
                 name: 'Regression Line',

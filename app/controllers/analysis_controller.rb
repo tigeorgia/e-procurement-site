@@ -85,7 +85,7 @@ end
 class AnalysisController < ApplicationController
 
   def index 
-    tenders = Tender.where( "tender_announcement_date >= '2013-01-01' AND tender_announcement_date <= '2013-12-31'")
+    tenders = Tender.where( "tender_announcement_date >= '2012-01-01' AND tender_announcement_date <= '2012-12-31'")
     @total = TenderTypeStat.new("total")
     @simple_electronic = TenderTypeStat.new('Simple Electronic Tender')
     @electronic = TenderTypeStat.new('Electronic Tender')
@@ -114,7 +114,7 @@ class AnalysisController < ApplicationController
       @bidDurationVsBidders = []
       bidData.each do |key,data|
         average = data[0].to_f / data[1].to_f
-        dataPoint = [key,average,data[1].to_f/10]
+        dataPoint = [key,average,data[1].to_f]
         @bidDurationVsBidders.push( dataPoint )
       end
         
