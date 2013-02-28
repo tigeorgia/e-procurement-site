@@ -4,7 +4,6 @@
 
 <h2>Tender Breakdown 2012</h2>
 
-
 <script type="text/javascript" charset="utf-8">
 $(function () {
     var tenderTypeChart;
@@ -146,6 +145,70 @@ $(function () {
 
         });
     });
+
+
+
+      averageBidders = new Highcharts.Chart({
+
+       chart: {
+          renderTo: 'averageBiddersGraph',
+          type: 'bar'
+       },
+       title: {
+          text: 'Average number of bidders per tender'
+       },
+       xAxis: {
+          categories: [
+             <% @data.each do |type| %>
+              "<%= type.getName() %>",
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: 'Bidders'
+          }
+       },
+       series: [        
+               {
+                name: "Bidders",
+                data: [ <% @data.each do |type| %> <%= raw type.getAverageBidders() %>, <% end %>]
+               },  
+               ]  
+
+        });
+    });
+
+      averageBids = new Highcharts.Chart({
+
+       chart: {
+          renderTo: 'averageBidsGraph',
+          type: 'bar'
+       },
+       title: {
+          text: 'Average number of bids per tender'
+       },
+       xAxis: {
+          categories: [
+             <% @data.each do |type| %>
+              "<%= type.getName() %>",
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: 'Bids'
+          }
+       },
+       series: [        
+               {
+                name: "Bids",
+                data: [ <% @data.each do |type| %> <%= raw type.getAverageBids() %>, <% end %>]
+               },  
+               ]  
+
+        });
+    });
     
 });
 </script>
@@ -155,3 +218,5 @@ $(function () {
 <div id="countGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="averageBidDurationGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="averageWarningPeriodGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="averageBiddersGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="averageBidsGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>

@@ -5,7 +5,7 @@
   has_many :documents, :dependent => :destroy
   has_many :tender_corruption_flags, :dependent => :destroy
   belongs_to :datasets
-  belongs_to :watch_tenders
+  belongs_to :watch_tenders, :dependent => :destroy
 
   attr_accessible :id,
       :url_id,
@@ -112,7 +112,7 @@ self.per_page = 20
     return values
   end
 
-  def self.findTenderDifference(tender)
+  def self.findTenderDifferences(tender)
     differences = []
     ignoreAttributes = ["id", "created_at", "updated_at"]
     tender.attributes.each do |attribute|

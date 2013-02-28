@@ -8,12 +8,16 @@ class TenderTypeStat
     @value = 0
     @averageBidDuration = 0
     @averageWarningPeriod = 0
+    @averageBidders = 0
+    @averageBids = 0
   end 
   def addStats(tender)
     @count = @count + 1
     @value = @value + tender.estimated_value
     @averageBidDuration += (tender.bid_end_date - tender.bid_start_date).to_f
     @averageWarningPeriod += (tender.bid_start_date - tender.tender_announcement_date).to_f
+    @averageBidders += tender.num_bidders.to_f
+    @averageBids += tender.num_bids.to_f
   end
   def calcAverages()
     if @averageBidDuration > 0 
@@ -21,6 +25,12 @@ class TenderTypeStat
     end
     if @averageWarningPeriod > 0
       @averageWarningPeriod = @averageWarningPeriod / @count
+    end
+    if @averageBidders > 0
+      @averageBidders = @averageBidders / @count
+    end
+    if @averageBids > 0
+      @averageBids = @averageBids / @count
     end
   end
   
@@ -38,6 +48,12 @@ class TenderTypeStat
   end
   def getAverageWarningPeriod
     return @averageWarningPeriod
+  end
+  def getAverageBids
+    return @averageBids
+  end
+  def getAverageBidders
+    return @averageBidders
   end
 
   def getCountPair

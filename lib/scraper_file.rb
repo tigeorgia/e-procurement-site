@@ -176,7 +176,7 @@ module ScraperFile
             organization.dataset_id = @dataset.id
             organization.organization_url = item["OrgUrl"]
             organization.code = item["OrgID"]
-            organization.name = item["Name"]
+            organization.name = item["Name"].gsub("&amp;","&")
             organization.country = item["Country"]
             organization.org_type = item["Type"]
             organization.city = item["city"]
@@ -273,7 +273,7 @@ module ScraperFile
           agreement.documentation_url = item["documentUrl"]
           
           if agreement.documentation_url == "disqualifed" or agreement.documentation_url == "bidder refused agreement"
-            organization = Organization.where(["name = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id]).first
+            organization = Organization.where(["name = ? AND dataset_id = ?",item["OrgUrl"].gsub("&amp;","&"),@dataset.id]).first
             agreement.organization_url = organization.organization_url
             agreement.organization_id = organization.id
             agreement.amount = -1
@@ -366,6 +366,7 @@ module ScraperFile
         if tender.cpv_code
           oldCode = TenderCpvClassifier.where(:cpv_code => tender.cpv_code).first
           if not oldCode
+            code = TenderCpvClassifier.new
             data = tender.cpv_code.split("-")        
             code.cpv_code = data[0]
             code.description = data[1]
@@ -872,7 +873,7 @@ module ScraperFile
     AlertMailer.data_process_started().deliver
     self.process
     AlertMailer.meta_started().deliver
-    #self.generateMetaData
+    self.generateMetaData
     self.generateAlerts
     AlertMailer.data_process_finished().deliver
   end
