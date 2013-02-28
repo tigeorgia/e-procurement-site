@@ -63,7 +63,9 @@ class TenderTypeStat
   def getNumTendersWithBidders
     return @successCount.to_f/@count.to_f
   end
-
+  def getSuccessCount
+    return @successCount
+  end
   def getCountPair
     count = [@name, @count]
     return count
@@ -85,7 +87,7 @@ end
 class AnalysisController < ApplicationController
 
   def index 
-    tenders = Tender.where( "tender_announcement_date >= '2012-01-01' AND tender_announcement_date <= '2012-12-31'")
+    tenders = Tender.where( "tender_announcement_date >= '2013-01-01' AND tender_announcement_date <= '2013-12-31'")
     @total = TenderTypeStat.new("total")
     @simple_electronic = TenderTypeStat.new('Simple Electronic Tender')
     @electronic = TenderTypeStat.new('Electronic Tender')
@@ -115,7 +117,10 @@ class AnalysisController < ApplicationController
       bidData.each do |key,data|
         average = data[0].to_f / data[1].to_f
         dataPoint = [key,average,data[1].to_f]
-        @bidDurationVsBidders.push( dataPoint )
+        #if this average is made up of atleast %1 of all tenders
+        if data[1] > @simple_electronic.getSuccessCount() / 100
+          @bidDurationVsBidders.push( dataPoint )
+        end
       end
         
     end

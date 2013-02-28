@@ -13,7 +13,7 @@ $(function () {
 
     var dataset = []
     <%= @bidDurationVsBidders.each do |data| %>
-        var dataPoint = { x: <%=data[0]%>, y: <%=data[1]%>, marker: { radius: <%=data[2]/100%> }, count: <%=data[2]%>}
+        var dataPoint = { x: <%=data[0]%>, y: <%=data[1]%>, marker: { radius: <%=data[2]/(@simple_electronic.getSuccessCount() / 100)%> }, count: <%=data[2]%>}
         dataset.push(dataPoint)
     <% end %>
 
@@ -248,13 +248,21 @@ $(function () {
                 renderTo: 'scatterGraph'
             },
             xAxis: {
-                min: 0  
+                min: 2,
+                title: {
+                  enabled: true,
+                  text: 'Tender duration'
+                },
             },
             yAxis: {
-                min: 0
+                min: 1.25,
+                title: {
+                  enabled: true,
+                  text: 'Number of Bidders'
+                },
             },
             title: {
-                text: 'Scatter plot with regression line'
+                text: 'Duration of Tender vs Average number of Bidders'
             },
             tooltip: {
                 formatter:function (){
