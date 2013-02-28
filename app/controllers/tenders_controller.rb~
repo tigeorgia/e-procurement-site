@@ -57,13 +57,6 @@ class TendersController < ApplicationController
     if not status == ""
       translated_status = t(status, :locale => :ka)
     end
-
-    resultTenders = []
-    if cpvGroupID
-      cpvGroup = CpvGroup.find(cpvGroupID)
-    end
-
-
     queryData = {
                  :cpvGroupID => cpvGroupID.to_s,
                  :datasetID => liveDataSetID.to_s,
@@ -124,7 +117,7 @@ class TendersController < ApplicationController
     generateViewData( resultTenders, data )
     @search = search
     render "search"
-    @search.updated_at = DateTime.now
+    @search.last_viewed = DateTime.now
     @search.has_updated = false
     @search.save
   end

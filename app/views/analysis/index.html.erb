@@ -82,8 +82,6 @@ $(function () {
             }]
         });
 
-
-
       
       bidDurationChart = new Highcharts.Chart({
 
@@ -204,6 +202,74 @@ $(function () {
                ]  
 
         });
+
+      moreThan1Bid = new Highcharts.Chart({
+
+       chart: {
+          renderTo: 'moreThan1BidGraph',
+          type: 'bar'
+       },
+       title: {
+          text: 'Percentage of bids that have more than one bidder'
+       },
+       xAxis: {
+          categories: [
+             <% @data.each do |type| %>
+              "<%= type.getName() %>",
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: 'Percentage'
+          }
+       },
+       series: [        
+               {
+                name: "Percentage",
+                data: [ <% @data.each do |type| %> <%= raw type.getNumTendersWithBidders() %>, <% end %>]
+               },  
+               ]  
+
+        });
+
+
+
+    scatterChart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'scatterGraph'
+            },
+            xAxis: {
+                min: 0  
+            },
+            yAxis: {
+                min: 0
+            },
+            title: {
+                text: 'Scatter plot with regression line'
+            },
+            series: [{
+                type: 'line',
+                name: 'Regression Line',
+                data: [[0, 0], [0, 0]],
+                marker: {
+                    enabled: false
+                },
+                states: {
+                    hover: {
+                        lineWidth: 0
+                    }
+                },
+                enableMouseTracking: false
+            }, {
+                type: 'scatter',
+                name: 'Observations',
+                data: <%= @bidDurationVsBidders %>,
+                marker: {
+                    radius: 5
+                }
+            }]
+        });
     });
     
 });
@@ -212,7 +278,11 @@ $(function () {
 
 <div id="amountGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="countGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="noBidsVBidsGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="averageBidDurationGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="averageWarningPeriodGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="averageBiddersGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="averageBidsGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="moreThan1BidGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="scatterGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+

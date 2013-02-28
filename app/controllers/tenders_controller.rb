@@ -57,13 +57,6 @@ class TendersController < ApplicationController
     if not status == ""
       translated_status = t(status, :locale => :ka)
     end
-
-    resultTenders = []
-    if cpvGroupID
-      cpvGroup = CpvGroup.find(cpvGroupID)
-    end
-
-
     queryData = {
                  :cpvGroupID => cpvGroupID.to_s,
                  :datasetID => liveDataSetID.to_s,
