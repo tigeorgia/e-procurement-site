@@ -3,6 +3,8 @@ class Document < ActiveRecord::Base
   
   attr_accessible :tender_id,
       :document_url,
+      :title,
+      :author,
       
   validates :tender_id, :document_url, :presence => true
 end

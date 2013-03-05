@@ -4,7 +4,6 @@ class UserController < ApplicationController
   
   def index
     @watched_tenders = current_user.watch_tenders
-    @liveDataSetID = Dataset.where(:is_live => true).first.id
 
     @savedSearches = current_user.searches
     @cpvGroups = current_user.cpvGroups
@@ -94,7 +93,7 @@ class UserController < ApplicationController
       @tender_watch_id = params[:tender_watch_id]
     end
 
-    tender = Tender.where(:url_id => tender_watch.tender_url, :dataset_id => Dataset.where(:is_live => true).first.id).first
+    tender = Tender.where(:url_id => tender_watch.tender_url).first
     tender_watch.email_alert = true
     tender_watch.save
   end

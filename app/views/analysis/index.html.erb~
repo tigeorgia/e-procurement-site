@@ -218,7 +218,7 @@ $(function () {
           type: 'bar'
        },
        title: {
-          text: 'Percentage of bids that have more than one bidder'
+          text: 'Percentage of bids that had atleast one bidder'
        },
        xAxis: {
           categories: [
@@ -249,11 +249,17 @@ $(function () {
             },
             xAxis: {
                 min: 2,
-                text: 'Tender duration'
+                title: {
+                  enabled: true,
+                  text: 'Tender duration'
+                },
             },
             yAxis: {
                 min: 1.25,
-                text: 'Number of Bidders'
+                title: {
+                  enabled: true,
+                  text: 'Number of Bidders'
+                },
             },
             title: {
                 text: 'Duration of Tender vs Average number of Bidders'

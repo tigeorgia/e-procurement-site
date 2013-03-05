@@ -81,8 +81,15 @@
   <% if @highlights.include?('cpv_code') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:cpv_code) %>:</strong></dt>
+
+  <dt <%=highlightClass%> ><strong>Procuring category:</strong></dt>
   <dd <%=highlightClass%> ><%= @tender.cpv_code %> - <%= @cpv.description_english %></dd>
+
+  <dt <%=highlightClass%> ><strong>CPV Codes:</strong></dt>
+  <% @minorCPVCategories.each do |code| %>
+    <dd <%=highlightClass%> ><%= code.cpv_code %></dd>
+  <% end %>
+
   
 </dl>
 
@@ -152,6 +159,44 @@
         <% myClass = "" %>
        <% end %>
       <tr <%=myClass%>>
+          <td <%=myClass%>><%= link_to info[:name], organization_path(info[:id]) %></td>
+          <td <%=myClass%>><%= info[:highBid] %></td>
+          <td <%=myClass%>><%= info[:lowBid] %></td>
+          <td <%=myClass%>><%= info[:numBids] %></td>
+       </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+Documentation
+<br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Date submitted</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @documentation.each do |document| %>
+      <tr>
+      <td><a href=<%= document.document_url %>><%= document.title %></a></td> 
+      <td><%= document.author %></td>
+      <td><%= document.date %></td>
+      </tr>
+    <% end %>
+
+    <% @bidderInfo.each do |info| %>
+      <% if info[:won] %>
+        <% myClass = 'class="bidwinner"'.html_safe %>
+      <% else %>
+        <% myClass = "" %>
+       <% end %>
+      <tr <%=myClass%>>
+          <td <%=myClass%>><%= link_to info[:name], organization_path(info[:id]) %></td>
           <td <%=myClass%>><%= info[:highBid] %></td>
           <td <%=myClass%>><%= info[:lowBid] %></td>
           <td <%=myClass%>><%= info[:numBids] %></td>

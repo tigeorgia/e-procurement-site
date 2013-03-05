@@ -18,7 +18,7 @@ class UserController < ApplicationController
     newSearch.search_string = params[:search_string]
     newSearch.name = params[:name]
     newSearch.count = params[:count]
-    newSearch.last_viewed = Date.now
+    newSearch.last_viewed = DateTime.now
     @savedName = params[:name]
     newSearch.save
     @thisSearchString = params[:search_string]

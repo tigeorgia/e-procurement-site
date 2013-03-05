@@ -9,7 +9,6 @@ class TendersController < ApplicationController
   end
 
   def buildQueryData( data )
-    liveDataSetID = Dataset.where(:is_live => true).first.id
     reg_num = data[:tender_registration_number]
     status = data[:tender_status]
     cpvGroupID = data[:cpvGroup]
@@ -59,7 +58,6 @@ class TendersController < ApplicationController
     end
     queryData = {
                  :cpvGroupID => cpvGroupID.to_s,
-                 :datasetID => liveDataSetID.to_s,
                  :tender_registration_number => reg_num.to_s,
                  :tender_status => translated_status,
                  :announced_after => startDate.to_s,
@@ -144,6 +142,11 @@ class TendersController < ApplicationController
       end
     end
 
+    @minorCPVCategories = []
+    cpvCodes = TenderCpvCode.where(:tender_id => @tender.id)
+    cpvCodes.each do |code|
+      @minorCPVCategories.push(code)
+    end
 
     @risks = []
     flags = TenderCorruptionFlag.where(:tender_id => @tender.id)
@@ -154,6 +157,13 @@ class TendersController < ApplicationController
         @totalRisk = @totalRisk + (indicator.weight * flag.value)
         @risks.push(indicator)
       end
+    end
+
+    #get all tender documentation
+    @documentation = []
+    documentation = Document.where(:tender_id => @tender.id)
+    documentation.each do |document|
+      @documentation.push( document.document_url )
     end
 
     @procurer = Organization.find(@tender.procurring_entity_id).name

@@ -1,21 +1,18 @@
 module QueryHelper 
-
-
    def self.buildSearchParamsFromString(searchString)
     fields = searchString.split("#")
     params = {
       :cpvGroup => fields[0],
-      :datasetID => fields[1],
-      :tender_registration_number => fields[2],
-      :tender_status => fields[3],
-      :announced_after => fields[4],
-      :announced_before => fields[5],
-      :min_estimate => fields[6],
-      :max_estimate => fields[7],
-      :min_num_bids => fields[8],
-      :max_num_bids => fields[9],
-      :min_num_bidders => fields[10],
-      :max_num_bidders => fields[11]
+      :tender_registration_number => fields[1],
+      :tender_status => fields[2],
+      :announced_after => fields[3],
+      :announced_before => fields[4],
+      :min_estimate => fields[5],
+      :max_estimate => fields[6],
+      :min_num_bids => fields[7],
+      :max_num_bids => fields[8],
+      :min_num_bidders => fields[9],
+      :max_num_bidders => fields[10]
     }
     return params
   end
@@ -23,8 +20,7 @@ module QueryHelper
 
  def self.buildTenderSearchQuery(params)
     #all params should already be in string format
-    query = "dataset_id = '" +params[:datasetID]+"'"+
-        " AND tender_registration_number LIKE '"+params[:tender_registration_number]+"'"+
+    query = "tender_registration_number LIKE '"+params[:tender_registration_number]+"'"+
         " AND tender_status LIKE '"+params[:tender_status]+"'"+
         " AND tender_announcement_date >= '"+params[:announced_after]+"'"+
         " AND tender_announcement_date <= '"+params[:announced_before]+"'"+

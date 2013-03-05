@@ -4,37 +4,6 @@
 
 class CorruptionFinderController < ApplicationController
 
-  def index
-    tenders = Tender.where("dataset_id = 11 AND tender_announcement_date >= '2012-01-01' AND tender_announcement_date <= '2012-12-31'")
-     @total = 0
-     tenders.each do |tender|
-       @total = @total + tender.estimated_value
-     end
-
-     tenders = Tender.where("dataset_id = 11 AND tender_announcement_date >= '2012-01-01' AND tender_announcement_date <= '2012-12-31' AND tender_type = 'შესყიდვის ელექტრონული პროცედურა'")
-     @total1 = 0
-     tenders.each do |tender|
-       @total1 = @total1 + tender.estimated_value
-     end
-
-    tenders = Tender.where("dataset_id = 11 AND tender_announcement_date >= '2012-01-01' AND tender_announcement_date <= '2012-12-31' AND tender_type = 'კონსოლიდირებული ტენდერი'")
-    @total2 = 0
-    tenders.each do |tender|
-      @total2 = @total2 + tender.estimated_value
-    end
-
-    tenders = Tender.where("dataset_id = 11 AND tender_announcement_date >= '2012-01-01' AND tender_announcement_date <= '2012-12-31' AND tender_type = 'ელექტრონული ტენდერი'")
-    @total3 = 0
-    tenders.each do |tender|
-      @total3 = @total3 + tender.estimated_value
-    end
-    tenders = Tender.where("dataset_id = 11 AND tender_announcement_date >= '2012-01-01' AND tender_announcement_date <= '2012-12-31' AND tender_type = 'გამარტივებული ელექტრონული ტენდერი'")
-    @total4 = 0
-    tenders.each do |tender|
-      @total4 = @total4 + tender.estimated_value
-    end
-  end
-
   def search
     criteria = params[:criteria]
   

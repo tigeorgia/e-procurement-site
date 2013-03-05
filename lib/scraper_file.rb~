@@ -5,88 +5,28 @@ module ScraperFile
   FILE_TENDER_BIDDERS = "tenderBidders.json"
   FILE_TENDER_AGREEMENTS = "tenderAgreements.json"
   FILE_TENDER_DOCUMENTS = "tenderDocumentation.json"
+  FILE_TENDER_CPV_CODES = "tenderCPVCode.json"
   require 'csv'
   require "query_helpers"
   
 
+  # if we have an oldData set and a newDataset we can generate some info about the differences before merging the sets
   def self.diffData
-
-    #delete all old data if we have a similar version of the data in the current set    
-
-    #make the new dataset the live dataset
-    if not Dataset.where( :id => @dataset.id-1).first
-      #there is nothing to diff we are done
-      @dataset.is_live = true
-      @dataset.save
-      return    
-    end
-    prevID = @dataset.id-1
-    
-    #now lets get all records from our prev dataset and compare them to our new one
-    Tender.find_each(:conditions => "dataset_id = "+prevID.to_s) do |tender|
-
-      newTender = Tender.where("url_id = ? AND dataset_id = ?",tender["url_id"],@dataset.id).first
-      #What do we do if an old tender has been removed?
-      if newTender
-        #tender with same url found so we can remove the old one
-        tender.destroy
-      end 
-    end       
+    #switch all new records dataset id to the live version
+    if @numDatasets > 1
+      Tender.find_each(:conditions => "dataset_id = "+@newDataset.id.to_s) do |tender|
+        tender.dataset_id = @liveDataset.id
+      end       
         
-=begin        #LOOK INTO THIS LATER#check to see if the data is the same
-        newTender.id = tender.id
-        newTender.procurring_entity_id = tender.procurring_entity_id
-        newTender.dataset_id = tender.dataset_id
-        newTender.created_at = tender.created_at
-        newTender.updated_at = tender.updated_at
-        if newTender.attributes == tender.attributes
-          #the new tender is the same as the current tender, now the current tender isn't needed
-          tender.destroy
-        end                      
-    end
-=end 
-
-    Organization.find_each(:conditions => "dataset_id = "+prevID.to_s) do |organization|
-      #see if this org has changed.
-      newOrganization = Organization.where("organization_url = ? AND dataset_id = ?", organization["organization_url"], @dataset.id).first
-      if newOrganization
-        # delete the old org
-        organization.destroy
+      Organization.find_each(:conditions => "dataset_id = "+@newDataset.id.to_s) do |organization|
+        organization.dataset_id = @liveDataset.id
       end
     end
-
-=begin        #check to see if data is the same
-        newOrganization.id = organization.id
-        newOrganization.dataset_id = organization.dataset_id
-        newOrganization.created_at = organization.created_at
-        newOrganization.updated_at = organization.updated_at
-        if newOrganization.attributes == organization.attributes 
-          #this org might be referenced by a tender as a procurrer
-          #so we need to update that tender to reference the new org before deleting it
-          tenders = Tender.where("procurring_entity_id = ?", organization.id)
-          tenders.each do |tender|
-            tender.procurring_entity_id = newOrganization.id
-            tender.save
-          end
-          #it is now safe to destroy       
-          organization.destroy
-        end
-
-      end
-    end
-=end
-
-
-    #now make our new dataset live and switch the old dataset off
-    prevDataSet = Dataset.find(prevID)
-    prevDataSet.is_live = false
-    prevDataSet.save
-    @dataset.is_live = true
-    @dataset.save
   end	
 
 
   def self.processTenders
+
     tender_file_path = "#{Rails.root}/public/system/#{FILE_TENDER}"
     File.open(tender_file_path, "r") do |infile|
       count = 0
@@ -100,7 +40,7 @@ module ScraperFile
             puts "tender: #{count}"
           end
           tender.url_id = item["tenderID"]
-          tender.dataset_id = @dataset.id
+          tender.dataset_id = @newDataset.id
           tender.tender_type = item["tenderType"]
           tender.tender_registration_number = item["tenderRegistrationNumber"]
           tender.tender_status = item["tenderStatus"]
@@ -118,7 +58,7 @@ module ScraperFile
           tender.num_bids = 0
           tender.num_bidders = 0
 
-          organization = Organization.where("organization_url = ? AND dataset_id = ?",item["procuringEntityUrl"],@dataset.id).first      
+          organization = Organization.where("organization_url = ? AND dataset_id = ?",item["procuringEntityUrl"],@newDataset.id).first      
           if organization             
             tender.procurring_entity_id = organization.id
             if !organization.is_procurer
@@ -128,19 +68,23 @@ module ScraperFile
           end
           if tender.valid?
             #is there an old tender with this url?
-            oldTender = Tender.where(:url_id => tender.url_id).first
-            if oldTender
-              watch_tender = WatchTender.where(:tender_url => tender.url_id).first
-              if watch_tender
-                differences = oldTender.findTenderDifferences(tender)
-                if differences.length > 0
-                  #store changed fields in hash
-                  hash = ""
-                  differences.each do |difference|
-                    hash += difference + "#"
+            oldTender = nil
+            if @numDatasets > 1
+              #look at previous scraped data and see if we have the same tender
+              oldTender = Tender.where(:url_id => tender.url_id,:dataset_id => @liveDataset.id).first
+              if oldTender
+                watch_tender = WatchTender.where(:tender_url => tender.url_id).first
+                if watch_tender
+                  differences = oldTender.findTenderDifferences(tender)
+                  if differences.length > 0
+                    #store changed fields in hash
+                    hash = ""
+                    differences.each do |difference|
+                      hash += difference + "#"
+                    end
+                    watch_tender.hash = hash
+                    watch_tender.has_updated = true
                   end
-                  watch_tender.hash = hash
-                  watch_tender.has_updated = true
                 end
               end
             end
@@ -165,15 +109,16 @@ module ScraperFile
       while(line = infile.gets)
         count = count + 1
         item = JSON.parse(line)
-        # if the procurer does not exist in organization yet, add it
-        organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id).first
+       
+        #don't process if we have already dealt with this org this time
+        organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@newDataset.id).first
         if !organization
           organization = Organization.new
           Organization.transaction do
             if count%100 == 0
               puts "organization: #{count}"
             end
-            organization.dataset_id = @dataset.id
+            organization.dataset_id = @newDataset.id
             organization.organization_url = item["OrgUrl"]
             organization.code = item["OrgID"]
             organization.name = item["Name"].gsub("&amp;","&")
@@ -188,6 +133,13 @@ module ScraperFile
             organization.is_procurer = false
             organization.is_bidder = false
             if organization.valid?
+              #if we have an old dataset we can check if this org has been updated
+              if @numDatasets > 1
+                oldOrganization = Organization.where(:organization_url => organization.organization_url, :dataset_id => @liveDataset.id).first
+                if oldOrganization
+                  #this is an org update we could send email alerts here
+                end
+              end
               organization.save
             else
 	            raise ActiveRecord::Rollback
@@ -213,7 +165,7 @@ module ScraperFile
           if count%100 == 0
             puts "bidder: #{count}"
           end
-          tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@dataset.id).first
+          tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@newDataset.id).first
           bidder.tender_id = tender.id
           bidder.organization_url = item["OrgUrl"]
           bidder.first_bid_amount = item["firstBidAmount"]
@@ -232,7 +184,7 @@ module ScraperFile
           tender.num_bids = tender.num_bids + bidder.number_of_bids
           tender.num_bidders = tender.num_bidders + 1
           
-          organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id).first
+          organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@newDataset.id).first
           if !organization
             #wtf where is the org?
           else
@@ -267,13 +219,13 @@ module ScraperFile
           if count%100 == 0
             puts "agreement: #{count}"
           end
-          tender = Tender.where(["url_id = ? AND dataset_id = ?",item["tenderID"],@dataset.id]).first
+          tender = Tender.where(["url_id = ? AND dataset_id = ?",item["tenderID"],@newDataset.id]).first
           agreement.tender_id = tender.id
           agreement.amendment_number = item["AmendmentNumber"]
           agreement.documentation_url = item["documentUrl"]
           
           if agreement.documentation_url == "disqualifed" or agreement.documentation_url == "bidder refused agreement"
-            organization = Organization.where(["name = ? AND dataset_id = ?",item["OrgUrl"].gsub("&amp;","&"),@dataset.id]).first
+            organization = Organization.where(["name = ? AND dataset_id = ?",item["OrgUrl"].gsub("&amp;","&"),@newDataset.id]).first
             agreement.organization_url = organization.organization_url
             agreement.organization_id = organization.id
             agreement.amount = -1
@@ -306,7 +258,7 @@ module ScraperFile
 
             #The organisation that won this contract should have bid so it should have already been created
             #so lets check the organisation database and cross-reference the org-url to get the org-id
-            organization = Organization.where(["organization_url = ? AND dataset_id = ?",item["OrgUrl"],@dataset.id]).first
+            organization = Organization.where(["organization_url = ? AND dataset_id = ?",item["OrgUrl"],@newDataset.id]).first
             if !organization
               #wtf where is the org?
             else
@@ -325,6 +277,33 @@ module ScraperFile
     end#file
   end#processAgreements
 
+  def self.processCPVCodes
+    cpv_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_CPV_CODES}"
+    File.open(cpv_file_path, "r") do |infile|
+      count = 0
+      while(line = infile.gets)
+        count = count + 1
+        item = JSON.parse(line)  
+     
+        cpvCode = TenderCpvCode.new
+        TenderCpvCode.transaction do
+          tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@newDataset.id).first
+          cpvCode.tender_id = tender.id
+          cpvCode.cpv_code = item["cpvCode"]
+          cpvCode.description = item["description"]
+          if count%100 == 0
+            puts "cpvCode: #{count}"
+          end
+          if cpvCode.valid?
+            cpvCode.save
+          else
+            raise ActiveRecord::Rollback
+            break
+          end
+        end#transaction
+      end#while
+    end#file 
+  end
 
   def self.processDocuments
     document_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_DOCUMENTS}"
@@ -336,19 +315,29 @@ module ScraperFile
      
         document = Document.new
         Document.transaction do
-          tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@dataset.id).first
+          tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@newDataset.id).first
           document.tender_id = tender.id
           document.document_url = item["documentUrl"]
+          document.title = item["title"]
+          document.author = item["author"]
+          document.date = Date.parse(item["date"])
+          
           if count%100 == 0
             puts "document: #{count}"
           end
           if document.valid?
+            #if this an update to an old doc
+            #remove old doc
+            oldDoc = Document.where(:document_url => document.document_url).first
+            if oldDoc
+              oldDoc.destroy
+            end
             document.save
           else
             raise ActiveRecord::Rollback
             break
           end
-        end
+        end# transaction
       end #while
     end #file
   end #processDocuments
@@ -360,28 +349,51 @@ module ScraperFile
     csv = CSV.parse(csv_text)
 
     #change this to make a full list via scraped data
+    subCodes = TenderCpvCode.find(:all, :select => 'distinct cpv_code, description')
     tenders = Tender.find(:all, :select =>'distinct cpv_code')
-    TenderCpvClassifier.transaction do
-      tenders.each do |tender|
-        if tender.cpv_code
-          oldCode = TenderCpvClassifier.where(:cpv_code => tender.cpv_code).first
-          if not oldCode
-            code = TenderCpvClassifier.new
-            data = tender.cpv_code.split("-")        
-            code.cpv_code = data[0]
-            code.description = data[1]
-            intCode = code.cpv_code.to_i          
-            csv.each do |pair|
-              if pair[0].to_i == intCode
-                code.description_english = pair[1]
-                break
-              end
-            end#for each pair
-            code.save
-          end#if this is a new cpv_code
-        end#if tender has cpv_code
-      end#tenders
-    end#transaction
+      
+    tenders.each do |tender|
+      if tender.cpv_code
+        oldCode = TenderCpvClassifier.where(:cpv_code => tender.cpv_code).first
+        if not oldCode
+          code = TenderCpvClassifier.new
+          data = tender.cpv_code.split("-")        
+          code.cpv_code = data[0]
+          code.description = data[1]
+          intCode = code.cpv_code.to_i          
+          csv.each do |pair|
+            if pair[0].to_i == intCode
+              code.description_english = pair[1]
+              break
+            end
+          end#for each pair
+          code.save
+        end#if this is a new cpv_code
+      end#if tender has cpv_code
+    end#tenders
+
+    subCodes.each do |subCode|
+      oldCode = TenderCpvClassifier.where(:cpv_code => subCode.cpv_code).first
+      if oldCode
+        if oldCode.description == nil
+          oldCode.description = subCode.description
+          oldCode.save
+        end
+      else
+        code = TenderCpvClassifier.new       
+        code.cpv_code = subCode.cpv_code
+        code.description = subCode.description
+        intCode = code.cpv_code.to_i          
+        csv.each do |pair|
+          if code.cpv_code.to_i == intCode
+            code.description_english = pair[1]
+            break
+          end
+        end#for each pair
+        code.save
+      end#else
+    end#each cpv
+      
   end#createcpv
 
   def self.processAggregateData
@@ -401,12 +413,9 @@ module ScraperFile
         end # for each agreement
 
         if last
-          dataset = Dataset.where(:is_live => true).first
-          liveDataSetID = dataset.id
-          
           id = last.organization_url
           tenderValue = last.amount
-          company = Organization.where(["dataset_id = ? AND organization_url = ?", liveDataSetID, id]).first
+          company = Organization.where(:organization_url => id).first
           if company
             aggregateData = AggregateCpvRevenue.where(:cpv_code => classifier.cpv_code, :organization_id => company.id).first
             if not aggregateData
@@ -423,7 +432,6 @@ module ScraperFile
       end
     end
   end#process aggregate data
-
 
   def self.createUsers
 
@@ -550,11 +558,11 @@ module ScraperFile
   end
 
   def self.identifyHolidayPeriodTenders(indicator)
-    sql = "dataset_id = " + @dataset.id.to_s
+    sql = ""
     for year in (2010..Time.now.year)
       conjuction = " OR "
       if year == 2010
-        conjuction = " AND "
+        conjuction = ""
       end
       sql = sql + conjuction
       holidayStart = Date.new(year,12,30).to_s
@@ -574,7 +582,7 @@ module ScraperFile
   end
   
   def self.competitionAssessment(indicator)
-    Tender.find_each(:conditions => "dataset_id = "+@dataset.id.to_s+" AND num_bidders = 1") do |tender|
+    Tender.find_each(:conditions => "num_bidders = 1") do |tender|
       corruptionFlag = TenderCorruptionFlag.new
       corruptionFlag.tender_id = tender.id
       corruptionFlag.corruption_indicator_id = indicator.id
@@ -586,7 +594,7 @@ module ScraperFile
 
   def self.biddingWarAccessment(indicator)
     #get all tenders that had a bidding war
-    Tender.find_each(:conditions => "dataset_id = "+@dataset.id.to_s+" AND num_bidders > 1") do |tender|
+    Tender.find_each(:conditions => "num_bidders > 1") do |tender|
       #now check the winning bid and compare this to the estimated value
       winningVal = nil
       tender.agreements.each do |agreement|
@@ -614,8 +622,8 @@ module ScraperFile
     riskyGroup = CpvGroup.find(2)
     classifiers = riskyGroup.tender_cpv_classifiers
     if classifiers.length > 0
-      sql = "dataset_id = "+@dataset.id.to_s
-      conjuction = " AND "
+      sql = ""
+      conjuction = ""
       classifiers.each do |cpv|
         sql = sql + conjuction + "cpv_code = " + cpv.cpv_code.to_s
         conjuction = " OR "
@@ -731,88 +739,6 @@ module ScraperFile
     end
   end
 
-
-=begin	def self.createCPVTree
-
-		def countZeros( string )
-		  count = 0
-		  pos = string.length
-		  while pos > 0
-		    if string[pos-1] == '0'
-		      count = count +1
-		    else
-		      break
-		    end
-		    pos = pos - 1
-		  end
-		  return count
-  	end
-
-		def sortDescending( x, y )
-			if x.cpv_code.to_i < y.cpv_code.to_i
-				return -1
-			else
-				return 1
-			end
-  	end
-
-		def isChild(parent, node)
-		  if parent[:item] == nil 
-		    return true
-		  else
-		    digits = countZeros(parent[:item].cpv_code)
-		    parentString = parent[:item].cpv_code
-		    subParent = parentString[0, parentString.length-digits]
-		    codeString = node[:item].cpv_code
-		    subCode = codeString[0, codeString.length-digits]
-		    return subParent == subCode
-		  end
-		end
-
-		def createTree( root, list )
-		  prev = root
-		  parent = root
-
-		  list.each do |item|
-		    node = { :item => item, :children => [] }
-		    if isChild(prev, node)
-		      parent = prev
-		    end
-		    if not isChild(parent, node)
-		      parent = root
-		    end
-		      
-		    parent[:children].push(node)
-		    prev = node  
-		  end
-		end
-
-		def printTree( file, root )
-		  if root[:item]
-		    file.syswrite(root[:item].description)
-		  end
-
-		  root[:children].each do |child|
-		    printTree( file, child )
-		  end
-		end
-
-		def printNode( root )
-		  treeFile = File.new("cpvTree", "w+")
-		  if treeFile
-		    printTree(treeFile, root )
-		  end
-		  treeFile.close
-		end
-
-    cpvs = TenderCpvClassifier.find(:all)
-    root = { :item => nil, :children => [] }
-    cpvs.sort! {|x,y| sortDescending(x,y) }
-    createTree( root, cpvs )
-    printTree( root )
-	end
-=end
-
   def self.process
     start = Time.now
     I18n.locale = :en # do this so formating of floats and dates is correct when reading in json
@@ -829,19 +755,21 @@ module ScraperFile
     self.processAgreements
     puts "processing docs"
     self.processDocuments
+    puts "processing sub cpv codes"
+    self.processCPVCodes
   end
 
   def self.generateMetaData
     puts "generate cpv codes"
     self.createCPVCodes
     puts "setting up users"
-    self.createUsers
+   #self.createUsers
     puts "generating aggregate data"
-    self.processAggregateData
+    #self.processAggregateData
     puts "finding competitors"
-    self.findCompetitors
+   # self.findCompetitors
     puts "finding corruption"
-    self.generateRiskFactors
+    #self.generateRiskFactors
   end
 
   def self.generateAlerts
@@ -852,17 +780,32 @@ module ScraperFile
   end
 
   def self.processFullScrape
-    #wipe old data
-    #lets create a new dataset record
-    @dataset = Dataset.new
-    #this won't be live until we do our diff
-    @dataset.is_live = false
-    @dataset.save
+    
+    @numDatasets = Dataset.find(:all).count
+    @liveDataset = nil
+    @newDataset = nil
+    #if we have 1 dataset already lets create a new one to hold the new data
+    if @numDatasets == 1
+      @liveDataset = Dataset.find(1)
+      @newDataset = Dataset.new
+      #this won't be live until we do our diff
+      @newDataset.is_live = false
+      @newDataset.save
+    elsif @numDatasets > 1
+      #if we already have 2 datasets lets use the second dataset as our temp storage id
+      @liveDataset = Dataset.find(1)
+      @newDataset = Dataset.find(2)
+    else
+      #we don't have any datasets this is a clean database so lets create the primary dataset and make it live
+      @newDataset = Dataset.new
+      @newDataset.is_live = true
+      @newDataset.save
+      @liveDataset = @newDataset
+    end
+
     puts "processing json"
     self.process
     puts "diffing"
-    #for now diff only removes the old dataset once we are sure the scrape went smoothly
-    #THIS NEED TO HAPPEN BEFORE WE DO AGGREGATE DATA ETC
     self.diffData
     self.generateMetaData
   end
@@ -873,8 +816,8 @@ module ScraperFile
     AlertMailer.data_process_started().deliver
     self.process
     AlertMailer.meta_started().deliver
-    self.generateMetaData
-    self.generateAlerts
+    #self.generateMetaData
+    #self.generateAlerts
     AlertMailer.data_process_finished().deliver
   end
 

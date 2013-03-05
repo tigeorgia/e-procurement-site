@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130227124302) do
+ActiveRecord::Schema.define(:version => 20130304133127) do
 
   create_table "aggregate_cpv_group_revenues", :force => true do |t|
     t.datetime "created_at"
@@ -97,6 +97,9 @@ ActiveRecord::Schema.define(:version => 20130227124302) do
     t.string   "document_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
+    t.string   "author"
+    t.datetime "date"
   end
 
   create_table "organizations", :force => true do |t|
@@ -147,6 +150,15 @@ ActiveRecord::Schema.define(:version => 20130227124302) do
     t.datetime "updated_at"
     t.string   "description"
     t.string   "description_english"
+  end
+
+  create_table "tender_cpv_codes", :force => true do |t|
+    t.integer  "tender_id"
+    t.integer  "cpv_code"
+    t.string   "description"
+    t.string   "english_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tenders", :force => true do |t|

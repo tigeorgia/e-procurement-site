@@ -3,19 +3,22 @@ class OrganizationsController < ApplicationController
   helper_method :sort_column, :sort_direction
   def search
     @params = params
-    liveDataSetID = Dataset.where(:is_live => true).first.id
     name = params[:organization][:name]
     code = params[:organization][:code]
-    org_type = params[:organization][:org_type]
+    org_type = params[:org_type]
     name = "%"+name+"%"
     code = "%"+code+"%"
-    org_type = "%"+org_type+"%"
+    
     
     foreignOnly = params[:isForeign][:foreign]
 
-    conditions = ["dataset_id = ? AND is_bidder=true AND name LIKE ? AND code LIKE ? AND org_type LIKE ?",liveDataSetID, name, code, org_type]
+    orgString = ""
+    if not org_type == ""
+      orgString = " AND org_type = '"+org_type+"'"
+    end
+    conditions = "is_bidder = true AND name LIKE '"+name+"' AND code LIKE '"+code +"'"+ orgString
     if foreignOnly == '1'
-      conditions = ["dataset_id = ? AND is_bidder=true AND name LIKE ? AND code LIKE ? AND org_type LIKE ? AND country NOT LIKE ?",liveDataSetID, name, code, org_type, "საქართველო"]
+      conditions += " AND country NOT LIKE 'საქართველო'"
     end  
 
     @organizations = Organization.paginate( :page => params[:page], :conditions => conditions	).order(sort_column + ' ' + sort_direction)
@@ -23,14 +26,22 @@ class OrganizationsController < ApplicationController
 
   def search_procurer
     @params = params
-    liveDataSetID = Dataset.where(:is_live => true).first.id
     name = params[:organization][:name]
     code = params[:organization][:code]
-    org_type = params[:organization][:org_type]
+    org_type = params[:org_type]
     name = "%"+name+"%"
     code = "%"+code+"%"
-    org_type = "%"+org_type+"%"
-    @organizations = Organization.paginate( :page => params[:page], :conditions => ["dataset_id = ? AND is_procurer=true AND name LIKE ? AND code LIKE ? AND org_type LIKE ?",liveDataSetID, name, code, org_type]	).order(sort_column + ' ' + sort_direction)
+    #dirty hack remove this scrape side
+    if org_type == "50% მეტი სახ წილ საწარმო"
+      org_type = "50% მეტი სახ. წილ. საწარმო"
+    end
+    orgString = ""
+    if not org_type == ""
+      orgString = " AND org_type ='"+org_type+"'"
+    end
+    conditions = "is_procurer = true AND name LIKE '"+name+"' AND code LIKE '"+code+"'"+ orgString
+
+    @organizations = Organization.paginate( :page => params[:page], :conditions => conditions	).order(sort_column + ' ' + sort_direction)
   end
 
   def show_procurer

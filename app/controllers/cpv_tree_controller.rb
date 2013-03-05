@@ -61,7 +61,7 @@ class CpvTreeController < ApplicationController
 
   def showCPVTree
     if not @root
-		  cpvs = TenderCpvClassifier.find(:all)
+		  codes = TenderCpvClassifier.find(:all)
 		  root = { :item => nil, :children => [] }
 		  cpvs.sort! {|x,y| sortDescending(x,y) }
 

@@ -30,7 +30,7 @@
         <% else %>
           <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to "Subscribe", {:action => "subscribe_tender", :tender_watch_id => watch_tender.id, :buttonID => buttonID}, :remote => true %></div></td>
         <% end %>
-        <% tender = Tender.where(:url_id => watch_tender.tender_url, :dataset_id => @liveDataSetID).first %>
+        <% tender = Tender.where(:url_id => watch_tender.tender_url %>
         <% highlights = nil %>
         <% if watch_tender.has_updated %>
           <% highlights = watch_tender.hash %>

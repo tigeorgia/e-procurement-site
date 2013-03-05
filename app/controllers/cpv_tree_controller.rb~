@@ -13,8 +13,11 @@ class CpvTreeController < ApplicationController
     cpvGroup = CpvGroup.find(params[:cpvGroup])
     cpvGroup.destroy
     
-
-    redirect_to :controller => :user, :action =>:index
+    if params[:referrer] == 'admin'
+      redirect_to :controller => :admin, :action =>:manageCPVs
+    else
+      redirect_to :controller => :user, :action =>:index
+    end
   end
 
   def save_cpv_group

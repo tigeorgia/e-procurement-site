@@ -9,13 +9,20 @@
       <%= f.text_field :code %>
 
       <%= f.label :type %>
-      <%= f.text_field :org_type %>
+      <% types = [] %>
+      <% @orgTypes.each do |orgType| %>
+        <% types.push(item = [t(orgType),orgType]) %>
+      <%end%>
+      <%= select_tag(:org_type, options_for_select(types), :include_blank => true)  %>
+
+
       <label for="isForeign">Only Foreign</label>
       <%= check_box("isForeign","foreign") %>
       <br>
       <%= submit_tag "Search" %>
     <% end %>
   </div>
+
 
   <div class="span4 search-org">
     <h3>Search Procurers</<h3>
@@ -27,7 +34,13 @@
       <%= f.text_field :code %>
 
       <%= f.label :type %>
-      <%= f.text_field :org_type %>
+      <% types = [] %>
+      <% @procTypes.each do |orgType| %>
+        <% orgType = orgType.gsub(".","") %>
+        <% types.push(item = [t(orgType),orgType]) %>
+      <% end %>
+      <%= select_tag(:org_type, options_for_select(types), :include_blank => true)  %>
+
       <br>
       <%= submit_tag "Search" %>
     <% end %>
@@ -38,13 +51,13 @@
     <%= form_for Tender.new, :url => "#{I18n.default_locale}/tender/search", :method => 'get' do |f| %>
       <%= f.label :status %>
       <% options = [] %>
-      <% options.push("") %>
       <% @uniqueStatus.each do |status| %>
-        <% options.push(item = [t(status)]) %>
-      <%end%>
-      <%= select_tag(:tender_status, options_for_select(options))  %>
+        <% options.push(item = [t(status),status]) %>
+      <% end %>
+      <%= select_tag(:tender_status, options_for_select(options), :include_blank => true)  %>
+
       <label for="cpvGroup">Category</label>
-      <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name))  %>
+      <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name,:include_blank => true) ) %>
       <label for="tender_registration_number">registration code</label>
       <input name="tender_registration_number" type="text"></text_field>
       <label for="announced_after">Announced After</label>
@@ -73,14 +86,14 @@
   </div>
 
 
- <div class="span4 aggregate-data">
-    <h3>Show Major Players</<h3>
-    <%= form_tag( {:controller => :aggregate, :action => "cpvVsCompany"}, :remote => false) do %>
-      <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name))  %>
-      <%= submit_tag "Generate Graph" %>
-    <% end %>
-  </div>
+ <% if @cpvGroups.length > 0 %>
+   <div class="span4 aggregate-data">
+      <h3>Show Major Players</<h3>
+      <%= form_tag( {:controller => :aggregate, :action => "cpvVsCompany"}, :remote => false) do %>
+        <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name))  %>
+        <%= submit_tag "Generate Graph" %>
+      <% end %>
+    </div>
+ <% end %>
 
 </div>
-
-
