@@ -8,6 +8,25 @@
   <dd><%= @organization.name %></dd>
   <dt><strong>Identification code:</strong></dt>
   <dd><%= @organization.code %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:org_type) %>:</strong></dt>
+  <dd><%= t(@organization.org_type) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
+  <dd><%= @organization.city %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
+  <dd><%= @organization.address %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:phone_number) %>:</strong></dt>
+  <dd><%= @organization.phone_number %></dd>
+  <% if @organization.fax_number.length > 0 %>
+    <dt><strong><%= model_class.human_attribute_name(:fax_number) %>:</strong></dt>
+    <dd><%= @organization.fax_number %></dd>
+  <% end %>
+  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dd><%= mail_to @organization.email %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:webpage) %>:</strong></dt>
+  <dd><a href="<%= @organization.webpage%>"> <%= @organization.webpage %></a></dd>
+
+
+
   <dt><strong>Tenders Offered:</strong></dt>
   <dd><%= @numTenders  %></dd>
   <dt><strong>Tenders Awarded</strong></dt>
@@ -16,15 +35,15 @@
   <dd><%= @numNoAgreements  %></dd>
 
   <dt><strong>Estimated Cost: All Tenders</strong></dt>
-  <dd>$<%= @totalEstimate  %></dd>
+  <dd>$<%= @totalEstimate.round(2)  %></dd>
   <dt><strong>Actual Cost: All Tenders</strong></dt>
-  <dd>$<%= @actualCost  %></dd>
+  <dd>$<%= @actualCost.round(2)  %></dd>
   <dt><strong>Savings percentage</strong></dt>
   <dd>%<%= @costVsEstimateSaving  %></dd>
   <dt><strong>Average Bidders</strong></dt>
-  <dd><%= @averageBidders  %></dd>
+  <dd><%= @averageBidders.round(2)  %></dd>
   <dt><strong>Average Bids</strong></dt>
-  <dd><%= @averageBids  %></dd>
+  <dd><%= @averageBids.round(2)  %></dd>
 </dl>
 
 <br></br>
@@ -38,6 +57,7 @@
       <th>Announcement Date</th>
       <th>Estimated Value</th>
       <th>CPV Code</th>
+      <th>CPV Description</th>
     </tr>
   </thead>
   <tbody>      
@@ -47,6 +67,7 @@
         <td><%= tender.tender_announcement_date%></td>
         <td><%= tender.estimated_value%></td>
         <td><%= tender.cpv_code%></td>
+        <td><%= tender[:cpvDescription]%></td>
       </tr>
     <% end %>
   </tbody>

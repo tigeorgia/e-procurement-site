@@ -36,8 +36,7 @@ ka:
     application:
       admin: ადმინისტრატო
       sign_out: გასვლა
-      js_link_title: "ეწვიეთ ჯამპსტარტ ჯორჯიას ვებ-გვერდს"
-      js_link_text: აგებულია
+      ti_link_title: "Visit Transparency International Georgia's website"
     unsupported_browser:
       title: არასათანადო ბრაუზერი
       p1: სამწუხაროდ თქვენი ინტერნეტ ბრაუზერის მოხმარების ვადა გასულია და ვერ მოხდება ვებ-გვერდთან სრულად დაკავშირება.

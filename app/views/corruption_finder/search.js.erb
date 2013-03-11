@@ -1,4 +1,8 @@
 $(function () {
   $("#results").html("<%= escape_javascript( render :partial => "search" ) %>");
+  $('.dataTable').dataTable( {
+      "sDom": '<"top"flp><"bottom"irt><"clear">',
+      "sPaginationType": "full_numbers"
+  } );
   return false;
 });

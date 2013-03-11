@@ -103,104 +103,95 @@
     <% end %>
   <% end %> 
 
-<br><br><br>
+<% if @agreementInfo.length > 0 %>
+  <hr>
+  <table class="table table-striped">
+    <thead>
+      <h3>Bidding Result</h3>
+      <tr>
+        <th>Contract Type</th>
+        <th>Organization</th>
+        <th>Contract Value</th>
+        <th>Start Date</th>
+        <th>Expiry Date</th>
+        <th>Documentation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @agreementInfo.each do |agreement| %>
+        <% if agreement[:value] == -1 %>
+          <tr>
+            <td><%= agreement[:Type] %></td>
+            <td><%= link_to agreement[:OrgName], organization_path(agreement[:OrgID]) %></td>
+            <td><%= agreement[:document] %></td>
+            <td><%= agreement[:startDate] %></td>        
+          </tr> 
+       <% else %>
+          <tr>
+            <td><%= agreement[:Type] %></td>
+            <td><%= link_to agreement[:OrgName], organization_path(agreement[:OrgID]) %></td>
+            <td><%= agreement[:value] %></td>
+            <td><%= agreement[:startDate] %></td>
+            <td><%= agreement[:expiryDate] %></td>
+            <td><a href=<%= agreement[:document] %>>link</a></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
-<h3> Bidding Result </h3>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Contract Type</th>
-      <th>Organization</th>
-      <th>Contract Value</th>
-      <th>Start Date</th>
-      <th>Expiry Date</th>
-      <th>Documentation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @agreementInfo.each do |agreement| %>
-      <% if agreement[:value] == -1 %>
+<% if @bidderInfo.length > 0 %>
+  <hr>
+  <table class="table table-striped">
+    <thead>
+      <h3>Participants</h3>
+      <tr>
+        <th><%= model_class.human_attribute_name(:name) %></th>
+        <th>First Bid</th>
+        <th>Last Bid</th>
+        <th>Number of Bids</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @bidderInfo.each do |info| %>
+        <% if info[:won] %>
+          <% myClass = 'class="bidwinner"'.html_safe %>
+        <% else %>
+          <% myClass = "" %>
+         <% end %>
+        <tr <%=myClass%>>
+            <td <%=myClass%>><%= link_to info[:name], organization_path(info[:id]) %></td>
+            <td <%=myClass%>><%= info[:highBid] %></td>
+            <td <%=myClass%>><%= info[:lowBid] %></td>
+            <td <%=myClass%>><%= info[:numBids] %></td>
+         </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% if @documentation.length > 0 %>
+  <hr>
+  <table class="table table-striped">
+    <thead>
+      <h3>Documentation<h3>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Date submitted</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% @documentation.each do |document| %>
         <tr>
-          <td><%= agreement[:Type] %></td>
-          <td><%= link_to agreement[:OrgName], organization_path(agreement[:OrgID]) %></td>
-          <td><%= agreement[:document] %></td>
-          <td><%= agreement[:startDate] %></td>        
-        </tr> 
-     <% else %>
-        <tr>
-          <td><%= agreement[:Type] %></td>
-          <td><%= link_to agreement[:OrgName], organization_path(agreement[:OrgID]) %></td>
-          <td><%= agreement[:value] %></td>
-          <td><%= agreement[:startDate] %></td>
-          <td><%= agreement[:expiryDate] %></td>
-          <td><a href=<%= agreement[:document] %>>link</a></td>
+        <td><a href=<%= document.document_url %>><%= document.title %></a></td> 
+        <td><%= document.author %></td>
+        <td><%= document.date %></td>
         </tr>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
-<br><br><br>
-<h3>Participants</h3>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th>First Bid</th>
-      <th>Last Bid</th>
-      <th>Number of Bids</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @bidderInfo.each do |info| %>
-      <% if info[:won] %>
-        <% myClass = 'class="bidwinner"'.html_safe %>
-      <% else %>
-        <% myClass = "" %>
-       <% end %>
-      <tr <%=myClass%>>
-          <td <%=myClass%>><%= link_to info[:name], organization_path(info[:id]) %></td>
-          <td <%=myClass%>><%= info[:highBid] %></td>
-          <td <%=myClass%>><%= info[:lowBid] %></td>
-          <td <%=myClass%>><%= info[:numBids] %></td>
-       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-
-Documentation
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Date submitted</th>
-    </tr>
-  </thead>
-  <tbody>
-
-    <% @documentation.each do |document| %>
-      <tr>
-      <td><a href=<%= document.document_url %>><%= document.title %></a></td> 
-      <td><%= document.author %></td>
-      <td><%= document.date %></td>
-      </tr>
-    <% end %>
-
-    <% @bidderInfo.each do |info| %>
-      <% if info[:won] %>
-        <% myClass = 'class="bidwinner"'.html_safe %>
-      <% else %>
-        <% myClass = "" %>
-       <% end %>
-      <tr <%=myClass%>>
-          <td <%=myClass%>><%= link_to info[:name], organization_path(info[:id]) %></td>
-          <td <%=myClass%>><%= info[:highBid] %></td>
-          <td <%=myClass%>><%= info[:lowBid] %></td>
-          <td <%=myClass%>><%= info[:numBids] %></td>
-       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+<% end %>
 

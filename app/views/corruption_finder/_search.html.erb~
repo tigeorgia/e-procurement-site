@@ -1,11 +1,6 @@
 <% title "Corruption Finder" %>
 
-
-<h2>Results</h2>
-
-
-
-<table class="table table-striped">
+<table class="dataTable" cellpadding="0" cellspacing="0" border="0" width="100%">
   <thead>
     <tr>
       <td>Tender ID</td>
@@ -18,6 +13,7 @@
       <tr>
         <td><%= link_to tender[:code], tender_path(tender[:id]) %></td>
         <td><%= tender[:value] %></td>
+        <td><%= tender[:info] %></td>
       </tr>
     <% end %>
   </tbody>

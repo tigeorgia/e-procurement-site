@@ -1,7 +1,8 @@
 <div class="row" id="mid-row">
   <div class="span4 search-org">
-    <h3>Search Companies</<h3>
-    <%= form_for Organization.new, :url => "#{I18n.default_locale}/organization/search", :method => 'get' do |f| %>
+    <h4>Search Companies</<h4>
+    <%= form_for Organization.new, :url => { :controller => "organization", :action => "search" }, :method => 'get' do |f| %>
+      <br>
       <%= f.label :name %>
       <%= f.text_field  :name %>
 
@@ -25,8 +26,9 @@
 
 
   <div class="span4 search-org">
-    <h3>Search Procurers</<h3>
-    <%= form_for Organization.new, :url => "#{I18n.default_locale}/organization/search_procurer", :method => 'get' do |f| %>
+    <h4>Search Procurers</<h4>
+    <%= form_for Organization.new, :url =>  { :controller => "organization", :action => "search_procurer" }, :method => 'get' do |f| %>
+      <br>
       <%= f.label :name %>
       <%= f.text_field  :name %>
 
@@ -47,8 +49,9 @@
   </div>
 
   <div class="span4 search-tender">
-    <h3>Search Tenders</<h3>
-    <%= form_for Tender.new, :url => "#{I18n.default_locale}/tender/search", :method => 'get' do |f| %>
+    <h4>Search Tenders</<h4>
+    <%= form_for Tender.new, :url => {:controller => "tender", :action => "search"}, :method => 'get' do |f| %>
+      <br>
       <%= f.label :status %>
       <% options = [] %>
       <% @uniqueStatus.each do |status| %>
@@ -58,12 +61,12 @@
 
       <label for="cpvGroup">Category</label>
       <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name,:include_blank => true) ) %>
-      <label for="tender_registration_number">registration code</label>
+      <label for="tender_registration_number">Registration Code</label>
       <input name="tender_registration_number" type="text"></text_field>
       <label for="announced_after">Announced After</label>
-      <input name="announced_after" type="text" class="dp2" value="2010/01/01" data-date-format="yyyy/mm/dd" id="dp2" >
+      <input name="announced_after" type="text" class="dp2" value="" data-date-format="yyyy/mm/dd" id="dp2" >
       <label for="announced_before">Announced Before</label>
-      <input name="announced_before" type="text" class="dp2" value="2014/01/01" data-date-format="yyyy/mm/dd" id="dp3" >
+      <input name="announced_before" type="text" class="dp2" value="" data-date-format="yyyy/mm/dd" id="dp3" >
       
       <label for="min_estimate">Minimum Cost Estimate</label>
       <input name="min_estimate" type="text"></text_field>
@@ -88,7 +91,7 @@
 
  <% if @cpvGroups.length > 0 %>
    <div class="span4 aggregate-data">
-      <h3>Show Major Players</<h3>
+      <h4>Show Major Players</<h4>
       <%= form_tag( {:controller => :aggregate, :action => "cpvVsCompany"}, :remote => false) do %>
         <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name))  %>
         <%= submit_tag "Generate Graph" %>

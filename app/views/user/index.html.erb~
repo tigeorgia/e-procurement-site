@@ -1,5 +1,5 @@
 <% title "Account Page" %>
-<h2>Tenders You are watching</h2>
+<h3>Tenders You are watching</h3>
 
  <%if false%>
   <%= button_to "Test email", {:action => "sendAlert", :user_id => @userID}, :remote => true %>
@@ -30,7 +30,7 @@
         <% else %>
           <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to "Subscribe", {:action => "subscribe_tender", :tender_watch_id => watch_tender.id, :buttonID => buttonID}, :remote => true %></div></td>
         <% end %>
-        <% tender = Tender.where(:url_id => watch_tender.tender_url, :dataset_id => @liveDataSetID).first %>
+        <% tender = Tender.where(:url_id => watch_tender.tender_url ) %>
         <% highlights = nil %>
         <% if watch_tender.has_updated %>
           <% highlights = watch_tender.hash %>
@@ -40,14 +40,13 @@
         <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
         <td <%=highlightClass%>><%= tender.estimated_value %></td>
         <td <%=highlightClass%>><%= button_to "delete", {:action => "remove_tender_watch_from_account", :tender_url => tender.url_id} %></td>
-        <td <%=highlightClass%>><%= button_to "test_alert", {:action => "sendTenderAlert", :tender_id => tender.id}, :remote => true %></td> 
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<h2>Your saved searches</h2>
-
+<hr>
+<h3>Your saved searches</h3>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -81,5 +80,6 @@
   </tbody>
 </table>
 
-<h2>Your CPV groups</h2>
+<hr>
+<h3>Your CPV groups</h3>
 <%= render :partial => "user/cpvGroups", :locals => {:cpvGroups => @cpvGroups, :referrer => "user"} %>

@@ -20,7 +20,7 @@
         <td><%= link_to organization.name, organization_path(organization) %></td>
         <td><%= organization.code %></td>
         <td><%= t(organization.org_type) %></td>
-        <td><%= organization.country %></td>
+        <td><%= t(organization.country) %></td>
         <td><%= organization.email %></td>
         <td><%= organization.phone_number %></td>
       </tr>

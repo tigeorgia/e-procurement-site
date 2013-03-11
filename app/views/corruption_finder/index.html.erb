@@ -1,6 +1,13 @@
 <% title "Corruption Finder" %>
+<% indicators = [] %>
+<% @indicators.each do |indicator| %>
+  <% indicators.push(item = [indicator.name,indicator.id]) %>
+<%end%>
+<%= form_tag( {:action => "search"}, :remote => true) do %>
+  <%= select_tag(:indicator_id, options_for_select(indicators))  %>
+  <%= submit_tag "Find Risky Tenders" %>
+<% end %>
 
-<%= button_to "Find Risky Tenders", { :action => "search", :criteria => "all"}, :remote => true %>
 
 <div id="results">
 </div>

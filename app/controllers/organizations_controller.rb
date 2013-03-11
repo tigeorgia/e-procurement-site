@@ -9,7 +9,6 @@ class OrganizationsController < ApplicationController
     name = "%"+name+"%"
     code = "%"+code+"%"
     
-    
     foreignOnly = params[:isForeign][:foreign]
 
     orgString = ""
@@ -21,7 +20,9 @@ class OrganizationsController < ApplicationController
       conditions += " AND country NOT LIKE 'საქართველო'"
     end  
 
-    @organizations = Organization.paginate( :page => params[:page], :conditions => conditions	).order(sort_column + ' ' + sort_direction)
+    results = Organization.where(conditions)
+    @numResults = results.count
+    @organizations = results.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
   end
 
   def search_procurer
@@ -40,20 +41,28 @@ class OrganizationsController < ApplicationController
       orgString = " AND org_type ='"+org_type+"'"
     end
     conditions = "is_procurer = true AND name LIKE '"+name+"' AND code LIKE '"+code+"'"+ orgString
-
-    @organizations = Organization.paginate( :page => params[:page], :conditions => conditions	).order(sort_column + ' ' + sort_direction)
+    results = Organization.where(conditions)
+    @numResults = results.count
+    @organizations = results.paginate( :page => params[:page]).order(sort_column + ' ' + sort_direction)
   end
 
   def show_procurer
     id = params[:id]
     @organization = Organization.find(id)
-    @tendersOffered = Tender.find_all_by_procurring_entity_id(id)
-    @numTenders = @tendersOffered.count
+    tenders = Tender.find_all_by_procurring_entity_id(id)
+    @numTenders = tenders.count
     @totalEstimate = 0
     @actualCost = 0
     totalBids = 0
     totalBidders = 0
     @numAgreements = 0
+
+    @tendersOffered = []
+    tenders.each do |tender|
+      cpvDescription = TenderCpvClassifier.where(:cpv_code => tender.cpv_code).first.description_english
+      tender[:cpvDescription] = cpvDescription
+      @tendersOffered.push(tender)
+    end
 
     #lets get some aggregate tender stats
     @tendersOffered.each do |tender|    
@@ -69,8 +78,6 @@ class OrganizationsController < ApplicationController
         @actualCost += lastAgreement.amount
         @numAgreements += 1
         @totalEstimate += tender.estimated_value
-      else
-        puts tender.id
       end
 
       #now look at bid stats
@@ -100,17 +107,39 @@ class OrganizationsController < ApplicationController
     allAgreements = Agreement.find_all_by_organization_id(id)
     allBids = Bidder.find_all_by_organization_id(id)
     allTenders = []
+    @topFiveCpvs = []
+    tendersPerCpv = {}
     allBids.each do |bid|
-      allTenders.push( Tender.find(bid.tender_id) )
+      tender = Tender.find(bid.tender_id)
+      allTenders.push(tender)
+      if tendersPerCpv[tender.cpv_code]
+        tendersPerCpv[tender.cpv_code] += 1
+      else
+        tendersPerCpv[tender.cpv_code] = 1
+      end
     end
+    
+    tendersPerCpv = tendersPerCpv.sort { |a,b| b[1] <=> a[1]}
+    @topFiveCpvs = []
+    count = 0
+    tendersPerCpv.each do |key, value|
+      count = count + 1
+      if count > 5
+        break
+      end
+      @topFiveCpvs.push( [key,value] )
+    end 
+    
 
     tendersWon = {}
     #find all tenders we won
     if allAgreements
       allAgreements.each do |agreement|
-        tender = tendersWon[agreement.tender_id]
-        if not tender
-          tendersWon[agreement.tender_id] = Tender.find(agreement.tender_id)
+        agreementTender = tendersWon[agreement.tender_id]
+        if not agreementTender
+          tendersWon[agreement.tender_id] = [agreement,Tender.find(agreement.tender_id)]
+        elsif agreementTender[0].amendment_number < agreement.amendment_number
+          tendersWon[agreement.tender_id] = [agreement, agreementTender[1]]
         end
       end
     end
@@ -128,7 +157,37 @@ class OrganizationsController < ApplicationController
     @numTenders = allTenders.count
     @numTendersWon = tendersWon.size
     @WLR = @numTendersWon.to_f()/@numTenders.to_f()
-    
+    @totalValueOfAllContracts = 0
+    @totalEstimatedValueOfContractsWon = 0
+    @averageNumBiddersOnContractsWon = 0
+    procuringEntities = {}
+    tendersWon.each do |key, tender|
+      @totalValueOfAllContracts += tender[0].amount
+      @totalEstimatedValueOfContractsWon += tender[1].estimated_value
+      @averageNumBiddersOnContractsWon += tender[1].bidders.count
+      procuringID = tender[1].procurring_entity_id
+      if procuringEntities[procuringID]
+        procuringEntities[procuringID] += 1
+      else
+        procuringEntities[procuringID] = 1
+      end
+    end
+
+    procuringEntities = procuringEntities.sort { |a,b| b[1] <=> a[1]}
+    @topTenProcuringEntities = []
+    count = 0
+
+    procuringEntities.each do |key, value|
+      count = count + 1
+      if count > 10
+        break
+      end
+      @topTenProcuringEntities.push( [key,value] )
+    end
+    if @numTendersWon != 0
+      @averageNumBiddersOnContractsWon = @averageNumBiddersOnContractsWon / @numTendersWon
+    end
+
     @tenderInfo = []
     #create a hash with tasty info
     allTenders.each do |tender|

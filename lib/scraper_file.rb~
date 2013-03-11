@@ -518,6 +518,16 @@ module ScraperFile
       majorPlayerIndicator.save
     end
 
+    contractAmendmentIndicator = CorruptionIndicator.where(:id => 6).first
+    if not contractAmendmentIndicator
+      contractAmendmentIndicator = CorruptionIndicator.new
+      contractAmendmentIndicator.name = "Amendment price is above the price that of a losing bidder"
+      contractAmendmentIndicator.id = 6     
+      contractAmendmentIndicator.weight = 2
+      contractAmendmentIndicator.description = "The winner of this tender has signed an agreement or amendment that has increase the tender price above that of a bid made by a competitor."
+      contractAmendmentIndicator.save
+    end
+
     @totalIndicator = CorruptionIndicator.where(:id => 100).first
     if not @totalIndicator
       @totalIndicator = CorruptionIndicator.new
@@ -528,7 +538,6 @@ module ScraperFile
       @totalIndicator.save
     end
 
-
     #remove old flags
     TenderCorruptionFlag.delete_all
     
@@ -537,11 +546,13 @@ module ScraperFile
     puts "competition"
     self.competitionAssessment(compeitionIndicator)
     puts "bidding"
-    self.biddingWarAccessment(biddingIndicator)
+    self.biddingWarAssessment(biddingIndicator)
     puts "risky codes"
     self.identifyRiskyCPVCodes(cpvRiskIndicator)
     puts "Major players"
     self.majorPlayerCompetitionAssessment(majorPlayerIndicator)
+    puts "amendment"
+    self.contractAmendmentAssessment(contractAmendmentIndicator)
   end
 
   def self.addToRiskTotal( tender, val )
@@ -592,27 +603,36 @@ module ScraperFile
     end
   end
 
-  def self.biddingWarAccessment(indicator)
+  def self.biddingWarAssessment(indicator)
     #get all tenders that had a bidding war
     Tender.find_each(:conditions => "num_bidders > 1") do |tender|
       #now check the winning bid and compare this to the estimated value
-      winningVal = nil
+      winner = nil
       tender.agreements.each do |agreement|
         if agreement.amendment_number == 0
-          winningVal = agreement.amount
+          winner = agreement.organization_id
           break
         end
       end
-      if winningVal
-        savingsPercentage = 1 - winningVal/tender.estimated_value
-        if savingsPercentage <= 0.02
-          #risky tender!
-          corruptionFlag = TenderCorruptionFlag.new
-          corruptionFlag.tender_id = tender.id
-          corruptionFlag.corruption_indicator_id = indicator.id
-          corruptionFlag.value = 1 #could have more for %1 and %0.5 etc
-          corruptionFlag.save
-          self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
+      if winner
+        winningBid = nil
+        tender.bidders.each do |bidder|
+          if bidder.organization_id == winner
+            winningBid = bidder.last_bid_amount
+            break
+          end
+        end
+        if winningBid                       
+          savingsPercentage = 1 - winningBid/tender.estimated_value
+          if savingsPercentage <= 0.02
+            #risky tender!
+            corruptionFlag = TenderCorruptionFlag.new
+            corruptionFlag.tender_id = tender.id
+            corruptionFlag.corruption_indicator_id = indicator.id
+            corruptionFlag.value = 1 #could have more for %1 and %0.5 etc
+            corruptionFlag.save
+            self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
+          end
         end
       end
     end
@@ -639,6 +659,39 @@ module ScraperFile
       end
     end
   end
+
+
+  def self.contractAmendmentAssessment(indicator)
+    Tender.find_each(:conditions => "num_bidders > 1") do |tender|
+      #look at the latest agreement and check the price vs other bidders
+      mostRecentAgreement = nil
+      agreementNum = -1
+      tender.agreements.each do |agreement|
+        if agreement.amendment_number > agreementNum
+          mostRecentAgreement = agreement
+          agreementNum = agreement.amendment_number
+        end
+      end
+
+      if mostRecentAgreement
+        tender.bidders.each do |bidder|
+          if bidder.organization_id != winner.organization_id
+            if bidder.last_bid_amount < mostRecentAgreement.amount
+              #risky tender!
+              corruptionFlag = TenderCorruptionFlag.new
+              corruptionFlag.tender_id = tender.id
+              corruptionFlag.corruption_indicator_id = indicator.id
+              corruptionFlag.value = 1
+              corruptionFlag.save
+              self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
+              break
+            end
+          end
+        end
+      end
+    end
+  end
+
 
   #tough one
   def self.majorPlayerCompetitionAssessment(indicator)
@@ -763,13 +816,13 @@ module ScraperFile
     puts "generate cpv codes"
     self.createCPVCodes
     puts "setting up users"
-   #self.createUsers
+   self.createUsers
     puts "generating aggregate data"
-    #self.processAggregateData
+    self.processAggregateData
     puts "finding competitors"
-   # self.findCompetitors
+    self.findCompetitors
     puts "finding corruption"
-    #self.generateRiskFactors
+    self.generateRiskFactors
   end
 
   def self.generateAlerts
@@ -816,8 +869,8 @@ module ScraperFile
     AlertMailer.data_process_started().deliver
     self.process
     AlertMailer.meta_started().deliver
-    #self.generateMetaData
-    #self.generateAlerts
+    self.generateMetaData
+    self.generateAlerts
     AlertMailer.data_process_finished().deliver
   end
 

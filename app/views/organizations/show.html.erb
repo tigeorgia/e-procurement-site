@@ -6,16 +6,39 @@
 <dl class="info-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @organization.name %></dd>
+
   <dt><strong>Identification code:</strong></dt>
   <dd><%= @organization.code %></dd>
+
   <dt><strong><%= model_class.human_attribute_name(:org_type) %>:</strong></dt>
   <dd><%= t(@organization.org_type) %></dd>
+
+  <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
+  <dd><%= @organization.city %></dd>
+
+  <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
+  <dd><%= @organization.address %></dd>
+
+  <dt><strong><%= model_class.human_attribute_name(:phone_number) %>:</strong></dt>
+  <dd><%= @organization.phone_number %></dd>
+
+  <% if @organization.fax_number.length > 0 %>
+    <dt><strong><%= model_class.human_attribute_name(:fax_number) %>:</strong></dt>
+    <dd><%= @organization.fax_number %></dd>
+  <% end %>
+
+  <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+  <dd><%= mail_to @organization.email %></dd>
+
+  <dt><strong><%= model_class.human_attribute_name(:webpage) %>:</strong></dt>
+  <dd><a href="<%= @organization.webpage%>"> <%= @organization.webpage %></a></dd>
+
   <dt><strong>Tenders Bid On:</strong></dt>
   <dd><%= @numTenders  %></dd>
   <dt><strong>Tenders Won:</strong></dt>
   <dd><%= @numTendersWon  %></dd>
   <dt><strong>Win/Loss Ratio</strong></dt>
-  <dd><%= @WLR  %></dd>
+  <dd><%= @WLR.round(2)  %></dd>
 </dl>
 <br>
 <% if @competitors.length > 0 %>

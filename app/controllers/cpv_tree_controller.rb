@@ -63,9 +63,9 @@ class CpvTreeController < ApplicationController
     if not @root
 		  codes = TenderCpvClassifier.find(:all)
 		  root = { :item => nil, :children => [] }
-		  cpvs.sort! {|x,y| sortDescending(x,y) }
+		  codes.sort! {|x,y| sortDescending(x,y) }
 
-		  createTree( root, cpvs )
+		  createTree( root, codes )
 		  @root = root
 		end
     @userID = params[:user_id]

@@ -4,8 +4,37 @@ class TendersController < ApplicationController
 
   def performSearch( data )
     query = QueryHelper.buildTenderSearchQuery(data)
+    @params = params
     result = Tender.where(query)
-    return result
+    @numResults = result.count
+    @tenders = result.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
+
+    @results = []
+    @tenders.each do |tender|
+      item = { :tender => tender, :procurer => Organization.find(tender.procurring_entity_id).name }
+      @results.push(item)
+    end
+
+    @searchType = "tender" 
+
+    if current_user
+      searches = current_user.searches
+      delim = '#'
+      @thisSearchString = ""
+      data.each do |key,field|
+        if field == ""
+          field = "_"
+        end
+        @thisSearchString += field + "#"
+      end
+        
+      results = Search.where( :user_id => current_user.id, :searchtype => @searchType, :search_string => @thisSearchString )
+      if results.count > 0
+        @searchIsSaved = true
+        @savedName = results.first.name
+      end
+    end
+
   end
 
   def buildQueryData( data )
@@ -16,12 +45,20 @@ class TendersController < ApplicationController
     
     reg_num = "%"+reg_num.gsub('%','')+"%"
     status = "%"+status.gsub('%','')+"%"
-    strDate = data[:announced_after].gsub('/','-')
-    startDate = Date.strptime(strDate,'%Y-%m-%d')
 
+    startDate = ""
+    endDate = ""
+    puts "DATA"
+    puts data
+    if data[:announced_after] != ""
+      strDate = data[:announced_after].gsub('/','-')
+      startDate = Date.strptime(strDate,'%Y-%m-%d')
+    end
 
-    strDate = data[:announced_before].gsub('/','-')
-    endDate = Date.strptime(strDate,'%Y-%m-%d')
+    if data[:announced_before] != ""
+      strDate = data[:announced_before].gsub('/','-')
+      endDate = Date.strptime(strDate,'%Y-%m-%d')
+    end
 
     minVal = data[:min_estimate]
     maxVal = data[:max_estimate]
@@ -32,24 +69,6 @@ class TendersController < ApplicationController
     minBidders = data[:min_num_bidders]
     maxBidders = data[:max_num_bidders]
 
-    if minVal == ""
-      minVal = "-1"
-    end
-    if maxVal == ""
-      maxVal = "99999999"
-    end
-    if minBids == ""
-      minBids = "-1"
-    end
-    if maxBids == ""
-      maxBids = "99999999"
-    end
-    if minBidders == ""
-      minBidders = "-1"
-    end
-    if maxBidders == ""
-      maxBidders = "99999999"
-    end    
      
     translated_status =  "%%"
     status = status.gsub('%','')
@@ -72,47 +91,19 @@ class TendersController < ApplicationController
     return queryData
   end
 
-  def generateViewData( tenders, queryData )
-    @params = params
-    @numResults = tenders.count
-    @tenders = tenders.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
-    @results = []
-    @tenders.each do |tender|
-      item = { :tender => tender, :procurer => Organization.find(tender.procurring_entity_id).name }
-      @results.push(item)
-    end
-
-    @searchType = "tender" 
-
-    if current_user
-      searches = current_user.searches
-      delim = '#'
-      @thisSearchString = ""
-      queryData.each do |key,field|
-        @thisSearchString += field + "#"
-      end
-        
-      results = Search.where( :user_id => current_user.id, :searchtype => @searchType, :search_string => @thisSearchString )
-      if results.count > 0
-        @searchIsSaved = true
-        @savedName = results.first.name
-      end
-    end
-  end
 
   def search
     data = buildQueryData( params )
-    resultTenders = performSearch( data )
-    generateViewData( resultTenders, data )
+    performSearch( data )
   end
 
   def search_via_saved
     search = Search.find(params[:search_id])
     searchParams = QueryHelper.buildSearchParamsFromString(search.search_string)
+    puts searchParams
     data = buildQueryData( searchParams )
-    resultTenders = performSearch( data )
-    generateViewData( resultTenders, data )
+    performSearch( data )
     @search = search
     render "search"
     @search.last_viewed = DateTime.now

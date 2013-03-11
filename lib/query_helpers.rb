@@ -1,6 +1,8 @@
 module QueryHelper 
    def self.buildSearchParamsFromString(searchString)
     fields = searchString.split("#")
+    puts searchString
+    puts fields
     params = {
       :cpvGroup => fields[0],
       :tender_registration_number => fields[1],
@@ -14,37 +16,63 @@ module QueryHelper
       :min_num_bidders => fields[9],
       :max_num_bidders => fields[10]
     }
+    params.each do |key,param|
+      if param.length == 1
+        params[key] = param.gsub("_","")
+      end
+    end
     return params
   end
 
 
  def self.buildTenderSearchQuery(params)
+
     #all params should already be in string format
-    query = "tender_registration_number LIKE '"+params[:tender_registration_number]+"'"+
-        " AND tender_status LIKE '"+params[:tender_status]+"'"+
-        " AND tender_announcement_date >= '"+params[:announced_after]+"'"+
-        " AND tender_announcement_date <= '"+params[:announced_before]+"'"+
-        " AND estimated_value >= '"+params[:min_estimate]+"'"+
-        " AND estimated_value <= '"+params[:max_estimate]+"'"+
-        " AND num_bids >= '"+params[:min_num_bids]+"'"+
-        " AND num_bids <= '"+params[:max_num_bids]+"'"+
-        " AND num_bidders >= '"+params[:min_num_bidders]+"'"+
-        " AND num_bidders <= '"+params[:max_num_bidders]+"'"
+    query = ""
+    addAnd = false
+
+    addParamToQuery = Proc.new{ |param, sql_field, operator|
+      if param != "" and param != "%%"
+        if addAnd
+          query += " AND "
+        else
+          addAnd = true
+        end
+        query += sql_field +" "+operator+" "+ "'"+param+"'"
+      end
+    }   
+
+    addParamToQuery.call( params[:tender_registration_number], "tender_registration_number", "LIKE" )
+    addParamToQuery.call( params[:tender_status], "tender_status", "LIKE" )
+    addParamToQuery.call( params[:announced_after], "tender_announcement_date", ">=" )
+    addParamToQuery.call( params[:announced_before], "tender_announcement_date", "<=" )
+    addParamToQuery.call( params[:min_estimate], "estimated_value", ">=" )
+    addParamToQuery.call( params[:max_estimate], "estimated_value", "<=" )
+    addParamToQuery.call( params[:min_num_bids], "num_bids", ">=" )
+    addParamToQuery.call( params[:max_num_bids], "num_bids", "<=" )
+    addParamToQuery.call( params[:min_num_bidders], "num_bidders", ">=" )
+    addParamToQuery.call( params[:max_num_bidders], "num_bidders", "<=" )
 
     cpvGroup = CpvGroup.where(:id => params[:cpvGroupID]).first
     if not cpvGroup or cpvGroup.id == 1
     else      
       cpvCategories = cpvGroup.tender_cpv_classifiers
       count = 1
+      queryAddition = query.length > 0
       cpvCategories.each do |category|
-        conjunction = " AND ("
+        conjunction = ""
+        if queryAddition
+          conjunction = " AND ("
+        end
         if count > 1
           conjunction = " OR"
         end
         query = query + conjunction+" cpv_code = "+category.cpv_code
         count = count + 1
       end
-      query = query + " )"
+      if count > 1 and queryAddition
+        query = query + " )"
+      end
     end
     return query
   end

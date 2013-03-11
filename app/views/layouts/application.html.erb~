@@ -83,13 +83,13 @@
               <% end %>
             </ul>
 
-<!--	          <ul class="nav pull-right">
+	          <ul class="nav pull-right">
 							<% I18n.available_locales.each do |locale| %>
 								<% if locale != I18n.locale %>
 									<li><%= link_to t("app.language.#{locale}"), params.merge(:locale => locale) %></li>
 								<% end %>
 							<% end %>
-	          </ul>-->
+	          </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
