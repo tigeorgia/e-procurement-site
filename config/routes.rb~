@@ -28,6 +28,7 @@ BootstrapStarter::Application.routes.draw do
     match '/tenders/index' => 'tenders#index'
     match '/procurer' => 'organizations#show_procurer'
     match '/watch_tender/subscribe' => 'watch_tender#subscribe'
+    match '/procurer_test' => 'organizations@procurer_test'
     match '/watch_tender/unsubscribe' => 'watch_tender#unsubscribe'
     match '/cpv_tree/showCPVtree' => 'cpv_tree#showCPVTree'
     match ':controller/:action'
@@ -36,7 +37,8 @@ BootstrapStarter::Application.routes.draw do
     #match '/process_full_scrape', :to => 'root#process_full_scrape', :as => :process_full_scrape, :via => :get
     #match '/process_incremental_scrape', :to => 'root#process_incremental_scrape', :as => :process_incremental_scrape, :via => :get
 		#match '/process_json', :to => 'root#process_json', :as => :process_json, :via => :get
-		root :to => 'root#index'
+    match '/:locale' => 'root#index'		
+    root :to => 'root#index'
 	  
 	end
 

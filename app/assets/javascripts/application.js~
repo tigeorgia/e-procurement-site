@@ -15,7 +15,6 @@
 //= require ./jtree/jquery.jstree
 //= require ./highcharts/js/highcharts.js
 //= require_tree ./site
-//= require_self
 
 
 

@@ -1,3 +1,253 @@
+<script src="http://code.highcharts.com/stock/highcharts-more.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+$(function () {
+    var winLossGraph;
+    var cpvCodeChart;
+    var procurerGraph;
+    var competitorGraph;
+    var tendersValueGraph;
+ 
+    $(document).ready(function() {
+
+          winlossChart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'winLossChart',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Tenders Won Vs Tenders Lost'
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            	percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>:' +this.y;
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Tenders Won/Lost',
+                data: [ ["Tenders Won", <%= @numTendersWon %>],["Tenders Lost", <%= @numTenders-@numTendersWon %>] ]
+            }]
+        });
+
+        cpvCodeChart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'cpvDistributionChart',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Tender CPV Code Distribution'
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            	percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>:' +this.y;
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Tenders by CPV Code',
+                data: [ <% @topFiveCpvs.each do |cpv| %> <%= raw cpv %>, <% end %>]
+            }]
+        });
+
+
+
+          procurerGraph = new Highcharts.Chart({
+            chart: {
+                renderTo: 'ProcurersChart',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Procurers'
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            	percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>:' +this.y;
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Procurers that this company has won contracts with',
+                data: [ <% @topTenProcuringEntities.each do |procurer| %> 
+                          <% item = [ link_to(procurer[0].name,  :controller => "organizations", :action => "show_procurer", :id => procurer[0]), procurer[1] ] %>
+                          <%= raw item %>, 
+                        <% end %>]
+            }]
+        });
+
+        competitorGraph = new Highcharts.Chart({
+            chart: {
+                renderTo: 'competitorChart',
+                type: 'bar'
+            },
+            title: {
+                text: 'Competitors'
+            },
+           xAxis: {
+              categories: [
+                 "Tenders bid on",
+                 <% @competitors.each do |competitor| %> 
+                    <% item = [link_to(competitor[0].name, organization_path(competitor[0].id))] %>
+                    <%= raw item %>, 
+                 <% end %>
+              ]
+           },
+           yAxis: {
+              title: {
+                 text: 'Tenders'
+              }
+           },
+            plotOptions: {
+            },
+            series: [{
+                name: 'Tenders',
+                data: [ 
+                        ["Number of tenders bid on", <%= @numTenders %>],
+                        <% @competitors.each do |competitor| %> 
+                          <% item = [ link_to(competitor[0].name, organization_path(competitor[0].id)), competitor[1] ] %>
+                          <%= raw item %>, 
+                        <% end %>
+                        ]
+            }]
+        });
+
+
+      <% if  @simpleTenderStats.count > 0  %>
+      	chart = new Highcharts.StockChart({
+			    chart : {
+				    renderTo : 'tendersValueChart',
+            type: 'column'
+			    },
+
+			    rangeSelector : {
+				    selected : 5
+			    },
+
+			    title : {
+				    text : 'Simple Electronic Tender Activity'
+			    },
+          yAxis: {
+              title: {
+                  text: 'Lari'
+              },
+              min: 0
+          }, 
+
+			    series : [{
+				    name : 'Estimated Value',
+				    data : [ <% @simpleTenderStats.each do |key,tender| %>
+                        [<%=key*1000*86400%>, <%=tender[0].to_i%>],
+                      <%end%> 
+                    ],
+            dataGrouping: {
+              enabled : false
+			      }
+			    },{		    
+            name : 'Actual Value',
+				    data : [ <% @simpleTenderStats.each do |key,tender| %>
+                        [<%=key*1000*86400%>, <%=tender[1].to_i%>],
+                      <%end%> 
+                    ],
+            dataGrouping: {
+              enabled : false
+			      }
+           }  
+          ]
+		    });
+      <% end %>
+
+      <% if  @TenderStats.count > 0  %>
+      	altChart = new Highcharts.StockChart({
+			  chart : {
+				  renderTo : 'altTendersValueChart',
+          type: 'column'
+			  },
+
+			  rangeSelector : {
+				  selected : 5
+			  },
+
+			  title : {
+				  text : 'Electronic Tender Activity'
+			  },
+        yAxis: {
+            title: {
+                text: 'Lari'
+            },
+            min: 0
+        }, 
+
+		    series : [{
+				    name : 'Estimated Value',
+				    data : [ <% @TenderStats.each do |key,tender| %>
+                        [<%=key*1000*86400%>, <%=tender[0].to_i%>],
+                      <%end%> 
+                    ],
+            dataGrouping: {
+               enabled : false
+			      }
+			    },{		    
+            name : 'Actual Value',
+				    data : [ <% @TenderStats.each do |key,tender| %>
+                        [<%=key*1000*86400%>, <%=tender[1].to_i%>],
+                      <%end%> 
+                    ],
+            dataGrouping: {
+               enabled : false
+			      }
+			    }
+        ]
+		  });
+    <% end %>
+  })
+});
+</script>
+
 <%- model_class = Organization -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human %></h1>
@@ -32,23 +282,33 @@
 
   <dt><strong><%= model_class.human_attribute_name(:webpage) %>:</strong></dt>
   <dd><a href="<%= @organization.webpage%>"> <%= @organization.webpage %></a></dd>
-
-  <dt><strong>Tenders Bid On:</strong></dt>
-  <dd><%= @numTenders  %></dd>
-  <dt><strong>Tenders Won:</strong></dt>
-  <dd><%= @numTendersWon  %></dd>
-  <dt><strong>Win/Loss Ratio</strong></dt>
-  <dd><%= @WLR.round(2)  %></dd>
 </dl>
-<br>
-<% if @competitors.length > 0 %>
-  Main Competitors<br>
-  <% @competitors.each do |competitor| %>
-     <%= link_to competitor[0].name, organization_path(competitor[0].id) %>
-     Competed in <%= competitor[1] %> tenders<br>
-  <% end %>
+<hr>
+
+
+<div id="winLossChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="cpvDistributionChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="ProcurersChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="competitorChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+<% if  @simpleTenderStats.count > 0  %>
+<div id="tendersValueChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <% end %>
 
+<% if  @TenderStats.count > 0  %>
+  <div id="altTendersValueChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<% end %>
+<br>
+
+
+Total Estimated Value of Contracts Won = <%= @totalEstimatedValueOfContractsWon %>
+<br>
+Total Actual Value of Contracts Won = <%= @totalValueOfAllContracts %>
+<br>
+Estimated vs Actual Ratio = <%= @EstimatedVActual %>
+<br>
+Average Number of Bidders on Contracts Won = <%= @averageNumBiddersOnContractsWon %>
+<hr>
 
 
 <br></br>

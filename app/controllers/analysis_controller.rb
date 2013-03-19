@@ -87,7 +87,7 @@ end
 class AnalysisController < ApplicationController
 
   def index 
-    tenders = Tender.where( "tender_announcement_date >= '2013-01-01' AND tender_announcement_date <= '2013-12-31'")
+    tenders = Tender.where( "tender_announcement_date >= '2012-01-01' AND tender_announcement_date <= '2012-12-31'")
     @total = TenderTypeStat.new("total")
     @simple_electronic = TenderTypeStat.new('Simple Electronic Tender')
     @electronic = TenderTypeStat.new('Electronic Tender')

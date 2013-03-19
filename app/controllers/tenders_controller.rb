@@ -48,8 +48,6 @@ class TendersController < ApplicationController
 
     startDate = ""
     endDate = ""
-    puts "DATA"
-    puts data
     if data[:announced_after] != ""
       strDate = data[:announced_after].gsub('/','-')
       startDate = Date.strptime(strDate,'%Y-%m-%d')
@@ -101,7 +99,6 @@ class TendersController < ApplicationController
   def search_via_saved
     search = Search.find(params[:search_id])
     searchParams = QueryHelper.buildSearchParamsFromString(search.search_string)
-    puts searchParams
     data = buildQueryData( searchParams )
     performSearch( data )
     @search = search

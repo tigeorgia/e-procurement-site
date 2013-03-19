@@ -299,7 +299,6 @@ $(function () {
 
 <div id="amountGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="countGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-<div id="noBidsVBidsGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="averageBidDurationGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="averageWarningPeriodGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <div id="averageBiddersGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>

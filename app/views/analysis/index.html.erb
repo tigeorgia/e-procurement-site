@@ -272,20 +272,7 @@ $(function () {
             },
 
 
-            series: [{
-                type: 'line',
-                name: 'Regression Line',
-                data: [[0, 0], [0, 0]],
-                marker: {
-                    enabled: false
-                },
-                states: {
-                    hover: {
-                        lineWidth: 0
-                    }
-                },
-                enableMouseTracking: false
-            }, {
+            series: [ {
                 type: 'scatter',
                 name: 'Observations',
                 data: dataset

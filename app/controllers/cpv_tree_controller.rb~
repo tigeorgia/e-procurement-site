@@ -65,8 +65,9 @@ class CpvTreeController < ApplicationController
 		  root = { :item => nil, :children => [] }
 		  codes.sort! {|x,y| sortDescending(x,y) }
 
-		  createTree( root, cpvs )
+		  createTree( root, codes )
 		  @root = root
+      printTree( root )
 		end
     @userID = params[:user_id]
     @checkedNodes = ""

@@ -28,6 +28,7 @@ BootstrapStarter::Application.routes.draw do
     match '/tenders/index' => 'tenders#index'
     match '/procurer' => 'organizations#show_procurer'
     match '/watch_tender/subscribe' => 'watch_tender#subscribe'
+    match '/procurer_test' => 'organizations#procurer_test'
     match '/watch_tender/unsubscribe' => 'watch_tender#unsubscribe'
     match '/cpv_tree/showCPVtree' => 'cpv_tree#showCPVTree'
     match ':controller/:action'

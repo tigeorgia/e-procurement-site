@@ -14,6 +14,7 @@
 //= require bootstrap-datepicker
 //= require ./jtree/jquery.jstree
 //= require ./highcharts/js/highcharts.js
+//= require ./highstock/js/highstock.js
 //= require_tree ./site
 
 

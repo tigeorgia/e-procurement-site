@@ -25,6 +25,9 @@ class OrganizationsController < ApplicationController
     @organizations = results.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
   end
 
+  def procurer_test
+  end
+
   def search_procurer
     @params = params
     name = params[:organization][:name]
@@ -57,13 +60,31 @@ class OrganizationsController < ApplicationController
     totalBidders = 0
     @numAgreements = 0
 
+    tendersPerCpv = {}
     @tendersOffered = []
     tenders.each do |tender|
       cpvDescription = TenderCpvClassifier.where(:cpv_code => tender.cpv_code).first.description_english
+      if cpvDescription == nil
+        cpvDescription = "NA"
+      end
       tender[:cpvDescription] = cpvDescription
       @tendersOffered.push(tender)
+
+      if tendersPerCpv[tender.cpv_code]
+        tendersPerCpv[tender.cpv_code][1] += 1
+      else
+        tendersPerCpv[tender.cpv_code] = [cpvDescription, 1 ]
+      end
     end
 
+    tendersPerCpv = tendersPerCpv.sort { |a,b| b[1][1] <=> a[1][1]}
+    @Cpvs = []
+    tendersPerCpv.each do |key, value|
+      @Cpvs.push( value )
+    end
+  
+    @successfulTenders = []
+    @cpvTree = []
     #lets get some aggregate tender stats
     @tendersOffered.each do |tender|    
       agreements = Agreement.find_all_by_tender_id(tender.id)
@@ -78,7 +99,12 @@ class OrganizationsController < ApplicationController
         @actualCost += lastAgreement.amount
         @numAgreements += 1
         @totalEstimate += tender.estimated_value
+        @successfulTenders.push( [tender,lastAgreement] )
+        item = { :name => tender.cpvDescription, :value => lastAgreement.amount, :code => tender.cpv_code, :children => [] }
+        @cpvTree.push(item)
       end
+
+      @successfulTenders.sort!{ |a,b| a[0].tender_announcement_date <=> b[0].tender_announcement_date }
 
       #now look at bid stats
       bidders = Bidder.find_all_by_tender_id(tender.id)
@@ -87,6 +113,15 @@ class OrganizationsController < ApplicationController
       end
       totalBidders += bidders.count
     end
+
+
+    #lets make a tree out of our CPV codes
+    root = { :name => "cpv", :children => [] }
+	  @cpvTree.sort! {|x,y| x[:code] <=> y[:code] }
+    createTree( root, @cpvTree )
+    @jsonString = ""
+    createJsonString( root )
+    @jsonString.chop!
 
     #time for tasty averages
     @averageBids = totalBids.to_f/@numTenders
@@ -124,10 +159,11 @@ class OrganizationsController < ApplicationController
     count = 0
     tendersPerCpv.each do |key, value|
       count = count + 1
-      if count > 5
+      if count > 50
         break
       end
-      @topFiveCpvs.push( [key,value] )
+      description = TenderCpvClassifier.where(:cpv_code => key).first.description_english
+      @topFiveCpvs.push( [description,value] )
     end 
     
 
@@ -143,6 +179,8 @@ class OrganizationsController < ApplicationController
         end
       end
     end
+
+    
 
     #find all competitors
     @competitors = []
@@ -179,13 +217,14 @@ class OrganizationsController < ApplicationController
 
     procuringEntities.each do |key, value|
       count = count + 1
-      if count > 10
+      if count > 50
         break
       end
-      @topTenProcuringEntities.push( [key,value] )
+      @topTenProcuringEntities.push( [Organization.find(key), value] )
     end
     if @numTendersWon != 0
-      @averageNumBiddersOnContractsWon = @averageNumBiddersOnContractsWon / @numTendersWon
+      @averageNumBiddersOnContractsWon = @averageNumBiddersOnContractsWon.to_f / @numTendersWon.to_f
+      @EstimatedVActual = @totalValueOfAllContracts/ @totalEstimatedValueOfContractsWon
     end
 
     @tenderInfo = []
@@ -209,6 +248,29 @@ class OrganizationsController < ApplicationController
       @tenderInfo.push(infoItem)
     end
     @tenderInfo.sort! { |a,b| (a[:won] ? -1 : 1) }
+    tendersWon = tendersWon.sort { |a,b| a[1][1].tender_announcement_date <=> b[1][1].tender_announcement_date }
+
+    @simpleTenderStats = {}
+    @TenderStats = {}
+    tendersWon.each do |key,tenderItem|
+      tender = tenderItem[1]
+      date = tender.tender_announcement_date.to_time.to_i/86400
+      dateStats = @TenderStats
+      if tender.tender_type.strip == "გამარტივებული ელექტრონული ტენდერი"
+        dateStats = @simpleTenderStats
+      end
+      if not dateStats[date]
+        dateStats[date] = [tender.estimated_value, tenderItem[0].amount]
+      else
+        #this tender was announced on the same day as another tender and we can only go as far as per day on the graph
+        #so lets pick the most important tender and ignore the other one :(
+        old = dateStats[date]
+        if old[0] < tender.estimated_value
+          #overwrite old data
+          dateStats[date] = [tender.estimated_value, tenderItem[0].amount]
+        end
+      end
+    end
   end
 
   private
@@ -219,6 +281,69 @@ class OrganizationsController < ApplicationController
 
   def sort_direction
     params[:direction] || "asc"
+  end
+
+
+  def createTree( root, list )
+    prev = root
+    parent = root
+
+    list.each do |item|
+      node = item
+      if isChild(prev, node)
+        parent = prev
+      end
+      if not isChild(parent, node)
+        parent = root
+      end
+      
+      parent[:children].push(node)
+      prev = node  
+    end
+  end
+
+  def countZeros( string )
+    count = 0
+    pos = string.length
+    while pos > 0
+      if string[pos-1] == '0'
+        count = count +1
+      else
+        break
+      end
+      pos = pos - 1
+    end
+    return count
+  end
+
+  def isChild(parent, node)
+    if parent[:name] == "cpv" 
+      return true
+    else
+      digits = countZeros(parent[:code])
+      parentString = parent[:code]
+      subParent = parentString[0, parentString.length-digits]
+      codeString = node[:code]
+      subCode = codeString[0, codeString.length-digits]
+      return subParent == subCode
+    end
+  end
+
+  def createJsonString( root )
+    @jsonString +="{"
+    @jsonString += '"name": ' + '"'+root[:name]+'"'+','
+    if root[:children] and root[:value]
+      @jsonString += '"value": ' + root[:value].to_s+','
+    end
+    
+    if root[:children].length > 0
+      @jsonString += '"children": ['
+      root[:children].each do |child|
+        createJsonString( child )
+      end
+      @jsonString += ']'
+    end
+    @jsonString += "},"
   end
 
 end
