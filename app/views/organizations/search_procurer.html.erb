@@ -4,6 +4,14 @@
 </div>
 
 Number of Organizations found: <%= @numResults %>
+<p>
+  Download:
+  <% @params[:format] = "csv" %>
+  <% @params[:controller] = "organization" %>
+  <% @params[:action] = "search_procurer" %>
+  <%= link_to "CSV",  @params %>
+</p>
+
 <table class="table table-striped">
   <thead>
     <tr>

@@ -19,7 +19,8 @@ class Organization < ActiveRecord::Base
       :fax_number,
       :email,
       :webpage,
-      :address
+      :address,
+      :translation
 
   validates :organization_url, :presence => true
   
@@ -28,4 +29,18 @@ class Organization < ActiveRecord::Base
   
   # number of items per page for pagination
 	self.per_page = 20
+  
+  def getTranslations()
+    translations = self.translation.split("#")
+    return translations
+  end
+
+  def saveTranslations( wordList )
+    translationString = ""
+    wordList.each do |word|
+      translationString += word + "#"
+    end
+    self.translation = translationString
+    self.save
+  end
 end

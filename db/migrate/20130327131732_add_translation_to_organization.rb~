@@ -1,0 +1,5 @@
+class AddTranslationToOrganization < ActiveRecord::Migration
+  def change
+    add_column :organizations, :translations, :string
+  end
+end

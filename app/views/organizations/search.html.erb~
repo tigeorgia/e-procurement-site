@@ -3,6 +3,15 @@
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
 
+Number of Organizations found: <%= @numResults %>
+<p>
+  Download:
+  <% @params[:format] = "csv" %>
+  <% @params[:controller] = "organization" %>
+  <% @params[:action] = "search_procurer" %>
+  <%= link_to "CSV",  @params %>
+</p>
+
 <table class="table table-striped">
   <thead>
     <tr>

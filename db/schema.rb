@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304133127) do
+ActiveRecord::Schema.define(:version => 20130327131732) do
 
   create_table "aggregate_cpv_group_revenues", :force => true do |t|
     t.datetime "created_at"
@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20130304133127) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "dataset_id"
+    t.string   "translation"
   end
 
   add_index "organizations", ["organization_url", "name"], :name => "index_organizations_on_organization_url_and_name"

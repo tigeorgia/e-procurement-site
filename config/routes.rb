@@ -25,10 +25,12 @@ BootstrapStarter::Application.routes.draw do
 
     match '/tender/search' => 'tenders#search'
     match '/tender/search_via_saved' => 'tenders#search_via_saved'
+    match '/tender/download' => 'tenders#download'
+    match '/organization/download_proc_tenders' => 'organizations#download_proc_tenders'
+    match '/organization/download_org_tenders' => 'organizations#download_org_tenders'
     match '/tenders/index' => 'tenders#index'
     match '/procurer' => 'organizations#show_procurer'
     match '/watch_tender/subscribe' => 'watch_tender#subscribe'
-    match '/procurer_test' => 'organizations#procurer_test'
     match '/watch_tender/unsubscribe' => 'watch_tender#unsubscribe'
     match '/cpv_tree/showCPVtree' => 'cpv_tree#showCPVTree'
     match ':controller/:action'

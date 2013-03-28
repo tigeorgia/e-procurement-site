@@ -1,0 +1,120 @@
+module TranslationHelper
+
+  require 'net/http' 
+  def self.stringContainsGeorgian( word )
+    #see if this is in georgian
+    unicodeIntArray = word.unpack("U*")
+    unicodeIntArray.each do |unicodeInt|
+      if unicodeInt >= 4304 and unicodeInt <= 4336
+        return true
+      end 
+    end
+    return false
+  end
+
+  def self.googleTranslateString( string, list, toEnglish )
+    fromLang = "en"
+    toLang = "ka"
+    if toEnglish
+      fromLang = "ka"
+      toLang = "en"
+    end
+    url = URI.parse('http://translate.google.com/translate_a/t?client=t&text='+string+'&hl=en&sl='+fromLang+'&tl='+toLang+'&ie=UTF-8&oe=UTF-8&multires=1&otf=1&pc=1&rom=1&ssel=5&tsel=5&sc=1')
+    req = Net::HTTP::Get.new(url.to_s)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+      http.request(req)
+    }
+
+    response = res.body.force_encoding("UTF-8")
+    response = response.squeeze(',')
+    first_response = JSON.parse( response )
+    translationArray = first_response[0][0]
+   
+    geo = translationArray[0]
+    chat = translationArray[2]
+    #puts "google GEO: " + geo
+   #puts "google chat: " + chat
+    puts "google push"
+    list.push(geo)
+    if chat.length > 0
+      list.push(chat)
+    end
+  end
+
+  def self.removeMetaInfo( word )
+    descriptors = ["noun","adjective","verb"]
+    #puts "WORD: " + word
+    #remove any descriptions in brackets
+    translation = word.split("(")[0].strip        
+    #now split any descriptors from the front of the string eg. Noun
+    descriptors.each do |descriptor|
+      translation = translation.split(descriptor).last.strip
+    end
+    #now remove any topics
+    translation = translation.split("}").last.strip
+    #now remove any pronouncations
+    translation = translation.split("]").last.strip
+  
+    return translation
+  end
+
+
+  def self.geoTranslateString( string, list, toEnglish )
+
+
+    langUrl = "ge"
+    if not toEnglish
+      langUrl = "en"
+    end
+    url = URI.parse('http://www.translate.ge/Main/Translate?text='+string+'&lang='+langUrl)
+    req = Net::HTTP::Get.new(url.to_s)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+      http.request(req)
+    }
+    #get first translation
+    first_response = JSON.parse(res.body)[0]
+
+    #remove html escape chars
+    if first_response and first_response["Text"]
+      first_response = first_response["Text"].gsub(/<\/?[^>]*>/, "")
+      #split string by spaces and get first item that ends with a seperator
+      words = first_response.split("\n")
+      seperators = [",",";","."]
+      words.each do |word|
+        seperators.each do |seperator|
+          if word.include? seperator
+            items = word.split(seperator)
+            #remove seperator
+            translation = items[0].gsub(seperator,"")    
+            puts "LOOP"
+            puts translation
+            puts word
+            translation = removeMetaInfo( translation )             
+            #puts "Geotranslate: " + translation
+            list.push(translation)
+            return
+          end
+        end
+      end
+      puts "HERE"
+      puts words
+      if words.length > 0
+        translation = removeMetaInfo( words[0] )  
+        list.push(translation)
+      end
+    end
+  end
+
+  def self.findStringTranslations( theString )
+    translation_list = []
+
+    toEnglish = stringContainsGeorgian( theString )
+    theString = URI.encode(theString)
+
+    #Run this string through online translators
+    #geoTranslateString( theString, translation_list, toEnglish )
+    googleTranslateString( theString, translation_list, toEnglish )
+    return translation_list
+  end
+
+end

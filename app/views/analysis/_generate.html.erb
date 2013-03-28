@@ -1,0 +1,32 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @info.each do |item| %>
+      <tr>
+        <td><%= item[0] %></td>
+        <td><%= item[1] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<div id="amountGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="countGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="averageBidDurationGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="averageWarningPeriodGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="averageBiddersGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="averageBidsGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="moreThan1BidGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="scatterGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="biddingDuration2DaysGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div id="biddingWarning1DayGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+<% if @jsonString.length > 0 %>
+  <p id="cpvChart">
+<% end %>

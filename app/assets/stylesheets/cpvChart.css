@@ -1,0 +1,41 @@
+#cpvChart {
+  width: 960px;
+  height: 500px;
+  background: #bbb;
+}
+
+#cpvChart text {
+  pointer-events: none;
+}
+
+#cpvChart .grandparent text {
+  font-weight: bold;
+}
+
+#cpvChart rect {
+  fill: none;
+  stroke: #fff;
+}
+
+#cpvChart rect.parent,
+.grandparent rect {
+  stroke-width: 2px;
+}
+
+#cpvChart .grandparent rect {
+  fill: #fff;
+}
+
+#cpvChart .children rect.parent,
+.grandparent rect {
+  cursor: pointer;
+}
+
+#cpvChart rect.parent {
+  pointer-events: all;
+}
+
+#cpvChart .children:hover rect.child,
+.grandparent:hover rect {
+  fill: #aaa;
+}

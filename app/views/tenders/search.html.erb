@@ -23,6 +23,14 @@ Number of Tenders with Single Bid Only = <%= @numSingleBids %><br>
 Single Bid Percentage = <%= @numSingleBids/@numBidTenders %><br>
 <% end %>
 
+<p>
+  Download:
+  <% @params[:format] = "csv" %>
+  <% @params[:controller] = "tender" %>
+  <% @params[:action] = "download" %>
+  <%= link_to "CSV",  @params %>
+</p>
+
 <table class="table table-striped">
   <thead>
     <tr>

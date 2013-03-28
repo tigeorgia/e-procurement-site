@@ -1,12 +1,16 @@
 module ApplicationHelper
-  
-  def sortable(params, column, title = nil)
-    myParams = params.clone
-    title ||= column.titleize
-    direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
-    myParams[:sort] = column
-    myParams[:direction] = direction
-    link_to title, myParams
+
+  def buildTenderCSVString( tenders )
+    csv_string = CSV.generate do |csv|
+       csv << ["Type","Registration Number","Status", "Announcement Date", "Bidding Start Date", "Bidding End Date", "Estimated Value",
+               "Cpv Code","Number of Bids","Number of Bidders","Bid Step","Units Supplied","Supply Period","Guarantee Amount","Guarantee Period"]
+       tenders.each do |tender|
+         csv << [tender.tender_type,tender.tender_registration_number,tender.tender_status,tender.tender_announcement_date,tender.bid_start_date,
+                tender.bid_end_date, tender.estimated_value, tender.cpv_code, tender.num_bids, tender.num_bidders, tender.offer_step,
+                tender.units_to_supply,tender.supply_period,tender.guarantee_amount,tender.guarantee_period]
+       end
+      end
+    return csv_string
   end
 
   def buildTenderSearchQuery(params)

@@ -1,4 +1,3 @@
-<script src="http://code.highcharts.com/stock/highcharts-more.js"></script>
 <script type="text/javascript" charset="utf-8">
 
 $(function () {
@@ -177,12 +176,28 @@ $(function () {
               },
               min: 0
           }, 
+          plotOptions: {
+          series: {
+              cursor: 'pointer',
+              point: {
+                  events: {
+                      click: function() {
+                          parent.location=this.myData;
+                      }
+                  }
+              }
+            }
+         },
 
 			    series : [{
 				    name : 'Estimated Value',
 				    data : [ <% @simpleTenderStats.each do |key,tender| %>
-                        [<%=key*1000%>, <%=tender[0].to_i%>],
-                      <%end%> 
+                    { 
+                     x: <%=key*1000*86400%>, 
+                     y: <%=tender[0].estimated_value.to_i%>,
+                     myData: "<%= tender_path(tender[0].id) %>"
+                    },
+                  <%end%> 
                     ],
             dataGrouping: {
               enabled : false
@@ -190,8 +205,12 @@ $(function () {
 			    },{		    
             name : 'Actual Value',
 				    data : [ <% @simpleTenderStats.each do |key,tender| %>
-                        [<%=key*1000%>, <%=tender[1].to_i%>],
-                      <%end%> 
+                      { 
+                       x: <%=key*1000*86400%>, 
+                       y: <%=tender[1].to_i%>,
+                       myData: "<%= tender_path(tender[0].id) %>"
+                      },
+                    <%end%> 
                     ],
             dataGrouping: {
               enabled : false
@@ -211,6 +230,19 @@ $(function () {
 			  rangeSelector : {
 				  selected : 5
 			  },
+      
+        plotOptions: {
+          series: {
+              cursor: 'pointer',
+              point: {
+                  events: {
+                      click: function() {
+                          parent.location=this.myData;
+                      }
+                  }
+              }
+            }
+         },
 
 			  title : {
 				  text : 'Electronic Tender Activity'
@@ -225,8 +257,12 @@ $(function () {
 		    series : [{
 				    name : 'Estimated Value',
 				    data : [ <% @TenderStats.each do |key,tender| %>
-                        [<%=key*1000%>, <%=tender[0].to_i%>],
-                      <%end%> 
+                      { 
+                       x: <%=key*1000*86400%>, 
+                       y: <%=tender[0].estimated_value.to_i%>,
+                       myData: "<%= tender_path(tender[0].id) %>"
+                      },
+                      <%end%>
                     ],
             dataGrouping: {
                enabled : false
@@ -234,8 +270,12 @@ $(function () {
 			    },{		    
             name : 'Actual Value',
 				    data : [ <% @TenderStats.each do |key,tender| %>
-                        [<%=key*1000%>, <%=tender[1].to_i%>],
-                      <%end%> 
+                      { 
+                       x: <%=key*1000*86400%>, 
+                       y: <%=tender[1].to_i%>,
+                       myData: "<%= tender_path(tender[0].id) %>"
+                      },
+                    <%end%> 
                     ],
             dataGrouping: {
                enabled : false
@@ -314,7 +354,10 @@ Average Number of Bidders on Contracts Won = <%= @averageNumBiddersOnContractsWo
 <br></br>
 <h3>Tenders Bid On</h3>
 <br></br>
-
+  <p>
+    Download:
+    <%= link_to "CSV", :controller => "organizations", :action => "download_org_tenders", :format => "csv", :id => @organization.id %>
+  </p>
   <table class="dataTable" cellpadding="0" cellspacing="0" border="0" width="100%">
   <thead>
     <tr>

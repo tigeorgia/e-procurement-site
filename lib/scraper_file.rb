@@ -792,6 +792,15 @@ module ScraperFile
     end
   end
 
+  def self.generateOrganizationNameTranslations
+    Organization.all.each do |organization|
+      puts name
+      name = organization.name
+      translations = findStringTranslations(name)
+      organization.saveTranslations(translations)
+    end
+  end
+
   def self.process
     start = Time.now
     I18n.locale = :en # do this so formating of floats and dates is correct when reading in json
@@ -881,12 +890,6 @@ module ScraperFile
     self.processAggregateData
     puts "setting up users"
     self.createUsers
-  end
-  
-  #filled out with tasks to test
-  def self.runStuff
-    puts "finding competitors"
-    self.findCompetitors
   end
 
 end

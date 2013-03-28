@@ -1,0 +1,351 @@
+$(function () {
+  $("#results").html("<%= escape_javascript( render :partial => "generate" ) %>");
+    var tenderTypeChart;
+    var tenderTypeCountChart;
+    var bidDurationChart;
+    var warningPeriodChart;
+
+    var dataset = []
+    <%= @bidDurationVsBidders.each do |data| %>
+        var dataPoint = { x: <%=data[0]%>, y: <%=data[1]%>, marker: { radius: <%=data[2]/(@simple_electronic.getSuccessCount() / 100)%> }, count: <%=data[2]%>}
+        dataset.push(dataPoint)
+    <% end %>
+
+    
+    $(document).ready(function() {
+        tenderTypeChart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'amountGraph',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Estimated value of Tenders by Type'
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            	percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>:' +this.y+' GEL';
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Estimated value of Tenders by Type',
+                data: [ <% @data.each do |type| %> <%= raw type.getValuePair() %>, <% end %>]
+            }]
+        });
+
+
+      tenderTypeCountChart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'countGraph',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Number of Tenders by Type'
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            	percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>:' +this.y;
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Number of Tenders by Type',
+                data: [ <% @data.each do |type| %> <%= raw type.getCountPair() %>, <% end %>]
+            }]
+        });
+
+      
+      bidDurationChart = new Highcharts.Chart({
+
+       chart: {
+          renderTo: 'averageBidDurationGraph',
+          type: 'bar'
+       },
+       title: {
+          text: 'Average bidding duration'
+       },
+       xAxis: {
+          categories: [
+             <% @data.each do |type| %>
+              "<%= type.getName() %>",
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: 'Days'
+          }
+       },
+       series: [        
+               {
+                name: "Average bidding duration",
+                data: [ <% @data.each do |type| %> <%= raw type.getAverageBidDuration() %>, <% end %>]
+               },  
+               ]  
+
+        });
+
+      warningPeriodChart = new Highcharts.Chart({
+
+       chart: {
+          renderTo: 'averageWarningPeriodGraph',
+          type: 'bar'
+       },
+       title: {
+          text: 'Average Time between tender announcement and bidding'
+       },
+       xAxis: {
+          categories: [
+             <% @data.each do |type| %>
+              "<%= type.getName() %>",
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: 'Days'
+          }
+       },
+       series: [        
+               {
+                name: "Days after announcement",
+                data: [ <% @data.each do |type| %> <%= raw type.getAverageWarningPeriod() %>, <% end %>]
+               },  
+               ]  
+
+        });
+
+      averageBidders = new Highcharts.Chart({
+
+       chart: {
+          renderTo: 'averageBiddersGraph',
+          type: 'bar'
+       },
+       title: {
+          text: 'Average number of bidders per tender'
+       },
+       xAxis: {
+          categories: [
+             <% @data.each do |type| %>
+              "<%= type.getName() %>",
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: 'Bidders'
+          }
+       },
+       series: [        
+               {
+                name: "Bidders",
+                data: [ <% @data.each do |type| %> <%= raw type.getAverageBidders() %>, <% end %>]
+               },  
+               ]  
+
+        });
+
+      averageBids = new Highcharts.Chart({
+
+       chart: {
+          renderTo: 'averageBidsGraph',
+          type: 'bar'
+       },
+       title: {
+          text: 'Average number of bids per tender'
+       },
+       xAxis: {
+          categories: [
+             <% @data.each do |type| %>
+              "<%= type.getName() %>",
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: 'Bids'
+          }
+       },
+       series: [        
+               {
+                name: "Bids",
+                data: [ <% @data.each do |type| %> <%= raw type.getAverageBids() %>, <% end %>]
+               },  
+               ]  
+
+        });
+
+      moreThan1Bid = new Highcharts.Chart({
+
+       chart: {
+          renderTo: 'moreThan1BidGraph',
+          type: 'bar'
+       },
+       title: {
+          text: 'Percentage of bids that had atleast one bidder'
+       },
+       xAxis: {
+          categories: [
+             <% @data.each do |type| %>
+              "<%= type.getName() %>",
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: 'Percentage'
+          }
+       },
+       series: [        
+               {
+                name: "Percentage",
+                data: [ <% @data.each do |type| %> <%= raw type.getNumTendersWithBidders() %>, <% end %>]
+               },  
+               ]  
+
+        });
+
+
+
+    scatterChart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'scatterGraph'
+            },
+            xAxis: {
+                min: 2,
+                title: {
+                  enabled: true,
+                  text: 'Tender duration'
+                },
+            },
+            yAxis: {
+                min: 1.25,
+                title: {
+                  enabled: true,
+                  text: 'Number of Bidders'
+                },
+            },
+            title: {
+                text: 'Duration of Tender vs Average number of Bidders'
+            },
+            tooltip: {
+                formatter:function (){
+                  return ''+
+                  this.x +' days, '+ this.y +' average bidders';
+                }
+            },
+
+
+            series: [ {
+                type: 'scatter',
+                name: 'Observations',
+                data: dataset
+            }]
+        });
+
+      onedaywarningChart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'biddingWarning1DayGraph',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Bidding Warning'
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            	percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>:' +this.y;
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Bidding Warning',
+                data: [ <% @simple_electronic.getBiddingWarnings().each do |key, amount| %> [ "<%= key.to_s + " days(s)" %>", <%= amount %> ], <%end%> ]
+            }]
+        });
+
+      twodaybiddingDurationChart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'biddingDuration2DaysGraph',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Bidding Duration'
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            	percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>:' +this.y;
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Bidding Duration',
+                data: [ <% @simple_electronic.getBiddingTimes().each do |key, amount| %> [ "<%= key.to_s + " days(s)" %>", <%= amount %> ], <%end%> ]
+            }]
+        });
+
+
+
+    });
+
+  return false;
+});

@@ -1,11 +1,21 @@
 # encoding: utf-8 
 class OrganizationsController < ApplicationController
   helper_method :sort_column, :sort_direction
+  include GraphHelper
+  require 'net/http'  
+  include ApplicationHelper
   def search
     @params = params
     name = params[:organization][:name]
     code = params[:organization][:code]
     org_type = params[:org_type]
+
+    translations = nil
+    #run the name through an external translator
+    if name.length > 0
+     translations = findStringTranslations(name)
+    end
+
     name = "%"+name+"%"
     code = "%"+code+"%"
     
@@ -15,17 +25,41 @@ class OrganizationsController < ApplicationController
     if not org_type == ""
       orgString = " AND org_type = '"+org_type+"'"
     end
-    conditions = "is_bidder = true AND name LIKE '"+name+"' AND code LIKE '"+code +"'"+ orgString
+    conditions = "is_bidder = true AND code LIKE '"+code +"'"+ orgString
     if foreignOnly == '1'
       conditions += " AND country NOT LIKE 'საქართველო'"
-    end  
-
+    end
+    if translations
+      conditions += " AND ( name LIKE '"+name+"'"
+      translations.each do |translation|
+       conditions += " OR name LIKE '"+"%"+translation+"%"+"'"
+      end
+      conditions += " )"
+    else
+      conditions += " AND name LIKE '"+name+"'"
+    end
+    
     results = Organization.where(conditions)
     @numResults = results.count
     @organizations = results.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
+
+    respond_to do |format|
+      format.html
+      format.csv {        
+        send_data buildCSV(results)
+      }
+    end 
   end
 
-  def procurer_test
+  def buildCSV( results )
+     csv_string = CSV.generate do |csv|
+       csv << ["Name","Country","Legal Type","City","Address","Phone Number","Fax Number","Email","Web Page","Code"]
+       results.each do |org|
+         csv << [org.name,org.country,org.org_type,org.city,org.address,org.phone_number,org.fax_number,org.email,
+                 org.webpage,org.code]
+       end
+    end
+    return csv_string   
   end
 
   def search_procurer
@@ -33,6 +67,13 @@ class OrganizationsController < ApplicationController
     name = params[:organization][:name]
     code = params[:organization][:code]
     org_type = params[:org_type]
+
+    translations = nil
+    #run the name through an external translator
+    if name.length > 0
+     translations = findStringTranslations(name)
+    end
+
     name = "%"+name+"%"
     code = "%"+code+"%"
     #dirty hack remove this scrape side
@@ -43,10 +84,26 @@ class OrganizationsController < ApplicationController
     if not org_type == ""
       orgString = " AND org_type ='"+org_type+"'"
     end
-    conditions = "is_procurer = true AND name LIKE '"+name+"' AND code LIKE '"+code+"'"+ orgString
+    conditions = "is_procurer = true AND code LIKE '"+code+"'"+ orgString
+    if translations
+      conditions += " AND ( name LIKE '"+name+"'"
+      translations.each do |translation|
+       conditions += " OR name LIKE '"+"%"+translation+"%"+"'"
+      end
+      conditions += " )"
+    else
+      conditions += " AND name LIKE '"+name+"'"
+    end
+
     results = Organization.where(conditions)
     @numResults = results.count
     @organizations = results.paginate( :page => params[:page]).order(sort_column + ' ' + sort_direction)
+    respond_to do |format|
+      format.html
+      format.csv {        
+        send_data buildCSV(results)
+      }
+    end 
   end
 
   def show_procurer
@@ -84,7 +141,7 @@ class OrganizationsController < ApplicationController
     end
   
     @successfulTenders = []
-    @cpvTree = []
+    cpvAgreements = {}
     #lets get some aggregate tender stats
     @tendersOffered.each do |tender|    
       agreements = Agreement.find_all_by_tender_id(tender.id)
@@ -101,10 +158,16 @@ class OrganizationsController < ApplicationController
         @totalEstimate += tender.estimated_value
         @successfulTenders.push( [tender,lastAgreement] )
         item = { :name => tender.cpvDescription, :value => lastAgreement.amount, :code => tender.cpv_code, :children => [] }
-        @cpvTree.push(item)
+        if not cpvAgreements[tender.cpv_code]
+          cpvAgreements[tender.cpv_code] = item
+        else
+          old = cpvAgreements[tender.cpv_code]
+          old[:value] += item[:value]
+          cpvAgreements[tender.cpv_code] = old
+        end
       end
 
-      @successfulTenders.sort!{ |a,b| a[0].tender_announcement_date <=> b[0].tender_announcement_date }
+       @successfulTenders = @successfulTenders.sort{ |a,b| a[0].tender_announcement_date <=> b[0].tender_announcement_date }
 
       #now look at bid stats
       bidders = Bidder.find_all_by_tender_id(tender.id)
@@ -115,13 +178,7 @@ class OrganizationsController < ApplicationController
     end
 
 
-    #lets make a tree out of our CPV codes
-    root = { :name => "cpv", :children => [] }
-	  @cpvTree.sort! {|x,y| x[:code] <=> y[:code] }
-    createTree( root, @cpvTree )
-    @jsonString = ""
-    createJsonString( root )
-    @jsonString.chop!
+    @jsonString = createTreeGraphStringFromAgreements( cpvAgreements )
 
     #time for tasty averages
     @averageBids = totalBids.to_f/@numTenders
@@ -134,6 +191,30 @@ class OrganizationsController < ApplicationController
     @costVsEstimateSaving = costString
   end
                           
+  def download_proc_tenders
+    respond_to do |format|
+      format.csv{
+        tenders = Tender.find_all_by_procurring_entity_id(params[:id])
+        send_data buildTenderCSVString(tenders)
+      }
+    end
+  end
+
+  def download_org_tenders
+    respond_to do |format|
+      format.csv{   
+        allBids = Bidder.find_all_by_organization_id(params[:id])
+        tenders = []
+        allBids.each do |bid|
+          tender = Tender.find(bid.tender_id)
+          tenders.push(tender)
+        end
+
+        send_data buildTenderCSVString(tenders)
+      }
+    end
+  end
+  
 
   def show
     id = params[:id]
@@ -260,14 +341,14 @@ class OrganizationsController < ApplicationController
         dateStats = @simpleTenderStats
       end
       if not dateStats[date]
-        dateStats[date] = [tender.estimated_value, tenderItem[0].amount]
+        dateStats[date] = [tender, tenderItem[0].amount]
       else
         #this tender was announced on the same day as another tender and we can only go as far as per day on the graph
         #so lets pick the most important tender and ignore the other one :(
         old = dateStats[date]
-        if old[0] < tender.estimated_value
+        if old[0].estimated_value < tender.estimated_value
           #overwrite old data
-          dateStats[date] = [tender.estimated_value, tenderItem[0].amount]
+          dateStats[date] = [tender, tenderItem[0].amount]
         end
       end
     end
@@ -284,66 +365,5 @@ class OrganizationsController < ApplicationController
   end
 
 
-  def createTree( root, list )
-    prev = root
-    parent = root
-
-    list.each do |item|
-      node = item
-      if isChild(prev, node)
-        parent = prev
-      end
-      if not isChild(parent, node)
-        parent = root
-      end
-      
-      parent[:children].push(node)
-      prev = node  
-    end
-  end
-
-  def countZeros( string )
-    count = 0
-    pos = string.length
-    while pos > 0
-      if string[pos-1] == '0'
-        count = count +1
-      else
-        break
-      end
-      pos = pos - 1
-    end
-    return count
-  end
-
-  def isChild(parent, node)
-    if parent[:name] == "cpv" 
-      return true
-    else
-      digits = countZeros(parent[:code])
-      parentString = parent[:code]
-      subParent = parentString[0, parentString.length-digits]
-      codeString = node[:code]
-      subCode = codeString[0, codeString.length-digits]
-      return subParent == subCode
-    end
-  end
-
-  def createJsonString( root )
-    @jsonString +="{"
-    @jsonString += '"name": ' + '"'+root[:name][0..20]+'"'+','
-    if root[:children] and root[:value]
-      @jsonString += '"value": ' + root[:value].to_s+','
-    end
-    
-    if root[:children].length > 0
-      @jsonString += '"children": ['
-      root[:children].each do |child|
-        createJsonString( child )
-      end
-      @jsonString += ']'
-    end
-    @jsonString += "},"
-  end
 
 end

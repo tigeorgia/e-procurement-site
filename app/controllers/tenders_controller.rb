@@ -1,13 +1,14 @@
 class TendersController < ApplicationController
   require "query_helpers" 
   helper_method :sort_column, :sort_direction
+  include ApplicationHelper
 
   def performSearch( data )
     query = QueryHelper.buildTenderSearchQuery(data)
     @params = params
-    result = Tender.where(query)
-    @numResults = result.count
-    @tenders = result.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
+    @fullResult = Tender.where(query)
+    @numResults = @fullResult.count
+    @tenders = @fullResult.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
     @results = []
     @tenders.each do |tender|
@@ -96,6 +97,15 @@ class TendersController < ApplicationController
     performSearch( data )
   end
 
+  def download
+    search()
+    respond_to do |format|
+      format.csv {            
+        send_data buildTenderCSVString(@fullResult)
+      }
+    end
+  end 
+    
   def search_via_saved
     search = Search.find(params[:search_id])
     searchParams = QueryHelper.buildSearchParamsFromString(search.search_string)

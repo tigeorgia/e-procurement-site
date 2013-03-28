@@ -19,7 +19,6 @@ module QueryHelper
     params.each do |key,param|
       if param.length == 1
         params[key] = param.gsub("_","")
-        puts "PARAM" + param
       end
     end
     return params
@@ -75,6 +74,7 @@ module QueryHelper
         query = query + " )"
       end
     end
+    puts query
     return query
   end
 
