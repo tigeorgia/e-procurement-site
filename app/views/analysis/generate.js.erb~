@@ -1,18 +1,12 @@
 $(function () {
-  $("#results").html("<%= escape_javascript( render :partial => "generate" ) %>");
+  $("#results").html('<%= escape_javascript( render :partial => "generate" ) %>');
     var tenderTypeChart;
     var tenderTypeCountChart;
     var bidDurationChart;
     var warningPeriodChart;
-
-    var dataset = []
-    <%= @bidDurationVsBidders.each do |data| %>
-        var dataPoint = { x: <%=data[0]%>, y: <%=data[1]%>, marker: { radius: <%=data[2]/(@simple_electronic.getSuccessCount() / 100)%> }, count: <%=data[2]%>}
-        dataset.push(dataPoint)
-    <% end %>
-
-    
+    <% tenderData = [ ["simple electronic",@info["simple electronic"]], ["electronic",@info["electronic"]] ]%>
     $(document).ready(function() {
+        alert( "IM ALIVE");
         tenderTypeChart = new Highcharts.Chart({
             chart: {
                 renderTo: 'amountGraph',
@@ -44,7 +38,7 @@ $(function () {
             series: [{
                 type: 'pie',
                 name: 'Estimated value of Tenders by Type',
-                data: [ <% @data.each do |type| %> <%= raw type.getValuePair() %>, <% end %>]
+                data: [ <% tenderData.each do |data| %> ["<%=data[0]%>",<%=data[1][:tenderInfo].total_value%>], <% end %>]
             }]
         });
 
@@ -80,13 +74,13 @@ $(function () {
             series: [{
                 type: 'pie',
                 name: 'Number of Tenders by Type',
-                data: [ <% @data.each do |type| %> <%= raw type.getCountPair() %>, <% end %>]
+                
+                data: [ <% tenderData.each do |data| %> ["<%=data[0]%>",<%=data[1][:tenderInfo].count%>], <% end %>]
             }]
         });
 
       
       bidDurationChart = new Highcharts.Chart({
-
        chart: {
           renderTo: 'averageBidDurationGraph',
           type: 'bar'
@@ -96,8 +90,8 @@ $(function () {
        },
        xAxis: {
           categories: [
-             <% @data.each do |type| %>
-              "<%= type.getName() %>",
+             <% tenderData.each do |type| %>
+              "<%= type[0] %>",
              <% end %>
           ]
        },
@@ -109,7 +103,7 @@ $(function () {
        series: [        
                {
                 name: "Average bidding duration",
-                data: [ <% @data.each do |type| %> <%= raw type.getAverageBidDuration() %>, <% end %>]
+                data: [ <% tenderData.each do |data| %> <%= data[1][:tenderInfo].average_bid_duration %>, <% end %>]
                },  
                ]  
 
@@ -126,8 +120,8 @@ $(function () {
        },
        xAxis: {
           categories: [
-             <% @data.each do |type| %>
-              "<%= type.getName() %>",
+             <% tenderData.each do |type| %>
+              "<%= type[0] %>",
              <% end %>
           ]
        },
@@ -139,7 +133,7 @@ $(function () {
        series: [        
                {
                 name: "Days after announcement",
-                data: [ <% @data.each do |type| %> <%= raw type.getAverageWarningPeriod() %>, <% end %>]
+                data: [ <% tenderData.each do |data| %> <%= data[1][:tenderInfo].average_warning_period %>, <% end %>]
                },  
                ]  
 
@@ -156,8 +150,8 @@ $(function () {
        },
        xAxis: {
           categories: [
-             <% @data.each do |type| %>
-              "<%= type.getName() %>",
+             <% tenderData.each do |type| %>
+              "<%= type[0] %>",
              <% end %>
           ]
        },
@@ -169,7 +163,7 @@ $(function () {
        series: [        
                {
                 name: "Bidders",
-                data: [ <% @data.each do |type| %> <%= raw type.getAverageBidders() %>, <% end %>]
+                data: [ <% tenderData.each do |data| %> <%= data[1][:tenderInfo].total_bidders.to_f / data[1][:tenderInfo].count  %>, <% end %>]
                },  
                ]  
 
@@ -186,8 +180,8 @@ $(function () {
        },
        xAxis: {
           categories: [
-             <% @data.each do |type| %>
-              "<%= type.getName() %>",
+             <% tenderData.each do |type| %>
+              "<%= type[0] %>",
              <% end %>
           ]
        },
@@ -199,7 +193,7 @@ $(function () {
        series: [        
                {
                 name: "Bids",
-                data: [ <% @data.each do |type| %> <%= raw type.getAverageBids() %>, <% end %>]
+                data: [ <% tenderData.each do |data| %> <%= data[1][:tenderInfo].total_bids.to_f / data[1][:tenderInfo].count  %>, <% end %>]
                },  
                ]  
 
@@ -216,8 +210,8 @@ $(function () {
        },
        xAxis: {
           categories: [
-             <% @data.each do |type| %>
-              "<%= type.getName() %>",
+              <% tenderData.each do |type| %>
+              "<%= type[0] %>",
              <% end %>
           ]
        },
@@ -229,123 +223,12 @@ $(function () {
        series: [        
                {
                 name: "Percentage",
-                data: [ <% @data.each do |type| %> <%= raw type.getNumTendersWithBidders() %>, <% end %>]
+                data: [ <% tenderData.each do |data| %> <%= data[1][:tenderInfo].success_count.to_f / data[1][:tenderInfo].count  %>, <% end %>]
                },  
                ]  
 
         });
-
-
-
-    scatterChart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'scatterGraph'
-            },
-            xAxis: {
-                min: 2,
-                title: {
-                  enabled: true,
-                  text: 'Tender duration'
-                },
-            },
-            yAxis: {
-                min: 1.25,
-                title: {
-                  enabled: true,
-                  text: 'Number of Bidders'
-                },
-            },
-            title: {
-                text: 'Duration of Tender vs Average number of Bidders'
-            },
-            tooltip: {
-                formatter:function (){
-                  return ''+
-                  this.x +' days, '+ this.y +' average bidders';
-                }
-            },
-
-
-            series: [ {
-                type: 'scatter',
-                name: 'Observations',
-                data: dataset
-            }]
-        });
-
-      onedaywarningChart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'biddingWarning1DayGraph',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'Bidding Warning'
-            },
-            tooltip: {
-        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
-            	percentageDecimals: 1
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
-                        formatter: function() {
-                            return '<b>'+ this.point.name +'</b>:' +this.y;
-                        }
-                    }
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Bidding Warning',
-                data: [ <% @simple_electronic.getBiddingWarnings().each do |key, amount| %> [ "<%= key.to_s + " days(s)" %>", <%= amount %> ], <%end%> ]
-            }]
-        });
-
-      twodaybiddingDurationChart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'biddingDuration2DaysGraph',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'Bidding Duration'
-            },
-            tooltip: {
-        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
-            	percentageDecimals: 1
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
-                        formatter: function() {
-                            return '<b>'+ this.point.name +'</b>:' +this.y;
-                        }
-                    }
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Bidding Duration',
-                data: [ <% @simple_electronic.getBiddingTimes().each do |key, amount| %> [ "<%= key.to_s + " days(s)" %>", <%= amount %> ], <%end%> ]
-            }]
-        });
-
-
-
+      
     });
-
   return false;
 });

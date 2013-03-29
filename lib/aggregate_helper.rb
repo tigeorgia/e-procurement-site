@@ -124,25 +124,6 @@ module AggregateHelper
     def getSuccessCount
       return @successCount
     end
-
-    def getCountPair
-      count = [@name, @count]
-      return count
-    end
-    def getValuePair
-      value = [@name, @value.to_i]
-      return value
-    end
-
-    def getAverageBidDurationPair
-      average = [@name, @averageBidDuration]
-      return average
-    end
-
-    def getAverageWarningPeriodPair
-      average = [@name, @averageWarningPeriod]
-      return average
-    end
   end   
 
   def self.getYearRange
@@ -281,7 +262,7 @@ module AggregateHelper
       statistic.save
 
       #now create tender stats for the tender types
-      types = [ [:simple_electronic,"simple electronic"], [:electronic, "electronic"] ]
+      types = [ [:total,"total"],[:simple_electronic,"simple electronic"], [:electronic, "electronic"] ]
       types.each do | pair |
         dbType = AggregateStatisticType.new
         dbType.aggregate_statistic_id = statistic.id
