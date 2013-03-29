@@ -3,7 +3,7 @@ class Organization < ActiveRecord::Base
   has_many :agreements, :dependent => :destroy
   has_many :competitors, :dependent => :destroy
 
-  belongs_to :datasets
+  belongs_to :dataset
   
   attr_accessible :id,
       :dataset_id,

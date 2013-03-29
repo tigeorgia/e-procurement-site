@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327131732) do
+ActiveRecord::Schema.define(:version => 20130329102332) do
+
+  create_table "aggregate_bid_statistics", :force => true do |t|
+    t.integer  "aggregate_statistic_type_id"
+    t.integer  "duration"
+    t.decimal  "average_bids",                :precision => 11, :scale => 2
+    t.integer  "tender_count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "aggregate_cpv_group_revenues", :force => true do |t|
     t.datetime "created_at"
@@ -22,6 +31,44 @@ ActiveRecord::Schema.define(:version => 20130327131732) do
     t.integer  "organization_id"
     t.integer  "cpv_code"
     t.decimal  "total_value",     :precision => 11, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aggregate_cpv_statistics", :force => true do |t|
+    t.integer  "aggregate_statistic_type_id"
+    t.integer  "cpv_code"
+    t.decimal  "value",                       :precision => 11, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aggregate_statistic_types", :force => true do |t|
+    t.integer  "aggregate_statistic_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aggregate_statistics", :force => true do |t|
+    t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "aggregate_tender_statistics", :force => true do |t|
+    t.integer  "aggregate_statistic_type_id"
+    t.integer  "count"
+    t.integer  "success_count"
+    t.integer  "total_value"
+    t.decimal  "average_bid_duration",        :precision => 11, :scale => 2
+    t.decimal  "average_warning_period",      :precision => 11, :scale => 2
+    t.integer  "total_bidders"
+    t.integer  "total_bids"
+    t.integer  "agreements"
+    t.string   "illegal_tenders"
+    t.string   "bidding_times_stats"
+    t.string   "bidding_warning_stats"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

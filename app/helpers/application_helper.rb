@@ -1,5 +1,15 @@
 module ApplicationHelper
 
+  def sortable(params, column, title = nil)
+    myParams = params.clone
+    title ||= column.titleize
+    direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
+    myParams[:sort] = column
+    myParams[:direction] = direction
+    link_to title, myParams
+  end
+
+
   def buildTenderCSVString( tenders )
     csv_string = CSV.generate do |csv|
        csv << ["Type","Registration Number","Status", "Announcement Date", "Bidding Start Date", "Bidding End Date", "Estimated Value",

@@ -42,4 +42,5 @@ class Organization < ActiveRecord::Base
     end
     self.translation = translationString
     self.save
+  end
 end

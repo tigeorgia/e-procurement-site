@@ -1,6 +1,6 @@
 class Dataset < ActiveRecord::Base
-  has_many :tenders, :dependent => :destroy
-  has_many :organizations, :dependent => :destroy
+  has_many :tenders
+  has_many :organizations
   
   attr_accessible :id,
       :date,

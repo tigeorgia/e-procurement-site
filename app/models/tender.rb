@@ -4,8 +4,7 @@
   has_many :agreements, :dependent => :destroy
   has_many :documents, :dependent => :destroy
   has_many :tender_corruption_flags, :dependent => :destroy
-  belongs_to :datasets
-  belongs_to :watch_tenders
+  belongs_to :dataset
 
   attr_accessible :id,
       :url_id,

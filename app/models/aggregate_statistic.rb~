@@ -1,0 +1,8 @@
+class AggregateStatistic < ActiveRecord::Base
+  has_many :aggregate_tender_statistics, :dependent => :destroy
+  has_many :aggregate_cpv_statistics, :dependent => :destroy
+  attr_accessible :id,
+    :year,
+    :bid_data,
+    :bid_duration_stats
+end

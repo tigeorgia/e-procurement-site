@@ -1,0 +1,7 @@
+class AggregateCpvStatistic < ActiveRecord::Base
+  belongs_to :aggregate_statistic
+    attr_accessible :id,
+    :aggregate_statistic_id,
+    :cpv_code,
+    :value
+end

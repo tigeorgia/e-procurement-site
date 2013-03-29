@@ -1,0 +1,20 @@
+class CreateAggregateTenderStatistics < ActiveRecord::Migration
+  def change
+    create_table :aggregate_tender_statistics do |t|
+      t.integer :aggregate_statistic_id
+      t.string :name
+      t.integer :count
+      t.integer :success_count
+      t.integer :total_value
+      t.decimal :average_bid_duration, :precision => 11, :scale => 2
+      t.decimal :average_warning_period, :precision => 11, :scale => 2
+      t.integer :total_bidders
+      t.integer :total_bids
+      t.integer :agreements
+      t.string :illegal_tenders
+      t.string :bidding_times_stats
+      t.string :bidding_warning_stats
+      t.timestamps
+    end
+  end
+end

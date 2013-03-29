@@ -1,5 +1,4 @@
 module TranslationHelper
-
   require 'net/http' 
   def self.stringContainsGeorgian( word )
     #see if this is in georgian
@@ -32,9 +31,6 @@ module TranslationHelper
    
     geo = translationArray[0]
     chat = translationArray[2]
-    #puts "google GEO: " + geo
-   #puts "google chat: " + chat
-    puts "google push"
     list.push(geo)
     if chat.length > 0
       list.push(chat)
@@ -60,8 +56,6 @@ module TranslationHelper
 
 
   def self.geoTranslateString( string, list, toEnglish )
-
-
     langUrl = "ge"
     if not toEnglish
       langUrl = "en"
@@ -86,9 +80,6 @@ module TranslationHelper
             items = word.split(seperator)
             #remove seperator
             translation = items[0].gsub(seperator,"")    
-            puts "LOOP"
-            puts translation
-            puts word
             translation = removeMetaInfo( translation )             
             #puts "Geotranslate: " + translation
             list.push(translation)
@@ -96,8 +87,6 @@ module TranslationHelper
           end
         end
       end
-      puts "HERE"
-      puts words
       if words.length > 0
         translation = removeMetaInfo( words[0] )  
         list.push(translation)
@@ -112,7 +101,7 @@ module TranslationHelper
     theString = URI.encode(theString)
 
     #Run this string through online translators
-    #geoTranslateString( theString, translation_list, toEnglish )
+    geoTranslateString( theString, translation_list, toEnglish )
     googleTranslateString( theString, translation_list, toEnglish )
     return translation_list
   end

@@ -1,21 +1,15 @@
 # encoding: utf-8 
 class OrganizationsController < ApplicationController
   helper_method :sort_column, :sort_direction
-  include GraphHelper
-  require 'net/http'  
+  include GraphHelper 
   include ApplicationHelper
   def search
     @params = params
     name = params[:organization][:name]
     code = params[:organization][:code]
     org_type = params[:org_type]
-
-    translations = nil
-    #run the name through an external translator
-    if name.length > 0
-     translations = findStringTranslations(name)
-    end
-
+    
+    willSearchName = name.length > 0
     name = "%"+name+"%"
     code = "%"+code+"%"
     
@@ -29,14 +23,8 @@ class OrganizationsController < ApplicationController
     if foreignOnly == '1'
       conditions += " AND country NOT LIKE 'საქართველო'"
     end
-    if translations
-      conditions += " AND ( name LIKE '"+name+"'"
-      translations.each do |translation|
-       conditions += " OR name LIKE '"+"%"+translation+"%"+"'"
-      end
-      conditions += " )"
-    else
-      conditions += " AND name LIKE '"+name+"'"
+    if willSearchName
+      conditions += " AND ( name LIKE '"+name+"' OR translation LIKE '"+"%"+name+"%"+"' )"
     end
     
     results = Organization.where(conditions)
@@ -68,11 +56,7 @@ class OrganizationsController < ApplicationController
     code = params[:organization][:code]
     org_type = params[:org_type]
 
-    translations = nil
-    #run the name through an external translator
-    if name.length > 0
-     translations = findStringTranslations(name)
-    end
+    willSearchName = name.length > 0
 
     name = "%"+name+"%"
     code = "%"+code+"%"
@@ -85,14 +69,8 @@ class OrganizationsController < ApplicationController
       orgString = " AND org_type ='"+org_type+"'"
     end
     conditions = "is_procurer = true AND code LIKE '"+code+"'"+ orgString
-    if translations
-      conditions += " AND ( name LIKE '"+name+"'"
-      translations.each do |translation|
-       conditions += " OR name LIKE '"+"%"+translation+"%"+"'"
-      end
-      conditions += " )"
-    else
-      conditions += " AND name LIKE '"+name+"'"
+    if willSearchName
+      conditions += " AND ( name LIKE '"+name+"' OR translation LIKE '"+"%"+name+"%"+"' )"
     end
 
     results = Organization.where(conditions)

@@ -8,6 +8,7 @@ module ScraperFile
   FILE_TENDER_CPV_CODES = "tenderCPVCode.json"
   require 'csv'
   require "query_helpers"
+  require "translation_helper"
   
 
   # if we have an oldData set and a newDataset we can generate some info about the differences before merging the sets
@@ -139,8 +140,10 @@ module ScraperFile
                 if oldOrganization
                   #this is an org update we could send email alerts here
                 end
-              end
+              end          
               organization.save
+              #now we know everything sorted we can run a name translation
+              self.generateOrganizationNameTranslation( organization )
             else
 	            raise ActiveRecord::Rollback
 	            break
@@ -792,13 +795,11 @@ module ScraperFile
     end
   end
 
-  def self.generateOrganizationNameTranslations
-    Organization.all.each do |organization|
-      puts name
-      name = organization.name
-      translations = findStringTranslations(name)
-      organization.saveTranslations(translations)
-    end
+  def self.generateOrganizationNameTranslation( organization )
+    orgName = organization.name
+    puts "translating: " + orgName
+    translations = findStringTranslations(orgName)
+    organization.saveTranslations(translations)
   end
 
   def self.process

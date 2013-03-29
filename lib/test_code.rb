@@ -1,5 +1,6 @@
 module TestFile
   require "translation_helper"
+  require "aggregate_helper"
 
   def self.generateOrganizationNameTranslations
     Organization.all.each do |organization|
@@ -15,10 +16,10 @@ module TestFile
     end
   end
 
+
   #filled out with tasks to test
   def self.run
-    puts "generating translations"
-    self.generateOrganizationNameTranslations
+    AggregateHelper.generateAndStoreAggregateData()
   end
 
 end

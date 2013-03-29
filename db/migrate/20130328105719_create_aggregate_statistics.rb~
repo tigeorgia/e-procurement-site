@@ -1,0 +1,10 @@
+class CreateAggregateStatistics < ActiveRecord::Migration
+  def change
+    create_table :aggregate_statistics do |t|
+      t.integer :year
+      t.string :bid_data
+      t.string :bid_duration_stats
+      t.timestamps
+    end
+  end
+end
