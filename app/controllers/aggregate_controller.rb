@@ -1,4 +1,6 @@
 class AggregateController < ApplicationController
+  include ApplicationHelper
+
   def cpvVsCompany
     companies = {}
     cpvGroup = CpvGroup.find(params[:cpvGroup])
@@ -10,8 +12,8 @@ class AggregateController < ApplicationController
       cpvAggregates = AggregateCpvRevenue.all
     else
       classifiers.each do |classifier|
-        puts classifier.cpv_code
-        sqlString += "cpv_code = "+classifier.cpv_code.to_s+ " OR "
+        cvpDropped = dropZeros(classifier.cpv_code.to_s)
+        sqlString += "cpv_code LIKE '"+cvpDropped+ "%' OR "
       end
       puts sqlString
       sqlString = sqlString[0..-4]

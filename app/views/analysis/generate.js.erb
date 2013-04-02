@@ -5,6 +5,13 @@ $(function () {
     var bidDurationChart;
     var warningPeriodChart;
     <% tenderData = [ ["simple electronic",@info["simple electronic"]], ["electronic",@info["electronic"]] ]%>
+
+    var dataset = []
+    <% @info["simple electronic"][:bidInfo].each do |data| %>
+      var dataPoint = { x: <%=data[0]%>, y: <%=data[1]%>, marker: { radius: <%=data[2]%>/(<%=@info["simple electronic"][:tenderInfo].count%> / 100) }, count: <%=data[2]%>}
+      dataset.push(dataPoint)
+    <%end%> 
+
     $(document).ready(function() {
         tenderTypeChart = new Highcharts.Chart({
             chart: {
@@ -227,7 +234,80 @@ $(function () {
                ]  
 
         });
+
+    scatterChart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'scatterGraph'
+            },
+            xAxis: {
+                min: 2,
+                title: {
+                  enabled: true,
+                  text: 'Tender duration'
+                },
+            },
+            yAxis: {
+                min: 1.25,
+                title: {
+                  enabled: true,
+                  text: 'Number of Bidders'
+                },
+            },
+            title: {
+                text: 'Duration of Tender vs Average number of Bidders (Simple Electronic)'
+            },
+            tooltip: {
+                formatter:function (){
+                  return ''+
+                  this.x +' days, '+ this.y +' average bidders';
+                }
+            },
+
+
+            series: [ {
+                type: 'scatter',
+                name: 'Observations',
+                data: dataset
+            }]
+        });
+
+        biddingDurationChart = new Highcharts.Chart({
+          chart: {
+              renderTo: 'biddingDurationGraph',
+              plotBackgroundColor: null,
+              plotBorderWidth: null,
+              plotShadow: false
+          },
+          title: {
+              text: 'Bidding Duration (Simple Electronic)'
+          },
+          tooltip: {
+      	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+          	percentageDecimals: 1
+          },
+          plotOptions: {
+              pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                      enabled: true,
+                      color: '#000000',
+                      connectorColor: '#000000',
+                      formatter: function() {
+                          return '<b>'+ this.point.name +'</b>:' +this.y;
+                      }
+                  }
+              }
+          },
+          series: [{
+              type: 'pie',
+              name: 'Bidding Duration',
+              data: [  <% @info["simple electronic"][:bidInfo].each do |data| %> [ " <%=data[0].to_s + " days(s)" %>",  <%=data[2]%>  ], <%end%>  ]
+          }]
+        });
+
       
+      createD3Graphs(<%=raw @info["total"][:cpvTree]%>);
     });
   return false;
 });

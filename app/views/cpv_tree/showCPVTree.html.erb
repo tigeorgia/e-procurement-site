@@ -1,6 +1,5 @@
 <%= javascript_include_tag "cpvTree" %>
-
-<%= form_tag( { :controller => :user, :action => "save_cpv_group", :user_id => @userID }, {:id => "saveTree"} ) do %>
+<%= form_tag( { :controller => :cpv_tree, :action => "save_cpv_group", :user_id => @userID, :cpvGroup => @cpvGroup, :referrer => @referrer}, {:id => "saveTree"} ) do %>
   <%= label_tag(:category, "Category Name:") %>
   <%= text_field_tag(:category) %>
   <%= hidden_field_tag(:codes, @checkedNodes) %>
@@ -8,5 +7,4 @@
 <% end %>
 
 <div id="demo1" class="demo">
-  <%= render :partial => "tree", :locals => {:root => @root} %>
 </div>

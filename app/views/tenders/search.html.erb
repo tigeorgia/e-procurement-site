@@ -25,10 +25,11 @@ Single Bid Percentage = <%= @numSingleBids/@numBidTenders %><br>
 
 <p>
   Download:
-  <% @params[:format] = "csv" %>
-  <% @params[:controller] = "tender" %>
-  <% @params[:action] = "download" %>
-  <%= link_to "CSV",  @params %>
+  <% csvParams = @params.clone%>
+  <% csvParams[:format] = "csv" %>
+  <% csvParams[:controller] = "tender" %>
+  <% csvParams[:action] = "download" %>
+  <%= link_to "CSV",  csvParams %>
 </p>
 
 <table class="table table-striped">

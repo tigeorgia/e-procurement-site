@@ -1,6 +1,7 @@
 module TestFile
   require "translation_helper"
-  require "analysis_helper"
+  require "aggregate_helper"
+  require "cpv_Helper"
 
   def self.generateOrganizationNameTranslations
     Organization.all.each do |organization|
@@ -19,7 +20,7 @@ module TestFile
 
   #filled out with tasks to test
   def self.run
-    AggregateHelper.generateAndStoreAggregateData()
+    CpvHelper.createCPVClassifiers(false)
   end
 
 end

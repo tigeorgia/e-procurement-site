@@ -1,4 +1,23 @@
 module QueryHelper 
+  def self.dropZeros( string )
+    digits = countZeros(string)
+    return string[0, string.length-digits]
+  end
+
+  def self.countZeros( string )
+    count = 0
+    pos = string.length
+    while pos > 0
+      if string[pos-1] == '0'
+        count = count +1
+      else
+        break
+      end
+      pos = pos - 1
+    end
+    return count
+  end
+
    def self.buildSearchParamsFromString(searchString)
     fields = searchString.split("#")
     puts searchString
@@ -67,14 +86,14 @@ module QueryHelper
         if count > 1
           conjunction = " OR"
         end
-        query = query + conjunction+" cpv_code = "+category.cpv_code
+        cpvDropped = self.dropZeros(category.cpv_code)
+        query = query + conjunction+" cpv_code LIKE '"+cpvDropped+"%'"
         count = count + 1
       end
       if count > 1 and queryAddition
         query = query + " )"
       end
     end
-    puts query
     return query
   end
 

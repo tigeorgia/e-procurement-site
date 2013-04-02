@@ -6,10 +6,11 @@
 Number of Organizations found: <%= @numResults %>
 <p>
   Download:
-  <% @params[:format] = "csv" %>
-  <% @params[:controller] = "organization" %>
-  <% @params[:action] = "search" %>
-  <%= link_to "CSV",  @params %>
+  <% csvParams = @params.clone%>
+  <% csvParams[:format] = "csv" %>
+  <% csvParams[:controller] = "organization" %>
+  <% csvParams[:action] = "search" %>
+  <%= link_to "CSV",  csvParams %>
 </p>
 
 <table class="table table-striped">

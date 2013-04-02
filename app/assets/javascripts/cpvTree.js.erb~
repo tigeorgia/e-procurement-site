@@ -40,28 +40,16 @@ initTree = function()
 {
   var myTree = $("#demo1").bind("check_node.jstree uncheck_node.jstree",saveData).jstree({
 	        "json_data" : {
-	            "ajax" : {
-                "type": 'GET',
-                "url" : 
-                  function (node) {
-                    var nodeId = "";
-                    var url = ""
-                    if (node == -1){
-                       url = "cpvTreetest/parent"
-                    }
-                    else {
-                      nodeId = node.attr('id');
-                      url = "cpvTreetest/children/" + nodeId
-                    }
-                    return url;
-                  },
-                "success": function (new_data){
-                    return new_data
-                }
-               },
+	            "ajax" : { 
+                "url" : "<%= asset_path 'cpvTree.json' %>",
+                "data" : function (n) {
+	                return { id : n.attr ? n.attr("id") : 0 };
+                 }
+              },
+             "progressive_render" : true
 	        },
-      
-      "plugins" : [ "themes", "json_data", "checkbox", "ui"]
+
+      "plugins" : [ "themes", "json_data", "checkbox"]
   });
 
   $("#demo1").bind("loaded.jstree",checkExisting)

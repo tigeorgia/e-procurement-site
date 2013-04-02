@@ -140,10 +140,10 @@ module ScraperFile
                 if oldOrganization
                   #this is an org update we could send email alerts here
                 end
-              end
+              end          
+              organization.save
               #now we know everything sorted we can run a name translation
               self.generateOrganizationNameTranslation( organization )
-              organization.save
             else
 	            raise ActiveRecord::Rollback
 	            break
@@ -824,7 +824,7 @@ module ScraperFile
 
   def self.generateMetaData
     puts "generate cpv codes"
-    self.createCPVCodes
+    #self.createCPVCodes
     puts "setting up users"
    self.createUsers
     puts "generating aggregate data"

@@ -1,4 +1,24 @@
 module ApplicationHelper
+  
+  def dropZeros( string )
+    digits = countZeros(string)
+    return string[0, string.length-digits]
+  end
+
+  def countZeros( string )
+    count = 0
+    pos = string.length
+    while pos > 0
+      if string[pos-1] == '0'
+        count = count +1
+      else
+        break
+      end
+      pos = pos - 1
+    end
+    return count
+  end
+
 
   def sortable(params, column, title = nil)
     myParams = params.clone

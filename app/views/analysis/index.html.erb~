@@ -1,6 +1,5 @@
 <% title "Procurement Analysis" %>
 
-
 Year
 <%= form_tag( {:action => "generate"}, :remote => true) do %>
   <%= select_tag(:year, options_for_select(@years))  %>

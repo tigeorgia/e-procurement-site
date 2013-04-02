@@ -147,7 +147,9 @@ class UserController < ApplicationController
     
     codes.each do |code|
       cpv = TenderCpvClassifier.where( :cpv_code => code.to_i ).first
-      cpvGroup.tender_cpv_classifiers << cpv
+      if cpv
+        cpvGroup.tender_cpv_classifiers << cpv
+      end
     end
     cpvGroup.save
     if cpvGroup.user_id == current_user.id

@@ -1,5 +1,35 @@
 module ApplicationHelper
 
+  def dropZeros( string )
+    digits = countZeros(string)
+    return string[0, string.length-digits]
+  end
+
+  def countZeros( string )
+    count = 0
+    pos = string.length
+    while pos > 0
+      if string[pos-1] == '0'
+        count = count +1
+      else
+        break
+      end
+      pos = pos - 1
+    end
+    return count
+  end
+
+
+  def sortable(params, column, title = nil)
+    myParams = params.clone
+    title ||= column.titleize
+    direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
+    myParams[:sort] = column
+    myParams[:direction] = direction
+    link_to title, myParams
+  end
+
+
   def buildTenderCSVString( tenders )
     csv_string = CSV.generate do |csv|
        csv << ["Type","Registration Number","Status", "Announcement Date", "Bidding Start Date", "Bidding End Date", "Estimated Value",

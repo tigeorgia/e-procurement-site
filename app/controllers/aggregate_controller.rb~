@@ -1,4 +1,6 @@
 class AggregateController < ApplicationController
+  include ApplicationHelper
+
   def cpvVsCompany
     companies = {}
     cpvGroup = CpvGroup.find(params[:cpvGroup])
@@ -6,20 +8,15 @@ class AggregateController < ApplicationController
     cpvAggregates = nil
     sqlString = ''
     #change this to look at cpv type
-    puts "CPV GROUP ID" + cpvGroup.id.to_s
     if cpvGroup.id == 1
-      puts "WE ARE IN HEREEEE"
       cpvAggregates = AggregateCpvRevenue.all
     else
-      puts "YARRRR"
       classifiers.each do |classifier|
-        puts classifier.cpv_code
-        sqlString += "cpv_code = "+classifier.cpv_code.to_s+ " OR "
+        cvpDropped = dropZeros(classifier.cpv_code.to_s)
+        sqlString += "cpv_code LIKE "+classifier.cpv_code.to_s+ " OR "
       end
       puts sqlString
       sqlString = sqlString[0..-4]
-      puts "STRINNNG" 
-      puts sqlString
       cpvAggregates = AggregateCpvRevenue.where(sqlString)
     end
    

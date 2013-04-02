@@ -1,14 +1,12 @@
 <% if root[:item] != nil %>
   <ul>
     <li>
-      <a href="#"><%= root[:item].cpv_code %> :  <%= root[:item].description_english %></a>
+      <a href="#"><%= root[:item][0] %> :  <%= root[:item][1] %></a>
 <% end %>
-
-<% for child in root[:children] do %>
-  <%= render :partial => "tree", :locals => {:root => child }%>
-<% end %>
-
-<% if root[:item] != nil %>
+    <% for child in root[:children] do %>
+      <%= render :partial => "tree", :locals => {:root => child }%>
+    <% end %>
+  <% if root[:item] != nil %>
     </li>
   </ul>
 <% end %>

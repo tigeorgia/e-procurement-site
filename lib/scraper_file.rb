@@ -823,8 +823,6 @@ module ScraperFile
   end
 
   def self.generateMetaData
-    puts "generate cpv codes"
-    self.createCPVCodes
     puts "setting up users"
    self.createUsers
     puts "generating aggregate data"
@@ -885,8 +883,6 @@ module ScraperFile
   end
 
   def self.buildUserDataOnly
-    puts "generate cpv codes"
-    self.createCPVCodes
     puts "generating aggregate data"
     self.processAggregateData
     puts "setting up users"

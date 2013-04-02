@@ -6,7 +6,9 @@ include GraphHelper
   def index
     @years = []
     AggregateStatistic.all.each do |dbYear|
-      @years.push(dbYear.year)
+      if dbYear.year > 0 
+        @years.push(dbYear.year)
+      end
     end
   end
   
@@ -30,7 +32,7 @@ include GraphHelper
       bidData.each do |bidStat|
         data[:bidInfo].push([bidStat.duration,bidStat.average_bids,bidStat.tender_count])
       end
-=begin      cpvData = AggregateCpvStatistic.where(:aggregate_statistic_type_id => typeData.id)
+      cpvData = AggregateCpvStatistic.where(:aggregate_statistic_type_id => typeData.id)
       cpvTree = {}
       cpvData.each do |cpv|
         #get cpv name
@@ -39,11 +41,9 @@ include GraphHelper
         if not name
           name = "NA"
         end
-        cpvTree[code] = { :name => name, :code => code.to_s, :children => [] }
+        cpvTree[code] = { :name => name, :code => code.to_s, :value => cpv.value, :children => [] }
       end
       data[:cpvTree] = createTreeGraphStringFromAgreements( cpvTree )
-    end
-=end
     end   
 
     respond_to do |format|  
