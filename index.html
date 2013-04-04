@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <link href="/assets/application.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/bootstrap-datepicker.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/formtastic.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/formtastic-bootstrap.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/jquery.ui.core.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/jquery.ui.theme.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/dataTables/src/demo_table_jui.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/analysis.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/bootstrap_and_overrides.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/cpvChart.css?body=1" media="all" rel="stylesheet" type="text/css" />
+<link href="/assets/root.css?body=1" media="all" rel="stylesheet" type="text/css" />
+    <!-- Javascripts
+    ================================================== -->
+    <script src="/assets/i18n.js?body=1" type="text/javascript"></script>
+<script src="/assets/i18n/translations.js?body=1" type="text/javascript"></script>
+<script src="/assets/jquery.js?body=1" type="text/javascript"></script>
+<script src="/assets/jquery_ujs.js?body=1" type="text/javascript"></script>
+<script src="/assets/jquery-ui.js?body=1" type="text/javascript"></script>
+<script src="/assets/dataTables/jquery.dataTables.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-transition.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-alert.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-modal.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-dropdown.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-scrollspy.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-tab.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-tooltip.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-popover.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-button.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-collapse.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-carousel.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-typeahead.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap/bootstrap-affix.js?body=1" type="text/javascript"></script>
+<script src="/assets/twitter/bootstrap.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/core.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.bg.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.br.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.cs.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.da.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.de.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.es.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.fi.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.fr.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.id.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.is.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.it.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ja.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.kr.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.lt.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.lv.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ms.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.nb.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.nl.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.pl.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.pt.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.ru.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.sl.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.sv.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.th.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.tr.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/locales/bootstrap-datepicker.zh-TW.js?body=1" type="text/javascript"></script>
+<script src="/assets/bootstrap-datepicker/index.js?body=1" type="text/javascript"></script>
+<script src="/assets/jtree/jquery.jstree.js?body=1" type="text/javascript"></script>
+<script src="/assets/highcharts/js/highcharts.js?body=1" type="text/javascript"></script>
+<script src="/assets/highstock/js/highstock.js?body=1" type="text/javascript"></script>
+<script src="/assets/site/cpvTreeGraph.js?body=1" type="text/javascript"></script>
+<script src="/assets/site/d3.v3.min.js?body=1" type="text/javascript"></script>
+<script src="/assets/site/root.js?body=1" type="text/javascript"></script>
+<script src="/assets/application.js?body=1" type="text/javascript"></script>
+    
+		<script type="text/javascript">
+			I18n.defaultLocale = "en";
+			I18n.locale = "en";
+		</script>
+
+
+    <title>ProcWatch</title>
+    <meta content="authenticity_token" name="csrf-param" />
+<meta content="j3mLjEuF1DexEKCjNK8c77grVNrr3+TkVoSckdAMoXk=" name="csrf-token" />
+	  <script>window.gon = {};gon.set=true;gon.highlight_first_form_field=true;</script>
+
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+		<!--[if IE 6]><link href="/assets/formtastic_ie6.css?body=1" media="screen" rel="stylesheet" type="text/css" />
+<link href="/assets/ie6.css?body=1" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+	  <!--[if IE 7]><link href="/assets/formtastic_ie7.css?body=1" media="screen" rel="stylesheet" type="text/css" />
+<link href="/assets/ie7.css?body=1" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <link href="/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+  </head>
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+
+          <div class="container nav-collapse">
+            <ul class="nav">
+              <li><a href="/en" class="brand font">Search Page</a></li>
+              <li><a href="/en/corruption_finder/index" class="brand font">Corruption Finder</a></li>
+              <li><a href="/en/analysis/index" class="brand font">Analysis</a></li>
+                <li class="nav" >
+                  <a href="/en/user">Sign In</a>
+                </li>
+            </ul>
+
+	          <ul class="nav pull-right">
+									<li><a href="/ka/root/index">ქართული</a></li>
+	          </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+		<div id="wrapper">
+		  <div class="container">
+		    <div class="content">
+		      <div class="row">
+		         <div class="span12">
+
+	            <div class="row" id="mid-row">
+  <div class="span4 search-org">
+    <h4>Search Companies</<h4>
+    <form accept-charset="UTF-8" action="/en/organization/search" class="new_organization" id="new_organization" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+      <br>
+      <label for="organization_name">Name</label>
+      <input id="organization_name" name="organization[name]" size="30" type="text" />
+
+      <label for="organization_code">Code</label>
+      <input id="organization_code" name="organization[code]" size="30" type="text" />
+
+      <label for="organization_type">Type</label>
+      <select id="org_type" name="org_type"><option value=""></option><option value="შეზღუდული პასუხისმგებლობის საზოგადოება (შპს)">Limited Liability Company (LLC)</option>
+<option value="ინდივიდუალური მეწარმე (ი/მ)">Sole proprietor (I / M)</option>
+<option value="საჯარო სამართლის იურიდიული პირი (სსიპ)">Legal entity (Entity)</option>
+<option value="სააქციო საზოგადოება (სს)">Joint stock company (JSC)</option>
+<option value="არასამეწარმეო არაკომერციული იურიდიული პირი (ააიპ)">Non-profit legal entity (NNLS)</option>
+<option value="კომანდიტური საზოგადოება (კს)">Limited Company (SP)</option>
+<option value="ფიზიკური პირი (ფ/პ)">Individual (w/o)</option>
+<option value="ფიზიკური პირი">Individual</option>
+<option value="ფილიალი/წარმომადგენლობა">Branch / office</option>
+<option value="სოლიდარული პასუხისმგებლობის საზოგადოება (სპს)">Solidary Liability Company (JLC)</option>
+<option value="სხვა">Other</option>
+<option value="იურიდიული პირი">Entity</option>
+<option value="ამხანაგობა">Fellowship</option></select>
+
+
+      <label for="isForeign">Only Foreign</label>
+      <input name="isForeign[foreign]" type="hidden" value="0" /><input id="isForeign_foreign" name="isForeign[foreign]" type="checkbox" value="1" />
+      <br>
+      <input name="commit" type="submit" value="Search" />
+</form>  </div>
+
+
+  <div class="span4 search-org">
+    <h4>Search Procurers</<h4>
+    <form accept-charset="UTF-8" action="/en/organization/search_procurer" class="new_organization" id="new_organization" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+      <br>
+      <label for="organization_name">Name</label>
+      <input id="organization_name" name="organization[name]" size="30" type="text" />
+
+      <label for="organization_code">Code</label>
+      <input id="organization_code" name="organization[code]" size="30" type="text" />
+
+      <label for="organization_type">Type</label>
+      <select id="org_type" name="org_type"><option value=""></option><option value="ადგილობრივი თვითმართველობის ორგანო">Local self-government body</option>
+<option value="საჯარო სამართლის იურიდიული პირი (სსიპ)">Legal entity (Entity)</option>
+<option value="სახელმწიფო ორგანო">State Authority</option>
+<option value="50% მეტი სახ წილ საწარმო">More than 50% of the State Share Enterprise</option>
+<option value="არასამეწარმეო არაკომერციული იურიდიული პირი (ააიპ)">Non-profit legal entity (NNLS)</option>
+<option value="ავტონომიური რესპუბლიკის ორგანო">Autonomous Republic body</option></select>
+
+      <br>
+      <input name="commit" type="submit" value="Search" />
+</form>  </div>
+
+  <div class="span4 search-tender">
+    <h4>Search Tenders</<h4>
+    <form accept-charset="UTF-8" action="/en/tender/search" class="new_tender" id="new_tender" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+      <br>
+      <label for="tender_status">Status</label>
+      <select id="tender_status" name="tender_status"><option value=""></option><option value="გამარჯვებული გამოვლენილია">The Winner revealed</option>
+<option value="დასრულებულია უარყოფითი შედეგით">Completed negative result</option>
+<option value="მიმდინარეობს ხელშეკრულების მომზადება">Preparation of contract</option>
+<option value="ტენდერი არ შედგა">Bidding failed</option>
+<option value="ტენდერი გამოცხადებულია">Tender announced</option>
+<option value="ტენდერი შეწყვეტილია">Tender terminated</option>
+<option value="შერჩევა/შეფასება">Selection/Evaluation</option>
+<option value="წინადადებების მიღება დასრულებულია">Completed proposals</option>
+<option value="წინადადებების მიღება დაწყებულია">Proposals process started</option>
+<option value="ხელშეკრულება დადებულია">Agreement concluded</option></select>
+
+      <label for="cpvGroup">Category</label>
+      <select id="cpvGroup" name="cpvGroup"><option value="1">All</option>
+<option value="2">Risky</option>
+<option value="13">education</option></select>
+      <label for="tender_registration_number">Registration Code</label>
+      <input name="tender_registration_number" type="text"></text_field>
+      <label for="announced_after">Announced After</label>
+      <input name="announced_after" type="text" class="dp2" value="" data-date-format="yyyy/mm/dd" id="dp2" >
+      <label for="announced_before">Announced Before</label>
+      <input name="announced_before" type="text" class="dp2" value="" data-date-format="yyyy/mm/dd" id="dp3" >
+      
+      <label for="min_estimate">Minimum Cost Estimate</label>
+      <input name="min_estimate" type="text"></text_field>
+      <label for="max_estimate">Maximum Cost Estimate</label>
+      <input name="max_estimate" type="text"></text_field>
+
+      <label for="min_num_bids">Min Number of Bids</label>
+      <input name="min_num_bids" type="text"></text_field>
+      <label for="max_num_bids">Max Number of Bids</label>
+      <input name="max_num_bids" type="text"></text_field>
+
+      <label for="min_num_bidders">Min Number of Bidders</label>
+      <input name="min_num_bidders" type="text"></text_field>
+      <label for="max_num_bidders">Max Number of Bidders</label>
+      <input name="max_num_bidders" type="text"></text_field>
+      
+      <br>
+      <input name="commit" type="submit" value="Search" />
+</form>  </div>
+
+
+   <div class="span4 aggregate-data">
+      <h4>Show Major Players</<h4>
+      <form accept-charset="UTF-8" action="/en/aggregate/cpvVsCompany" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="j3mLjEuF1DexEKCjNK8c77grVNrr3+TkVoSckdAMoXk=" /></div>
+        <select id="cpvGroup" name="cpvGroup"><option value="1">All</option>
+<option value="2">Risky</option>
+<option value="13">education</option></select>
+        <input name="commit" type="submit" value="Generate Graph" />
+</form>    </div>
+
+</div>
+
+	          </div><!--/span-->
+		      </div><!--/row-->
+		    </div><!--/content-->
+		   </div> <!-- /container -->
+		</div><!--/wrapper-->
+
+    <div class="push"><!--//--></div>
+
+    <footer class="clear">
+			<div id="left">
+			  <ul>
+			    <li id="ti_logo">
+			      <a href="http://www.transparency.ge" target="_blank" title="Visit Transparency International Georgia's website"><img alt="Ti-logo" src="/assets/ti-logo.jpg" /></a>
+			    </li>
+			  </ul>
+			</div>
+		  <div id="middle">
+				&nbsp;
+			</div>
+    </footer>
+
+
+  </body>
+</html>

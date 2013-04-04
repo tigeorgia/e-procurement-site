@@ -1,7 +1,7 @@
 #cpvChart {
   width: 960px;
   height: 500px;
-  background: #bbb;
+  background: #aaa;
 }
 
 #cpvChart text {
@@ -14,6 +14,7 @@
 
 #cpvChart rect {
   fill: none;
+  opacity: 0.7;
   stroke: #fff;
 }
 
@@ -37,5 +38,5 @@
 
 #cpvChart .children:hover rect.child,
 .grandparent:hover rect {
-  fill: #aaa;
+  fill: #000;
 }

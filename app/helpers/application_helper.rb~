@@ -1,5 +1,5 @@
 module ApplicationHelper
-
+  BOM = "\uFEFF" #Byte Order Mark
   def dropZeros( string )
     digits = countZeros(string)
     return string[0, string.length-digits]

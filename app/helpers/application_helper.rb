@@ -1,5 +1,5 @@
 module ApplicationHelper
-  
+  BOM = "\uFEFF" #Byte Order Mark
   def dropZeros( string )
     digits = countZeros(string)
     return string[0, string.length-digits]
@@ -40,7 +40,7 @@ module ApplicationHelper
                 tender.units_to_supply,tender.supply_period,tender.guarantee_amount,tender.guarantee_period]
        end
       end
-    return csv_string
+    return BOM + csv_string
   end
 
   def buildTenderSearchQuery(params)

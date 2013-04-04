@@ -1,3 +1,50 @@
+
+function boxColor(pR, pG, pB) { // constructor function
+  this.r = pR;
+  this.g = pG;
+  this.b = pB;
+}
+
+function formatGEL(num, useFractions = false) {
+    var p = num.toFixed(2).split(".");
+    var num =  "$" + p[0].split("").reverse().reduce(function(acc, num, i, orig) {
+        return num + (i && !(i % 3) ? "," : "") + acc;
+    }, "")
+    if(useFractions){
+      num += "." + p[1];
+    }
+    return num
+}
+
+
+var graphColors = [
+
+  new boxColor(0,0,100),
+  new boxColor(0,0,150),
+  new boxColor(0,0,200),
+  new boxColor(0,0,250),
+  new boxColor(0,100,0),
+  new boxColor(0,150,0),
+  new boxColor(0,200,0),
+  new boxColor(0,250,0),
+  new boxColor(100,0,0),
+  new boxColor(150,0,0),
+  new boxColor(200,0,0),
+  new boxColor(250,0,0),
+  new boxColor(50,50,100),
+  new boxColor(50,50,150),
+  new boxColor(50,50,200),
+  new boxColor(50,50,250),
+  new boxColor(50,100,50),
+  new boxColor(125,200,70),
+  new boxColor(50,150,50),
+  new boxColor(50,200,50),
+  new boxColor(50,250,50),
+  new boxColor(100,50,50),
+  new boxColor(100,100,150),
+  new boxColor(100,200,150)
+]
+
 function createD3Graphs( root )
 {
   var margin = {top: 20, right: 0, bottom: 0, left: 0},
@@ -41,10 +88,7 @@ function createD3Graphs( root )
       .attr("x", 6)
       .attr("y", 6 - margin.top)
       .attr("dy", ".75em");
-
-
-  var root = <% if @jsonString %> <%= raw @jsonString %> <% end %>
-                  
+            
                
   initialize(root);
   layout(root);
@@ -79,6 +123,7 @@ function createD3Graphs( root )
   }
 
   function display(d) {
+    Math.seedrandom('88');
     grandparent
         .datum(d.parent)
         .on("click", transition)
@@ -106,8 +151,9 @@ function createD3Graphs( root )
     g.append("rect")
             .attr("class", "parent")
             .call(rect)
+            .call(applyRectColoring)
             .append("title")
-              .text(function(d) { return d.name + "\n" + d.value + " Lari" });
+              .text(function(d) { return d.name + "\n" + formatGEL(d.value)});
 
     g.append("text")
         .attr("dy", ".75em")
@@ -160,7 +206,7 @@ function createD3Graphs( root )
         var height = y(d.y + d.dy) - y(d.y);
         var heightSize = height
         var letters = d.name.length
-        var widthSize = width / (letters / 1.75)
+        var widthSize = width / (letters / 1.6)
         if(heightSize < widthSize){
           return heightSize;
         }
@@ -175,7 +221,7 @@ function createD3Graphs( root )
             var width = x(d.x + d.dx) - x(d.x);
             var heightSize = y(d.y + d.dy) - y(d.y);
             var letters = d.name.length
-            var widthSize = width / (letters / 1.75)
+            var widthSize = width / (letters / 1.6)
             if( widthSize < 10 && (widthSize * 2.5) < heightSize ){
               var words = d.name.split(" ");
               var newString = ""
@@ -194,7 +240,22 @@ function createD3Graphs( root )
           });
   }
 
+  function getRandomColor()
+  {
+    return graphColors[Math.floor(Math.random()*graphColors.length)];
+  }
+
+  function applyRectColoring(rect) {
+    rect.attr("style",function(d) 
+                      { 
+                        var color = getRandomColor();
+                        return "fill:rgb("+color.r+","+color.g+","+color.b+");";
+                      }
+              ); 
+  }
+
   function rect(rect) {
+
     rect.attr("x", function(d) { return x(d.x); })
         .attr("y", function(d) { return y(d.y); })
         .attr("width", function(d) { return x(d.x + d.dx) - x(d.x); })

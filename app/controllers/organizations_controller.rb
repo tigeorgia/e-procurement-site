@@ -3,6 +3,8 @@ class OrganizationsController < ApplicationController
   helper_method :sort_column, :sort_direction
   include GraphHelper 
   include ApplicationHelper
+
+  BOM = "\uFEFF" #Byte Order Mark
   def search
     @params = params
     name = params[:organization][:name]
@@ -33,21 +35,24 @@ class OrganizationsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv {        
-        send_data buildCSV(results)
+      format.csv {   
+        sendCSV(results, "organizations")
       }
     end 
   end
 
-  def buildCSV( results )
-     csv_string = CSV.generate do |csv|
-       csv << ["Name","Country","Legal Type","City","Address","Phone Number","Fax Number","Email","Web Page","Code"]
-       results.each do |org|
-         csv << [org.name,org.country,org.org_type,org.city,org.address,org.phone_number,org.fax_number,org.email,
-                 org.webpage,org.code]
-       end
+  def sendCSV( results, name )
+    csv_data = CSV.generate() do |csv|
+      csv << ["Name","Country","Legal Type","City","Address","Phone Number","Fax Number","Email","Web Page","Code"]
+      results.each do |org|
+       csv << [org.name,org.country,org.org_type,org.city,org.address,org.phone_number,org.fax_number,org.email,
+               org.webpage,org.code]
+      end
     end
-    return csv_string   
+
+    filename = name+".csv"
+    content = BOM + csv_data
+    send_data content, :filename => filename
   end
 
   def search_procurer
@@ -79,7 +84,7 @@ class OrganizationsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv {        
-        send_data buildCSV(results)
+        sendCSV(results, "procurers")
       }
     end 
   end
@@ -101,8 +106,9 @@ class OrganizationsController < ApplicationController
       cpvDescription = TenderCpvClassifier.where(:cpv_code => tender.cpv_code).first.description_english
       if cpvDescription == nil
         cpvDescription = "NA"
-      end
+     end
       tender[:cpvDescription] = cpvDescription
+
       @tendersOffered.push(tender)
 
       if tendersPerCpv[tender.cpv_code]
@@ -113,29 +119,36 @@ class OrganizationsController < ApplicationController
     end
 
     tendersPerCpv = tendersPerCpv.sort { |a,b| b[1][1] <=> a[1][1]}
-    @Cpvs = []
+   @Cpvs = []
     tendersPerCpv.each do |key, value|
       @Cpvs.push( value )
     end
-  
-    @successfulTenders = []
+  @successfulTenders = {}
     cpvAgreements = {}
     #lets get some aggregate tender stats
-    @tendersOffered.each do |tender|    
-      agreements = Agreement.find_all_by_tender_id(tender.id)
-      #get last agreement
-      lastAgreement = nil
-      agreements.each do |agreement|
-        if not lastAgreement or lastAgreement.amendment_number < agreement.amendment_number
-          lastAgreement = agreement
+    @tendersOffered.each do |tender|
+      value = tender.contract_value  
+      if value
+        if value > 0
+          @actualCost += value
+          @totalEstimate += tender.estimated_value
         end
-      end
-      if lastAgreement
-        @actualCost += lastAgreement.amount
         @numAgreements += 1
-        @totalEstimate += tender.estimated_value
-        @successfulTenders.push( [tender,lastAgreement] )
-        item = { :name => tender.cpvDescription, :value => lastAgreement.amount, :code => tender.cpv_code, :children => [] }
+        date = tender.tender_announcement_date.to_time.to_i/86400
+
+        if not @successfulTenders[date]
+          @successfulTenders[date] = [tender, value]
+        else
+          #this tender was announced on the same day as another tender and we can only go as far as per day on the graph
+          #so lets pick the most important tender and ignore the other one :(
+          old = @successfulTenders[date]
+          if old[0].estimated_value < tender.estimated_value
+            #overwrite old data
+            @successfulTenders[date] = [tender, value]
+          end
+        end
+
+        item = { :name => tender.cpvDescription, :value => value, :code => tender.cpv_code, :children => [] }
         if not cpvAgreements[tender.cpv_code]
           cpvAgreements[tender.cpv_code] = item
         else
@@ -145,19 +158,12 @@ class OrganizationsController < ApplicationController
         end
       end
 
-       @successfulTenders = @successfulTenders.sort{ |a,b| a[0].tender_announcement_date <=> b[0].tender_announcement_date }
-
-      #now look at bid stats
-      bidders = Bidder.find_all_by_tender_id(tender.id)
-      bidders.each do |bidder|
-        totalBids += bidder.number_of_bids
-      end
-      totalBidders += bidders.count
+      totalBids += tender.num_bids
+      totalBidders += tender.num_bidders
     end
-
+    @successfulTenders = @successfulTenders.sort{ |a,b| a[0] <=> b[0]}
 
     @jsonString = createTreeGraphStringFromAgreements( cpvAgreements )
-
     #time for tasty averages
     @averageBids = totalBids.to_f/@numTenders
     @averageBidders = totalBidders.to_f/@numTenders

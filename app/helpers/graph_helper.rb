@@ -11,15 +11,10 @@ module GraphHelper
       #lets make a tree out of our CPV codes
       root = { :name => "cpv", :code => 00000000, :children => [] }
       cpvTree.sort! {|x,y| x[:code] <=> y[:code] }
-      File.open("raw", 'w') {|f| f.write(cpvTree) }
       root = createTree( root, cpvTree )
-      File.open("tree", 'w') {|f| f.write(root) }
       root = createUndefinedCategories( root )
-      File.open("undef", 'w') {|f| f.write(root) }
       calcParentVal( root )
-      File.open("parent", 'w') {|f| f.write(root) }
       jsonString = createJsonString( root, jsonString )
-      File.open("jsonstr", 'w') {|f| f.write(jsonString) }
       jsonString.chop!
     end
     return jsonString
@@ -41,7 +36,7 @@ module GraphHelper
       end
       
       parent[:children].push(node)
-      prev = node  
+      prev = node
     end
     return root
   end

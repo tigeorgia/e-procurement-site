@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130329102332) do
+ActiveRecord::Schema.define(:version => 20130403075028) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(:version => 20130329102332) do
     t.integer  "url_id"
     t.integer  "num_bids"
     t.integer  "num_bidders"
+    t.integer  "contract_value"
   end
 
   add_index "tenders", ["estimated_value"], :name => "index_tenders_on_estimated_value"

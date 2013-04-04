@@ -2,7 +2,6 @@ class TendersController < ApplicationController
   require "query_helpers" 
   helper_method :sort_column, :sort_direction
   include ApplicationHelper
-
   def performSearch( data )
     query = QueryHelper.buildTenderSearchQuery(data)
     @params = params

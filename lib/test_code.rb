@@ -18,9 +18,32 @@ module TestFile
   end
 
 
+  def self.storeTenderContractValues()
+    count = 0
+    Tender.find_each do |tender|
+      count = count + 1
+      if count%100 == 0
+        puts count.to_s
+      end
+      agreements = Agreement.find_all_by_tender_id(tender.id)
+      #get last agreement
+      lastAgreement = nil
+      agreements.each do |agreement|
+        if not lastAgreement or lastAgreement.amendment_number < agreement.amendment_number
+          lastAgreement = agreement
+        end
+      end
+      if lastAgreement
+        tender.contract_value = lastAgreement.amount
+        tender.save
+      end
+    end
+  end
+
   #filled out with tasks to test
   def self.run
-    CpvHelper.createCPVClassifiers(false)
+    #CpvHelper.createCPVClassifiers(false)
+    self.storeTenderContractValues()
   end
 
 end

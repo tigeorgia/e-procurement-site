@@ -15,6 +15,82 @@ saveData = function(event, data)
   $("#codes").val(codestring);
 }
 
+isChild = function(code, candidate)
+{
+  strCode = code.toString();
+  strCandidate = candidate.toString();
+  if( strCandidate <= strCode )
+  {
+    return false;
+  }
+  found = false;
+  pos = strCode.length;
+  while( !found )
+  {
+    found = strCode[pos-1] != "0";
+    if(!found)
+    {
+      strCode = strCode.substring(0,pos-1);
+      pos = strCode.length;
+    }  
+  }
+  return strCandidate.substring(0,pos) == strCode;
+}
+
+openParentNodes = function( childNodes, codes )
+{
+
+  var myTree = $("#demo1");
+  var myTreeContainer = $.jstree._reference(myTree).get_container();
+  var fullNodeList = myTreeContainer.find("li");
+
+  for (var k = 0; k < childNodes.length; ++k){
+    var full_string = $("#demo1").jstree("get_text",childNodes[k]);
+    var strings = full_string.split(":");
+    var cpv = $.trim(strings[0]);
+    if( cpv == "00000000" ){
+      continue;
+    }
+    for( var i = 0; i < codes.length; i++){
+      if(isChild(cpv, codes[i])){
+        $("#demo1").jstree("open_node",childNodes[k]);
+      }
+    }
+  }
+
+  var newNodes = []
+  var newNodeList = myTreeContainer.find("li");
+  
+  for(var i = 0; i < newNodeList.length; ++i){
+    found = false;
+    for(var k = 0; k < fullNodeList.length; ++k){
+      if( newNodeList[i].attributes[0].value == fullNodeList[k].attributes[0].value ){
+        found = true;
+        break;
+      }
+    }
+    if(!found){
+      newNodes.push(newNodeList[i]);
+    }
+  }
+
+  return newNodes
+}
+
+
+loadSavedNodes = function()
+{
+  var myTree = $("#demo1");
+  var codestring = $("#codes").val();
+  var codes = codestring.split(",");
+  var myTreeContainer = $.jstree._reference(myTree).get_container();
+  var childNodes = myTreeContainer.find("li");
+  while( childNodes.length > 0 ){
+    childNodes = openParentNodes(childNodes,codes);
+  }
+
+  checkExisting()
+}
 
 checkExisting = function()
 {
@@ -30,6 +106,7 @@ checkExisting = function()
       var strings = full_string.split(":");
       var cpv = $.trim(strings[0]);
       if(cpv == codes[i]){
+        var parent = $("#demo1").jstree("_get_parent",childNodes[k]);
         $("#demo1").jstree("check_node",childNodes[k]);
       }
     }
@@ -49,8 +126,8 @@ initTree = function()
              "progressive_render" : true
 	        },
 
-      "plugins" : [ "themes", "json_data", "checkbox"]
+      "plugins" : [ "ui","themes", "json_data", "checkbox"]
   });
 
-  $("#demo1").bind("loaded.jstree",checkExisting)
+  $("#demo1").bind("loaded.jstree",loadSavedNodes)
 }

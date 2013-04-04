@@ -39,7 +39,7 @@ include GraphHelper
         code = cpv.cpv_code
         name = TenderCpvClassifier.where(:cpv_code => code).first.description_english
         if not name
-          name = "NA"
+          name = "99999999"
         end
         cpvTree[code] = { :name => name, :code => code.to_s, :value => cpv.value, :children => [] }
       end

@@ -36,6 +36,7 @@ function createHighChartGraphs()
       }]
   });
 
+  <% if true %>
   cpvCodeChart = new Highcharts.Chart({
     chart: {
         renderTo: 'cpvDistributionChart',
@@ -70,6 +71,7 @@ function createHighChartGraphs()
         data: [ <% @Cpvs.each do |cpv| %> <%= raw cpv %>, <% end %>]
     }]
   });
+  <% end %>
 
   <% if  @successfulTenders.count > 0  %>
   	altChart = new Highcharts.StockChart({
@@ -107,9 +109,9 @@ function createHighChartGraphs()
 
     series : [{
 		    name : 'Estimated Value',
-		    data : [ <% @successfulTenders.each do |tender| %>
+		    data : [ <% @successfulTenders.each do |key, tender| %>
                    { 
-                     x: <%= tender[0].tender_announcement_date.to_time.to_i*1000 %>, 
+                     x: <%=key*1000*86400%>, 
                      y: <%=tender[0].estimated_value.to_i%>,
                      myData: "<%= tender_path(tender[0].id) %>"
                    },
@@ -120,10 +122,10 @@ function createHighChartGraphs()
 	      }
 	    },{		    
         name : 'Actual Value',
-		    data : [ <% @successfulTenders.each do |tender| %>
+		    data : [ <% @successfulTenders.each do |key, tender| %>
                   {                     
-                     x: <%= tender[0].tender_announcement_date.to_time.to_i*1000 %>, 
-                     y: <%=tender[1].amount.to_i%>,
+                     x: <%=key*1000*86400%>, 
+                     y: <%=tender[1].to_i%>,
                      myData: "<%= tender_path(tender[0].id) %>"
                    },
                   <%end%> 
@@ -210,7 +212,7 @@ $(function () {
 <br></br>
 <p>
   Download:
-  <%= link_to "CSV", :controller => "organizations", :action => "download_proc_tenders", :format => "csv", :id => @organization.id %>
+  <%= link_to "CSV", :controller => "organization", :action => "download_proc_tenders", :format => "csv", :id => @organization.id %>
 </p>
 
   <table class="dataTable" cellpadding="0" cellspacing="0" border="0" width="100%" >
