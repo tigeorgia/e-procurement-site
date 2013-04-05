@@ -60,18 +60,15 @@ module GraphHelper
 
   def createTree( root, list )
     prev = root
-    parent = root
 
-    list.each do |item|
-      node = item
-     
-      if isChild(prev, node)
-        parent = prev
-      elsif not isChild(parent, node)
-        parent = root
+    list.each do |node|
+      parent = prev
+      while not isChild(parent,node)
+        parent = parent[:parent]
       end
        
-      parent[:children].push(node) 
+      parent[:children].push(node)
+      node[:parent] = parent
       prev = node
     end
     return root
@@ -92,11 +89,16 @@ module GraphHelper
   end
 
   def isChild(parent, node)
-    if parent[:name] == "cpv" 
+    if parent[:code] == "00000000" 
       return true
     elsif parent[:code] == node[:code]
       return false
     else
+      nodeDigits = countZeros(node[:code])
+      #6 zeros or more means this is a primary grouping
+      if nodeDigits >= 6
+        return false
+      end
       digits = countZeros(parent[:code])
       parentString = parent[:code]
       subParent = parentString[0, parentString.length-digits]

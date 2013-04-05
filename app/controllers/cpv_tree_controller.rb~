@@ -1,5 +1,6 @@
 class CpvTreeController < ApplicationController
   include ApplicationHelper
+  include GraphHelper
   def sortDescending( x, y )
     if x.cpv_code.to_i < y.cpv_code.to_i
       return -1
@@ -69,11 +70,15 @@ class CpvTreeController < ApplicationController
 
 
   def outputTree()
-    root = { :item => nil, :children => [], :parent => nil }
+    root = { :name => "CPV Codes", :code => "00000000", :children => [] }
     csv_text = File.read("lib/data/cpv_data.csv")
     codes = CSV.parse(csv_text)
-    codes.sort! {|x,y| x[0] <=> y[0] }      
-	  createTree( root, codes )
+    nodes = []
+    codes.each do |code|
+      nodes.push({ :name => code[1], :code => code[0], :children => [] })
+    end
+    nodes.push({ :name => "Not Specified", :code => "99999999", :children => []})  
+	  createTree( root, nodes )
     @dataId = 1
     @jsonString = '{ "data" : "00000000 : CPV Codes", 
                      "attr" : {
@@ -87,10 +92,11 @@ class CpvTreeController < ApplicationController
 
   def printTree( root )
     treeString = ""
-    if root[:item]
-      @dataId += 1
-      codeStr = root[:item][0].to_s
-      treeString +='{ "data" : "'+codeStr+' : '+ root[:item][1] +'", 
+
+    @dataId += 1
+    if not root[:code] == "00000000"
+      codeStr = root[:code]
+      treeString +='{ "data" : "'+codeStr+' : '+ root[:name] +'", 
                       "attr" : {
                         "id" : "'+@dataId.to_s+'"
                       }'
@@ -115,50 +121,5 @@ class CpvTreeController < ApplicationController
     @checkedNodes = ""
     outputTree()
   end
-
-  def isChild(parent, node)
-    if parent[:item] == nil 
-      return true
-    else
-      parentString = parent[:item][0]
-      codeString = node[:item][0]
-      digits = countZeros(parentString)
-      subParent = parentString[0, parentString.length-digits]
-      subCode = codeString[0, codeString.length-digits]
-      return subParent == subCode
-    end
-  end
-
-  def findParent( prevNode, curNode )
-    if isChild( prevNode, curNode )
-      return prevNode
-    else
-      if prevNode[:parent]
-        return findParent(prevNode[:parent],curNode)
-      else
-        return nil
-      end
-    end
-  end 
-
-  def createTree( root, list )
-    prev = root
-    parent = root
-    count = 0
-    list.each do |item|
-      count += 1
-      
-      node = { :item => item, :children => [], :parent => nil }
-      
-      node[:parent] = findParent(prev, node)
-      if node[:parent]
-        node[:parent][:children].push(node)
-      else
-        root[:children].push(node)
-      end
-      prev = node  
-    end
-  end
-
 
 end
