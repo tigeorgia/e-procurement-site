@@ -2,6 +2,31 @@ module GraphHelper
   
   def createTreeGraphStringFromAgreements( agreements )
     cpvTree = []
+    done = false
+    #new_logger = Logger.new('log/parents.log')
+    while not done
+      newNodes = [] 
+      agreements.each do |key, agreement|
+        if key == "99999999"
+          next
+        end     
+        parentKey = getParentCode(key)
+        if parentKey and not agreements[parentKey]
+          parent = TenderCpvClassifier.where(:cpv_code => parentKey).first
+          name = parent.description_english or 'na'         
+          #new_logger.info("CHILD: "+key+"   PARENT: "+parentKey)
+          newNodes.push({ :name => name, :code => parentKey, :children => [] })
+        end
+      end
+      if newNodes.length == 0
+        done = true
+      else
+        newNodes.each do |node|
+          agreements[node[:code]] = node
+        end
+      end
+    end
+    
     agreements.each do |key, agreement|
       cpvTree.push( agreement )
     end
@@ -9,7 +34,7 @@ module GraphHelper
     jsonString = ""
     if cpvTree.length > 0
       #lets make a tree out of our CPV codes
-      root = { :name => "cpv", :code => 00000000, :children => [] }
+      root = { :name => "cpv", :code => "00000000", :children => [] }
       cpvTree.sort! {|x,y| x[:code] <=> y[:code] }
       root = createTree( root, cpvTree )
       root = createUndefinedCategories( root )
@@ -20,7 +45,18 @@ module GraphHelper
     return jsonString
   end
 
-
+  def getParentCode( code )
+    digits = countZeros(code)
+    parentSuffix = ""
+    if digits < 6 
+      parentPrefix = code[0, code.length-(digits+1)]
+      for i in 0..digits
+        parentSuffix += "0"
+      end
+      return parentPrefix + parentSuffix
+    end
+    return nil 
+  end  
 
   def createTree( root, list )
     prev = root
@@ -28,14 +64,14 @@ module GraphHelper
 
     list.each do |item|
       node = item
+     
       if isChild(prev, node)
         parent = prev
-      end
-      if not isChild(parent, node)
+      elsif not isChild(parent, node)
         parent = root
       end
-      
-      parent[:children].push(node)
+       
+      parent[:children].push(node) 
       prev = node
     end
     return root
@@ -92,7 +128,7 @@ module GraphHelper
     if root[:children].length > 0
       uncategorised = root[:value]
       if uncategorised > 0
-        root[:children].push( { :name => "Not Specified", :value => uncategorised, :code => root[:code], :children => [] } )
+        root[:children].push( { :name => "Miscellaneous", :value => uncategorised, :code => root[:code], :children => [] } )
       end
       root[:value] = 0
       root[:children].each do |child|

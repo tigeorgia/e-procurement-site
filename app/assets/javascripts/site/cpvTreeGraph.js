@@ -5,7 +5,7 @@ function boxColor(pR, pG, pB) { // constructor function
   this.b = pB;
 }
 
-function formatGEL(num, useFractions = false) {
+function formatGEL(num, useFractions) {
     var p = num.toFixed(2).split(".");
     var num =  "GEL " + p[0].split("").reverse().reduce(function(acc, num, i, orig) {
         return num + (i && !(i % 3) ? "," : "") + acc;
@@ -153,11 +153,11 @@ function createD3Graphs( root )
             .call(rect)
             .call(applyRectColoring)
             .append("title")
-              .text(function(d) { return d.name + "\n" + formatGEL(d.value)});
+              .text(function(d) { return d.name + "\n"+"(CPV Code: "+d.code + ") \n" + formatGEL(d.value)});
 
     g.append("text")
         .attr("dy", ".75em")
-        .text(function(d) { return d.name; })
+        .text(function(d) { return d.name })
         .call(text);
 
     function transition(d) {

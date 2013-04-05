@@ -36,12 +36,17 @@ include GraphHelper
       cpvTree = {}
       cpvData.each do |cpv|
         #get cpv name
-        code = cpv.cpv_code
+        code = cpv.cpv_code.to_s
+        #hax to convert int to string with 0s at the front
+        while code.length < 8
+          code = "0"+code
+        end
+        puts code
         name = TenderCpvClassifier.where(:cpv_code => code).first.description_english
         if not name
-          name = "99999999"
+          name = "Not Specified"
         end
-        cpvTree[code] = { :name => name, :code => code.to_s, :value => cpv.value, :children => [] }
+        cpvTree[code] = { :name => name, :code => code, :value => cpv.value, :children => [] }
       end
       data[:cpvTree] = createTreeGraphStringFromAgreements( cpvTree )
     end   

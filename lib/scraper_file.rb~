@@ -40,9 +40,9 @@ module ScraperFile
           if count%100 == 0
             puts "tender: #{count}"
           end
-          tender.url_id = item["tenderID"]
+          tender.url_id = item["tenderID"].strip()
           tender.dataset_id = @newDataset.id
-          tender.tender_type = item["tenderType"]
+          tender.tender_type = item["tenderType"].strip()
           tender.tender_registration_number = item["tenderRegistrationNumber"]
           tender.tender_status = item["tenderStatus"]
           tender.tender_announcement_date = Date.parse(item["tenderAnnouncementDate"])     
@@ -823,8 +823,6 @@ module ScraperFile
   end
 
   def self.generateMetaData
-    puts "generate cpv codes"
-    #self.createCPVCodes
     puts "setting up users"
    self.createUsers
     puts "generating aggregate data"
@@ -885,8 +883,6 @@ module ScraperFile
   end
 
   def self.buildUserDataOnly
-    puts "generate cpv codes"
-    self.createCPVCodes
     puts "generating aggregate data"
     self.processAggregateData
     puts "setting up users"

@@ -19,7 +19,12 @@ module TestFile
 
 
   def self.storeTenderContractValues()
+    count = 0
     Tender.find_each do |tender|
+      count = count + 1
+      if count%100 == 0
+        puts count.to_s
+      end
       agreements = Agreement.find_all_by_tender_id(tender.id)
       #get last agreement
       lastAgreement = nil

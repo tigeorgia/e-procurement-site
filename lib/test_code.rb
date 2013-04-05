@@ -17,7 +17,6 @@ module TestFile
     end
   end
 
-
   def self.storeTenderContractValues()
     count = 0
     Tender.find_each do |tender|

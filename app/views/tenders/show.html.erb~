@@ -13,6 +13,12 @@
   </div>
 <% end %>
 
+  <% highlightClass = "" %>
+  <% if @highlights.include?('tender_status') %>
+    <% highlightClass = 'class="bidwinner"'.html_safe %>
+  <% end %>
+  <h3 <%=highlightClass%> ><%= t(@tender.tender_status) %></h3>
+
 <dl class="info-horizontal">
   <% highlightClass = "" %>
   <% if @highlights.include?('procurring_entity_id') %>
@@ -34,13 +40,6 @@
   <% end %>
   <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:tender_registration_number) %>:</strong></dt>
   <dd <%=highlightClass%> ><%= @tender.tender_registration_number %></dd>
-
-  <% highlightClass = "" %>
-  <% if @highlights.include?('tender_status') %>
-    <% highlightClass = 'class="bidwinner"'.html_safe %>
-  <% end %>
-  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:tender_status) %>:</strong></dt>
-  <dd <%=highlightClass%> ><%= t(@tender.tender_status) %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('tender_announcement_date') %>
@@ -103,6 +102,37 @@
     <% end %>
   <% end %> 
 
+
+<% if @bidderInfo.length > 0 %>
+  <hr>
+  <table class="table table-striped">
+    <thead>
+      <h3>Participants</h3>
+      <tr>
+        <th><%= model_class.human_attribute_name(:name) %></th>
+        <th>First Bid</th>
+        <th>Last Bid</th>
+        <th>Number of Bids</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @bidderInfo.each do |info| %>
+        <% if info[:won] %>
+          <% myClass = 'class="bidwinner"'.html_safe %>
+        <% else %>
+          <% myClass = "" %>
+         <% end %>
+        <tr <%=myClass%>>
+            <td <%=myClass%>><%= link_to info[:name], organization_path(info[:id]) %></td>
+            <td <%=myClass%>><%= info[:highBid] %></td>
+            <td <%=myClass%>><%= info[:lowBid] %></td>
+            <td <%=myClass%>><%= info[:numBids] %></td>
+         </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
 <% if @agreementInfo.length > 0 %>
   <hr>
   <table class="table table-striped">
@@ -141,37 +171,8 @@
   </table>
 <% end %>
 
-<% if @bidderInfo.length > 0 %>
-  <hr>
-  <table class="table table-striped">
-    <thead>
-      <h3>Participants</h3>
-      <tr>
-        <th><%= model_class.human_attribute_name(:name) %></th>
-        <th>First Bid</th>
-        <th>Last Bid</th>
-        <th>Number of Bids</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @bidderInfo.each do |info| %>
-        <% if info[:won] %>
-          <% myClass = 'class="bidwinner"'.html_safe %>
-        <% else %>
-          <% myClass = "" %>
-         <% end %>
-        <tr <%=myClass%>>
-            <td <%=myClass%>><%= link_to info[:name], organization_path(info[:id]) %></td>
-            <td <%=myClass%>><%= info[:highBid] %></td>
-            <td <%=myClass%>><%= info[:lowBid] %></td>
-            <td <%=myClass%>><%= info[:numBids] %></td>
-         </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
-
 <% if @documentation.length > 0 %>
+  <hr>
   <table class="table table-striped">
     <thead>
       <h3>Documentation<h3>
