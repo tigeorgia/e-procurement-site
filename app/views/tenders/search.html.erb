@@ -37,14 +37,13 @@ Single Bid Percentage = <%= @numSingleBids/@numBidTenders %><br>
     <tr>
       <th><%= sortable(@params, "tender_registration_number") %></th>
       <th>Procurer</th>
-      <th><%= sortable(@params, "tender_type") %></th> 
-      <th><%= sortable(@params, "tender_status") %></th>
-      <th><%= sortable(@params, "tender_announcement_date") %></th>
-      <th><%= sortable(@params, "bid_start_date") %></th>
-      <th><%= sortable(@params, "bid_end_date") %></th>
+      <th><%= sortable(@params, "tender_announcement_date","Announcement Date") %></th>
+      <th><%= sortable(@params, "cpv_code", "CPV Code")%></th>
+      <th><%= sortable(@params, "tender_type", "Type") %></th> 
+      <th><%= sortable(@params, "tender_status", "Status") %></th>
       <th><%= sortable(@params, "estimated_value") %></th>
-      <th><%= sortable(@params, "include_vat")%></th>
-      <th><%= sortable(@params, "cpv_code")%></th>
+      <th><%= sortable(@params, "contract_value")%></th>
+      <th><%= sortable(@params, "num_bidders", "No. Bidders")%></th>
     </tr>
   </thead>
   <tbody>
@@ -58,14 +57,13 @@ Single Bid Percentage = <%= @numSingleBids/@numBidTenders %><br>
       <tr>
         <td <%=highlightClass%>><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
         <td <%=highlightClass%>><%= link_to procurer, :controller => "organizations", :action => "show_procurer", :id => tender.procurring_entity_id %></td>
+        <td <%=highlightClass%>><%= tender.tender_announcement_date %></td>
+        <td <%=highlightClass%>><%= tender.cpv_code %></td>
         <td <%=highlightClass%>><%= t(tender.tender_type) %></td>
         <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
-        <td <%=highlightClass%>><%= tender.tender_announcement_date %></td>
-        <td <%=highlightClass%>><%= tender.bid_start_date %></td>
-        <td <%=highlightClass%>><%= tender.bid_end_date %></td>
         <td <%=highlightClass%>><%= tender.estimated_value %></td>
-        <td <%=highlightClass%>><%= tender.include_vat %></td>
-        <td <%=highlightClass%>><%= tender.cpv_code %></td>
+        <td <%=highlightClass%>><% if tender.contract_value %><%= tender.contract_value %><%else%>N/A<%end%></td>
+        <td <%=highlightClass%>><%= tender.num_bidders %></td>
       </tr>
     <% end %>
   </tbody>

@@ -5,7 +5,6 @@ class TendersController < ApplicationController
   def performSearch( data )
     query = QueryHelper.buildTenderSearchQuery(data)
     @params = params
-    puts query
     @fullResult = Tender.where(query)
     @numResults = @fullResult.count
     @tenders = @fullResult.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
@@ -86,6 +85,7 @@ class TendersController < ApplicationController
                  :max_num_bids => maxBids,
                  :min_num_bidders => minBidders,
                  :max_num_bidders => maxBidders,
+                 :risk_indicator => data[:risk_indicator]
             }
     return queryData
   end
@@ -147,14 +147,11 @@ class TendersController < ApplicationController
     end
 
     @risks = []
-    flags = TenderCorruptionFlag.where(:tender_id => @tender.id)
-    @totalRisk = 0
+    flags = @tender.risk_indicators.split("#")
+    @totalRisk = TenderCorruptionFlag.where(:corruption_indicator_id => 100,:tender_id => @tender.id ).first.value
     flags.each do |flag|
-      if not flag.corruption_indicator_id == 100
-        indicator = CorruptionIndicator.find( flag.corruption_indicator_id )
-        @totalRisk = @totalRisk + (indicator.weight * flag.value)
-        @risks.push(indicator)
-      end
+      indicator = CorruptionIndicator.find( flag.to_s )
+      @risks.push(indicator)
     end
 
     #get all tender documentation

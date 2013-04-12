@@ -7,10 +7,10 @@ Number of Organizations found: <%= @numResults %>
 <p>
   Download:
   <% csvParams = @params.clone%>
-  <% @params[:format] = "csv" %>
-  <% @params[:controller] = "organization" %>
-  <% @params[:action] = "search" %>
-  <%= link_to "CSV",  @params %>
+  <% csvParams[:format] = "csv" %>
+  <% csvParams[:controller] = "organization" %>
+  <% csvParams[:action] = "search" %>
+  <%= link_to "CSV",  csvParams %>
 </p>
 
 <table class="table table-striped">
@@ -18,10 +18,11 @@ Number of Organizations found: <%= @numResults %>
     <tr>
       <th><%= sortable(@params, "name") %></th>
       <th><%= sortable(@params, "code") %></th>
-      <th><%= sortable(@params, "org_type") %></th>
+      <th><%= sortable(@params, "org_type", "Type") %></th>
       <th><%= sortable(@params, "country") %></th>
-      <th><%= sortable(@params, "email") %></th>
-      <th><%= sortable(@params, "phone_number") %></th>
+      <th><%= sortable(@params, "total_won_contract_value", "Total Revenue") %></th>
+      <th><%= sortable(@params, "total_bid_tenders","Tenders Bid On") %></th>
+      <th><%= sortable(@params, "total_won_tenders") %></th>
     </tr>
   </thead>
   <tbody>
@@ -31,8 +32,9 @@ Number of Organizations found: <%= @numResults %>
         <td><%= organization.code %></td>
         <td><%= t(organization.org_type) %></td>
         <td><%= t(organization.country) %></td>
-        <td><%= organization.email %></td>
-        <td><%= organization.phone_number %></td>
+        <td><%= t(organization.total_won_contract_value) %></td>
+        <td><%= t(organization.total_bid_tenders) %></td>
+        <td><%= t(organization.total_won_tenders) %></td>
       </tr>
     <% end %>
   </tbody>

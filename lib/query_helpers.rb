@@ -20,8 +20,6 @@ module QueryHelper
 
    def self.buildSearchParamsFromString(searchString)
     fields = searchString.split("#")
-    puts searchString
-    puts fields
     params = {
       :cpvGroup => fields[0],
       :tender_registration_number => fields[1],
@@ -57,6 +55,10 @@ module QueryHelper
         else
           addAnd = true
         end
+        puts "hello"
+        puts sql_field + "^"
+        puts operator + "%"
+        puts param + "$"
         query += sql_field +" "+operator+" "+ "'"+param+"'"
       end
     }   
@@ -71,6 +73,7 @@ module QueryHelper
     addParamToQuery.call( params[:max_num_bids], "num_bids", "<=" )
     addParamToQuery.call( params[:min_num_bidders], "num_bidders", ">=" )
     addParamToQuery.call( params[:max_num_bidders], "num_bidders", "<=" )
+    addParamToQuery.call( params[:risk_indicator], "risk_indicators", "LIKE" )
 
     cpvGroup = CpvGroup.where(:id => params[:cpvGroupID]).first
     if not cpvGroup or cpvGroup.id == 1

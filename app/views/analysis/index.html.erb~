@@ -6,6 +6,7 @@ Year
   <%= submit_tag "Generate Aggregate Data" %>
 <% end %>
 
+<%= button_to "Show Node Graph", {:action => "nodeGraph"} %>
+
 <div id ="results">
 </div>
-

@@ -87,6 +87,7 @@
 							<% I18n.available_locales.each do |locale| %>
 								<% if locale != I18n.locale %>
 									<li><%= link_to t("app.language.#{locale}"), params.merge(:locale => locale) %></li>
+                  <% puts params %>
 								<% end %>
 							<% end %>
 	          </ul>

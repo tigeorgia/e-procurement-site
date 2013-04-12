@@ -30,6 +30,7 @@ class OrganizationsController < ApplicationController
     end
     
     results = Organization.where(conditions)
+    
     @numResults = results.count
     @organizations = results.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
@@ -108,7 +109,11 @@ class OrganizationsController < ApplicationController
         cpvDescription = "NA"
      end
       tender[:cpvDescription] = cpvDescription
-
+      tender[:success] = false
+      value = tender.contract_value  
+      if value and value > 0
+        tender[:success] = true
+      end
       @tendersOffered.push(tender)
 
       if tendersPerCpv[tender.cpv_code]
@@ -127,12 +132,10 @@ class OrganizationsController < ApplicationController
     cpvAgreements = {}
     #lets get some aggregate tender stats
     @tendersOffered.each do |tender|
-      value = tender.contract_value  
-      if value
-        if value > 0
-          @actualCost += value
-          @totalEstimate += tender.estimated_value
-        end
+      if tender[:success] == true
+        value = tender.contract_value
+        @actualCost += value
+        @totalEstimate += tender.estimated_value
         @numAgreements += 1
         date = tender.tender_announcement_date.to_time.to_i/86400
 

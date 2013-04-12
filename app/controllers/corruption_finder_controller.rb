@@ -43,4 +43,7 @@ class CorruptionFinderController < ApplicationController
       format.js   
     end
   end
+
+  def nodeGraph
+  end
 end

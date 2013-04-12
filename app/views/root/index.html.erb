@@ -1,56 +1,42 @@
-<div class="row" id="mid-row">
-  <div class="span4 search-org">
-    <h4>Search Companies</<h4>
-    <%= form_for Organization.new, :url => { :controller => "organization", :action => "search" }, :method => 'get' do |f| %>
-      <br>
-      <%= f.label :name %>
-      <%= f.text_field  :name %>
+<script>
+var chart1; // globally available
+$(document).ready(function() {
+    chart1 = new Highcharts.Chart({
+       chart: {
+          renderTo: 'graph',
+          type: 'bar'
+       },
+       title: {
+          text: 'Top 10 Players'
+       },
+       xAxis: {
+          categories: [
+             <% @TopTen.each do |info| %>
+              <% item = link_to( raw(info[:company].name),  :controller => "organizations", :action => "show", :id => info[:company].id)%>
+              '<%= item%>',
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: 'Lari'
+          }
+       },
+       series: [        
+               {
+                name: "Awarded Contract Total",
+                data: [ <% @TopTen.each do |info| %> <%= info[:total] %>, <% end %>]
+               },  
+      ]   
+    });
+ });
+</script>
 
-      <%= f.label :code %>
-      <%= f.text_field :code %>
-
-      <%= f.label :type %>
-      <% types = [] %>
-      <% @orgTypes.each do |orgType| %>
-        <% types.push(item = [t(orgType),orgType]) %>
-      <%end%>
-      <%= select_tag(:org_type, options_for_select(types), :include_blank => true)  %>
-
-
-      <label for="isForeign">Only Foreign</label>
-      <%= check_box("isForeign","foreign") %>
-      <br>
-      <%= submit_tag "Search" %>
-    <% end %>
-  </div>
-
-
-  <div class="span4 search-org">
-    <h4>Search Procurers</<h4>
-    <%= form_for Organization.new, :url =>  { :controller => "organization", :action => "search_procurer" }, :method => 'get' do |f| %>
-      <br>
-      <%= f.label :name %>
-      <%= f.text_field  :name %>
-
-      <%= f.label :code %>
-      <%= f.text_field :code %>
-
-      <%= f.label :type %>
-      <% types = [] %>
-      <% @procTypes.each do |orgType| %>
-        <% orgType = orgType.gsub(".","") %>
-        <% types.push(item = [t(orgType),orgType]) %>
-      <% end %>
-      <%= select_tag(:org_type, options_for_select(types), :include_blank => true)  %>
-
-      <br>
-      <%= submit_tag "Search" %>
-    <% end %>
-  </div>
-
-  <div class="span4 search-tender">
-    <h4>Search Tenders</<h4>
-    <%= form_for Tender.new, :url => {:controller => "tender", :action => "search"}, :method => 'get' do |f| %>
+<div class="container-fluid">
+  <div class="row-fluid" id="mid-row">
+    <div class="span3 search-tender">
+      <h4>Search Tenders</<h4>
+      <%= form_for Tender.new, :url => {:controller => "tender", :action => "search"}, :method => 'get' do |f| %>
       <br>
       <%= f.label :status %>
       <% options = [] %>
@@ -60,7 +46,10 @@
       <%= select_tag(:tender_status, options_for_select(options), :include_blank => true)  %>
 
       <label for="cpvGroup">Category</label>
-      <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name,:include_blank => true) ) %>
+      <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name)) %>
+      <label for="risk_indicator">Risk Indicator</label>
+      <%= select_tag(:risk_indicator,  options_from_collection_for_select(@indicators,:id,:name),{:include_blank => true})  %>
+
       <label for="tender_registration_number">Registration Code</label>
       <input name="tender_registration_number" type="text"></text_field>
       <label for="announced_after">Announced After</label>
@@ -86,17 +75,70 @@
       <br>
       <%= submit_tag "Search" %>
     <% end %>
-  </div>
-
-
- <% if @cpvGroups.length > 0 %>
-   <div class="span4 aggregate-data">
-      <h4>Show Major Players</<h4>
-      <%= form_tag( {:controller => :aggregate, :action => "cpvVsCompany"}, :remote => false) do %>
-        <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name))  %>
-        <%= submit_tag "Generate Graph" %>
-      <% end %>
     </div>
- <% end %>
+    <div class="span8 offset1">
+      <div class="row-fluid">
+        <div class="span6 search-org">
+          <h4>Search Companies</<h4>
+          <%= form_for Organization.new, :url => { :controller => "organization", :action => "search" }, :method => 'get' do |f| %>
+            <br>
+            <%= f.label :name %>
+            <%= f.text_field  :name %>
 
+            <%= f.label :code %>
+            <%= f.text_field :code %>
+
+            <%= f.label :type %>
+            <% types = [] %>
+            <% @orgTypes.each do |orgType| %>
+              <% types.push(item = [t(orgType),orgType]) %>
+            <%end%>
+            <%= select_tag(:org_type, options_for_select(types), :include_blank => true)  %>
+
+
+            <label for="isForeign">Only Foreign</label>
+            <%= check_box("isForeign","foreign") %>
+            <br>
+            <%= submit_tag "Search" %>
+          <% end %>
+        </div>
+        <div class="span6 search-org">
+          <h4>Search Procurers</<h4>
+          <%= form_for Organization.new, :url =>  { :controller => "organization", :action => "search_procurer" }, :method => 'get' do |f| %>
+            <br>
+            <%= f.label :name %>
+            <%= f.text_field  :name %>
+
+            <%= f.label :code %>
+            <%= f.text_field :code %>
+
+            <%= f.label :type %>
+            <% types = [] %>
+            <% @procTypes.each do |orgType| %>
+              <% orgType = orgType.gsub(".","") %>
+              <% types.push(item = [t(orgType),orgType]) %>
+            <% end %>
+            <%= select_tag(:org_type, options_for_select(types), :include_blank => true )%>
+            <br>
+            <%= submit_tag "Search" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row-fluid graph-row">
+        <div class="span8 offset4">
+          <h4>Show Major Players</<h4><br>
+            <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name), 
+                :data => { :remote => true, 
+                           :url => url_for(:controller => "root", 
+                           :action => "cpvVsCompany") } )  %>     
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div id="graph" style="width: 100%; height: 100%"></div>   
+      </div>
+    </div>
+  </div>
 </div>
+
+
+

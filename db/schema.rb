@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130403075028) do
+ActiveRecord::Schema.define(:version => 20130412070310) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -29,10 +29,10 @@ ActiveRecord::Schema.define(:version => 20130403075028) do
 
   create_table "aggregate_cpv_revenues", :force => true do |t|
     t.integer  "organization_id"
-    t.integer  "cpv_code"
     t.decimal  "total_value",     :precision => 11, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cpv_code"
   end
 
   create_table "aggregate_cpv_statistics", :force => true do |t|
@@ -150,13 +150,13 @@ ActiveRecord::Schema.define(:version => 20130403075028) do
   end
 
   create_table "organizations", :force => true do |t|
-    t.integer  "code",             :limit => 8
+    t.integer  "code",                         :limit => 8
     t.string   "organization_url"
     t.string   "name"
     t.string   "country"
     t.string   "org_type"
-    t.boolean  "is_bidder",                     :default => false
-    t.boolean  "is_procurer",                   :default => false
+    t.boolean  "is_bidder",                                 :default => false
+    t.boolean  "is_procurer",                               :default => false
     t.string   "city"
     t.string   "address"
     t.string   "phone_number"
@@ -167,6 +167,12 @@ ActiveRecord::Schema.define(:version => 20130403075028) do
     t.datetime "updated_at"
     t.integer  "dataset_id"
     t.string   "translation"
+    t.integer  "total_won_contract_value"
+    t.integer  "total_bid_tenders"
+    t.integer  "total_won_tenders"
+    t.integer  "total_offered_contract_value"
+    t.integer  "total_offered_tenders"
+    t.integer  "total_success_tenders"
   end
 
   add_index "organizations", ["organization_url", "name"], :name => "index_organizations_on_organization_url_and_name"
@@ -233,6 +239,8 @@ ActiveRecord::Schema.define(:version => 20130403075028) do
     t.integer  "num_bids"
     t.integer  "num_bidders"
     t.integer  "contract_value"
+    t.integer  "winning_org_id"
+    t.string   "risk_indicators"
   end
 
   add_index "tenders", ["estimated_value"], :name => "index_tenders_on_estimated_value"

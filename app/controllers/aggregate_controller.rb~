@@ -13,7 +13,7 @@ class AggregateController < ApplicationController
     else
       classifiers.each do |classifier|
         cvpDropped = dropZeros(classifier.cpv_code.to_s)
-        sqlString += "cpv_code LIKE "+classifier.cpv_code.to_s+ " OR "
+        sqlString += "cpv_code LIKE '"+cvpDropped+ "%' OR "
       end
       puts sqlString
       sqlString = sqlString[0..-4]

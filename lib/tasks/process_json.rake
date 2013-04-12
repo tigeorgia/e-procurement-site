@@ -11,6 +11,13 @@ namespace :procurement do
     ScraperFile.processIncrementalScrape
   end
 
+  desc "Process meta data and store results in db"
+  task:buildMetaData=> :environment do
+    require "scraper_file"
+    ScraperFile.buildUserDataOnly
+  end
+
+
   desc "do debug tasks"
   task:test_code => :environment do
     require "test_code"

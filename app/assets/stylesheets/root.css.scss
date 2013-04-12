@@ -295,7 +295,6 @@ footer, footer ul li, footer div#right ul li {
 }
 
 .search-tender {
-  width: 27%;
   padding: 5px;
   background-color: #eee;
   border-radius: 10px;
@@ -303,21 +302,22 @@ footer, footer ul li, footer div#right ul li {
 }
 
 .search-org {
-  width: 27%;
   padding: 5px;
   background-color: #eee;
   border-radius: 10px;
   border: 2px solid #666;
 }
 
+.graph-row {
+ margin-top: 50px;
+}
+
 .search-field {
-  width: 100%;
   padding: 5px;
 }
 
 
 .org-box {
-  width: 27%;
   padding: 5px;
   background-color: #eee;
   text-align: center;

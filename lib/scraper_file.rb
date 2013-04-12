@@ -7,8 +7,10 @@ module ScraperFile
   FILE_TENDER_DOCUMENTS = "tenderDocumentation.json"
   FILE_TENDER_CPV_CODES = "tenderCPVCode.json"
   require 'csv'
+  require 'json'
   require "query_helpers"
   require "translation_helper"
+  require "aggregate_helper"
   
 
   # if we have an oldData set and a newDataset we can generate some info about the differences before merging the sets
@@ -399,6 +401,62 @@ module ScraperFile
       
   end#createcpv
 
+
+  def self.storeTenderContractValues
+    count = 0
+    Tender.find_each do |tender|
+      count = count + 1
+      if count%100 == 0
+        puts "Contract Store "+count.to_s
+      end
+      agreements = Agreement.find_all_by_tender_id(tender.id)
+      #get last agreement
+      lastAgreement = nil
+      agreements.each do |agreement|
+        if not lastAgreement or lastAgreement.amendment_number < agreement.amendment_number
+          lastAgreement = agreement
+        end
+      end
+      if lastAgreement
+        tender.contract_value = lastAgreement.amount
+        tender.winning_org_id = lastAgreement.organization_id
+        tender.save
+      end
+    end
+  end
+
+    def self.storeOrgMeta
+     Organization.find_each do |org|
+      #get total revenue
+      revenues = AggregateCpvRevenue.where(:organization_id => org.id)
+      total = 0
+      revenues.each do |revenue|
+        total += revenue.total_value
+      end
+      org.total_won_contract_value = total
+
+      #get number of tenders bid on
+      org.total_bid_tenders = Bidder.where(:organization_id => org.id).count
+      #get number of tenders won
+      org.total_won_tenders = Tender.where(:winning_org_id => org.id).count
+    
+      tenders_offered = Tender.where(:procurring_entity_id => org.id)
+      org.total_offered_tenders = tenders_offered.count
+      total_offered = 0
+      successful_offered = 0
+      tenders_offered.each do |offered|
+        if offered.contract_value and offered.contract_value >= 0
+          total_offered += offered.contract_value
+          successful_offered += 1
+        end
+      end
+      
+      org.total_offered_contract_value = total_offered
+      org.total_success_tenders = successful_offered
+      org.save
+    end
+  end
+
   def self.processAggregateData
     #for each CPV code calculate the revenue generated for each company and store these entries in the database
     #this way when aggregate data is requested instead of running this expensive process everytime we can just look up the pre-calculated entries in the db.
@@ -406,19 +464,10 @@ module ScraperFile
     classifiers = TenderCpvClassifier.find(:all)
     classifiers.each do |classifier|
       puts classifier.cpv_code
-      Tender.find_each(:conditions => "cpv_code = " + classifier.cpv_code.to_s) do |tender|      
-        last = nil
-        tender.agreements.each do |agreement|
-          #find lastest agreement
-          if not last or agreement.amendment_number > last.amendment_number
-            last = agreement
-          end
-        end # for each agreement
-
-        if last
-          id = last.organization_url
-          tenderValue = last.amount
-          company = Organization.where(:organization_url => id).first
+      Tender.find_each(:conditions => "cpv_code = " + classifier.cpv_code) do |tender|
+        if tender.contract_value and tender.contract_value > 0
+          tenderValue = tender.contract_value
+          company = Organization.find(tender.winning_org_id)
           if company
             aggregateData = AggregateCpvRevenue.where(:cpv_code => classifier.cpv_code, :organization_id => company.id).first
             if not aggregateData
@@ -431,13 +480,15 @@ module ScraperFile
             end
             aggregateData.save
           end
-        end#if last
+        end
       end
     end
+    
+    #store data for yearly stats
+    AggregateHelper.generateAndStoreAggregateData
   end#process aggregate data
 
   def self.createUsers
-
     #NEEDS TO BE REMOVED LATER
     myAdminAccount = User.where(:id => 1).first
     if not myAdminAccount
@@ -556,6 +607,8 @@ module ScraperFile
     self.majorPlayerCompetitionAssessment(majorPlayerIndicator)
     puts "amendment"
     self.contractAmendmentAssessment(contractAmendmentIndicator)
+    puts "storing risk indicators on tenders"
+    self.addRiskIndicatorsToTenders
   end
 
   def self.addToRiskTotal( tender, val )
@@ -569,6 +622,24 @@ module ScraperFile
       totalScore.value = totalScore.value + val
     end
     totalScore.save
+  end
+
+  def self.addRiskIndicatorsToTenders()
+    Tender.find_each do |tender|
+      flags = TenderCorruptionFlag.where(:tender_id => tender.id)
+      flagStr = nil
+      flags.each do |flag|
+        if flag.corruption_indicator_id < 100
+          if not flagStr
+            flagStr = flag.corruption_indicator_id.to_s
+          else
+            flagStr += "#"+flag.corruption_indicator_id.to_s
+          end
+        end
+      end
+      tender.risk_indicators = flagStr
+      tender.save
+    end
   end
 
   def self.identifyHolidayPeriodTenders(indicator)
@@ -591,7 +662,7 @@ module ScraperFile
       corruptionFlag.corruption_indicator_id = indicator.id
       corruptionFlag.value = 1 # maybe certain dates within this are even worse?
       corruptionFlag.save
-      self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
+      self.addToRiskTotal(tender, (corruptionFlag.value*indicator.weight))
     end
   end
   
@@ -602,30 +673,20 @@ module ScraperFile
       corruptionFlag.corruption_indicator_id = indicator.id
       corruptionFlag.value = 1
       corruptionFlag.save
-      self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
+      self.addToRiskTotal(tender, (corruptionFlag.value*indicator.weight))
     end
   end
 
   def self.biddingWarAssessment(indicator)
     #get all tenders that had a bidding war
     Tender.find_each(:conditions => "num_bidders > 1") do |tender|
-      #now check the winning bid and compare this to the estimated value
-      winner = nil
-      tender.agreements.each do |agreement|
-        if agreement.amendment_number == 0
-          winner = agreement.organization_id
-          break
+      #now check the lowest bid and compare this to the estimated value
+      lowestBid = nil
+      tender.bidders.each do |bidder|
+        if not lowestBid or lowestBid > bidder.last_bid_amount
+          lowestBid = bidder.last_bid_amount
         end
-      end
-      if winner
-        winningBid = nil
-        tender.bidders.each do |bidder|
-          if bidder.organization_id == winner
-            winningBid = bidder.last_bid_amount
-            break
-          end
-        end
-        if winningBid                       
+        if lowestBid                       
           savingsPercentage = 1 - winningBid/tender.estimated_value
           if savingsPercentage <= 0.02
             #risky tender!
@@ -634,7 +695,7 @@ module ScraperFile
             corruptionFlag.corruption_indicator_id = indicator.id
             corruptionFlag.value = 1 #could have more for %1 and %0.5 etc
             corruptionFlag.save
-            self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
+            self.addToRiskTotal(tender, (corruptionFlag.value*indicator.weight))
           end
         end
       end
@@ -658,6 +719,7 @@ module ScraperFile
         corruptionFlag.corruption_indicator_id = indicator.id
         corruptionFlag.value = 1 #perhaps we could add different values for different codes
         corruptionFlag.save
+        self.addRiskIndicatorToTender(tender, indicator.id)
         self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
       end
     end
@@ -667,27 +729,23 @@ module ScraperFile
   def self.contractAmendmentAssessment(indicator)
     Tender.find_each(:conditions => "num_bidders > 1") do |tender|
       #look at the latest agreement and check the price vs other bidders
-      mostRecentAgreement = nil
-      agreementNum = -1
-      tender.agreements.each do |agreement|
-        if agreement.amendment_number > agreementNum
-          mostRecentAgreement = agreement
-          agreementNum = agreement.amendment_number
-        end
-      end
-
-      if mostRecentAgreement
-        tender.bidders.each do |bidder|
-          if bidder.organization_id != winner.organization_id
-            if bidder.last_bid_amount < mostRecentAgreement.amount
-              #risky tender!
-              corruptionFlag = TenderCorruptionFlag.new
-              corruptionFlag.tender_id = tender.id
-              corruptionFlag.corruption_indicator_id = indicator.id
-              corruptionFlag.value = 1
-              corruptionFlag.save
-              self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
-              break
+      if tender.contract_value and tender.contract_value > 0
+        #needs atleast 1 amendment
+        if tender.agreements.count > 1
+          tender.bidders.each do |bidder|
+            #if another bidders price was lower than an amended price
+            if bidder.organization_id != tender.winning_org_id
+              if bidder.last_bid_amount < tender.contract_value
+                #risky tender!
+                corruptionFlag = TenderCorruptionFlag.new
+                corruptionFlag.tender_id = tender.id
+                corruptionFlag.corruption_indicator_id = indicator.id
+                corruptionFlag.value = 1
+                corruptionFlag.save
+                self.addRiskIndicatorToTender(tender, indicator.id)
+                self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
+                break
+              end
             end
           end
         end
@@ -701,8 +759,64 @@ module ScraperFile
     puts "not done"
   end
 
+
+  def self.generateCompetitorData()
+
+    puts "begin cpv output"
+    orgs = {}
+    nodeID = 0
+    edgeID = 0
+    Tender.find_each do |tender|
+      ids = []
+      winning_org_id = tender.winning_org_id
+      if winning_org_id
+        tender.bidders.each do |bidder|
+          ids.push(bidder.organization_id)
+        end
+        puts "Processing tender: " + tender.id.to_s
+        if not orgs[winning_org_id]
+          nodeID+=1
+          newOrg = Organization.find(winning_org_id)
+          orgs[winning_org_id] = [newOrg, nodeID,{}]        
+        end
+        ids.each do |competitor_id|
+          if not competitor_id == winning_org_id
+            if not orgs[competitor_id]
+              nodeID+=1
+              newOrg = Organization.find(competitor_id)
+              orgs[competitor_id] = [newOrg, nodeID,{}]
+            end         
+            #create link
+            if not orgs[winning_org_id][2][nodeID]
+              orgs[winning_org_id][2][nodeID] = 0
+            end
+            orgs[winning_org_id][2][nodeID] += 1          
+          end#if not same org
+        end#for all orgs
+      end
+    end#for all tenders
+    
+
+    File.open("nodes.csv", "w+") do |nf|
+      nf.write("Id,Label\n")
+      File.open("edges.csv", "w+") do |ef|
+        ef.write("Source,Target,Type,Id,Label,Weight\n")
+        orgs.each do |id,data|
+          name = data[0].name
+          id = data[1]
+          nf.write(id.to_s+","+name+"\n")
+          data[2].each do |competitorID, value|
+            edgeID+=1
+            ef.write( competitorID.to_s+","+id.to_s+",Undirected,"+edgeID.to_s+","+","+value.to_s+"\n")
+          end
+        end
+      end
+    end
+    puts "cpv saved"
+  end
+
   def self.findCompetitors
-    Competitor.delete_all
+    #Competitor.delete_all
     #this is going to take some memory
     companies = {}
     Tender.find_each do |tender|
@@ -734,9 +848,9 @@ module ScraperFile
         return -1
       end
     end
+
     # we now have a list of companies each with a list of companies they have competed with
     # go through each company find its top 3 competitors and store this in the db
-
     companies.each do |org_id, competitors|
       competitors = competitors.sort {|a,b| self.competitorSort(a,b) }
       #store top 3
@@ -798,7 +912,7 @@ module ScraperFile
   def self.generateOrganizationNameTranslation( organization )
     orgName = organization.name
     puts "translating: " + orgName
-    translations = findStringTranslations(orgName)
+    translations = TranslationHelper.findStringTranslations(orgName)
     organization.saveTranslations(translations)
   end
 
@@ -824,9 +938,15 @@ module ScraperFile
 
   def self.generateMetaData
     puts "setting up users"
-   self.createUsers
+    self.createUsers
+    puts "storing tender results"
+    self.storeTenderContractValues
+
     puts "generating aggregate data"
     self.processAggregateData
+    puts "storing org meta"
+    self.storeOrgMeta
+
     puts "finding competitors"
     self.findCompetitors
     puts "finding corruption"
@@ -883,10 +1003,7 @@ module ScraperFile
   end
 
   def self.buildUserDataOnly
-    puts "generating aggregate data"
-    self.processAggregateData
-    puts "setting up users"
-    self.createUsers
+    self.generateCompetitorData
   end
 
 end

@@ -8,5 +8,6 @@
   <%= submit_tag "Find Risky Tenders" %>
 <% end %>
 
+
 <div id="results">
 </div>

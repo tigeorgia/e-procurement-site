@@ -1,7 +1,7 @@
 #cpvChart {
-  width: 960px;
+  width: 500px;
   height: 500px;
-  background: #bbb;
+  background: #aaa;
 }
 
 #cpvChart text {

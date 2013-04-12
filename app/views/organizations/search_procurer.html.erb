@@ -20,6 +20,9 @@ Number of Organizations found: <%= @numResults %>
       <th><%= sortable(@params, "code") %></th>
       <th><%= sortable(@params, "org_type") %></th>
       <th><%= sortable(@params, "country") %></th>
+      <th><%= sortable(@params, "total_offered_contract_value","Total Spent") %></th>
+      <th><%= sortable(@params, "total_offered_tenders","Tenders Issued") %></th>
+      <th><%= sortable(@params, "total_success_tenders","Successful Tenders") %></th>
     </tr>
   </thead>
   <tbody>
@@ -29,6 +32,9 @@ Number of Organizations found: <%= @numResults %>
         <td><%= organization.code %></td>
         <td><%= t(organization.org_type) %></td>
         <td><%= t(organization.country) %></td>
+        <td><%= t(organization.total_offered_contract_value) %></td>
+        <td><%= t(organization.total_offered_tenders) %></td>
+        <td><%= t(organization.total_success_tenders) %></td>
       </tr>
     <% end %>
   </tbody>

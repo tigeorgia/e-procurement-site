@@ -1,5 +1,47 @@
+var graphColors = [
+]
 
-function boxColor(pR, pG, pB) { // constructor function
+for(var i=80; i<255; i+=12){
+  graphColors.push( new boxColor(0,0,i) );
+}
+for(var i=80; i<255; i+=12){
+  graphColors.push( new boxColor(0,i,0) );
+}
+for(var i=80; i<255; i+=12){
+  graphColors.push( new boxColor(i,0,0) );
+}
+for(var i=80; i<255; i+=12){
+  graphColors.push( new boxColor(0,i,i) );
+}
+for(var i=80; i<255; i+=12){
+  graphColors.push( new boxColor(i,0,i) );
+}
+for(var i=80; i<255; i+=12){
+  graphColors.push( new boxColor(i,i,0) );
+}
+for(var i=80; i<255; i+=12){
+  graphColors.push( new boxColor(i,i,i) );
+}
+
+function countZeros( cpvCode ){
+  var count = 0; 
+  code = cpvCode.toString();
+  pos = code.length;
+  while(pos > 0){
+    if(code[pos-1] == '0'){
+      count = count +1;
+    }
+    else{
+      break;
+    }
+    pos = pos - 1;
+  }
+  return count;
+}
+
+
+function boxColor( pR,pG,pB ) { // constructor function
+
   this.r = pR;
   this.g = pG;
   this.b = pB;
@@ -13,42 +55,14 @@ function formatGEL(num, useFractions) {
     if(useFractions){
       num += "." + p[1];
     }
-    return num
+    return num;
 }
 
-
-var graphColors = [
-
-  new boxColor(0,0,100),
-  new boxColor(0,0,150),
-  new boxColor(0,0,200),
-  new boxColor(0,0,250),
-  new boxColor(0,100,0),
-  new boxColor(0,150,0),
-  new boxColor(0,200,0),
-  new boxColor(0,250,0),
-  new boxColor(100,0,0),
-  new boxColor(150,0,0),
-  new boxColor(200,0,0),
-  new boxColor(250,0,0),
-  new boxColor(50,50,100),
-  new boxColor(50,50,150),
-  new boxColor(50,50,200),
-  new boxColor(50,50,250),
-  new boxColor(50,100,50),
-  new boxColor(125,200,70),
-  new boxColor(50,150,50),
-  new boxColor(50,200,50),
-  new boxColor(50,250,50),
-  new boxColor(100,50,50),
-  new boxColor(100,100,150),
-  new boxColor(100,200,150)
-]
 
 function createD3Graphs( root )
 {
   var margin = {top: 20, right: 0, bottom: 0, left: 0},
-    width = 960,
+    width = 1170,
     height = 500 - margin.top - margin.bottom,
     formatNumber = d3.format(",d"),
     transitioning;
@@ -123,7 +137,7 @@ function createD3Graphs( root )
   }
 
   function display(d) {
-    Math.seedrandom('88');
+    //Math.seedrandom('88');
     grandparent
         .datum(d.parent)
         .on("click", transition)
@@ -240,16 +254,27 @@ function createD3Graphs( root )
           });
   }
 
-  function getRandomColor()
+  function getColor(code)
   {
-    return graphColors[Math.floor(Math.random()*graphColors.length)];
+    var w = 0;
+    zeros = countZeros( code );
+    minimizedCode = code/Math.pow(10,zeros);
+    if(zeros >= 6){
+      w = minimizedCode;
+    }
+    else{
+      //get last digit
+      w = (minimizedCode%10)*10;
+    }
+    
+    return graphColors[w];
   }
 
   function applyRectColoring(rect) {
     rect.attr("style",function(d) 
                       { 
-                        var color = getRandomColor();
-                        return "fill:rgb("+color.r+","+color.g+","+color.b+");";
+                        var color = getColor(d.code);
+                        return "fill:rgb("+Math.round(color.r)+","+Math.round(color.g)+","+Math.round(color.b)+");";
                       }
               ); 
   }
