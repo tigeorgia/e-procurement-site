@@ -18,6 +18,8 @@ module QueryHelper
     return count
   end
 
+
+
    def self.buildSearchParamsFromString(searchString)
     fields = searchString.split("#")
     params = {
@@ -31,8 +33,12 @@ module QueryHelper
       :min_num_bids => fields[7],
       :max_num_bids => fields[8],
       :min_num_bidders => fields[9],
-      :max_num_bidders => fields[10]
+      :max_num_bidders => fields[10],
+      :risk_indicator => ""
     }
+    if fields[11]
+      params[:risk_indicator] = field[11]
+    end
     params.each do |key,param|
       if param.length == 1
         params[key] = param.gsub("_","")
@@ -55,10 +61,6 @@ module QueryHelper
         else
           addAnd = true
         end
-        puts "hello"
-        puts sql_field + "^"
-        puts operator + "%"
-        puts param + "$"
         query += sql_field +" "+operator+" "+ "'"+param+"'"
       end
     }   

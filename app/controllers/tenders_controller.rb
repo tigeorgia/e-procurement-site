@@ -147,11 +147,17 @@ class TendersController < ApplicationController
     end
 
     @risks = []
-    flags = @tender.risk_indicators.split("#")
-    @totalRisk = TenderCorruptionFlag.where(:corruption_indicator_id => 100,:tender_id => @tender.id ).first.value
-    flags.each do |flag|
-      indicator = CorruptionIndicator.find( flag.to_s )
-      @risks.push(indicator)
+    @totalRisk = 0
+    flags = @tender.risk_indicators
+    if flags
+      flags = flags.split("#")
+    end
+    if flags
+      @totalRisk = TenderCorruptionFlag.where(:corruption_indicator_id => 100,:tender_id => @tender.id ).first.value
+      flags.each do |flag|
+        indicator = CorruptionIndicator.find( flag.to_s )
+        @risks.push(indicator)
+      end
     end
 
     #get all tender documentation
