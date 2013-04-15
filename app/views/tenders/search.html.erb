@@ -2,7 +2,7 @@
 
 <%- model_class = Tender -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1><%=t '.title', :default => t("Tenders") %></h1>
 </div>
 
 <% if user_signed_in? %>
@@ -16,7 +16,7 @@
 <% end %>
 
 
-Number of Results = <%= @numResults %><br>
+<%= t("Number Of Results")%> = <%= @numResults %><br>
 <% if false %>
 Number of Tender Bid on = <%= @numBidTenders %><br>
 Number of Tenders with Single Bid Only = <%= @numSingleBids %><br>
@@ -24,7 +24,7 @@ Single Bid Percentage = <%= @numSingleBids/@numBidTenders %><br>
 <% end %>
 
 <p>
-  Download:
+  <%= t("Download")%>:
   <% csvParams = @params.clone%>
   <% csvParams[:format] = "csv" %>
   <% csvParams[:controller] = "tender" %>
@@ -35,15 +35,15 @@ Single Bid Percentage = <%= @numSingleBids/@numBidTenders %><br>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= sortable(@params, "tender_registration_number") %></th>
-      <th>Procurer</th>
-      <th><%= sortable(@params, "tender_announcement_date","Announcement Date") %></th>
-      <th><%= sortable(@params, "cpv_code", "CPV Code")%></th>
-      <th><%= sortable(@params, "tender_type", "Type") %></th> 
-      <th><%= sortable(@params, "tender_status", "Status") %></th>
-      <th><%= sortable(@params, "estimated_value") %></th>
-      <th><%= sortable(@params, "contract_value")%></th>
-      <th><%= sortable(@params, "num_bidders", "No. Bidders")%></th>
+      <th><%= sortable(@params, t("Tender Registration Number")) %></th>
+      <th><%=t("Procurer")%></th>
+      <th><%= sortable(@params, "tender_announcement_date", t("Announcement Date")) %></th>
+      <th><%= sortable(@params, "cpv_code", t("CPV Code"))%></th>
+      <th><%= sortable(@params, "tender_type", t("Type")) %></th> 
+      <th><%= sortable(@params, "tender_status", t("Status")) %></th>
+      <th><%= sortable(@params, "estimated_value", t("Estimated Value")) %></th>
+      <th><%= sortable(@params, "contract_value", t("Contract Value"))%></th>
+      <th><%= sortable(@params, "num_bidders", t("Number of Bidders"))%></th>
     </tr>
   </thead>
   <tbody>

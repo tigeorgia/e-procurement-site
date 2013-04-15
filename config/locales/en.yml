@@ -11,6 +11,123 @@ ka:
   Completed proposals: წინადადებების მიღება დასრულებულია
   Bids starting: წინადადებების მიღება დაწყებული
   Agreement concluded: ხელშეკრულება დადებულია
+  Search Tenders: ძებნა ტენდერები
+  Tender: სატენდერო
+  Tenders: ტენდერები
+  Status: სტატუსი
+  Category: კატეგორია
+  Risk Indicator: რისკის მაჩვენებელი
+  Registration Code: სარეგისტრაციო კოდი
+  Announced After: მგალობლიშვილთან
+  Announced Before: გამოაცხადა ადრე
+  Minimum Cost Estimate: მინიმალური ხარჯთა
+  Maximum Cost Estimate: მაქსიმალური ხარჯთა
+  Min Number Of Bids: მინიმალური რაოდენობის განაცხადების
+  Max Number Of Bids: მაქსიმალური რაოდენობა განაცხადების
+  Min Number Of Bidders: მინიმალური რაოდენობის პრეტენდენტებისთვის
+  Max Number Of Bidders: მაქსიმალური რაოდენობა პრეტენდენტებისთვის
+  Search Companies: ძებნა კომპანიები
+  Search Name: ძებნა სახელი
+  Name: სახელი
+  Total Spent: სულ გატარებული
+  Code: კოდი
+  Type: ტიპი
+  Only Foreign: მხოლოდ უცხოური
+  Successful Tenders: წარმატებული ტენდერები
+  Search Procurers: ძებნა შემსყიდველის
+  Search: ძებნის
+  Show Major Players: აჩვენოს ძირითადი მოთამაშე
+  Top Ten Players: ათეულში მოთამაშეებს
+  Lari: ლარი
+  Awarded Contract Total: დაჯილდოებულია ხელშეკრულების სულ
+  Tender Registration Number: ტენდერი რეგისტრაციის ნომერი
+  Procurer: შემსყიდველის
+  Announcement Date: გამოცხადების თარიღი
+  CPV Code: CPV კოდი
+  Type: გაცნობის
+  Status: სტატუსი
+  Estimated Value: სავარაუდო ღირებულება
+  Contract Value: კონტრაქტის ღირებულება
+  Number of Bidders: პუნქტების პრეტენდენტებს
+  Year: წელი
+  Analysis: ანალიზი
+  Search Page: ძებნის გვერდი
+  save category: გადარჩენა კატეგორია
+  category name: კატეგორია სახელი
+  Estimated value of Tender by Type: სავარაუდო ღირებულება სატენდერო მიერ გაცნობის
+  Electronic: ელექტრონული
+  Simple electronic: მარტივი ელექტრონული
+  Number of Tenders by Type: პუნქტების ტენდერები მიერ გაცნობის
+  Average bidding duration: საშუალო სატენდერო ხანგრძლივობა
+  Average Time between tender announcement and bidding: საშუალო დრო შორის სატენდერო განცხადება და სატენდერო
+  Average number of bidders per tender: საშუალო რაოდენობის პრეტენდენტთა სატენდერო პოსტი
+  Average number of bids per tender: საშუალო რაოდენობას განაცხადების პოსტი სატენდერო
+  bids: განაცხადების
+  bidders: კონკურსის მონაწილეებს
+  Email: ელ
+  Password: პაროლი
+  Remember me: დამიმახსოვრე
+  sign in: შესვლა
+  sign up: დარეგისტრირდით
+  remove category: ამოიღონ კატეგორია
+  edit category: შეცვალონ კატეგორია
+  add new category: ახალი კატეგორია
+  Your CPV groups: შენი CPV ჯგუფები
+  Your saved searches: შენი შენახული ძიებები
+  Tenders you are watching: ტენდერები თქვენ თვალს
+  days after announcement: დღისა განცხადების
+  Percentage of bids that had atleast one bidder: პროცენტული განაცხადების რომ ჰქონდა atleast ერთი პრეტენდენტი
+  Percentage: პროცენტული
+  Account: ანგარიშის
+  Admin: ადმინისტრაცია
+  subscribe: გამოწერა
+  unsubscribe: გაუქმება
+  Email Alerts: იგზავნება
+  Date saved: თარიღი გადაარჩინა
+  delete: წაშლა
+  Organizations: ორგანიზაციები
+  Number Of Organizations Found: პუნქტების ორგანიზაციები ნაპოვნია
+  Duration of tender vs average number of bidders: ხანგრძლივობა სატენდერო vs საშუალო რაოდენობა პრეტენდენტებისთვის
+  Observations: დაკვირვებები
+  day: დღეში
+  days: დღის განმავლობაში
+  Country: ქვეყანა
+  Total Revenue: სულ შემოსავლების
+  Tenders Bid On: ტენდერები განაცხადის შესახებ
+  Tenders Won: ტენდერები მოგებული
+  Organization type: ორგანიზაციის ტიპი
+  Total spent: სულ დახარჯული
+  Tenders Issued: ტენდერები გაიცა
+  Successful tenders: წარმატებული ტენდერები
+  Download: ჩამოტვირთვა
+  Success?: წარმატება?
+  Procurers: შემსყიდველის
+  Saved As: შენახულია როგორც
+  CPV description: CPV აღწერა
+  Identification code: საიდენტიფიკაციო კოდი
+  city: ქალაქი
+  address: მისამართი
+  phone number: ტელეფონის ნომერი
+  fax number: ფაქსის ნომერი
+  webpage: ვებგვერდზე
+  estimated cost: ღირებულება
+  Actual cost: ფაქტიური ღირებულება
+  All tenders: ყველა ტენდერების
+  Savings percentage: შემნახველი პროცენტული
+  Average bidders: საშუალო პრეტენდენტებისთვის
+  Average bids: საშუალო განაცხადების
+  Successful Tenders vs Failed Tenders: წარმატებული ტენდერები vs ვერ
+  First: პირველი
+  previous: წინა
+  next: შემდეგი
+  last: ბოლო
+  Competitors: კონკურენტები
+  Tender CPV Code Distribution: სატენდერო CPV კოდი განაწილების
+  Number Of Results: პუნქტების შედეგები
+  Save Search: შენახვა ძებნა
+  Save To Profile: შენახვა საწყისი პროფილი
+  Remove From Profile: ამოღება პროფილი
+  Remove Search: ამოიღონ ძებნა
 
   წინადადებების მიღება დაწყებულია: წინადადებების მიღება დაწყებულია
   გამარჯვებული გამოვლენილია: გამარჯვებული გამოვლენილია
@@ -37,8 +154,6 @@ en:
   წინადადებების მიღება დაწყებული: Bids starting
   ხელშეკრულება დადებულია: Agreement concluded
 
-  
-
   ადგილობრივი თვითმართველობის ორგანო: Local self-government body
   საჯარო სამართლის იურიდიული პირი (სსიპ): Legal entity (Entity)
   სახელმწიფო ორგანო: State Authority
@@ -56,14 +171,55 @@ en:
   სხვა: Other
   იურიდიული პირი: Entity
   ამხანაგობა: Fellowship
-
   ტენდერის ტიპი: Tender type
   კონსოლიდირებული ტენდერი: Consolidated Tender
   შესყიდვის ელექტრონული პროცედურა: Electronic procurement procedure
   გამარტივებული ელექტრონული ტენდერი: Simplified Electronic Tender
   ელექტრონული ტენდერი: Electronic Tender
-
   საქართველო: Georgia
+
+
+
+
+
+
+  Save To Profile: Save To Profile
+  Remove From Profile: Remove From Profile
+  Search: Search
+  Save Search: Save Search
+  Saved As: Saved As
+  Remove Search: Remove Search
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   app:
     language:
       en: English

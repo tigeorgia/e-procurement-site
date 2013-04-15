@@ -1,2 +1,2 @@
-Saved as: <%= @savedName %>
+<%= t("Saved As")%>: <%= @savedName %>
 <%= button_to "remove search", {:controller => :user, :action => "remove_search", :searchtype => @searchType, :search_string => @thisSearchString, :name => @savedName}, :remote => true %>

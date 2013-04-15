@@ -1,11 +1,11 @@
 <%- model_class = Organization -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1><%=t '.title', :default => t("Organizations") %></h1>
 </div>
 
-Number of Organizations found: <%= @numResults %>
+<%= t("Number Of Organizations Found")%>: <%= @numResults %>
 <p>
-  Download:
+  <%= t("Download")%>:
   <% csvParams = @params.clone%>
   <% csvParams[:format] = "csv" %>
   <% csvParams[:controller] = "organization" %>
@@ -16,13 +16,13 @@ Number of Organizations found: <%= @numResults %>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= sortable(@params, "name") %></th>
-      <th><%= sortable(@params, "code") %></th>
-      <th><%= sortable(@params, "org_type", "Type") %></th>
-      <th><%= sortable(@params, "country") %></th>
-      <th><%= sortable(@params, "total_won_contract_value", "Total Revenue") %></th>
-      <th><%= sortable(@params, "total_bid_tenders","Tenders Bid On") %></th>
-      <th><%= sortable(@params, "total_won_tenders","Tenders Won") %></th>
+      <th><%= sortable(@params, "name", t("Name")) %></th>
+      <th><%= sortable(@params, "code", t("Code")) %></th>
+      <th><%= sortable(@params, "org_type", t("Type")) %></th>
+      <th><%= sortable(@params, "country", t("Country")) %></th>
+      <th><%= sortable(@params, "total_won_contract_value", t("Total Revenue")) %></th>
+      <th><%= sortable(@params, "total_bid_tenders", t("Tenders Bid On")) %></th>
+      <th><%= sortable(@params, "total_won_tenders", t("Tenders Won")) %></th>
     </tr>
   </thead>
   <tbody>

@@ -53,9 +53,8 @@
 
           <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to("Search Page", root_path(:locale => I18n.locale),:class=>"brand font") %></li>
-              <li><%= link_to("Corruption Finder", {:controller => :corruption_finder, :action => "index"},:class=>"brand font") %></li>
-              <li><%= link_to("Analysis", {:controller => :analysis, :action => "index"},:class=>"brand font") %></li>
+              <li><%= link_to( t("Search Page"), root_path(:locale => I18n.locale),:class=>"brand font") %></li>
+              <li><%= link_to( t("Analysis"), {:controller => :analysis, :action => "index"},:class=>"brand font") %></li>
 		          <% if user_signed_in? %>
 				        <li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
