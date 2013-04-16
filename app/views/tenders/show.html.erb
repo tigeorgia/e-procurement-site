@@ -25,56 +25,56 @@
   <% if @highlights.include?('procurring_entity_id') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:procurring_entity_id) %>:</strong></dt>
+  <dt <%=highlightClass%> ><strong> <%=t("Procuring Entity")%>:</strong></dt>
   <dd <%=highlightClass%> ><%= link_to @procurer, :controller => "organizations", :action => "show_procurer", :id => @tender.procurring_entity_id %></td>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('tender_type') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:tender_type) %>:</strong></dt>
+  <dt <%=highlightClass%> ><strong><%=t("Tender Type") %>:</strong></dt>
   <dd <%=highlightClass%> ><%= t(@tender.tender_type) %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('tender_registration_number') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:tender_registration_number) %>:</strong></dt>
+  <dt <%=highlightClass%> ><strong><%=t("Tender Registration Number")%>:</strong></dt>
   <dd <%=highlightClass%> ><%= @tender.tender_registration_number %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('tender_announcement_date') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:tender_announcement_date) %>:</strong></dt>
+  <dt <%=highlightClass%> ><strong><%=t("Tender Announcement Date")%>:</strong></dt>
   <dd <%=highlightClass%> ><%= @tender.tender_announcement_date %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('bid_start_date') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:bid_start_date) %>:</strong></dt>
+  <dt <%=highlightClass%> ><strong><%=t("Bid Start Date")%>:</strong></dt>
   <dd <%=highlightClass%> ><%= @tender.bid_start_date %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('bid_end_date') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:bid_end_date) %>:</strong></dt>
+  <dt <%=highlightClass%> ><strong><%= t("Bid End Date")%>:</strong></dt>
   <dd <%=highlightClass%> ><%= @tender.bid_end_date %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('bid_start_date') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong>Bidding Duration:</strong></dt>
-  <dd <%=highlightClass%> ><%= (@tender.bid_end_date - @tender.bid_start_date).to_i %> days</dd>
+  <dt <%=highlightClass%> ><strong><%=t("Bidding Duration")%>:</strong></dt>
+  <dd <%=highlightClass%> ><%= (@tender.bid_end_date - @tender.bid_start_date).to_i.to_s+ " "+t("Days")%></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('estimated_value') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%= model_class.human_attribute_name(:estimated_value) %>:</strong></dt>
+  <dt <%=highlightClass%> ><strong><%= t("Estimated Value")%>:</strong></dt>
   <dd <%=highlightClass%> ><%= @tender.estimated_value %></dd>
 
   <% highlightClass = "" %>
@@ -82,10 +82,10 @@
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
 
-  <dt <%=highlightClass%> ><strong>Procuring category:</strong></dt>
+  <dt <%=highlightClass%> ><strong><%=t("Procuring Category")%>:</strong></dt>
   <dd <%=highlightClass%> ><%= @tender.cpv_code %> - <%= @cpv.description_english %></dd>
 
-  <dt <%=highlightClass%> ><strong>CPV Codes:</strong></dt>
+  <dt <%=highlightClass%> ><strong><%=t("CPV Codes")%>:</strong></dt>
   <% @minorCPVCategories.each do |code| %>
     <dd <%=highlightClass%> ><%= code.cpv_code %></dd>
   <% end %>
@@ -94,7 +94,7 @@
 </dl>
 
   <br><br>
-  Risk Score = <%= @totalRisk %>
+  <%=t("Risk Score")%> = <%= @totalRisk %>
   <% if @totalRisk > 0 %>
     <br>
     <% @risks.each do |risk| %>
@@ -108,12 +108,12 @@
   <hr>
   <table class="table table-striped">
     <thead>
-      <h3>Participants</h3>
+      <h3><%=t("Participants")%></h3>
       <tr>
-        <th><%= model_class.human_attribute_name(:name) %></th>
-        <th>First Bid</th>
-        <th>Last Bid</th>
-        <th>Number of Bids</th>
+        <th><%=t("Name")%></th>
+        <th><%=t("First Bid")%></th>
+        <th><%=t("Last Bid")%></th>
+        <th><%=t("Number Of Bids")%></th>
       </tr>
     </thead>
     <tbody>
@@ -138,14 +138,14 @@
   <hr>
   <table class="table table-striped">
     <thead>
-      <h3>Bidding Result</h3>
+      <h3><%=t("Bidding Result")%></h3>
       <tr>
-        <th>Contract Type</th>
-        <th>Organization</th>
-        <th>Contract Value</th>
-        <th>Start Date</th>
-        <th>Expiry Date</th>
-        <th>Documentation</th>
+        <th><%=t("Contract Type")%></th>
+        <th><%=t("Organization")%></th>
+        <th><%=t("Contract Value")%></th>
+        <th><%=t("Start Date")%></th>
+        <th><%=t("Expiry Date")%></th>
+        <th><%=t("Documentation")%></th>
       </tr>
     </thead>
     <tbody>
@@ -176,11 +176,11 @@
   <hr>
   <table class="table table-striped">
     <thead>
-      <h3>Documentation<h3>
+      <h3><%=t("Documentation")%><h3>
       <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Date submitted</th>
+        <th><%=t("Title")%></th>
+        <th><%=t("Author")%></th>
+        <th><%=t("Date Submitted")%></th>
       </tr>
     </thead>
     <tbody>

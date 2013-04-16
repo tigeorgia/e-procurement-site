@@ -9,7 +9,7 @@ function createHighChartGraphs()
           plotShadow: false
       },
       title: {
-          text: 'Successful Tenders Vs Failed Tenders'
+          text: '<%= t("Successful Tenders vs Failed Tenders")%>'
       },
       tooltip: {
   	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
@@ -31,8 +31,8 @@ function createHighChartGraphs()
       },
       series: [{
           type: 'pie',
-          name: 'Tender Success/Fail',
-          data: [ ["Success", <%= @numAgreements %>],["Failed", <%= @numNoAgreements %>] ]
+          name: '<%= t("Tender Success/Fail")%>',
+          data: [ ['<%=t("Success")%>', <%= @numAgreements %>],['<%=t("Failed")%>', <%= @numNoAgreements %>] ]
       }]
   });
 
@@ -45,7 +45,7 @@ function createHighChartGraphs()
         plotShadow: false
     },
     title: {
-        text: 'Tender CPV Code Distribution'
+        text: '<%= t("Tender CPV Code Distribution")%>'
     },
     tooltip: {
 	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
@@ -67,7 +67,7 @@ function createHighChartGraphs()
     },
     series: [{
         type: 'pie',
-        name: 'Tenders offered by CPV Code',
+        name: '<%= t("Tenders offered by CPV Code")%>',
         data: [ <% @Cpvs.each do |cpv| %> <%= raw cpv %>, <% end %>]
     }]
   });
@@ -85,11 +85,11 @@ function createHighChartGraphs()
 	  },
 
 	  title : {
-		  text : 'Electronic Tender Activity'
+		  text : '<%= t("Electronic Tender Activity")%>'
 	  },
     yAxis: {
         title: {
-            text: 'Lari'
+            text: '<%= t("Lari")%>'
         },
         min: 0
     }, 
@@ -108,7 +108,7 @@ function createHighChartGraphs()
     },
 
     series : [{
-		    name : 'Estimated Value',
+		    name : '<%= t("Estimated Value")%>',
 		    data : [ <% @successfulTenders.each do |key, tender| %>
                    { 
                      x: <%=key*1000*86400%>, 
@@ -121,7 +121,7 @@ function createHighChartGraphs()
            enabled : false
 	      }
 	    },{		    
-        name : 'Actual Value',
+        name : '<%= t("Actual Value")%>',
 		    data : [ <% @successfulTenders.each do |key, tender| %>
                   {                     
                      x: <%=key*1000*86400%>, 
@@ -158,42 +158,42 @@ $(function () {
 
 <%- model_class = Organization -%>
 <div class="page-header">
-  <h1>Procurer</h1>
+  <h1><%= t("Procurer")%></h1>
 </div>
 
 <div class="row" id="mid-row">
   <div class="span6">
     <dl class="info-horizontal">
-      <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+      <dt><strong><%= t("Name") %>:</strong></dt>
       <dd><%= @organization.name %></dd>
-      <dt><strong>Identification code:</strong></dt>
+      <dt><strong><%= t("Identification Code")%>:</strong></dt>
       <dd><%= @organization.code %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:org_type) %>:</strong></dt>
+      <dt><strong><%= t("Type") %>:</strong></dt>
       <dd><%= t(@organization.org_type) %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
+      <dt><strong><%= t("City") %>:</strong></dt>
       <dd><%= @organization.city %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
+      <dt><strong><%= t("Address") %>:</strong></dt>
       <dd><%= @organization.address %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:phone_number) %>:</strong></dt>
+      <dt><strong><%= t("Phone Number") %>:</strong></dt>
       <dd><%= @organization.phone_number %></dd>
       <% if @organization.fax_number.length > 0 %>
-        <dt><strong><%= model_class.human_attribute_name(:fax_number) %>:</strong></dt>
+        <dt><strong><%= t("Fax Number") %>:</strong></dt>
         <dd><%= @organization.fax_number %></dd>
       <% end %>
-      <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+      <dt><strong><%= t("Email") %>:</strong></dt>
       <dd><%= mail_to @organization.email %></dd>
-      <dt><strong><%= model_class.human_attribute_name(:webpage) %>:</strong></dt>
+      <dt><strong><%= t("Website") %>:</strong></dt>
       <dd><a href="<%= @organization.webpage%>"> <%= @organization.webpage %></a></dd>
 
-      <dt><strong>Estimated Cost: All Tenders</strong></dt>
+      <dt><strong><%= t("Estimated Cost All Tenders") %></strong></dt>
       <dd>$<%= @totalEstimate.round(2)  %></dd>
-      <dt><strong>Actual Cost: All Tenders</strong></dt>
+      <dt><strong><%= t("Actual Cost All Tenders") %></strong></dt>
       <dd>$<%= @actualCost.round(2)  %></dd>
-      <dt><strong>Savings percentage</strong></dt>
+      <dt><strong><%= t("Savings Percentage") %></strong></dt>
       <dd>%<%= @costVsEstimateSaving  %></dd>
-      <dt><strong>Average Bidders</strong></dt>
+      <dt><strong><%= t("Average Bidders") %></strong></dt>
       <dd><%= @averageBidders.round(2)  %></dd>
-      <dt><strong>Average Bids</strong></dt>
+      <dt><strong><%= t("Average Bids") %></strong></dt>
       <dd><%= @averageBids.round(2)  %></dd>
     </dl>
   </div>
@@ -205,23 +205,23 @@ $(function () {
 
 
 <br></br>
-<h3>Tenders Issued</h3>
+<h3><%= t("Tenders Issued")%></h3>
 <br></br>
 <p>
-  Download:
+  <%= t("Download")%>:
   <%= link_to "CSV", :controller => "organization", :action => "download_proc_tenders", :format => "csv", :id => @organization.id %>
 </p>
 
   <table class="dataTable" cellpadding="0" cellspacing="0" border="0" width="100%" >
   <thead>
     <tr>
-      <th>Tender</th>
-      <th>Success?</th>
-      <th>Announcement Date</th>
-      <th>Estimated Value</th>
-      <th>Contract Value</th>
-      <th>CPV Description</th>
-      <th>No. Bidders</th>
+      <th><%= t("Tender")%></th>
+      <th><%= t("Success?")%></th>
+      <th><%= t("Announcement Date")%></th>
+      <th><%= t("Estimated Value")%></th>
+      <th><%= t("Contract Value")%></th>
+      <th><%= t("CPV Description")%></th>
+      <th><%= t("Number of Bidders")%></th>
     </tr>
   </thead>
   <tbody>      
@@ -229,12 +229,12 @@ $(function () {
       <tr>
         <td><%= link_to tender.tender_registration_number, tender_path(tender[:id]) %></td>
         <% if tender[:success] %>
-          <td><font color="green"><strong>YES</strong></font></td>
+          <td><font color="green"><strong><%= t("yes_caps")%></strong></font></td>
         <% else %>
-          <td><font color="red">NO</font></td>
+          <td><font color="red"><%= t("NO")%></font></td>
         <% end %>      
         <td><%= tender.tender_announcement_date%></td>
-        <td><%= tender.estimated_value%></td>
+        <td><%= tender.estimated_value.to_i%></td>
         <th><%if tender.contract_value and tender.contract_value > 0%><%= tender.contract_value%><%else%>N/A<%end%></th>
         <td><%= tender[:cpvDescription]%></td>
         <td><%= tender.num_bidders%></td>
@@ -248,7 +248,7 @@ $(function () {
 <% end %>
 
 <br></br>
-<h3>Total Expenditure Breakdown</h3>
+<h3><%= t("Total Expenditure Breakdown")%></h3>
 
 <% if @jsonString.length > 0 %>
   <p id="cpvChart"></p>

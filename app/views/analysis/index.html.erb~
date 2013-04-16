@@ -3,10 +3,8 @@
 Year
 <%= form_tag( {:action => "generate"}, :remote => true) do %>
   <%= select_tag(:year, options_for_select(@years))  %>
-  <%= submit_tag "Generate Aggregate Data" %>
+  <%= submit_tag t("Generate Aggregate Data") %>
 <% end %>
-
-<%= button_to "Show Node Graph", {:action => "nodeGraph"} %>
 
 <div id ="results">
 </div>

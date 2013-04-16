@@ -687,7 +687,7 @@ module ScraperFile
           lowestBid = bidder.last_bid_amount
         end
         if lowestBid                       
-          savingsPercentage = 1 - winningBid/tender.estimated_value
+          savingsPercentage = 1 - lowestBid/tender.estimated_value
           if savingsPercentage <= 0.02
             #risky tender!
             corruptionFlag = TenderCorruptionFlag.new

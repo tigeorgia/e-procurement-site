@@ -2,7 +2,7 @@
 
 <%- model_class = Tender -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1><%=t '.title', :default => t("Tenders") %></h1>
 </div>
 
 <% if user_signed_in? %>
@@ -35,7 +35,7 @@ Single Bid Percentage = <%= @numSingleBids/@numBidTenders %><br>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= sortable(@params, t("Tender Registration Number")) %></th>
+      <th><%= sortable(@params, t("Tender_Registration_Number")) %></th>
       <th><%=t("Procurer")%></th>
       <th><%= sortable(@params, "tender_announcement_date", t("Announcement Date")) %></th>
       <th><%= sortable(@params, "cpv_code", t("CPV Code"))%></th>

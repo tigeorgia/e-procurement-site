@@ -1,18 +1,14 @@
 <% title "Account Page" %>
-<h3>Tenders You are watching</h3>
-
- <%if false%>
-  <%= button_to "Test email", {:action => "sendAlert", :user_id => @userID}, :remote => true %>
- <%end%>
+<h3><%=t("Tenders You Are Watching")%></h3>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Email Alerts</th>
-      <th>name</th>
-      <th>type</th>
-      <th>status</th>
-      <th>estimated value</th>
+      <th><%=t("Email Alerts")%></th>
+      <th><%=t("Name")%></th>
+      <th><%=t("Type")%></th>
+      <th><%=t("Status")%></th>
+      <th><%=t("Estimated Value")%></th>
     </tr>
   </thead>
   <tbody>
@@ -26,9 +22,9 @@
       <% end %>
       <tr>
         <% if watch_tender.email_alert %>
-          <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to "Unsubscribe", {:action => "unsubscribe_tender", :tender_watch_id => watch_tender.id, :buttonID => buttonID}, :remote => true %></div></td>
+          <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Unsubscribe"), {:action => "unsubscribe_tender", :tender_watch_id => watch_tender.id, :buttonID => buttonID}, :remote => true %></div></td>
         <% else %>
-          <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to "Subscribe", {:action => "subscribe_tender", :tender_watch_id => watch_tender.id, :buttonID => buttonID}, :remote => true %></div></td>
+          <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Subscribe"), {:action => "subscribe_tender", :tender_watch_id => watch_tender.id, :buttonID => buttonID}, :remote => true %></div></td>
         <% end %>
         <% tender = Tender.where(:url_id => watch_tender.tender_url ).first %>
         <% highlights = nil %>
@@ -39,21 +35,21 @@
         <td <%=highlightClass%>><%= t(tender.tender_type.strip) %></td>
         <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
         <td <%=highlightClass%>><%= tender.estimated_value %></td>
-        <td <%=highlightClass%>><%= button_to "delete", {:action => "remove_tender_watch_from_account", :tender_url => tender.url_id} %></td>
+        <td <%=highlightClass%>><%= button_to t("Delete"), {:action => "remove_tender_watch_from_account", :tender_url => tender.url_id} %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <hr>
-<h3>Your saved searches</h3>
+<h3><%=t("Your Saved Searches")%></h3>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Email Alerts</th>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Date saved</th>
+      <th><%=t("Email Alerts")%></th>
+      <th><%=t("Name")%></th>
+      <th><%=t("Type")%></th>
+      <th><%=t("Date Saved")%></th>
     </tr>
   </thead>
   <tbody>
@@ -66,19 +62,19 @@
       <% end %>
       <tr>
         <% if search.email_alert %>
-          <td <%=highlightClass%>><div id="<%= buttonID %>"> <%= button_to "Unsubscribe", {:action => "unsubscribe_search", :search_id => search.id, :buttonID => buttonID}, :remote => true %></div></td>
+          <td <%=highlightClass%>><div id="<%= buttonID %>"> <%= button_to t("Unsubscribe"), {:action => "unsubscribe_search", :search_id => search.id, :buttonID => buttonID}, :remote => true %></div></td>
         <% else %>
-          <td <%=highlightClass%>><div id="<%= buttonID %>"> <%= button_to "Subscribe", {:action => "subscribe_search", :search_id => search.id, :buttonID => buttonID}, :remote => true %></div></td>
+          <td <%=highlightClass%>><div id="<%= buttonID %>"> <%= button_to t("Subscribe"), {:action => "subscribe_search", :search_id => search.id, :buttonID => buttonID}, :remote => true %></div></td>
         <% end %>
         <td <%=highlightClass%>><%= link_to search.name, :controller => "tender", :action => "search_via_saved", :search_id => search.id %></td>
         <td <%=highlightClass%>><%= search.searchtype %></td>
         <td <%=highlightClass%>><%= search.created_at %></td>
-        <td <%=highlightClass%>><%= button_to "delete", {:action => "remove_search_from_account", :search_id => search.id} %></td>
+        <td <%=highlightClass%>><%= button_to t("Delete"), {:action => "remove_search_from_account", :search_id => search.id} %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <hr>
-<h3>Your CPV groups</h3>
+<h3><%=t("Your CPV Groups")%></h3>
 <%= render :partial => "user/cpvGroups", :locals => {:cpvGroups => @cpvGroups, :referrer => "user"} %>

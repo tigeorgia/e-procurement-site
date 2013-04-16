@@ -17,7 +17,7 @@ $(function () {
                 plotShadow: false
             },
             title: {
-                text: 'Tenders Won Vs Tenders Lost'
+                text: '<%=t("Tenders Won Vs Tenders Lost")%>'
             },
             tooltip: {
         	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
@@ -39,8 +39,8 @@ $(function () {
             },
             series: [{
                 type: 'pie',
-                name: 'Tenders Won/Lost',
-                data: [ ["Tenders Won", <%= @numTendersWon %>],["Tenders Lost", <%= @numTenders-@numTendersWon %>] ]
+                name: '<%=t("Tenders Won/Lost")%>',
+                data: [ ['<%=t("Tenders Won")%>', <%= @numTendersWon %>],['<%=t("Tenders Lost")%>', <%= @numTenders-@numTendersWon %>] ]
             }]
         });
 
@@ -52,7 +52,7 @@ $(function () {
                 plotShadow: false
             },
             title: {
-                text: 'Tender CPV Code Distribution'
+                text: '<%=t("Tender CPV Code Distribution")%>'
             },
             tooltip: {
         	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
@@ -74,7 +74,7 @@ $(function () {
             },
             series: [{
                 type: 'pie',
-                name: 'Tenders by CPV Code',
+                name: '<%=t("Tenders by CPV Code")%>',
                 data: [ <% @topFiveCpvs.each do |cpv| %> <%= raw cpv %>, <% end %>]
             }]
         });
@@ -89,7 +89,7 @@ $(function () {
                 plotShadow: false
             },
             title: {
-                text: 'Procurers'
+                text: '<%=t("Procurers")%>'
             },
             tooltip: {
         	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
@@ -111,7 +111,7 @@ $(function () {
             },
             series: [{
                 type: 'pie',
-                name: 'Procurers that this company has won contracts with',
+                name: '<%=t("Procurers that this company has won contracts with")%>',
                 data: [ <% @topTenProcuringEntities.each do |procurer| %> 
                           <% item = [ link_to(procurer[0].name,  :controller => "organizations", :action => "show_procurer", :id => procurer[0]), procurer[1] ] %>
                           <%= raw item %>, 
@@ -125,11 +125,11 @@ $(function () {
                 type: 'bar'
             },
             title: {
-                text: 'Competitors'
+                text: '<%=t("Competitors")%>'
             },
            xAxis: {
               categories: [
-                 "Tenders bid on",
+                 '<%=t("Tenders Bid On")%>',
                  <% @competitors.each do |competitor| %> 
                     <% item = [link_to(competitor[0].name, organization_path(competitor[0].id))] %>
                     <%= raw item %>, 
@@ -138,15 +138,15 @@ $(function () {
            },
            yAxis: {
               title: {
-                 text: 'Tenders'
+                 text: '<%=t("Tenders")%>'
               }
            },
             plotOptions: {
             },
             series: [{
-                name: 'Tenders',
+                name: '<%=t("Tenders")%>',
                 data: [ 
-                        ["Number of tenders bid on", <%= @numTenders %>],
+                        ['<%=t("Number of tenders bid on")%>', <%= @numTenders %>],
                         <% @competitors.each do |competitor| %> 
                           <% item = [ link_to(competitor[0].name, organization_path(competitor[0].id)), competitor[1] ] %>
                           <%= raw item %>, 
@@ -168,11 +168,11 @@ $(function () {
 			    },
 
 			    title : {
-				    text : 'Simple Electronic Tender Activity'
+				    text : '<%=t("Simple Electronic Tender Activity")%>'
 			    },
           yAxis: {
               title: {
-                  text: 'Lari'
+                  text: '<%=t("Lari")%>'
               },
               min: 0
           }, 
@@ -190,7 +190,7 @@ $(function () {
          },
 
 			    series : [{
-				    name : 'Estimated Value',
+				    name : '<%=t("Estimated Value")%>',
 				    data : [ <% @simpleTenderStats.each do |key,tender| %>
                     { 
                      x: <%=key*1000*86400%>, 
@@ -203,7 +203,7 @@ $(function () {
               enabled : false
 			      }
 			    },{		    
-            name : 'Actual Value',
+            name : '<%=t("Actual Value")%>',
 				    data : [ <% @simpleTenderStats.each do |key,tender| %>
                       { 
                        x: <%=key*1000*86400%>, 
@@ -245,17 +245,17 @@ $(function () {
          },
 
 			  title : {
-				  text : 'Electronic Tender Activity'
+				  text : '<%=t("Electronic Tender Activity")%>'
 			  },
         yAxis: {
             title: {
-                text: 'Lari'
+                text: '<%=t("Lari")%>'
             },
             min: 0
         }, 
 
 		    series : [{
-				    name : 'Estimated Value',
+				    name : '<%=t("Estimated Value")%>',
 				    data : [ <% @TenderStats.each do |key,tender| %>
                       { 
                        x: <%=key*1000*86400%>, 
@@ -268,7 +268,7 @@ $(function () {
                enabled : false
 			      }
 			    },{		    
-            name : 'Actual Value',
+            name : '<%=t("Actual Value")%>',
 				    data : [ <% @TenderStats.each do |key,tender| %>
                       { 
                        x: <%=key*1000*86400%>, 
@@ -290,47 +290,47 @@ $(function () {
 
 <%- model_class = Organization -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+  <h1><%=t '.title', :default => t("Organization") %></h1>
 </div>
 
 <div class="row" id="mid-row">
   <div class="span6">
     <dl class="info-horizontal">
-      <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+      <dt><strong><%= t("Name") %>:</strong></dt>
       <dd><%= @organization.name %></dd>
 
-      <dt><strong>Identification code:</strong></dt>
+      <dt><strong><%= t("Identification Code")%>:</strong></dt>
       <dd><%= @organization.code %></dd>
 
-      <dt><strong><%= model_class.human_attribute_name(:org_type) %>:</strong></dt>
+      <dt><strong><%= t("Type")%>:</strong></dt>
       <dd><%= t(@organization.org_type) %></dd>
 
-      <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
+      <dt><strong><%= t("City")%>:</strong></dt>
       <dd><%= @organization.city %></dd>
 
-      <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
+      <dt><strong><%= t("Address")%>:</strong></dt>
       <dd><%= @organization.address %></dd>
 
-      <dt><strong><%= model_class.human_attribute_name(:phone_number) %>:</strong></dt>
+      <dt><strong><%= t("Phone Number")%>:</strong></dt>
       <dd><%= @organization.phone_number %></dd>
 
       <% if @organization.fax_number.length > 0 %>
-        <dt><strong><%= model_class.human_attribute_name(:fax_number) %>:</strong></dt>
+        <dt><strong><%= t("Fax Number")%>:</strong></dt>
         <dd><%= @organization.fax_number %></dd>
       <% end %>
 
-      <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
+      <dt><strong><%= t("Email") %>:</strong></dt>
       <dd><%= mail_to @organization.email %></dd>
 
-      <dt><strong><%= model_class.human_attribute_name(:webpage) %>:</strong></dt>
+      <dt><strong><%= t("Website") %>:</strong></dt>
       <dd><a href="<%= @organization.webpage%>"> <%= @organization.webpage %></a></dd>
-      <dt><strong>Total Estimated Value of Contracts Won:</strong></dt>
+      <dt><strong><%= t("Total Estimated Value of Contracts Won")%>:</strong></dt>
       <dd><%= @totalEstimatedValueOfContractsWon %></dd>
-      <dt><strong>Total Actual Value of Contracts Won:</strong></dt>
+      <dt><strong><%= t("Total Actual Value of Contracts Won")%>:</strong></dt>
       <dd><%= @totalValueOfAllContracts %></dd>
-      <dt><strong>Estimated vs Actual Ratio:</strong></dt>
+      <dt><strong><%= t("Estimated vs Actual Ratio")%>:</strong></dt>
       <dd><%= @EstimatedVActual %></dd>
-      <dt><strong>Average Number of Bidders on Contracts Won:</strong></dt>
+      <dt><strong><%= t("Average Number of Bidders on Contracts Won")%>:</strong></dt>
       <dd><%= @averageNumBiddersOnContractsWon %></dd>
     </dl>
   </div>
@@ -344,25 +344,25 @@ $(function () {
 
 
 <br></br>
-<h3>Tenders Bid On</h3>
+<h3><%= t("Tenders Bid On")%></h3>
 <br></br>
   <p>
-    Download:
+    <%= t("Download")%>:
     <%= link_to "CSV", :controller => "organization", :action => "download_org_tenders", :format => "csv", :id => @organization.id %>
   </p>
   <table class="dataTable" cellpadding="0" cellspacing="0" border="0" width="100%">
   <thead>
     <tr>
-      <th>Tender</th>
-      <th>Success?</th>
-      <th>No. Bidders</th>
-      <th>Procurer</th>
-      <th>Annoucement Date</th>
-      <th>Bid Duration</th>
-      <th>Procurer Estimate</th>
-      <th>First Bid</th>
-      <th>Last Bid</th>
-      <th>Number of Bids</th>
+      <th><%=t("Tender")%></th>
+      <th><%=t("Success?")%></th>
+      <th><%=t("Number Of Bidders")%></th>
+      <th><%=t("Procurer")%></th>
+      <th><%=t("Announcement Date")%></th>
+      <th><%=t("Bidding Duration")%></th>
+      <th><%=t("Procurer Estimate")%></th>
+      <th><%=t("First Bid")%></th>
+      <th><%=t("Last Bid")%></th>
+      <th><%=t("Number Of Bids")%></th>
     </tr>
   </thead>
   <tbody>      
@@ -370,9 +370,9 @@ $(function () {
       <tr>
         <td><%= link_to tender[:tenderCode], tender_path(tender[:id]) %></td> 
         <% if tender[:won] %>
-          <td><font color="green"><strong>YES</strong></font></td>
+          <td><font color="green"><strong><%=t("yes_caps")%></strong></font></td>
         <% else %>
-          <td><font color="red">NO</font></td>
+          <td><font color="red"><%=t("no_caps")%></font></td>
         <% end %>
         <td><%= tender[:numBidders]%></td>
         <td><%= link_to tender[:procurerName], :controller => "organizations", :action => "show_procurer", :id => tender[:procurerID] %></td>

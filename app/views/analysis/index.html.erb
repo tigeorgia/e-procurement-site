@@ -1,9 +1,9 @@
 <% title "Procurement Analysis" %>
 
-Year
+<%= t("Year")%>
 <%= form_tag( {:action => "generate"}, :remote => true) do %>
   <%= select_tag(:year, options_for_select(@years))  %>
-  <%= submit_tag "Generate Aggregate Data" %>
+  <%= submit_tag t("Generate Aggregate Data") %>
 <% end %>
 
 <div id ="results">

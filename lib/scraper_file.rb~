@@ -607,7 +607,7 @@ module ScraperFile
     self.majorPlayerCompetitionAssessment(majorPlayerIndicator)
     puts "amendment"
     self.contractAmendmentAssessment(contractAmendmentIndicator)
-
+    puts "storing risk indicators on tenders"
     self.addRiskIndicatorsToTenders
   end
 
