@@ -1,35 +1,49 @@
 # encoding: utf-8 
 class OrganizationsController < ApplicationController
   helper_method :sort_column, :sort_direction
+  require "query_helpers" 
   include GraphHelper 
   include ApplicationHelper
 
   BOM = "\uFEFF" #Byte Order Mark
   def search
     @params = params
-    name = params[:organization][:name]
-    code = params[:organization][:code]
+    name = params[:name]
+    code = params[:code]
     org_type = params[:org_type]
+    city = params[:city]
+    address = params[:address]
+    email = params[:email]
+    phone_number = params[:phone_number]
     
     willSearchName = name.length > 0
     name = "%"+name+"%"
     code = "%"+code+"%"
+    city = "%"+city+"%"
+    address = "%"+address+"%"
+    email = "%"+email+"%"
+    phone_number = "%"+phone_number+"%"
     
-    foreignOnly = params[:isForeign][:foreign]
+    foreignOnly = params[:foreign]
 
     orgString = ""
     if not org_type == ""
       orgString = " AND org_type = '"+org_type+"'"
     end
-    conditions = "is_bidder = true AND code LIKE '"+code +"'"+ orgString
+    query = "is_bidder = true"
+    query = QueryHelper.addParamsToQuery(query, code, "code", "LIKE", "AND")
+    query = QueryHelper.addParamsToQuery(query, org_type, "org_type", "=","AND")
+    query = QueryHelper.addParamsToQuery(query, city, "city", "LIKE","AND")
+    query = QueryHelper.addParamsToQuery(query, email, "email", "LIKE","AND")
+    query = QueryHelper.addParamsToQuery(query, phone_number, "phone_number", "LIKE","AND")
     if foreignOnly == '1'
-      conditions += " AND country NOT LIKE 'საქართველო'"
+      query = QueryHelper.addParamsToQuery(query, 'საქართველო', "country", "NOT LIKE","AND")
     end
     if willSearchName
-      conditions += " AND ( name LIKE '"+name+"' OR translation LIKE '"+name+"' )"
+      query += " AND ( name LIKE '"+name+"' OR translation LIKE '"+name+"' )"
     end
     
-    results = Organization.where(conditions)
+    results = Organization.where(query)
     
     @numResults = results.count
     @organizations = results.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
@@ -58,8 +72,8 @@ class OrganizationsController < ApplicationController
 
   def search_procurer
     @params = params
-    name = params[:organization][:name]
-    code = params[:organization][:code]
+    name = params[:name]
+    code = params[:code]
     org_type = params[:org_type]
 
     willSearchName = name.length > 0
@@ -100,6 +114,8 @@ class OrganizationsController < ApplicationController
     totalBids = 0
     totalBidders = 0
     @numAgreements = 0
+    @averageTenderDurationSimple = 0;
+    @averageTenderDurationElectronic = 0;
 
     tendersPerCpv = {}
     @tendersOffered = []
@@ -124,13 +140,18 @@ class OrganizationsController < ApplicationController
     end
 
     tendersPerCpv = tendersPerCpv.sort { |a,b| b[1][1] <=> a[1][1]}
-   @Cpvs = []
+    @Cpvs = []
     tendersPerCpv.each do |key, value|
       @Cpvs.push( value )
     end
-  @successfulTenders = {}
+    @successfulTenders = {}
     cpvAgreements = {}
     #lets get some aggregate tender stats
+    @averageTenderDurationSimple = 0
+    simpleCount = 0
+    @averageTenderDurationElectronic = 0
+    electronicCount = 0
+
     @tendersOffered.each do |tender|
       if tender[:success] == true
         value = tender.contract_value
@@ -138,6 +159,13 @@ class OrganizationsController < ApplicationController
         @totalEstimate += tender.estimated_value
         @numAgreements += 1
         date = tender.tender_announcement_date.to_time.to_i/86400
+        if tender.tender_type.strip == "გამარტივებული ელექტრონული ტენდერი"
+          @averageTenderDurationSimple += (tender.bid_end_date - tender.tender_announcement_date).to_i
+          simpleCount+=1
+        elsif tender.tender_type.strip == "ელექტრონული ტენდერი"
+          @averageTenderDurationElectronic += (tender.bid_end_date - tender.tender_announcement_date).to_i
+          electronicCount+=1
+        end
 
         if not @successfulTenders[date]
           @successfulTenders[date] = [tender, value]
@@ -164,7 +192,18 @@ class OrganizationsController < ApplicationController
       totalBids += tender.num_bids
       totalBidders += tender.num_bidders
     end
-    @successfulTenders = @successfulTenders.sort{ |a,b| a[0] <=> b[0]}
+
+    @successfulTenders = @successfulTenders.sort{|a,b| a[0] <=> b[0]}
+    if simpleCount > 0
+      @averageTenderDurationSimple = @averageTenderDurationSimple.to_f / simpleCount
+    else
+      @averageTenderDurationSimple = -1
+    end
+    if electronicCount > 0 
+      @averageTenderDurationElectronic = @averageTenderDurationElectronic.to_f / electronicCount
+    else
+      @averageTenderDurationElectronic = -1
+    end
 
     @jsonString = createTreeGraphStringFromAgreements( cpvAgreements )
     #time for tasty averages
@@ -206,8 +245,7 @@ class OrganizationsController < ApplicationController
   def show
     id = params[:id]
     @organization = Organization.find(id)
- 
-    allAgreements = Agreement.find_all_by_organization_id(id)
+
     allBids = Bidder.find_all_by_organization_id(id)
     allTenders = []
     @topFiveCpvs = []
@@ -234,21 +272,17 @@ class OrganizationsController < ApplicationController
       @topFiveCpvs.push( [description,value] )
     end 
     
-
     tendersWon = {}
+    cpvAgreements = {}
     #find all tenders we won
-    if allAgreements
-      allAgreements.each do |agreement|
-        agreementTender = tendersWon[agreement.tender_id]
-        if not agreementTender
-          tendersWon[agreement.tender_id] = [agreement,Tender.find(agreement.tender_id)]
-        elsif agreementTender[0].amendment_number < agreement.amendment_number
-          tendersWon[agreement.tender_id] = [agreement, agreementTender[1]]
-        end
-      end
+    tenderList = Tender.where(:winning_org_id => id)
+    tenderList.each do |tender|
+      tendersWon[tender.id] = [tender.contract_value,tender]
+      item = { :name => tender.cpvDescription, :value => tender.contract_value, :code => tender.cpv_code, :children => [] }       
+      cpvAgreements[tender.cpv_code] = item
     end
 
-    
+    @jsonString = createTreeGraphStringFromAgreements( cpvAgreements )
 
     #find all competitors
     @competitors = []
@@ -268,7 +302,7 @@ class OrganizationsController < ApplicationController
     @averageNumBiddersOnContractsWon = 0
     procuringEntities = {}
     tendersWon.each do |key, tender|
-      @totalValueOfAllContracts += tender[0].amount
+      @totalValueOfAllContracts += tender[0]
       @totalEstimatedValueOfContractsWon += tender[1].estimated_value
       @averageNumBiddersOnContractsWon += tender[1].bidders.count
       procuringID = tender[1].procurring_entity_id
@@ -299,7 +333,7 @@ class OrganizationsController < ApplicationController
     #create a hash with tasty info
     allTenders.each do |tender|
       tenderDuration = (tender.bid_end_date - tender.bid_start_date).to_i
-      infoItem = { :id => tender.id, :tenderCode => tender.tender_registration_number, :numBidders => tender.bidders.count, :bidDuration => tenderDuration, :highest_bid => nil, :lowest_bid => nil, :numBids => nil, :start_amount => tender.estimated_value, :won => false, :procurerName => nil, :procurerID => tender.procurring_entity_id, :tenderAnnouncementDate => tender.tender_announcement_date}
+      infoItem = { :id => tender.id, :tenderCode => tender.tender_registration_number, :numBidders => tender.bidders.count, :bidDuration => tenderDuration, :highest_bid => nil, :lowest_bid => nil, :numBids => nil, :start_amount => tender.estimated_value, :won => false, :procurerName => nil, :procurerID => tender.procurring_entity_id, :tenderAnnouncementDate => tender.tender_announcement_date, :contract_value => tender.contract_value}
       infoItem[:procurerName] = Organization.find(tender.procurring_entity_id).name
       if tendersWon[tender.id]
         infoItem[:won] = true
@@ -328,14 +362,14 @@ class OrganizationsController < ApplicationController
         dateStats = @simpleTenderStats
       end
       if not dateStats[date]
-        dateStats[date] = [tender, tenderItem[0].amount]
+        dateStats[date] = [tender, tenderItem[0]]
       else
         #this tender was announced on the same day as another tender and we can only go as far as per day on the graph
         #so lets pick the most important tender and ignore the other one :(
         old = dateStats[date]
         if old[0].estimated_value < tender.estimated_value
           #overwrite old data
-          dateStats[date] = [tender, tenderItem[0].amount]
+          dateStats[date] = [tender, tenderItem[0]]
         end
       end
     end

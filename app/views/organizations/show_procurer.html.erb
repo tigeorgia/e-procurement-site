@@ -186,15 +186,29 @@ $(function () {
       <dd><a href="<%= @organization.webpage%>"> <%= @organization.webpage %></a></dd>
 
       <dt><strong><%= t("Estimated Cost All Tenders") %></strong></dt>
-      <dd>$<%= @totalEstimate.round(2)  %></dd>
+      <dd><%= number_to_currency(@totalEstimate, :unit => "GEL ")  %></dd>
       <dt><strong><%= t("Actual Cost All Tenders") %></strong></dt>
-      <dd>$<%= @actualCost.round(2)  %></dd>
+      <dd><%= number_to_currency(@actualCost.round, :unit => "GEL ") %></dd>
       <dt><strong><%= t("Savings Percentage") %></strong></dt>
-      <dd>%<%= @costVsEstimateSaving  %></dd>
+      <dd><%= number_with_precision(@costVsEstimateSaving, :precision => 2)   %>%</dd>
       <dt><strong><%= t("Average Bidders") %></strong></dt>
-      <dd><%= @averageBidders.round(2)  %></dd>
+      <dd><%=  number_with_precision(@averageBidders, :precision => 2)  %></dd>
       <dt><strong><%= t("Average Bids") %></strong></dt>
-      <dd><%= @averageBids.round(2)  %></dd>
+      <dd><%=  number_with_precision(@averageBids, :precision => 2)  %></dd>
+
+      <dt><strong><%= t("Average Simple Tender Duration") %></strong></dt>
+      <% if @averageTenderDurationSimple == -1 %>
+        <dd>N/A</dd>
+      <%else%>
+        <dd><%= number_with_precision(@averageTenderDurationSimple, :precision => 2)%> <%=t("Days")%></dd>
+      <%end%>
+       
+      <dt><strong><%= t("Average Electronic Tender Duration") %></strong></dt>
+      <% if @averageTenderDurationElectronic == -1 %>
+        <dd>N/A</dd>
+      <%else%>
+        <dd><%= number_with_precision(@averageTenderDurationElectronic, :precision => 2)%> <%=t("Days")%></dd>
+      <%end%>
     </dl>
   </div>
 
@@ -234,8 +248,8 @@ $(function () {
           <td><font color="red"><%= t("no_caps")%></font></td>
         <% end %>      
         <td><%= tender.tender_announcement_date%></td>
-        <td><%= tender.estimated_value.to_i%></td>
-        <th><%if tender.contract_value and tender.contract_value > 0%><%= tender.contract_value%><%else%>N/A<%end%></th>
+        <td><%=  number_to_currency(tender.estimated_value.to_i,:unit => "")%></td>
+        <th><%if tender.contract_value and tender.contract_value > 0%><%= number_to_currency(tender.contract_value,:unit => "")%><%else%>N/A<%end%></th>
         <td><%= tender[:cpvDescription]%></td>
         <td><%= tender.num_bidders%></td>
       </tr>

@@ -96,6 +96,13 @@ ol.standard li {
 	line-height: 1.1;
 }
 
+
+label.horizontal {
+  display: inline-block;
+  margin-bottom: 5px;
+  clear: both;
+}
+
 /* multilanguage form styles */
 div#form-en {
 	background-color:#ddd;
@@ -224,9 +231,6 @@ footer, footer ul li, footer div#right ul li {
   padding: 0.5em 1em;
 }
 
-
-
-
 .bidwinner
 {
     background-color: #12E254!important;
@@ -235,18 +239,38 @@ footer, footer ul li, footer div#right ul li {
 
 .info-horizontal dd {
     padding: 3;
-    margin-left: 230px;
+    margin-left: 410px;
 }
 
 .info-horizontal dt {
     padding: 3;
     float: left;
-    width: 220px;
+    width: 400px;
     clear: left;
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+
+
+#tabs-nohdr { 
+    padding: 0px; 
+    background: none; 
+    border-width: 0px; 
+} 
+#tabs-nohdr .ui-tabs-nav { 
+    padding-left: 0px; 
+    background: transparent; 
+    border-width: 0px 0px 1px 0px; 
+    -moz-border-radius: 0px; 
+    -webkit-border-radius: 0px; 
+    border-radius: 0px; 
+} 
+#tabs-nohdr .ui-tabs-panel { 
+    background: #f5f3e5 url(http://code.jquery.com/ui/1.8.23/themes/south-street/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png) repeat-x scroll 50% top; 
+   border-width: 0px 1px 1px 1px; 
 }
 
 

@@ -17,55 +17,58 @@
 
 
 <%= t("Number Of Results")%> = <%= @numResults %><br>
-<% if false %>
-Number of Tender Bid on = <%= @numBidTenders %><br>
-Number of Tenders with Single Bid Only = <%= @numSingleBids %><br>
-Single Bid Percentage = <%= @numSingleBids/@numBidTenders %><br>
-<% end %>
 
-<p>
-  <%= t("Download")%>:
-  <% csvParams = @params.clone%>
-  <% csvParams[:format] = "csv" %>
-  <% csvParams[:controller] = "tender" %>
-  <% csvParams[:action] = "download" %>
-  <%= link_to "CSV",  csvParams %>
-</p>
+    <p>
+      <%= t("Download")%>:
+      <% csvParams = @params.clone%>
+      <% csvParams[:format] = "csv" %>
+      <% csvParams[:controller] = "tender" %>
+      <% csvParams[:action] = "download" %>
+      <%= link_to "CSV",  csvParams %>
+    </p>
+ 
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%= sortable(@params, t("Tender Registration Number")) %></th>
+          <th><%= sortable(@params, "procurer_name", t("Procurer")) %></th>
+          <th><%= sortable(@params, "supplier_name", t("Supplier")) %></th>
+          <th><%= sortable(@params, "tender_announcement_date", t("Announcement Date")) %></th>
+          <th><%= sortable(@params, "cpv_code", t("CPV Code"))%></th>
+          <th><%= sortable(@params, "tender_type", t("Type")) %></th> 
+          <th><%= sortable(@params, "tender_status", t("Status")) %></th>
+          <th><%= sortable(@params, "estimated_value", t("Estimated Value")) %></th>
+          <th><%= sortable(@params, "contract_value", t("Contract Value"))%></th>
+          <th><%= sortable(@params, "num_bidders", t("Number of Bidders"))%></th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <%= page_navigation_links @tenders %>
+        <% @results.each do |item| %>
+          <% tender = item[:tender] %>
+          <% highlightClass = "" %>
+          <% if @search and @search.last_viewed < tender.updated_at %>
+            <% highlightClass = 'class="bidwinner"'.html_safe %>
+          <% end %>
+          <tr>
+            <td <%=highlightClass%>><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
+            <td <%=highlightClass%>><%= link_to tender.procurer_name.split("#")[0], :controller => "organizations", :action => "show_procurer", :id => tender.procurring_entity_id %></td>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= sortable(@params, t("Tender_Registration_Number")) %></th>
-      <th><%=t("Procurer")%></th>
-      <th><%= sortable(@params, "tender_announcement_date", t("Announcement Date")) %></th>
-      <th><%= sortable(@params, "cpv_code", t("CPV Code"))%></th>
-      <th><%= sortable(@params, "tender_type", t("Type")) %></th> 
-      <th><%= sortable(@params, "tender_status", t("Status")) %></th>
-      <th><%= sortable(@params, "estimated_value", t("Estimated Value")) %></th>
-      <th><%= sortable(@params, "contract_value", t("Contract Value"))%></th>
-      <th><%= sortable(@params, "num_bidders", t("Number of Bidders"))%></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @results.each do |item| %>
-      <% tender = item[:tender] %>
-      <% highlightClass = "" %>
-      <% if @search and @search.last_viewed < tender.updated_at %>
-        <% highlightClass = 'class="bidwinner"'.html_safe %>
-      <% end %>
-      <% procurer = item[:procurer] %>
-      <tr>
-        <td <%=highlightClass%>><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
-        <td <%=highlightClass%>><%= link_to procurer, :controller => "organizations", :action => "show_procurer", :id => tender.procurring_entity_id %></td>
-        <td <%=highlightClass%>><%= tender.tender_announcement_date %></td>
-        <td <%=highlightClass%>><%= tender.cpv_code %></td>
-        <td <%=highlightClass%>><%= t(tender.tender_type) %></td>
-        <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
-        <td <%=highlightClass%>><%= tender.estimated_value %></td>
-        <td <%=highlightClass%>><% if tender.contract_value %><%= tender.contract_value %><%else%>N/A<%end%></td>
-        <td <%=highlightClass%>><%= tender.num_bidders %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= page_navigation_links @tenders %>
+            <% if tender.supplier_name %>
+              <td <%=highlightClass%>><%= link_to tender.supplier_name.split("#")[0], :controller => "organizations", :action => "show_procurer", :id => tender.winning_org_id %></td>
+            <% else %>
+              <td <%=highlightClass%>>N/A</td>
+            <% end %>
+            <td <%=highlightClass%>><%= tender.tender_announcement_date %></td>
+            <td <%=highlightClass%>><%= tender.cpv_code %></td>
+            <td <%=highlightClass%>><%= t(tender.tender_type) %></td>
+            <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
+            <td <%=highlightClass%>><%= tender.estimated_value %></td>
+            <td <%=highlightClass%>><% if tender.contract_value %><%= tender.contract_value %><%else%>N/A<%end%></td>
+            <td <%=highlightClass%>><%= tender.num_bidders %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= page_navigation_links @tenders %>

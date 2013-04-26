@@ -33,11 +33,11 @@ module ScraperFile
     tender_file_path = "#{Rails.root}/public/system/#{FILE_TENDER}"
     File.open(tender_file_path, "r") do |infile|
       count = 0
-      while(line = infile.gets)
-        count = count + 1
-        item = JSON.parse(line)
-        tender = Tender.new
-        Tender.transaction do
+      Tender.transaction do
+        while(line = infile.gets)
+          count = count + 1
+          item = JSON.parse(line)
+          tender = Tender.new
           # basic tender info
           if count%100 == 0
             puts "tender: #{count}"
@@ -64,6 +64,8 @@ module ScraperFile
           organization = Organization.where("organization_url = ? AND dataset_id = ?",item["procuringEntityUrl"],@newDataset.id).first      
           if organization             
             tender.procurring_entity_id = organization.id
+            tender.procurer_name = organization.name
+        
             if !organization.is_procurer
               organization.is_procurer = true
               organization.save
@@ -97,11 +99,11 @@ module ScraperFile
               oldTender.destroy
             end
           else
-		        raise ActiveRecord::Rollback
-		        break
-          end #if tender valid
-        end #transaction
-      end#while
+	          raise ActiveRecord::Rollback
+	          break
+          end #if tender valid   
+        end #while
+      end#transaction
     end#file
   end #processTenders
 
@@ -109,15 +111,15 @@ module ScraperFile
     org_file_path = "#{Rails.root}/public/system/#{FILE_ORGANISATIONS}"
     File.open(org_file_path, "r") do |infile|
       count = 0
-      while(line = infile.gets)
-        count = count + 1
-        item = JSON.parse(line)
-       
-        #don't process if we have already dealt with this org this time
-        organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@newDataset.id).first
-        if !organization
-          organization = Organization.new
-          Organization.transaction do
+      Organization.transaction do
+        while(line = infile.gets)
+          count = count + 1
+          item = JSON.parse(line)
+         
+          #don't process if we have already dealt with this org this time
+          organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@newDataset.id).first
+          if !organization
+            organization = Organization.new 
             if count%100 == 0
               puts "organization: #{count}"
             end
@@ -147,12 +149,12 @@ module ScraperFile
               #now we know everything sorted we can run a name translation
               self.generateOrganizationNameTranslation( organization )
             else
-	            raise ActiveRecord::Rollback
-	            break
-            end
-          end#transaction
-        end#if
-      end#while
+              raise ActiveRecord::Rollback
+              break
+            end        
+          end#if
+        end#while
+      end#transaction
     end#do
   end#process org
 
@@ -161,12 +163,12 @@ module ScraperFile
     bidder_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_BIDDERS}" 
     File.open(bidder_file_path, "r") do |infile|
       count = 0
-      while(line = infile.gets)
-        count = count + 1
-        item = JSON.parse(line)
+      Bidder.transaction do
+        while(line = infile.gets)
+          count = count + 1
+          item = JSON.parse(line)
 
-        bidder = Bidder.new
-        Bidder.transaction do
+          bidder = Bidder.new       
           if count%100 == 0
             puts "bidder: #{count}"
           end
@@ -206,8 +208,8 @@ module ScraperFile
             raise ActiveRecord::Rollback
             break
           end
-        end
-      end#while
+        end#while
+      end#transaction
     end#file  
   end#processBidders
 
@@ -215,12 +217,12 @@ module ScraperFile
     agreement_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_AGREEMENTS}"
     File.open(agreement_file_path, "r") do |infile|
       count = 0
-      while(line = infile.gets)
-        count = count + 1
-        item = JSON.parse(line)
-
-        agreement = Agreement.new
-        Agreement.transaction do
+      Agreement.transaction do
+        while(line = infile.gets)
+          count = count + 1
+          item = JSON.parse(line)
+          agreement = Agreement.new
+          
           if count%100 == 0
             puts "agreement: #{count}"
           end
@@ -269,16 +271,16 @@ module ScraperFile
             else
               agreement.organization_id = organization.id
             end
+                  
+            if agreement.valid?
+              agreement.save
+            else
+              raise ActiveRecord::Rollback
+              break
+            end
           end
-                
-          if agreement.valid?
-            agreement.save
-          else
-            raise ActiveRecord::Rollback
-            break
-          end
-        end
-      end#while
+        end#while
+      end#transaction
     end#file
   end#processAgreements
 
@@ -286,12 +288,12 @@ module ScraperFile
     cpv_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_CPV_CODES}"
     File.open(cpv_file_path, "r") do |infile|
       count = 0
-      while(line = infile.gets)
-        count = count + 1
-        item = JSON.parse(line)  
-     
-        cpvCode = TenderCpvCode.new
-        TenderCpvCode.transaction do
+      TenderCpvCode.transaction do
+        while(line = infile.gets)
+          count = count + 1
+          item = JSON.parse(line)  
+       
+          cpvCode = TenderCpvCode.new       
           tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@newDataset.id).first
           cpvCode.tender_id = tender.id
           cpvCode.cpv_code = item["cpvCode"]
@@ -305,8 +307,8 @@ module ScraperFile
             raise ActiveRecord::Rollback
             break
           end
-        end#transaction
-      end#while
+        end#while
+      end#transaction
     end#file 
   end
 
@@ -314,12 +316,11 @@ module ScraperFile
     document_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_DOCUMENTS}"
      File.open(document_file_path, "r") do |infile|
       count = 0
-      while(line = infile.gets)
-        count = count + 1
-        item = JSON.parse(line)  
-     
-        document = Document.new
-        Document.transaction do
+      Document.transaction do
+        while(line = infile.gets)
+          count = count + 1
+          item = JSON.parse(line)         
+          document = Document.new     
           tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@newDataset.id).first
           document.tender_id = tender.id
           document.document_url = item["documentUrl"]
@@ -342,8 +343,8 @@ module ScraperFile
             raise ActiveRecord::Rollback
             break
           end
-        end# transaction
-      end #while
+        end#while
+      end#transaction
     end #file
   end #processDocuments
 
@@ -420,6 +421,7 @@ module ScraperFile
       if lastAgreement
         tender.contract_value = lastAgreement.amount
         tender.winning_org_id = lastAgreement.organization_id
+        tender.supplier_name = Organization.find(tender.winning_org_id).name
         tender.save
       end
     end
@@ -457,10 +459,12 @@ module ScraperFile
     end
   end
 
+
   def self.processAggregateData
     #for each CPV code calculate the revenue generated for each company and store these entries in the database
     #this way when aggregate data is requested instead of running this expensive process everytime we can just look up the pre-calculated entries in the db.
     AggregateCpvRevenue.delete_all
+    ProcurerCpvRevenue.delete_all
     classifiers = TenderCpvClassifier.find(:all)
     classifiers.each do |classifier|
       puts classifier.cpv_code
@@ -473,6 +477,20 @@ module ScraperFile
             if not aggregateData
               aggregateData = AggregateCpvRevenue.new
               aggregateData.organization_id = company.id
+              aggregateData.cpv_code = classifier.cpv_code
+              aggregateData.total_value = tenderValue
+            else
+              aggregateData.total_value = aggregateData.total_value + tenderValue
+            end
+            aggregateData.save
+          end
+
+          procurer = Organization.find(tender.procurring_entity_id)
+          if procurer
+            aggregateData = ProcurerCpvRevenue.where(:cpv_code => classifier.cpv_code, :organization_id => procurer.id).first
+            if not aggregateData
+              aggregateData = ProcurerCpvRevenue.new
+              aggregateData.organization_id = procurer.id
               aggregateData.cpv_code = classifier.cpv_code
               aggregateData.total_value = tenderValue
             else
@@ -687,7 +705,7 @@ module ScraperFile
           lowestBid = bidder.last_bid_amount
         end
         if lowestBid                       
-          savingsPercentage = 1 - winningBid/tender.estimated_value
+          savingsPercentage = 1 - lowestBid/tender.estimated_value
           if savingsPercentage <= 0.02
             #risky tender!
             corruptionFlag = TenderCorruptionFlag.new
@@ -914,6 +932,48 @@ module ScraperFile
     puts "translating: " + orgName
     translations = TranslationHelper.findStringTranslations(orgName)
     organization.saveTranslations(translations)
+    tenderList = Tenders.where(:procurring_entity_id => organization.id)
+    tenderList.each do |tender|
+      tender.procurer_name += "#"+organization.translation
+      tender.save
+    end
+    tenderList = Tenders.where(:winning_org_id => organization.id)
+    tenderList.each do |tender|
+      tender.supplier_name += "#"+organization.translation
+      tender.save
+    end
+  end
+
+  def buildOrganizationXmlStrings
+    xmlString = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>'
+    procurers = Organization.where(:is_procurer => true)
+    xmlString += "\n"+'<procurers style="MEDIUM">'
+    procurers.each do |proc|
+      name = proc.name
+      name.delete!('"')
+      name.delete!("'")
+      name.gsub!("&", "&amp;")
+      xmlString += "\n"+'<Name>'+name+'</Name>'
+    end
+    xmlString += "\n"+'</procurers>'
+    File.open("app/assets/data/procurers.xml", "w+") do |file|
+      file.write(xmlString)
+    end
+
+    xmlString = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>'
+    suppliers = Organization.where(:is_bidder => true)
+    xmlString += "\n"+'<suppliers style="MEDIUM">'
+    suppliers.each do |supplier|
+      name = supplier.name
+      name.delete!('"')
+      name.delete!("'")
+      name.gsub!("&", "&amp;")
+      xmlString += "\n"+'<Name>'+name+'</Name>'
+    end
+    xmlString += "\n"+'</suppliers>'
+    File.open("app/assets/data/suppliers.xml", "w+") do |file|
+      file.write(xmlString)
+    end
   end
 
   def self.process
@@ -951,6 +1011,8 @@ module ScraperFile
     self.findCompetitors
     puts "finding corruption"
     self.generateRiskFactors
+
+    self.buildOrganizationXmlStrings
   end
 
   def self.generateAlerts

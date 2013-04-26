@@ -1,0 +1,5562 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<procurers style="MEDIUM">
+<Organization>
+<Name>გარდაბნის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ტექნიკური უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საზღვაო ტრანსპორტის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შსს სპეციალური და საგანგებო ღონისძიებების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საქპატენტი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ეროვნული საინვესტიციო სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს შინაგან საქმეთა სამინისტროს სახელმწიფო უსაფრთხოების სააგენტო (დეპარტამენტი)</Name>
+</Organization>
+<Organization>
+<Name>სსიპ საზოგადოებრივი კოლეჯი ახალი ტალღა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს ,,ხობის დასუფთავება და განათება</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს განათლებისა და მეცნიერების სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>თბილისის სატრანსპორტო კომპანია</Name>
+</Organization>
+<Organization>
+<Name>მარნეულის მუნიციპალიტეტის თვითმმართველობის ორგანო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ცენტრალური საარჩევნო კომისია</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს იუსტიციის უმაღლეს საბჭოსთან არსებული სსიპ საერთო სასამართლოების დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>ქალაქ ქუთაისის მერია</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,ბათუმის წყალი</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ერთეული ზესტაფონის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>სსიპ საქართველოს მეცნიერებათა ეროვნული აკადემია</Name>
+</Organization>
+<Organization>
+<Name>ადამიანით ვაჭრობის (ტრეფიკინგის) მსხვერპლთა, დაზარალებულთა დაცვისა და დახმარების სახელმწიფო ფონდი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ,,თბილსერვის ჯგუფი”</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის მუნიციპალიტეტის ,,კეთილმოწყობის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>გამოცდების ეროვნული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საგანგებო და გადაუდებელი სიტუაციების მართვის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს შინაგან საქმეთა სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>გურჯაანის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ენერგეტიკისა და წყალმომარაგების მარეგულირებელი ეროვნული კომისია</Name>
+</Organization>
+<Organization>
+<Name>თბილისის სახელმწიფო სამედიცინო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ეროვნული არქივი</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ქალაქი ფოთი</Name>
+</Organization>
+<Organization>
+<Name>აკაკი წერეთლის  სახელმწიფო  უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს საგარეო საქმეთა სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს შინაგან საქმეთა სამინისტრო ცენტრალური კრიმინალური პოლიციის დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>სამტრედიის N15 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მარტვილის მუნიციპალიტეტის სკოლისგარეშე დაწესებულება მარტვილის საფეხბურთო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ივანე ბერიტაშვილის ექსპერიმენტული ბიომედიცინის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს სინათლის ქალაქი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს მუნიციპალური განვითარების ფონდი</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ავტონომიური რესპუბლიკის  სოფლის მეურნეობის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>ლევან სამხარაულის სახელობის სასამართლო ექსპერტიზის ეროვნული ბიურო</Name>
+</Organization>
+<Organization>
+<Name>შუახევის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს შსს ქ. თბილისის მთავარი სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ა.რ. მთავრობის საქვეუწყებო დაწესებულება საავტომობილო გზებისა და სამელიორაციო სისტემების მართვის დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>გორის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ივანე ჯავახიშვილის სახელობის თბილისის სახელმწიფო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შპს შეზღუდული შესაძლებლობების მქონე პირთა სოციალური რეაბილიტაციის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ფინანსთა სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს რეგიონული განვითარებისა და ინფრასტრუქტურის სამინისტროს საქართველოს საავტომობილო გზების დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>დმანისის მუნიციპალიტეტის სკოლამდელი აღზრდის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს სასჯელაღსრულების, პრობაციისა და იურიდიული დახმარების საკითხთა სამინისტროს სასჯელაღსრულების დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>ოზურგეთის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შსს-მცხეთა-მთიანეთის სამხარეო მთავარი სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს შოთა რუსთაველის თეატრისა და კინოს სახელმწიფო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო აუდიტის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ქედის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>მესტიის მუნიციპალიტეტის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს კომუნალური მეურნეობა ა</Name>
+</Organization>
+<Organization>
+<Name>ს.ს ტუბერკულოზისა და ფილტვის დაავადებათა ეროვნული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ერთეული საჩხერის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ტექნიკური და სამშენებლო ზედამხედველობის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>თელავის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შემოსავლების სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ადიგენის მუნიციპალიტეტის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>მცხეთის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შპსქ.ბათუმის ინფექციური პათოლოგიის, შიდსის და ტუბერკულოზის რეგიონალური ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს შსს სსიპ დაცვის პოლიციის დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>სატრანსპორტო ინფრასტრუქტურის მართვის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შინაგან საქმეთა სამინისტროს აფხაზეთის ა/რ მთავარი სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>სენაკის მუნიციპალიტეტის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის სახელმწიფო მუსიკალური ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>გორის სასწავლო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შპს საფეხბურთო კლუბი ჭიათურა</Name>
+</Organization>
+<Organization>
+<Name>იაკობ გოგებაშვილის სახელობის თელავის სახელმწიფო უნივერსიტეტი ხელმწიფო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის მუნიციპალიტეტის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. თბილისის N4 საოჯახო მედიცინის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თავდაცვის სამინისტროს სამხედრო ჰოსპიტალი</Name>
+</Organization>
+<Organization>
+<Name>თიღვის მუნიციპალიტეტის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ფინანსთა სამინისტროს მომსახურების სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შოთა მესხიას ზუგდიდის სახელმწიფო სასწავლო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>კადეტთა სამხედრო ლიცეუმი</Name>
+</Organization>
+<Organization>
+<Name>მასწავლებელთა პროფესიული განვითარების ეროვნული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის მერია</Name>
+</Organization>
+<Organization>
+<Name>ხობის მუნიციპალიტეტის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ეროვნული მუზეუმი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს რეგიონული განვითარებისა და ინფრასტრუქტურის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ალფა-კომი</Name>
+</Organization>
+<Organization>
+<Name>საჯარო რეესტრის ეროვნული სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შპს საქაერონავიგაცია</Name>
+</Organization>
+<Organization>
+<Name>მარტვილის მუნიციპალიტეტის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>ხონის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ვ. კომაროვის თბილისის ფიზიკა-მათემატიკის #199 სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ქალაქის - ბათუმის მერია</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის საბავშო ბაღების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>სკოლამდელ სააღმზრდელო დაწესებულებათა ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ილიას სახელმწიფო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შსს საქართველოს სასაზღვრო პოლიციის #5 სამმართველო (ლაგოდეხი)</Name>
+</Organization>
+<Organization>
+<Name>შსს საპატრულო პოლიციის დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>ღვინის ეროვნული სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შპს ფსიქიკური ჯანმრთელობის და ნარკომანიის პრევენციის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს სოფლის მეურნეობის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>ქ. სამტრედიის მუნიციპალიტეტის საცხენოსნო სპორტული კლუბი</Name>
+</Organization>
+<Organization>
+<Name>შპს სანდასუფთავება</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს თბილისის საოჯახო მედიცინის სასწავლო კლინიკური ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ახმეტის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის მუნიციპალიტეტის ,,სპორტის განვითარების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>კოტე მარჯანიშვილის სახელობის სახელმწიფო დრამატული თეატრი</Name>
+</Organization>
+<Organization>
+<Name>თბილისის აპოლონ ქუთათელაძის სახელობის სახელმწიფო სამხატვრო აკადემია</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ოკუპირებული ტერიტორიებიდან იძულებით გადაადგილებულ პირთა, განსახლებისა და ლტოლვილთა  სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>სურსათის ეროვნული სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შპს საქართველოს აეროპორტების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ყვარლის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შსს იმერეთის, რაჭა-ლეჩხუმისა და ქვემო სვანეთის სამხარეო მთავარი სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>ბოლნისის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შსს საჯარო სამართლის იურიდიული პირი - 112</Name>
+</Organization>
+<Organization>
+<Name>აჭარის სატყეო სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>ლაგოდეხის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს უზენაესი სასამართლო</Name>
+</Organization>
+<Organization>
+<Name>სსიპ დავით აღმაშენებლის სახელობის საქართველოს ეროვნული თავდაცვის აკადემია</Name>
+</Organization>
+<Organization>
+<Name>სსიპ სსსტც დელტა</Name>
+</Organization>
+<Organization>
+<Name>ხელვაჩაურის მუნიციპალიტეტის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ქალაქი რუსთავი</Name>
+</Organization>
+<Organization>
+<Name>ხობის მუნიციპალიტეტის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>კეთილმოწყობის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს კულტურისა და ძეგლთა დაცვის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს შსს აკადემია</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ავტონომიური რესპუბლიკის დასაქმების სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>სამცხე-ჯავახეთის სახელმწიფო სასწავლო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საზოგადოებრივი მაუწყებელი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს მთავარი პროკურატურა</Name>
+</Organization>
+<Organization>
+<Name>დაცული ტერიტორიების სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შპს გლდანის საცურაო აუზი</Name>
+</Organization>
+<Organization>
+<Name>დედოფლისწყაროს მუნიციპალიტეტის დედოფლიწყაროს სათნოების სახლი</Name>
+</Organization>
+<Organization>
+<Name>საარჩევნო სისტემების განვითარების რეფორმებისა და სწავლების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ოზურგეთის მუნიციპალიტეტის გამგეობის საწარმო - შ.პ.ს. მუნიციპალური ტრანსპორტი</Name>
+</Organization>
+<Organization>
+<Name>შპს  საფეხბურთო კლუბი დინამო ბათუმი</Name>
+</Organization>
+<Organization>
+<Name>სს ნამახვან ჰესების კასკადი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ეროვნული ბანკი</Name>
+</Organization>
+<Organization>
+<Name>საზოგადოებრივი კოლეჯი იბერია</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ტურიზმის ეროვნული ადმინისტრაცია</Name>
+</Organization>
+<Organization>
+<Name>ქარელის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შსს სამეგრელო-ზემო სვანეთის სამხარეო მთავარი სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს პარლამენტის აპარატი</Name>
+</Organization>
+<Organization>
+<Name>ხონის ცენტრალური საბავშვო ბაღი</Name>
+</Organization>
+<Organization>
+<Name>აღსრულების ეროვნული ბიურო</Name>
+</Organization>
+<Organization>
+<Name>ხონის მადლიერების სახლი</Name>
+</Organization>
+<Organization>
+<Name>კასპის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საგანმანათლებლო და სამეცნიერო ინფრასტრუქტურის განვითარების სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>აჭარის საგანგებო და გადაუდებელი სიტუაციების მართვის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ,,იუსტიციის უმაღლესი სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ბათუმის ავტოტრანსპორტი</Name>
+</Organization>
+<Organization>
+<Name>ქობულეთის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის ხელოვნებისა და კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო სერვისების განვითარების სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,ენგურჰესი</Name>
+</Organization>
+<Organization>
+<Name>ხობის მუნიციპალიტეტის საფეხბურთო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის კორპუსი</Name>
+</Organization>
+<Organization>
+<Name>შპს სასწრაფო სამედიცინო დახმარების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საფინანსო-ანალიტიკური სამსახური</Name>
+</Organization>
+<Organization>
+<Name>სსიპ სასწავლო უნივერსიტეტი ბათუმის სახელმწიფო საზღვაო აკადემია</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს სპორტმშენსერვისი</Name>
+</Organization>
+<Organization>
+<Name>შპს ქვემო ქართლის რეგიონალური სისხლის გადასხმის სადგური</Name>
+</Organization>
+<Organization>
+<Name>სოციალური მომსახურების სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ერთეული ვანის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის საკრებულოს აპარატი</Name>
+</Organization>
+<Organization>
+<Name>რეინტეგრაციის საკ. სახ. მინ. აპარატი</Name>
+</Organization>
+<Organization>
+<Name>განათლების მართვის საინფორმაციო სისტემა</Name>
+</Organization>
+<Organization>
+<Name>შპს ჰერმესი</Name>
+</Organization>
+<Organization>
+<Name>ხაშურის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ხონის კომუნალური სერვის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სამედიცინო საქმიანობის სახელმწიფო რეგულირების სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>ხობის მუნიციპალიტეტის სკოლამდელი სააღმზრდელო გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>სსიპ - აჭარის კულტურული მემკვიდრეობის დაცვის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს თავდაცვის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>იუსტიციის სახლი</Name>
+</Organization>
+<Organization>
+<Name>დანაშაულის პრევენციის და ინოვაციური პროგრამების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს სამედიცინო ცენტრი-ჯანმრთელობა</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ქალაქი ბათუმის საკრებულო</Name>
+</Organization>
+<Organization>
+<Name>ამბროლაურის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შპს საფეხბურთო კლუბი კოლხეთი</Name>
+</Organization>
+<Organization>
+<Name>ბორჯომის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის შოთა რუსთაველის სახელმწიფო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>სსიპ აჭარის ავტონომიური რესპუბლიკის საზოგადოებრივი ჯანდაცვის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>დედოფლისწყაროს მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შპს წყალბურთის კლუბი ბათუმი</Name>
+</Organization>
+<Organization>
+<Name>შინაგან საქმეთა სამინისტროს საქვეუწყებო დაწესებულება სასაზღვრო პოლიცია</Name>
+</Organization>
+<Organization>
+<Name>ყვარლის მუნიციპალიტეტის სკოლამდელი აღზრდის დაწესებულებათა გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>შპს ქუთაისის რეგიონალური სისხლის ბანკი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ბორჯომის კეთილმოწყობა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს პრეზიდენტის ადმინისტრაცია</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. თბილისის სამკურნალო პროფილაქტიკური ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს მობინადრე-2000</Name>
+</Organization>
+<Organization>
+<Name>ახალქალაქის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის საცხენოსნო კლუბი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ეროვნული უშიშროების საბჭო</Name>
+</Organization>
+<Organization>
+<Name>ბუნებრივი რესურსების სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის მთავრობის საქვეუწყებო დაწესებულება - ადმინისტრაციულ-სამეურნეო სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ერთეული ჭიათურის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>აბაშის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს მთავრობის კანცელარია</Name>
+</Organization>
+<Organization>
+<Name>სენაკის მუნიციპალიტეტის სკოლამდელი აღზრდის გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ნინოწმინდის მუნიციპალიტეტის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>სს ,,ინფექციური პათოლოგიის, შიდსისა და კლინიკური იმუნოლოოგიის სამეცნიერპ პრაქტიკული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ჩხოროწყუს მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ს.ს.ი.პ. ლ. საყვარელიძის სახელობის დაავადებათა კონტროლისა და საზოგადოებრივი ჯანმრთელობის ეროვნული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ზესტაფონის დასუფთავებისა და კეთილმოწყობის სერვის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ა.რ. ჯანმრთელობისა და სოციალური დაცვის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს სახელმწიფო ჰიდროგრაფიული სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის მერიის სსიპ ქონების მართვის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>ყვარლის სათნოების სახლი</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო რწმუნებულის-გუბერნატორის ადმინისტრაცია (აბაშის, ზუგდიდის, მარტვილის, მესტიის, სენაკის, ჩხოროწყუს, წალენჯიხის, ხობის მუნიციპალიტეტები და ქ. ფოთი)</Name>
+</Organization>
+<Organization>
+<Name>მარტვილის მუნიციპალიტეტის სკოლამდელი საგანმანათლებლო სააღმზრდელო დაწესებულება</Name>
+</Organization>
+<Organization>
+<Name>შპს ნათება</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ავტონომიური რესპუბლიკის მთავრობის საქვეუწყებო დაწესებულება-საარქივო სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>ა.(ა).იპ ხულოს წყალკანალი</Name>
+</Organization>
+<Organization>
+<Name>ხონის საქველმოქმედო ასოციაცია სათნოების სახლი</Name>
+</Organization>
+<Organization>
+<Name>არასაპატიმრო სასჯელთა აღსრულებისა და პრობაციის ეროვნული სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შპს საქართველოს ფოსტა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ საქართველოს სტანდარტებისა და მეტროლოგიის ეროვნული სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>საგანმანათლებლო დაწესებულების მანდატურის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>საჩხერეგაზი</Name>
+</Organization>
+<Organization>
+<Name>ხულოს მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>გლდანი-ნაძალადევის რაიონის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს კულტურული მემკვიდრეობის დაცვის ეროვნული სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>ეკონომიკისა და მდგრადი განვითარების სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ერთეული ბაღდათის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ყაზბეგის  მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს სპორტისა და ახალგაზრდობის საქმეთა სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>სამოქალაქო ავიაციის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს შრომის, ჯანმრთელობისა და სოციალური დაცვის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>შპს ქუთსერვის ჯგუფი</Name>
+</Organization>
+<Organization>
+<Name>ა(ა)იპ ბათუმის ბოტანიკური ბაღი</Name>
+</Organization>
+<Organization>
+<Name>ფინანსთა სამინისტროს აკადემია</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ბათუმის ბულვარი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს იუსტიციის სასწავლო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სიღნაღის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ზურაბ ჟვანიას სახელობის სახელმწიფო ადმინისტრირების სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ლაგოდეხის მუნიციპალიტეტის სპორტისა და ახალგაზრდობის საქმეთა სამსახური</Name>
+</Organization>
+<Organization>
+<Name>შპს აკად. ბ.ნანეიშვილის სახელობის ფსიქიკური ჯანმრთელობის ეროვნული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>აბაშის მუნიციპალიტეტის სპორტის განვითარების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შსს ქვემო ქართლის სამხარეო მთავარი სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>აჭარის განათლების ფონდი</Name>
+</Organization>
+<Organization>
+<Name>ცაგერის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>იურიდიული დახმარების სამსახური</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის ა/რ განათლებისა და კულტურის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>სსიპ საქართველოს შინაგან საქმეთა სამინისტროს მომსახურების სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ავტონომიური რესპუბლიკის განათლების, კულტურისა და სპორტის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>შპს სავაჭრო ცენტრი 2009</Name>
+</Organization>
+<Organization>
+<Name>ხარაგაულის მუნიციპალიტეტის ეთერ კიკნაძის სახელობის სკოლამდელ დაწესებულებათა გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>,,ბოლნისის მუნიციპალიტეტის დაავადებათა აღრიცხვის, კონტროლის, საზოგადოებრივი ჯანდაცვისა და პრევენციული მედიცინის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო რწმუნებულის გუბერნატორის ადმინისტრაცია ამბროლაურის, ლენტეხის, ონის, ცაგერის მუნიციპალიტეტებში</Name>
+</Organization>
+<Organization>
+<Name>შპს რესპუბლიკური კლინიკური ფსიქონევროლოგიური საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>შპს აკადემიკოს ნიკოლოზ ყიფშიძის სახელობის ცენტრალური საუნივერსიტეტო კლინიკა</Name>
+</Organization>
+<Organization>
+<Name>საქ.სასჯელაღსრულების, პრობაციისა და იურიდიულ დახმარების საკითხთა სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>სს საქართველოს ნავთობისა და გაზის კორპორაცია</Name>
+</Organization>
+<Organization>
+<Name>თეთრიწყაროს მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ა(ა)იპ სიღნაღის მუნიციპალიტეტის სკოლამდელი სააღმზრდელო დაწესებულება</Name>
+</Organization>
+<Organization>
+<Name>ხობის მუნიციპალიტეტის საფეხბურთო კლუბი კოლხეთი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს სახელმწიფო უზრუნველყოფის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შპს ქუთაისის ფსიქიკური ჯანმრთელობის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საქ.ხალხური სიმღერისა და ცეკვის სახ.ანსამბლი  ერისიონი </Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის, ძველი თბილისის რაიონის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ა.რ. ფინანსთა და ეკონომიკის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>დუშეთის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ვ.აბაშიძის სახელობის მუსიკალური კომედიისა და დრამის სახელმწიფო თეატრი</Name>
+</Organization>
+<Organization>
+<Name>თბილისის ზოოლოგიური პარკი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ,,მარნეული სოფწყალი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს იუსტიციის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>აგროსერვის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>წალენჯიხის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ჩოხატაურის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>წალკის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,ქ. ბათუმის რესპუბლიკური კლინიკური საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის გამწვანებისა და ლანდშაფტური დაგეგმარების სამსახური</Name>
+</Organization>
+<Organization>
+<Name>შსს კონტრდაზვერვის დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>ყვარლის მუნიციპალიტეტის კულტურული მემკვიდრეობის სპორტულ-გამაჯანსაღებელი და დასასვენებელი ობიექტების დაცვისა და განვითარების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის მუნიციპალური ტრანსპორტი</Name>
+</Organization>
+<Organization>
+<Name>ბაღდათის მუნიციპალიტეტის კომუნალური გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ბაღდათის სკოლამდელი სააღმზრდელო დაწესებულება</Name>
+</Organization>
+<Organization>
+<Name>საფეხბურთო კლუბი ლანჩხუთის გურია</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს შსს აჭარის არ მთავარი სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>შოთა რუსთაველის სახელობის სახელმწიფო აკადემიური დრამატული თეატრი</Name>
+</Organization>
+<Organization>
+<Name>წყალტუბოს მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შპს საქართველოს გაერთიანებული წყალმომარაგების კომპანია</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს ქ.თბილისის №30 შერეული  პოლიკლინიკა-საოჯახო  მედიცინის  სასწავლო  კლინიკური  ცენრტი</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის ისანი-სამგორის რაიონის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>შსს გურიის სამხარეო მთავარი სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>უმწეოთა და უპოვართა სამსახური</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის ავტონომიური რესპუბლიკის უმაღლესი საბჭო</Name>
+</Organization>
+<Organization>
+<Name>გუდაურის განვითარების ფონდი</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ქალაქ ფოთის სკოლამდელი სააღმზრდელო გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>წალენჯიხის მუნიციპალიტეტის დასუფთავებისა და კეთილმოწყობის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ა/რ მთავრობის საქვეუწყებო დაწესებულება - ტელევიზიისა და რადიომაუწყებლობის დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>სკოლამდელი სააღმზრდელო დაწესებულების ქარელის მ/გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>თიანეთის სკოლამდელი და სკოლისგარეშე საგანმანათლებლო სააღმზრდელო დაწესებულებების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>სამტრედიის მუნიციპალიტეტის კომუნალური გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს.საჩხერის წყალკანალი</Name>
+</Organization>
+<Organization>
+<Name>პროფესიული კოლეჯი განთიადი</Name>
+</Organization>
+<Organization>
+<Name>ახალციხის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საგარეჯოს მუნიციპალიტეტის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>ასპინძის სკოლამდელი აღზრდის დაწესებულებთა გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ახალგორის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს სახელმწიფო დაცვის სპეციალური სამსახური</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს პარლამენტის ეროვნული ბიბლიოთეკა</Name>
+</Organization>
+<Organization>
+<Name>ასპინძის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>სამხრეთ ოსეთის ადმინისტრაცია</Name>
+</Organization>
+<Organization>
+<Name>შპს რუსთავის ნაგავსაყრელი</Name>
+</Organization>
+<Organization>
+<Name>ა (ა) იპ. ქობულეთის სოფლის წყალი</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ერთეული ხარაგაულის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ხელვაჩაურის საბავშვო ბაღების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ეროვნული სკრინინგ ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ავტონომიური რესპუბლიკის მთავრობის საქვეუწყებო დაწესებულება - გარემოს დაცვისა და ბუნებრივი რესურსების სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>შპს ვ. სანიკიძის სახელობის ომის ვეტერანთა კლინიკური ჰოსპიტალი</Name>
+</Organization>
+<Organization>
+<Name>თიანეთის მუნიციპალიტეტის საკრებულო</Name>
+</Organization>
+<Organization>
+<Name>დიდუბე ჩუღურეთის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს კომუნიკაციების ეროვნული კომისია</Name>
+</Organization>
+<Organization>
+<Name>ვანის კომუნალური გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>მერისის საჯარო სკოლა პანსიონი</Name>
+</Organization>
+<Organization>
+<Name>თბილისის საბავშვო ბაგა-ბაღების მართვის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შპს ინფრასტრუქტურა-2008</Name>
+</Organization>
+<Organization>
+<Name>ჩაისუბნის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აჭარის არ ფინ. და ეკ. სამინისტროს საქ. დაწესებულება სახაზინო სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის ვაკე-საბურთალოს რაიონის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>ვაჩიანის საბავშვო ბაღის</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს ,,აბასთუმნის ტუბსაწინააღმდეგო საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>შსს-შიდა ქართლის სამხარეო მთავარი სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>მონაცემთა გაცვლის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>ოზურგეთის მუნიციპალიტეტის გამგეობის საფეხბურთო კლუბი მერცხალი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს გარემოს დაცვის სამინისტროს ცენტრალური აპარატი</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის შრომის ჯანმრთელობისა და სოციალური დაცვის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>ქ.ქუთაისის ბაგა-ბაღების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N191 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>კონკურენციისა და სახელმწიფო შესყიდვების სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>ტყიბულის მუნიციპალიტეტის სკოლამდელი აღზრდის დაწესებულებათა  გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>თერჯოლის დასუფთავებისა და კეთილმოწყობის მნუნიციპალური სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ჭიათურის დასუფთავების და კეთილმოწყობის სერვისცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ლენტეხის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შპს ამბროლაურის კომუნალური 2009</Name>
+</Organization>
+<Organization>
+<Name>შპს ო.ჩხობაძის სახ. ინვალიდთა და ხანდაზმულთა სამკურნალო-სარეაბილიტაციო კლინიკირი ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>წყალტუბოს მუნიციპალიტეტის სათნოების სახლი</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის მუნიციპალიტეტის ,,ზუგდიდდასუფთავება</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს დაზვერვის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ს.ს.ი.პ. „ტექნიკური და სამშენებლო ლაბორატორია“</Name>
+</Organization>
+<Organization>
+<Name>წალენჯიხის სკოლამდელი აღზრდის ცენტრი ააიპ</Name>
+</Organization>
+<Organization>
+<Name>ჭიათურის N12 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს რადიოლოგიური კლინიკა</Name>
+</Organization>
+<Organization>
+<Name>ხობის მუნიციპალიტეტის სათნოების სახლი</Name>
+</Organization>
+<Organization>
+<Name>სკოლის გარეშე სასპორტო დაწესებულებების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს იუსტიციის უმაღლესი საბჭო</Name>
+</Organization>
+<Organization>
+<Name>ა.(ა)ი.პ.,, ოზურგეთის დასუფთავების სამსახური</Name>
+</Organization>
+<Organization>
+<Name>სენაკის მუნიციპალიტეტის მზრუნველობამოკლებულთა კვების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ქ. ახალციხის N7 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ახმეტის მუნიციპალიტეტის საბავშო ბაღების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ჭიათურის გაერთიანებული საბავშვო ბაღი</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ავტონომიური რესპუბლიკის მთავრობის აპარატი</Name>
+</Organization>
+<Organization>
+<Name>ცაგერის მუნიც. სკოლამდელი დაწესებულების სამსახური</Name>
+</Organization>
+<Organization>
+<Name>შპს პერსპექტივა</Name>
+</Organization>
+<Organization>
+<Name>დ. შუახევის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ააიპ შუახევის წყალკანალი</Name>
+</Organization>
+<Organization>
+<Name>შპს ვახტანგ ბოჭორიშვილის სახელობის სეფსისის საწინაღმდეგო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ჯანსუღ კახიძის სახელობის თბილისის მუსიკალურ-კულტურული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,თუშური ცხვრის ჯიშსაშენი</Name>
+</Organization>
+<Organization>
+<Name>აჟარის (ზემო აფხაზეთის) მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ბოლნისის მუნიციპალიტეტის ბოლნისის სათნოების სახლი</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო რწმუნებულის-გუბერნატორის ადმინისტრაცია იმერეთში</Name>
+</Organization>
+<Organization>
+<Name>შსს სამცხე-ჯავახეთის სამხარეო მთავარი სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>შპს ბავშვთა ჯანმრთელობის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ახალგორის მუნიციპალიტეტის წეროვნის დევნილთა დასახლების სკოლამდელი სააღმზრდელო დაწესებულება</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს სტატისტიკის ეროვნული სამსახური (საქსტატი)</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის მერიის სსიპ ,,თბილისის არქიტექტურის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ჩოხატაურის მუნიციპალიტეტის სკოლამდელი და სკოლისგარეშე სააღმმზდელო საგანმანათლებლო დაწესებულება მომავალი</Name>
+</Organization>
+<Organization>
+<Name>ახალციხის მუნიციპალიტეტის სოფელ ანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოციალურად დაუცველ პირთა მომსახუების ორგანიზაცია მოქალაქეთა თანადგომა ,,</Name>
+</Organization>
+<Organization>
+<Name>შპს უძრავი ქონება-თბილისი</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის აკ ივ. ჯავახიშვილის სახ. 53საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ოზურგეთის მუნიციპალიტეტის სკოლამდელი სააღმზრდელო საგანმანათლებლო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,ლაბორატორია</Name>
+</Organization>
+<Organization>
+<Name>ს.ს ელექტროენერგეტიკული სისტემის კომერციული ოპერატორი</Name>
+</Organization>
+<Organization>
+<Name>შსს კახეთის სამხარეო მთავარი სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>ვანის მუნიციპალიტეტის სკოლამდელი და სკოლისგარეშე სააღმზრდელო დაწესებულებების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს ქ. თბილისის ბავშთა ინფექციური კლინიკური საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>კასპის მუნიციპ სკოლამდელი აღზ. დაწ. გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>სსიპ აკრედიტაციის ერთიანი ეროვნული ორგანო- აკრედიტაციის  ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ა.ა.ი.პ ქედის ბაგა-ბაღების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>გარემოს ეროვნული სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შპს საფეხბურთო კლუბი სიონი</Name>
+</Organization>
+<Organization>
+<Name>სატყეო საბაზისო სანერგე მეურნეობა</Name>
+</Organization>
+<Organization>
+<Name>ბავშვთა და ახალგაზრდობის ეროვნული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>დმანისის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის ვ. სარაჯიშვილის სახ. სახელმწიფო კონსერვატორია</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის სასაფლაოები</Name>
+</Organization>
+<Organization>
+<Name>შპს დასავლეთ საქართველოს ტუბერკულოზისა და ფილტვის დაავადების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ალ. გრიბოედოვის სახელობის სახელმწიფო რუსული დრამატული თეატრი</Name>
+</Organization>
+<Organization>
+<Name>გორის მუნიციპალიტეტის სპორტული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ადიგენის სკოლამდელი აღზრდის დაწესებულება</Name>
+</Organization>
+<Organization>
+<Name>მარტვილის მუნიციპალიტეტის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>მარტვილის მუნიციპალიტეტის ,,კეთილმოწყობის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს კეთილმოწყობა</Name>
+</Organization>
+<Organization>
+<Name>გორის მუნიციპალიტეტის თენგიზ ბურჯანაძის სახელობის საფეხბურთო კლუბი გორის დილა</Name>
+</Organization>
+<Organization>
+<Name>ააიპ პროფესიული კოლეჯი ჰორიზონტი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. თბილისის #2 სამკურნალო-პროფილაქტიკური ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სასჯელაღსრულებისა და პრობაციის სასწავლო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საზოგადოებრივი კოლეჯი აისი</Name>
+</Organization>
+<Organization>
+<Name>შპს გაზეთი აჭარა და ადჟარია</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო ქონების ეროვნული სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>რუსთავის მოხუცებულთა სახლი</Name>
+</Organization>
+<Organization>
+<Name>წყალტუბოს მუნიციპალიტეტის კეთილმოწყობა</Name>
+</Organization>
+<Organization>
+<Name>სამტრედიის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო რწმუნებულის-გუბერნატორის ადმინისტრაცია ლანჩხუთის, ოზურგეთისა და ჩოხატაურის მუნიციპალიტეტებში</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ენერგეტიკისა და ბუნებრივი რესურსების სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>დედოფლისწყაროს მუნიციპალიტეტის შ.პ.ს.„სერვისი-2007“</Name>
+</Organization>
+<Organization>
+<Name>სახმელეთო ტრანსპორტის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ეროვნული მუსიკალური ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ფოლკლორის სახელმწიფო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო რწმუნებულის-გუბერნატორის ადმინისტრაცია( ბოლნისის,გარდაბნის,დმანისის,თეთრიწყაროს,მარნეულის,წალკის მუნიციპალიტეტებში და თვითმმართველ ქალაქ რუსთავში)</Name>
+</Organization>
+<Organization>
+<Name>რევაზ ლაღიძის სახელობის სამუსიკო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ონის კომუნალური სამსახური</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს საგარეო საქმეთა სამინისტროს სასწავლო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>რუსთავის მუნიციპალური ავტოტრანსპორტის  საწარმო</Name>
+</Organization>
+<Organization>
+<Name>წყალტუბოს მუნიციპალიტეტის დასუფთავება</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ბათუმის არქეოლოგიური მუზეუმი</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო რწმუნებულის - გუბერნატორის ადმინისტრაცია ადიგენის, ასპინძის, ახალციხის, ახალქალაქის, ბორჯომისა და ნინოწმინდის მუნიციპალიტეტებში</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს  საქართველოს მაღალი ტექნოლოგიების ეროვნული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ოლიმპიური რეზერვების მზადების ეროვნული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ხარაგაულკეთილმოწყობა</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ავტონომიური რესპუბლიკის უმაღლესი საბჭო</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს.ვალეს კომუნალური გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>წალკის რაიონის კომუნალური მომსახურებისა და წყალმომარაგების საწარმო</Name>
+</Organization>
+<Organization>
+<Name>ტყიბულის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საჯარო სამსახურის ბიურო</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. მარნეულის მუნიციპალიტეტის ავტოპარკი</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ხაშურის N5 საბავშვო ბაღი</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,საქართველოს ნავთობისა და გაზის სერვისული კომპანია</Name>
+</Organization>
+<Organization>
+<Name>ევროპ. და ეროატლ. სტრუქ.-ში ინტეგრ. სახ. მინ.-ის აპ.</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ქობულეთის წყალი</Name>
+</Organization>
+<Organization>
+<Name>შპს ქართული ტრადიციები 2011</Name>
+</Organization>
+<Organization>
+<Name>შპს საოჯახო მედიცინის ცენტრი - აფხაზეთი</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ავტონომიური რესპუბლიკის ტურიზმისა და კურორტების დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>ხელნაწერთა ეროვნული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს ხობის მოამბე</Name>
+</Organization>
+<Organization>
+<Name>არჩილ ხორავას სახელობის სკოლისგარეშე სახელოვნებო სასწავლებელი</Name>
+</Organization>
+<Organization>
+<Name>გორის მუნიციპალიტეტის ,,საცურაო აუზი</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთი-სერვისი</Name>
+</Organization>
+<Organization>
+<Name>სკოლისგარეშე სასპორტო საგანმანათლებლო დაწესებულება - ფეხბურთის სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ონის მუნიციპალიტეტის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>ნინოწმინდის საბავშვო ბაღი წიწერნაკ</Name>
+</Organization>
+<Organization>
+<Name>შპს ნარკოლოგიური ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს საკონსტიტუციო სასამართლო</Name>
+</Organization>
+<Organization>
+<Name>ააიპ  ჭიათურის მუნიციპალიტეტის გამგეობის #27 კომპლექსური სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ყვარლის კეთილმოწყობის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>შპს კომუნალური დაწესებულებების კომბინატი</Name>
+</Organization>
+<Organization>
+<Name>ქ. მესტიის N1 საბავშვო ბაღი</Name>
+</Organization>
+<Organization>
+<Name>თეთრიწყაროს მუნიციპალიტეტის სკოლამდელი აღზრდის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის მუნიციპალიტეტის საკრებულოს სკოლამდელი საგანმანათლებლო სააღმზრდელო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თელავის მუნიციპალიტეტის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ჩოხატაურის მუნიციპალიტეტის კომპლექსური სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გორის მუნიციპალიტეტის მოსწავლე-ახალგაზრდობის კულტურულ-საგანმანათლებლო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თერჯოლის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>უზრუნველყოფა</Name>
+</Organization>
+<Organization>
+<Name>შპს საქართველოს მყარი ნარჩენების მართვის კომპანია</Name>
+</Organization>
+<Organization>
+<Name>სსიპ - განათლების ხარისხის განვითარების ეროვნული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. სისხლის გადასხმის საქალაქო სადგური</Name>
+</Organization>
+<Organization>
+<Name>საგარეჯოს სკოლამდელი და სკოლის გარეშე სასწავლო სააღმზრდელო დაწესებულებების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ჩხოროწყუს მუნიციპალიტეტის განათლების ცენტრისა და კომპლექსური სასპორტო სკოლის გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის ავტონომიური რესპუბლიკის ეკონომიკის სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>შუახევის ბაგა-ბაღების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>გურჯაანის მუნიციპალიტეტის სოფლების სანიაღვრე მეურნეობისა და წყლის ქსელების მომსახურება</Name>
+</Organization>
+<Organization>
+<Name>შპს ქალაქ თბილისის ფსიქიკური ჯანმრთელობის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ქურთის მუნიციპალიტეტის საგამომცემლო დაწესებულება  ხეობის მაცნე</Name>
+</Organization>
+<Organization>
+<Name>ქურთის მუნიციპალიტეტის სკოლამდელი სააღმზრდელო დაწესებულება</Name>
+</Organization>
+<Organization>
+<Name>ა(ა)იპ თერჯოლის სკოლამდელი აღზრდის მუნიციპალური ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თბილისის 203-ე ყრუ და სმენადაქვეითებულთა საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გარდაბნის მუნიციპალიტეტის სკოლამდელი სააღმზრდელო დაწესებულება</Name>
+</Organization>
+<Organization>
+<Name>ა(ა)ი.პ ,,კომუნალური მომსახურების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სოფელ  სალიბაურის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აკაკი წერეთლის სახელობის ქუთაისის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხარაგაულის მუნიციპალიტეტის სათნოების სახლი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს საკანონმდებლო მაცნე</Name>
+</Organization>
+<Organization>
+<Name>ქობულეთის მუნიციპალიტეტის საბავშვო ბაღების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ლაგოდეხის მუნიციპალიტეტის სკოლამდელი აღზრდის დაწესებულებათა გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>საჩხერის ო. ციმაკურიძის სახ. კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სამტრედიის სკოლამდელი აღზრდის დაწესებულებათა გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N202 უსინათლო ბავშვთა საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს საფეხბურთო კლუბი შუქურა</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის მუნიციპალიტეტის სპორტული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>არასამეწარმეო იურიდიული პირი ახალქალაქის #1 საბავშვო ბაღი</Name>
+</Organization>
+<Organization>
+<Name>მწერალთა სახლი</Name>
+</Organization>
+<Organization>
+<Name>ზესტაფონის მუნიციპალიტეტის სკოლამდელი აღზრდის დაწესებულებების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>წყალტუბოს სკოლამდელ დაწესებულებათა გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ა(ა)იპ ხულოს მუნიციპალიტეტის საბავშვო ბაღების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის სასწრაფო სამედიცინო დახმარების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შოთა რუსთაველის ეროვნული სამეცნიერო ფონდი</Name>
+</Organization>
+<Organization>
+<Name>დუშეთის მუნიციპალიტეტის სკოლამდელი აღზრდის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს კინემატოგრაფიის ეროვნული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის #198 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N 200 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ალ. ქაჯაიას სახელობის სურამის ფსიქიატრიული საავადმყოფო  საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ფინანსური მონიტორინგის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>თუშეთის დაცული ლანდშაფტის ადმინისტრაცია</Name>
+</Organization>
+<Organization>
+<Name>სსიპ-საქართველოს სტანდარტების, ტექნიკური რეგლამენტებისა და მეტროლოგიის ეროვნული სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>თელავის ისტორიული მუზეუმი</Name>
+</Organization>
+<Organization>
+<Name>ახმეტის მუნიციპალიტეტის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ქ. ბათუმის სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბორჯომის მუნიციპალიტეტის სოციალურად დაუცველი მოსახლეობის მომსახურების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თელავის ბაგა-ბაღების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>სმართ ლოჯიქი</Name>
+</Organization>
+<Organization>
+<Name>საჩხერის მოსწავლე-ახალგაზრდობის სახლი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. გარე განათება</Name>
+</Organization>
+<Organization>
+<Name>ახმეტის სოციალური სახლი</Name>
+</Organization>
+<Organization>
+<Name>შპს  ახალქალაქის სანდასუფთავება</Name>
+</Organization>
+<Organization>
+<Name>სენაკის მუნიციპალიტეტის კეთილმოწყობის, დასუფთავების და გამწვანების მოვლა-პატრონობის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს გორის კეთილმოწყობის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს.მცხეთის კომუნალური გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>თბილისის ზაქარია ფალიაშვილის სახელობის #1 ცენტრალური სამუსიკო სასწავლებელი</Name>
+</Organization>
+<Organization>
+<Name>რუსთავის კორპუსი</Name>
+</Organization>
+<Organization>
+<Name>დუშეთის მუნიციპალიტეტის უფასო სასადილო მზრუნველობა მოკლებულთათვის</Name>
+</Organization>
+<Organization>
+<Name>საჩხერის გაერთიანებული საბავშვო ბაღი</Name>
+</Organization>
+<Organization>
+<Name>შპს ნევრონი</Name>
+</Organization>
+<Organization>
+<Name>ქუთაისის დ ნაზარიშვილის სახ საოჯახო მედიცინის და საოჯახო მედიცინის რეგიონალური სასწავლო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>მარნეულის მუნიციპალიტეტის ტერიტორიაზე არსებული ბაგა -ბაღების გაერთიანება (სკოლამდელი აღზრდის ცენტრი)</Name>
+</Organization>
+<Organization>
+<Name>გურჯაანის სკოლამდელი სააღმზრდელო დაწესებულებების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>შპს თელავის ფსიქონევროლოგიური დისპანსერი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს სამტრედიის მაცნე</Name>
+</Organization>
+<Organization>
+<Name>მცხეთის მუნიციპალიტეტის სკოლამდელი აღზრდის დაწესებულებათა გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,წყალთა სახეობის ცენტრი - ტონუსი</Name>
+</Organization>
+<Organization>
+<Name>ბორჯომის სკოლამდელი აღზრდის დაწესებულება</Name>
+</Organization>
+<Organization>
+<Name>შპს რუსთავის ფსიქიკური ჯანმრთელობის ცენტრიი</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,შირაქი</Name>
+</Organization>
+<Organization>
+<Name>თელავის მუნიციპალიტეტის საბიბლიოთეკო გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს ბედიანის ფსიქიატრიული საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>საგარეჯოს კულტურის ობიექტების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>მზრუნველობას მოკლებულთა სასადილო</Name>
+</Organization>
+<Organization>
+<Name>ქალაქ რუსთავის საბავშვო ბაგა-ბაღების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის მუნიციპალიტეტის უფასო სასადილო მზრუნველობამოკლებულთათვის</Name>
+</Organization>
+<Organization>
+<Name>საქ. ფინანსთა სამინისტროს საგამოძიებო სამსახური</Name>
+</Organization>
+<Organization>
+<Name>შპს სენაკის სარაიონთაშორისო ფსიქონევროლოგიური დისპანსერი</Name>
+</Organization>
+<Organization>
+<Name>სახლი თანადგომა</Name>
+</Organization>
+<Organization>
+<Name>ბოლნისის მუნიციპალიტეტის სკოლამდელი აღზრდისა და მეთოდური კოორდინაციის დაწესებულება</Name>
+</Organization>
+<Organization>
+<Name>არასამეწარმეო იურიდიული პირი ახალქალაქის #2 საბავშვო ბაღი</Name>
+</Organization>
+<Organization>
+<Name>ა.ი.პ. ახალციხის სკოლამდელი აღზრდის დაწესებულება</Name>
+</Organization>
+<Organization>
+<Name>სოხუმის სახელმწიფო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>საგარეჯოს სათნოების სახლი</Name>
+</Organization>
+<Organization>
+<Name>სს ,,საქართველოს რკინიგზა</Name>
+</Organization>
+<Organization>
+<Name>წმინდა ნინოს სახელობის ქუთაისის N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დიასპორის საკითხებში საქართველოს სახელმწიფო მინისტრის აპარატი</Name>
+</Organization>
+<Organization>
+<Name>თბილისი N136 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის თოჯინებისა და მოზარდ მაყურებელთა სახელმწიფო თეატრი</Name>
+</Organization>
+<Organization>
+<Name>ა(ა)იპ ბათუმის ყინულის სასახლე</Name>
+</Organization>
+<Organization>
+<Name>ს. დეხვირის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გიორგი ელიავას სახელობის ბაქტერიოფაგიის, მიკრობიოლოგიისა და ვირუსოლოგიის ინსტიტუტი</Name>
+</Organization>
+<Organization>
+<Name>ზაქარია ფალიაშვილის სახელობის სამუსიკო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ - აჭარის ავტონომიური რესპუბლიკის სოფლის მეურნეობის სამინისტროს ლაბორატორია</Name>
+</Organization>
+<Organization>
+<Name>აიპ,,ხობის მუნიციპალიტეტის განათლების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს შავი ზღვის ფლორისა და ფაუნის შემსწავლელი სამეცნიერო-კვლევითი ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს პარლამენტთან არსებული ჰერალდიკის სახელმწიფო საბჭო</Name>
+</Organization>
+<Organization>
+<Name>ქალაქ ქუთაისის მადლიერების სახლი</Name>
+</Organization>
+<Organization>
+<Name>თბილისის მერიის საკონცერტო ორკესტრი ბიგ-ბენდი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს სახალხო დამცველის აპარატი</Name>
+</Organization>
+<Organization>
+<Name>შპს მარაბდა-კარწახის რკინიგზა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს მოსწავლე-ახალგაზრდობის ეროვნული სასახლე</Name>
+</Organization>
+<Organization>
+<Name>შპს საზღვაო ტექსერვისი</Name>
+</Organization>
+<Organization>
+<Name>გიორგი ლეონიძის სახელობის ქართული ლიტერატურის სახელმწიფო მუზეუმი</Name>
+</Organization>
+<Organization>
+<Name>შინაგან საქმეთა სამინისტროს განსაკუთრებულ დავალებათა დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ,,საჩხერის კეთილმოწყობა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნასპერის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ახმეტის მუნიციპალური ტყე-პარკების მართვის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>გარდაბნის მუნიციპალიტეტის საზოგადოებრივი ჯანმრთლეობისა და უსაფრთხო გარემოს უზრუნველყოფის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ხულოს სახელმწიფო დრამატული თეატრი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს სახელმწიფო აგრარული უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ქ. ქუთაისის N15 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ,,ახმეტის მუნიციპალიტეტის კეთილმოწყობის სამსახური,,</Name>
+</Organization>
+<Organization>
+<Name>ს. ალპანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მოსწავლე-ახალგაზრდობის სასახლე</Name>
+</Organization>
+<Organization>
+<Name>ა(ა)იპ ჩოხატაურის მუნიციპალიტეტის კომუნალური სამსახური სხივი</Name>
+</Organization>
+<Organization>
+<Name>ტყიბულის მუნიციპალიტეტის კომუნალური გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>დედოფლისწყაროს მუნიციპალიტეტის სკოლამდელი და სკოლისგარეშე სააღმზრდელო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ქალაქ ქუთაისის კულტურულ, სახელოვნებო, საგანმანათლებლო დაწესებულებათა გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ხალხური ხელოვნების სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ტაძრისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბოლნისის სპორტულ გამაჯანსაღებელი კოპლექსი</Name>
+</Organization>
+<Organization>
+<Name>ს. ლაშეს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხაშურის მუნიციპალიტეტის კულტურის ცენტრების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო ზრუნვის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>ს. პატარა ირაგის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ხელოვნების მუზეუმი</Name>
+</Organization>
+<Organization>
+<Name>შპს ”ენერგოტრანსი”</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N81 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ბათუმის N22 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გარდაბნის მუნიციპალიტეტის სპორტული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ს. ხაჯალიის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სამედიცინო მედიაციის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>შპს ვეტერინარი</Name>
+</Organization>
+<Organization>
+<Name>ქ. ფოთის  პროფესიული სწავლების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ორბეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დ.მანგლისის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. წინწყაროს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>არასამეწარმეო (არაკომერციული) იურიდიული პირი - კომპლექსური სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შუახევის რესურსცენტრი</Name>
+</Organization>
+<Organization>
+<Name>მ.თუმანიშვილის სახელობის კინომსახიობთა თეატრი</Name>
+</Organization>
+<Organization>
+<Name>ააიპ ფოლკლორის ცენტრი–სიმღერისა და ცეკვის სახელმწიფო ანსამბლი</Name>
+</Organization>
+<Organization>
+<Name>შპს საქართველოს გაერთიანებული სამელიორაციო სისტემების კომპანია</Name>
+</Organization>
+<Organization>
+<Name>ქ. ახალქალაქის N 5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ილია ჭავჭავაძის სახელობის სამეცნიერო ბიბლიოთეკა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბურნასეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ახალქალაქის N 4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ტალერის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს კეთილმოწყობა</Name>
+</Organization>
+<Organization>
+<Name>დუშეთის მუნიციპალიტეტის კულტურულ-საგანმანათლებლო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სოფელ  წინწყაროს  საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. გუმათის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქობულეთის სახელოვნებო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გრიგოლ წულუკიძის სამთო ინსტიტუტი</Name>
+</Organization>
+<Organization>
+<Name>ქურთის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შპს სარაგბო კლუბი ბათუმი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს შინაგან საქმეთა სამინისტროს კონსტიტუციური უსაფრთხოების დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>ქ. ახალციხის N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ნინოწმინდის საავადმყოფო-პოლიკლინიკური და სასწრაფო სამედიცინო დახმარების სამსახური 03-ის გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ს.ს. ახალციხის რაიონული საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>ნარკომანიით დაავადებულ პირთა რეაბილიტაციის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს აფხაზეთიდან იძულებით გადაადგილებულ პირთა ჯვარის ამბულატორია</Name>
+</Organization>
+<Organization>
+<Name>ქ. ახალციხის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ხალხური ცეკვის სახელმწიფო ანსამბლი ხორუმი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ზუგდიდის დევნილთა პოლიკლინიკა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N 118 საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საჯარო აუდიტის ინსტიტუტი</Name>
+</Organization>
+<Organization>
+<Name>წყალტუბოს სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქუთაისის ბალანჩივაძეების სახელობის ოპერის სახელმწიფო თეატრი და მუსიკალური დარბაზი</Name>
+</Organization>
+<Organization>
+<Name>სს საქართველოს სახელმწიფო ელექტროსისტემა</Name>
+</Organization>
+<Organization>
+<Name>ს.ახალბედისეულის საჯარო   სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.შემოქმედის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჩიბათის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N98 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სამტრედიის N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ავტონომიური რესპუბლიკის განათლების, კულტურისა და სპორტის სამინისტროს საქვეუწყებო დაწესებულება სპორტისა და ახალგაზრდობის საქმეთა დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს შინაგან საქმეთა სამინისტრო სპეციალური ოპერატიული დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>ს. ლენჯერის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. განთიადის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სკოლისგარეშე სასპორტო საგანმანათლებლო დაწესებულების ხაშურის კომპლექსური სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მუჟავას თემის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის #4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. წრომის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სკოლისგარეშე სახელოვნებო საგანმანათლებლო დაწესებულების ხელვაჩაურის სახელოვნებო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N163 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. თვალადის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კორხის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სასწრაფო სამედიცინო დახმარების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის დიდგორის რაიონის გამგეობა</Name>
+</Organization>
+<Organization>
+<Name>ჩალაუბნის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ კიარიაკის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქუთაისის N9 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჭანდრის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>რუსთავის ახალგაზრდობის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ბოსლევის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქალაქ ხაშურის მუნიციპალიტეტის ბიბლიოთეკა</Name>
+</Organization>
+<Organization>
+<Name>ქობულეთის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ბაღდათის სპორტული სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ზესტაფონის #6საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ხრეითის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N151 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჩოლურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მელეს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ლუხვანოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.ღვინიაშვილის სახ. ს. ზემო კაჭრეთის  საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს,,სერვისი-7</Name>
+</Organization>
+<Organization>
+<Name>ს. მეორე ნამიკოლაოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>პროფესიული კოლეჯი მერმისი</Name>
+</Organization>
+<Organization>
+<Name>შუქრუთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აკადემიკოს ილია ვეკუას სახელობის ფიზიკა-მათემატიკის N42 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ივ.ხრიკულის სახ. ს.ხცისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.საყუნეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის N 4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბნავისის  საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დ. ბედიანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დაბა კაზრეთის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>კონსტიტუციონალიზმის კვლევისა და ხელშეწყობის რეგიონალური ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,დუშეთის მუნიციპალიტეტის დასუფთავებისა და კეთილმოწყობის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>დ. ზაჰესის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მორძგვეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,ჯორჯიან რეილვეი ტრანსკონტეინერ</Name>
+</Organization>
+<Organization>
+<Name>ს. გლდანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N147 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N207 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჩუმლაყის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნაკიანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.ლანჩხუთის # 1 სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. საგარეჯოს N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აბაშის სკოლამდელი და სკოლისგარეშე სააღმზრდელო დაწესებულება</Name>
+</Organization>
+<Organization>
+<Name>თბილისი N161 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N182 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კიზილაჯლოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ვაზისუბნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ახალციხის N6 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს საქგეოლოგია</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის N10 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. რუსთავის N20 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სატივის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. თამარაშენის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ყვარელწყალმომსახურება</Name>
+</Organization>
+<Organization>
+<Name>ს. თხინვალის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ქ. რუსთავის #23 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქუთაისის N23 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>წალენჯიხის მუნიციპალიტეტის საკალანდიოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ფინანსთა სამინისტროს სახაზინო სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ქ. სენაკის N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო სამშენებლო კომპანია</Name>
+</Organization>
+<Organization>
+<Name>ქ.რუსთავის  #3  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ქუთაისის N17 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სამტრედიის N7 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N 175 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ბორჯომის ცენტრალური (ისტორიული) პარკის აღდგენისა და განვითარების ფონდი</Name>
+</Organization>
+<Organization>
+<Name>შპს სპორტული კომპლექსი - სამტრედია</Name>
+</Organization>
+<Organization>
+<Name>ს. ძმაგულის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. რუსთავის N5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N133 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ქუთაისის N12 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მესტიის მუნიციპალიტეტის გარე განათების სამსახური</Name>
+</Organization>
+<Organization>
+<Name>სენაკის მუნიციპალიტეტის #1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ხავეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ფანაგის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ქუთაისი ა.დეკანოიძის სახ.N32 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ხრეითის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ქალაქის ფოთის მოსწავლე ახალგაზრდობის შემოქმედების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ს.დედალაურის  მალხაზ აბაშიძის სახ. ჩაის მეურნეობის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N61 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბაკურციხის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ლესიჭინეს N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ამაღლების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მენჯის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მაშავერის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>კვალითის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ხაშურის N7 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>კურორტი ბეშუმი</Name>
+</Organization>
+<Organization>
+<Name>ცხუნკურის №2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბოსლების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N67 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნაფარეულის  საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ავტონომიური რესპუბლიკის უმაღლესი საარჩევნო კომისია</Name>
+</Organization>
+<Organization>
+<Name>შპს „რეილვეი ფროფერთი მენეჯმენტი“</Name>
+</Organization>
+<Organization>
+<Name>ს.ს.ი.პ. სამტრედიის #4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის მარიონეტების სახელმწიფო თეატრი</Name>
+</Organization>
+<Organization>
+<Name>ს. ხოფურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ქუთაისის N30 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საწარმოთა მართვის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N 113 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზესტაფონის მუნიციპალიტეტის ტაბაკინის საჯაროსკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხაშურის მუნიციპალიტეტის სოფელ ქემფრის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. საჯავახოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.ს.ი.პ. სამტრედიის #12 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის მუნიციპალიტეტის საფეხბურთო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ზუგდიდის სარაიონთაშორისო ფსიქონარკოლოგიური დისპანსერი</Name>
+</Organization>
+<Organization>
+<Name>სსიპ სოფ. ზემო კარაბულახის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ოაზისი 2008</Name>
+</Organization>
+<Organization>
+<Name>ს. თაიას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მეორე სვირის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. პერევისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. დიდივანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დისველის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>წალენკიხის მუნიციპალიტეტის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ა.ა.ი.პ. ქედის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სამტრედიის სოფ. ეწერის  საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>კოლაგის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ახუთის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბაზაქლოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მ.გრუსევსკის სახელობის N41 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აიპ საფეხბურთო კლუბი ოთოლთა</Name>
+</Organization>
+<Organization>
+<Name>ს. ონოღიის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. არაშენდის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს თეთრიწყაროს კეთილმოწყობისა და დასუფთავების სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ს. ნაოხრების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კირცხის თემის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.საციხურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ლიხეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ქუთაისის #45 ყრუ ბავშვთა სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მაშველთა გადამზადების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ს. ბასილეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ეროვნული ბოტანიკური ბაღი</Name>
+</Organization>
+<Organization>
+<Name>ს.გვერძინეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხელვაჩაურის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ქ. ფოთის N 7 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ხაშურის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მცხეთის მუნიციპალიტეტის კულტურისა და სასპორტო დაწესებულებების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>პროფესიული კოლეჯი მოდუსი</Name>
+</Organization>
+<Organization>
+<Name>ოზურგეთის მუნიციპალიტეტის ისტორიული მუზეუმი</Name>
+</Organization>
+<Organization>
+<Name>მიკრო და ნანოელექტრონიკის ინსტიტუტი</Name>
+</Organization>
+<Organization>
+<Name>აიპ  სკოლამდელი და სკოლის გარეშე სააღმზრდელო დაწესებულება ამბროლაურის განათლების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>აკაკი წერეთლის სახელობის ქალაქ ბათუმის საჯარო ბიბლიოთეკა</Name>
+</Organization>
+<Organization>
+<Name>შაშიანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.თეჯისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ირგანჩაის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ახალქალაქის N 1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.ახაშნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აბაშის მუნიციპალიტეტის ფეხბურთის განვითარების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ჭიათურის რაგბის სპორტული სკოლა</Name>
+</Organization>
+<Organization>
+<Name>რაგბის კლუბი რუსთავის ხარები</Name>
+</Organization>
+<Organization>
+<Name>ს. სასაშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ლასურიაშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ლადო მესხიშვილის სახელობის სახელმწიფო დრამატული თეატრი</Name>
+</Organization>
+<Organization>
+<Name>ახალქალაქის დახურული საცურაო აუზი</Name>
+</Organization>
+<Organization>
+<Name>აკ. წერეთლის სახ. საჩხერის ბიბლიოთეკა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ახალსოფლის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის #5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ალის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N79 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მელიტონ ბალანჩივაძის ხელოვნების სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქედის სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აბაშის მუნიციპალიტეტის კულტურისა და ხელოვნების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სამკურნალო-პროფილაქტიკური ცენტრი შუა ქალაქში</Name>
+</Organization>
+<Organization>
+<Name>თბილისი N47 საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ვ. ჭაბუკიანის სახელობის თბილისის საბალეტო ხელოვნების სახელმწიფო სასწავლებელი</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო რწმუნებულის-გუბერნატორის ადმინისტრაცია ახმეტის, გურჯაანის, დედოფლისწყაროს, თელავის, ლაგოდეხის, საგარეჯოს, სიღნაღისა და ყვარლის მუნიციპალიტეტებში</Name>
+</Organization>
+<Organization>
+<Name>ს. ლაცორიის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საზოგადოებრივი ჯანდაცვის ცენტრალური რეფერალური ლაბორატორია</Name>
+</Organization>
+<Organization>
+<Name>ქუთაისის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის ა/რ ფინანსთა სამინისტრო</Name>
+</Organization>
+<Organization>
+<Name>შპს  ,,კომუნალური მეურნეობა</Name>
+</Organization>
+<Organization>
+<Name>სამტრედიის მუნიციპალიტეტის სათნოების სახლი</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ჯავახის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის მუნიციპალიტეტის სოფელ ლესის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ტყემლანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბრეძის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სიმონ სხირტლაძის სახელობის ონის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.ს.GGEDC</Name>
+</Organization>
+<Organization>
+<Name>ქ. ქუთაისის N14 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ რუსთავის #14 სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ტკოცის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N62-ე საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N129 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>რუსთავის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფელ გურჯაანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N11 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქუთაისის N13 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კარდენახის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის სცენა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბადიაურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. პატარა ფოთის ციტრუსების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხობის #2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქუთაისის N40 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. პანტიანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ტყიბულის მუნიციპალიტეტის კულტურის ობიექტების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N85 საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. წაღვლის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. აწყვიტის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კოჭბანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ა.რ. სავაჭრო-სამრეწველო პალატა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ქვემო ოროზმანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის #150 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. რუსთავის  N24 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.საფარლოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ღვითორის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N24 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ვაჟა-ფშაველას სახელობის 87-ე საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დედოფლისწყაროს მუნიციპალიტეტის კულტურისა და სპორტის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ქ.ქუთაისის N21 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ხელედის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N173 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დ. კოჯრის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ოფეთის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.ზიკილიის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ურავის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>რუსთავის N28 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხაბუმის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. რუსთავის N22 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.გორდის საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ორმეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ გორის მუნიციპალიტეტის ზ.ნიქოზის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ქიძინიძეების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გორის მუნიციპალიტეტის სერგი მაკალათიას სახელობის ისტორიულ-ეთნოგრაფიული მუზეუმი</Name>
+</Organization>
+<Organization>
+<Name>შეზღუდული შესაძლებლობების მქონე პირთა ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ლანჩხუთის მუნიციპალიტეტის სოფელ შრომისუბნის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჩიხარეშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ტნუსის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.დარჩელის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N141 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.ს.ი.პ. სამტრედიის მუნიციპალიტეტის სოფელ ტოლების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის #2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. აბისის საჯაროს სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ილია ჭავჭავაძის სახელობის ქ. თბილისის N23 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სნოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ვახტანგისის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ოთარშენის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს .კვირიკეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მშვიდობაურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნიკორწმინდის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზუმის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N59 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სამიქაოს საჯარო  საშუალო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მაიდნის საჯარო საშუალო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.რუსთავის N26 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>31-ე საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ქუთაისის N22 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქარელის მუნიციპალიტეტის კულტურის დაწესებულებების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის მუნიციპალიტეტის სასაფლაოების მართვის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ხონის სასაფლაო მეურნეობის მართვის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის მე-6 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>პირველი ობჩის (საბაზო) საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სუჯუნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სენაკის მუნიციპალიტეტის სოფ. ზანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. დიმის საბაზო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს.მცხეთის ხიდების სამშენებლო სარემონტო სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>ს. კვათანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.ქოლობნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის N 3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კინჩხის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სუხჩის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხარაგაულის შოთა ბუაჩიძის სახელობის სამუსიკო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის N12 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>უჯარმის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ქუტირის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. თეკლათის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ერგეტის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნოღოხაშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ალგეთის N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. წალენჯიხის N 5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზესტაფონის N 4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კავთისხევის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. დიდი ჭყონის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.გორისციხის ირ.ჩქარეულის სახ. საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ონარიის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N156 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის N6 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის მუნიციპალიტეტის სოფელ ქვიანის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ონის მუნიციპალიტეტის უწერის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თლუღის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. საჩხეურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ფარის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. რუსთავის N18 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. რუსთავის N#13 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N155 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N18  საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ქ.რუსთავის # 10 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს წალკის მუნიციპალიტეტის ავტოსერვისი</Name>
+</Organization>
+<Organization>
+<Name>ს. წნისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N71 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.ნაესაკოვოს საჯარო საშულო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. წყალთაშუის (საბაზო) საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ.მელაურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის №219 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დ. ლენტეხის N1 საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის N 154 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხელვაჩაურის გამწვანების დასუფთავებისა და კომუნალური მომსახურების სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ვ.ხუხ.სახ.ეფექტ.მმართ.სისტ.და ტერ.მოწ.რეფ.ცენტრ</Name>
+</Organization>
+<Organization>
+<Name>საგვაზაოს საჯარო-საბაზო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N36 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>რუსთავის N16 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. უშაფათის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>წყნეთის N137 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს კონტროლის პალატა</Name>
+</Organization>
+<Organization>
+<Name>ს. გოჩა ჯიხაიშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ამბროლაურის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შსს სასაზღვრო პოლიცია # 3 სამმართველო (წითელი ხიდი)</Name>
+</Organization>
+<Organization>
+<Name>ქობულეთის კომპლექსური სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ზუბის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. გუმბათის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ითხვისის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.წალენჯიხის N 4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ.კუშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ევ. მიქელაძის სახელობის ქ. თბილისის ცენტრ.სამუსიკო სასწავლებელი</Name>
+</Organization>
+<Organization>
+<Name>შუაგორას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქვედა გორას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.კოდას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქვაციხის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ლიის თემის N 1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დ. ჩხოროწყუს რ. დიხამინჯიას სახელობის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნოსირის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N166 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ახალკახათის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. შინდისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დიმის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ფერსათის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ინგირის №1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბაღდათის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ რუსთავის # 8 სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მარნის საჯარო საშუალო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ.განთიადის (თიაქ-ქილისა)  საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სამტრედიის N9 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდი,ზედაეწერის საჯარო</Name>
+</Organization>
+<Organization>
+<Name>ანაკლიის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის №5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>წყალტუბოს მუნიციპალიტეტის №4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქობულეთის გამწვანება</Name>
+</Organization>
+<Organization>
+<Name>შუა ქვალონის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.ფოთის N15 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მუღანლოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხულო-თაგოს ბაგირგზა</Name>
+</Organization>
+<Organization>
+<Name>ს. სერგიეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.არშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N45 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>წავკისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თელავის N8 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N158 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სულორის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ოზურგეთის N5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ოზურგეთის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. პატარა ხანჩალის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ეფრემოვკის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ზანავის სჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მეორე ობჩის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>წითელხევის კ. ფოცხვერაშვილის სახელობის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. დაშბაშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ტახტისძირის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. პატარა კონდურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჩივთკილისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. დედოფლისწყაროს N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქუთაისის N19 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კნოლევის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ავლევის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ,ზუგდიდის #11 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.წახნის საბაზო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შსს.სასაზღვრო პოლიციის #8 სამმართველო(ჯავა-ონი)</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ,,დაგარახლოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის N 108 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. თორიის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.უჯმანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქაქუცა ჩოლოყაშვილის სახელობის ქ. თბილისის N178 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.არსარვანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ახალციხის სახელმწიფო სასწავლო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ს. იყალთოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. თორსის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ძველი სენაკის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდი,ცაიშის საჯარო</Name>
+</Organization>
+<Organization>
+<Name>სენაკის მუნიციაპლიტეტის სოფელ ქვემო ფოცხოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხამისქურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. როხის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჯიხაშკარის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ალათუმანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N 167 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის 179-ე საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჟდანოვაკანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ქარელის კეთილმოწყობის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N149 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ.დიდი ლილოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სოფელ ნიგვზიანის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.ლანჩხუთის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შსს საქართველოს სასაზღვრო პოლიციის სანაპირო დაცვის დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>თბილისი N107 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. დიმის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ხიზაბავრის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. დამია გეურარხის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ოროჯალარის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.კესალოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ქ. ბათუმის # 7 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N51 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. შრომის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ფხეროს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჩამდურას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. დამალის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. გომარეთის ე. თაყაიშვილის სახ. საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თელავის N7 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.ზველის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფელ ლენჯერის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ხაშურის N8 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სამოქალაქო რეესტრის სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>სსიპ სიონის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ვეჯინის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გ.ტაბიძის სახელობის ხაშურის N6 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ თიანეთის #1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. შუხუთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ვერტყვიჭალას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხარაგაულის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კამარლოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ახალსოფლის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ვანის მუნიციპალიტეტის კულტურის დაწესებულებების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>პროფესიული კოლეჯი ბლექსი</Name>
+</Organization>
+<Organization>
+<Name>ს. ლიხაურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბოლაჯურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნაბახტევის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჭიათურის N5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>წყალტუბოს მუნიციპალიტეტის სოფ. სორმონის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბოგვის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. რუსთავის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჭოპორტის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საავტომობილო კლუბი ,,F მოტორსი</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის  N160 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ჭიათურის N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჭიათურის მუნიციპალიტეტის სოფ. ვაჭევის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჭიათურის #4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჭიათურის რაიონის სასწავლო-საგანმანათლებლო და კულტურულ შემოქმედებითი ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ვანზომლეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ზემო ნატანების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ანდრიაწმინდის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ 105-ე საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ლაფანყურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.დუშეთის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ვარდისუბნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ცხემლისხიდის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დ. ლაითურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ამბროლაურის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ტიბაანის ხვიჩა ბიძინაშვილის სახ. საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ახალციხის # 5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>რუფოთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჭუბერის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზესტაფონის მუნიციპალიტეტი დილიკაურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს საქსპეცტრანსი</Name>
+</Organization>
+<Organization>
+<Name>ს. თისელის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მულახის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქვედა სიმონეთის 1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჩხოროწყუს მუნიციპალიტეტის დასუფთავებისა და კეთილმოწყობის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ს.ნიგოითის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ალერგიისა და იმუნოლოგიის კვლევის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>აბაშის კეთილმოწყობა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ბალღოჯიანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ANAKLIA-GANMUKHURI RESORTS</Name>
+</Organization>
+<Organization>
+<Name>კასპის რაიონის სოფ.ფერმის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კონჭკათის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.ძიმითის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს.ლანჩხუთი-სერვისი</Name>
+</Organization>
+<Organization>
+<Name>ს.ს.იმერეთის სამხარეო ინფექციურ პათოლოგიათა ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ს. ორჯონიკიძის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის მუნიციპალიტეტის სოფელ აკეთის  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. გომბორის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N60 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N50 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ძველი ქანდის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ქსნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ქსოვრისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გორის მე-2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ახრისის   საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ტინისხიდის საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სვენეთის  საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბერშუეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მეღვრეკისის საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დ. ჟინვალის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შოთა რუსთაველის სახელმწიფო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>ქ.მარნეულის N5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.ბანოჯის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. თამარისი N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ოკამის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გორის მუნიციპალიტეტის კრივის სპეციალიზირებული სპორტული სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N186 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>კურორტი ახტალა</Name>
+</Organization>
+<Organization>
+<Name>სააქციო საზოგადოება „საპარტნიორო ფონდი“</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ახალგაზრდობის სახლი</Name>
+</Organization>
+<Organization>
+<Name>შპს სენაკის სამშობიარო სახლი</Name>
+</Organization>
+<Organization>
+<Name>ს. ბებნისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ქედის ავტოსატრანსპორტო საწარმო</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. გარდაბანგანათებისა და კეთილმოწყობის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>შპს სამთომაშველი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს სოფლის მეურნეობის მეცნიერებათა აკადემია</Name>
+</Organization>
+<Organization>
+<Name>ცაგერის მუნიციპალიტეტის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>პროფესიული კოლეჯი ,,ჰორიზონტი</Name>
+</Organization>
+<Organization>
+<Name>გორის მუნიციპალიტეტის ცენტრალური სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ლანჩხუთის კულტურული მემკვიდრეობის დაცვისა და განვითარების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თვითმმართველი ქალაქის – ქუთაისის ყინულის მოედანი</Name>
+</Organization>
+<Organization>
+<Name>ახმეტის კომპლექსური სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს სიონი-მ</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N 131 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გორის სასწავლო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შპს ახალქალაქის სასწრაფო სამედიცინო დახმარების სამსახური - 03</Name>
+</Organization>
+<Organization>
+<Name>საქ.შსს საქ. სასაზღვრო პოლიციის სახმელეთო საზღვრის დაცვის დეპარტამენტის სასაზღვრო პოლიციის #2 სამმართველო (ახალციხე)</Name>
+</Organization>
+<Organization>
+<Name>ჩხოროწყუს მუნიციპალიტეტის ფეხბურთის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N126 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ფოთის რაგბის სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მტკვარი-მ</Name>
+</Organization>
+<Organization>
+<Name>გორის,კასპის,ქარელისა და ხაშურის მუნიციპალიტეტებში  სახელმწიფო რწმუნებულის გუბერნატორის ადმინისტრაცია</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო უზრუნველყოფა</Name>
+</Organization>
+<Organization>
+<Name>სს ა.ღვამიჩავას სახელობის ონკოლოგიის ნაციონალური ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>იმერეთის, გურიის, რაჭა-ლეჩხუმისა და ქვემო სვანეთის რეგიონებსა და აჭარის ავტონომიურ რესპუბლიკაში აფხაზეთის ავტონომიური რესპუბლიკის მთავრობის წარმომადგენლობა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს სოფლის მეურნეობის სამინისტროს ლაბორატორია</Name>
+</Organization>
+<Organization>
+<Name>შპს ქ. ბათუმის კლინიკური პათოლოგიის სამეცნიერო-პრაქტიკული ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>გ.ჩუბინაშვილის სახელობის ქართული ხელოვნების ისტორიისა და ძეგლთა დაცვის ეროვნული კვლევის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თბილისის ვ. სარაჯიშვილის სახ. სახელმწიფო კონსერვატორია</Name>
+</Organization>
+<Organization>
+<Name>ქ. ცაგერის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>რეგიონული მართვის საკითხებში აფხაზეთის ავტონომიური რესპუბლიკის მინისტრის აპარატი</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის ა/რ სოფლის მეურნეობის, გარემოს დაცვისა და ბუნებრივი რესურსების დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>ჩხარის 1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს თბილგვირაბმშენი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. კოლხეთი-მ</Name>
+</Organization>
+<Organization>
+<Name>ქედის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს იუსტიციის უმაღლესი საბჭოს საერთო სასამართლოების დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>პრფესიული კოლეჯი ,,პრესტიჟი</Name>
+</Organization>
+<Organization>
+<Name>მახუნცეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ახმეტის მუნიციპალიტეტის სამუსიკო სკოლების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>შპს ახალქალაქის საავადმყოფო-პოლიკნილინიკური გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>სს მ.ასათიანის სახ. ფსიქიატრიის ს\კ ინსტიტუტი</Name>
+</Organization>
+<Organization>
+<Name>აჭარის მ.კუხიანიძის სახელობის სიმღერისა და ცეკვის სახელმწიფო ანსამბლი</Name>
+</Organization>
+<Organization>
+<Name>სოფელ ახოს #1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფელ პირველი მაისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N82 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სს ნარკოლოგიის სამეცნიერო-კვლევითი ინსტიტუტი</Name>
+</Organization>
+<Organization>
+<Name>თბილისი N112 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს სენაკის ბავშვთა საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,საქართველოს რკინიგზა</Name>
+</Organization>
+<Organization>
+<Name>ააიპქ.რუსთავის სასპორტო სკოლების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>შპს ანალიზხელსაწყო</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N143 სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის №192 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის მუნიციპალიტეტის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N132 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N123 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ქალაქპროექტი</Name>
+</Organization>
+<Organization>
+<Name>ახმეტის მუნიციპალური ტყე-პარკი წყაროები</Name>
+</Organization>
+<Organization>
+<Name>თბილისის ზ. ფალიაშვილის სახელობის ოპერისა და ბალეტის სახელმწიფო თეატრი</Name>
+</Organization>
+<Organization>
+<Name>შპს ტრანსპორტი</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N195 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზესტაფონის მუნიციპალიტეტის სპორტული სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს აჭარის სისხლის გადასხმის რესპუბლიკური სადგური</Name>
+</Organization>
+<Organization>
+<Name>შპს თბილისის 25-ე მოზრდილთა პოლიკლინიკა</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,ახმეტაგანათება</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის N69 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის #29 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის #106 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ შინაგან საქმეთა სამინისტროს არქივი</Name>
+</Organization>
+<Organization>
+<Name>ერედვის მუნიციპალიტეტი</Name>
+</Organization>
+<Organization>
+<Name>სკოლისგარეშე სასპორტო საგანმანათლებლო დაწესებულება - ვალერიან მაქაცარიას სახელობის ცხენოსნობის სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>კასპის მუნიციპ. კულტ. დაწესებ. გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N 21 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საჩხერის რაიონის სასწრაფო სამედიცინო დახმარების სამსახური- 03</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N183 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბერძენაულის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კეხიჯვრის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ქარელის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N176 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ზღუდერის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ საქ. თეატრის, მუსიკის, კინოსა და ქორეოგრაფიის სახ. მუზეუმი</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N168 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მარნეულის მუნიციპალიტეტის კულტურის საკლუბო, საბიბლიოთეკო და სამუზეუმო გაერთიანება კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ს. ჭითაწყარის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. არაგვისპირის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ზერტის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. გორის N11 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სათემოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ფლავის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ქვიტირის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ტყვიავის საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ხურვალეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. გორის N6 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. გორის N9 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ძალისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჯურუყვეთის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. თაბაგრების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ანანურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბარდუბნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. შავშვების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქვემო ნატანების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მთისპირის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სს ,,ნენსკრა</Name>
+</Organization>
+<Organization>
+<Name>ს. მანავის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ საგარეჯოს #4 სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. დუშეთის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>არასამეწარმეო (არაკომერციული) იურიდიული პირი ზაქარია ფალიაშვილის სახელობის ხელოვნების სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნინიგორის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გურჯაანის N 3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ზინობიანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. პირმისაანთკარის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს გამომცემლობა ნაკადული</Name>
+</Organization>
+<Organization>
+<Name>ს. შილდის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ბუკისციხის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ჭიათურბაგირგზები</Name>
+</Organization>
+<Organization>
+<Name>ს. ნაკრის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დ. ფასანაურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მიხეილ ხერგიანის სახ. დაბა მესტიის N2საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნახიდურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. შროშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,თბილისის პორტალი</Name>
+</Organization>
+<Organization>
+<Name>ს. მაკვანეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჭაპალას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ქვემო ხოდაშნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აკურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჭართლის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბუკნარის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კოხნარის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. გოგოლესუბნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ოშორას საჯარო სკლოა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N145 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. სამების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N 215 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ვალეს N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის №16 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.ჩირიკის საჯ სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზესტაფონის მუნიციპალიტეტის მესამე საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჭეჭლის საბაზო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ივერიის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჭიათურის N7 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. დარკვეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხარაგაულის მუნიციპალიტეტის სოფ. ბორის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჭიათურის #1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ახალციხის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ხევაშენის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. უდის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N99 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ტეზერის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კალაურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. რცხილათის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ხევის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ნაქალაქრის ი.აფციაურის სახ.საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ახმეტის №1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ზოდის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ტყემლოვანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.ქუთაისის N31 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ ქუთაისის N35 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. გორელოვკის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მანდაეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ქუთაისის N5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ნავარძეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ეცერის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისი N115 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. შუა ხორგის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნაქალაქევის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ვახტანგისის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თელავის N9 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მლაშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დ.ყიფიანის სახ. ქვიშხეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სართიჭალის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. მარნეულის N8 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>როდინოულის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N130 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ი.სუხიშვილის და ნ.რამიშვილის სახელობის ქართული ნაციონალური ბალეტის სახელმწიფო აკადემიური დასი</Name>
+</Organization>
+<Organization>
+<Name>ს. ბორითის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. წვირმის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.ახალქალაქის N 2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბარალეთის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>კირცხის №1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. გურნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფელ ინგირის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>კახათის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ვაჩიანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ტყიბულის N4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. რეხის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ოზნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. იმერას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბურნაშეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნარდევანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ბორჯომის N4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ხანდოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. აბანოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. პატარა სამსარის  საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>რევაზ მარგიანის სახელობის მუჟალის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>კორცხელის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N190 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ორლოვკის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ვლადიმიროვკის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N94 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ხეობის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ.ბეშთაშენის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მუხურჩის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის N142 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის  N48 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. იორ-მუღანლოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დ.სტეფანწმინდის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. დუზაგრამის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თიანეთის მუნიციპალიტეტის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ს. თამაკონის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>პირველი მაისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთი–კეთილმოწყობა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ სამტრედიის მუნიციპალიტეტის სოფელ დაბლა გომის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ახალსოფლის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის#1საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის მერიის რევაზ ლაღიძის სახ. N4 ხელოვნების სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N180 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ჯვარის N 4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. რუსთავის ილია ჭავჭავაძის სახელობის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სენაკის მუნიციპალიტეტის ახალისოფლის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ხორშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ნაკიფუს თემის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.იფარის საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. უხუთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N89 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ისრითის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კორმაღლის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N28 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისი N157 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ფონიჭალის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზეგნის (საბაზო) საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ნერგეეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ზეგნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ რუსთავის #12 სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საკრაულის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. გაუწყინარის საჯარო საბაზო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>წყემის დ. ტყებუჩავას სახ. საჯარო-საბაზო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზანათის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ონის მუნიციპალიტეტის პიპილეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჭიათურის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ნაბაკევის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბარდნალის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N177 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. საძელის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. საბეჭისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. რცხმელურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ რუსთავის #15 სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კვაცხუთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. აბასთუმნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ქ. თბილისის № 77 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნინოშვილის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საგარეჯოს სპორტული გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ხონის მოსე ხონელის სახელობის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N181 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.მელექედურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ონის მუნიციპალიტეტის ღების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ლაილაშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კამიშლოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ზემო ოროზმანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ცხუმარის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. წინუბნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ტაბახმელას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისი N96 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კიზილ-ქილისას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. იაღუფლოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ჩქუმის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. გუბისწყლის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზესტაფონის #7 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ისუნდრის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მუკუზნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თელავის მუნიციპალიტეტის ყარაჯლის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ანაკლია</Name>
+</Organization>
+<Organization>
+<Name>გოგნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს აჭარის ავტონომიური რესპუბლიკის ონკოლოგიის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. სანიტარული დასუფთავება</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N174 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. N5 კლინიკური სავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>შპს შუახევის წყალკანალი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ბავშვთა და ახალგაზრდობის განვითარების ფონდი</Name>
+</Organization>
+<Organization>
+<Name>შპს ივანე ჯავახიშვილის სახელობის სახელმწიფო უნივერსიტეტის კლინიკური საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>შპს თბილისის ლოგისტიკის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>პროფესიული კოლეჯი იბერია</Name>
+</Organization>
+<Organization>
+<Name>თბილისის აპოლონ ქუთათელაძის სახელობის სახელმწიფო სამხატვრო აკადემია</Name>
+</Organization>
+<Organization>
+<Name>გორის მუნიციპალიტეტის კულტურისა და დასვენების პარკი ახალბაღი</Name>
+</Organization>
+<Organization>
+<Name>შპს ფსიქოკორექციისა და ნარკოლოგიური ექსპერტიზის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>პროფესიული კოლეჯი ახალი ტალღა</Name>
+</Organization>
+<Organization>
+<Name>მ. ჭელიძის სახელობის ს. ირემაძეების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ბათუმის #1 სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს თბილისის ცენტრალური საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>შპს ქუთაისის რკინიგზის მრავალპროფილიანი საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>შპს მუნიციპალური მოხუცთა სახლი</Name>
+</Organization>
+<Organization>
+<Name>აწჰესის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ჭარნალის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისი N64 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ სოფელ წონიარისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ტურიზმის ეროვნული სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ვაზისა და ღვინის დეპარტამენტი სამტრესტი</Name>
+</Organization>
+<Organization>
+<Name>ა.ა.ი.პ.ზუგდიდის მუნიციპალიტეტის მუსიკალურ-ქორეოგრაფიული ცენტრი ოდიში</Name>
+</Organization>
+<Organization>
+<Name>ს. კოთელიის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ციხისძირის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ბათუმის #16 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გოგიაშვილების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბობოყვათის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სენაკის მუნიციპალიტეტის დასუფთავებისა და გამწვანების მოვლა პატრონობის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ს. ყიზილაჯლოს N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ბათუმის პარკინგი</Name>
+</Organization>
+<Organization>
+<Name>სოფელ განთიადის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ღორეშას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ალამბრის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის N4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გონიოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჰიდროგეოლოგია</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს.ელექტრომაგნიტურ თავსებადობასა და ხელშეშლებზე დაკვირვების სამსახური</Name>
+</Organization>
+<Organization>
+<Name>რეგიონული მართვის საკითხებში აფხაზეთის მინისტრის აპარატი</Name>
+</Organization>
+<Organization>
+<Name>ქ. ქობულეთის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის მუნიციპალიტეტის სოფელ წყალწმინდის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. გვარას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ბათუმის #15 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გურჯაანის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ბათუმის #17 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის ავტონომიური რესპუბლიკის დევნილთა საქმეების დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>ხარაგაულდასუფთავება</Name>
+</Organization>
+<Organization>
+<Name>რუხის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.თელავის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის ა/რ  იუსტიციის დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ოკუპირებული ტერიტორიებიდან იძულებით გადაადგილებულ პირთა, განსახლებისა და ლტოლვილთა სამინისტროს აჭარისა და სამეგრელო-ზემო სვანეთის სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>თემურ ბოკუჩავას სახელობის აფხაზეთის N7 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჩხუტუნეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ბათუმის #10 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N30 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კვირიკეს N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>არასამეწარმეო (არაკომერციული) იურიდიული პირი-კავშირი `მზრუნველობამოკლებულთა უფასო სასადილო</Name>
+</Organization>
+<Organization>
+<Name>მაჟორიტარი პარლამენტის ბიურო სამტრედიის #54 საარჩევნო ოლქი</Name>
+</Organization>
+<Organization>
+<Name>ხარაგაულის მუნიციპალიტეტის გაზეთი ახალი ხარაგაული</Name>
+</Organization>
+<Organization>
+<Name>მწვანე ქუთაისი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ოკუპირებული ტერიტორიებიდან იძულებით გაადაადგილებულ პირთა, განსახლებისა და ლტოლვილთა სამინისტროს იმერეთის, გურიის, რაჭა-ლეჩხუმისა და ქვ სვანეთის სამმ</Name>
+</Organization>
+<Organization>
+<Name>ქ. ფოთის N12 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საჩინოს თემის N 1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის მთავრობის წარმომადგენლობა აღმოსავლეთ საქართველოში</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის ტურისტული სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ბათუმის პროფესიული სწავლების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სსიპ აჭარისწყლის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ბათუმის სცენა</Name>
+</Organization>
+<Organization>
+<Name>ჩერქეზული (ადიღეური) კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თბილისის #169 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის მოსწავლე-ახალგაზრდობის სასახლე</Name>
+</Organization>
+<Organization>
+<Name>ხელვაჩაურის რესურსცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ს. ჭივჭავის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ეროვნული სასწავლო გეგმებისა და შეფასების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ხარაგაულის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თხილნარის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>#2 საბინაო–კომუნალური განყოფილება</Name>
+</Organization>
+<Organization>
+<Name>ა (ა) იპ თერჯოლის სპორტულ–გამაჯანსაღებელი მუნიციპალური ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>აიპ შუახევის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სსიპ-ბათუმის ხელოვნების სასწავლო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო ვოკალური ანსამბლი ბათუმი</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის მთავრობის წარმომადგენლობა სამეგრელო-ზემო სვანეთის რეგიონში</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ბათუმის #8 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ერგეს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზემო წინსვლის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზესტაფონის მუნიციპალიტეტის რ. ლაღიძის სახელობის სამუსიკო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. წალენჯიხის N 1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნოქალაქევის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ახალისოფლის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ა(ა)იპ ქ.ბათუმის კომპლექსური სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს  კეთილმოწყობა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ სიცოცხლის შემსწავლელ მეცნიერებათა ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სოფელ ხალას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ლაგოდეხის N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის 9 სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საზოგადოებრივი ჯანმრთელობის და უსაფრთხო გარემოს უზრუნველყოფის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>მარკეტინგული კომუნიკაციებისა და სატელევიზიო-სარეკლამო სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის რესურსცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ს. ჭიკაანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სანავარდოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ავტონომიური რესპუბლიკის პროკურატურა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N104 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ევ. მიქელაძის სახ. ქ. თბილისის N2 ცენტ. სამუსიკო სასწავლებელი</Name>
+</Organization>
+<Organization>
+<Name>ფოთის N5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N55 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. თეთრიწყარო ტრანსი</Name>
+</Organization>
+<Organization>
+<Name>ქობულეთის #3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>პროფესიული კოლეჯი ,,სპექტრი</Name>
+</Organization>
+<Organization>
+<Name>იაკობ გოგებაშვილის სახელობის თელავის სახელმწიფო უნივერსიტეტი</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,ფოთი ქალაქტრანსპორტი</Name>
+</Organization>
+<Organization>
+<Name>შორაპნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ეროვნული სამეცნიერო ბიბლიოთეკა</Name>
+</Organization>
+<Organization>
+<Name>ხობის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სამეფო კომპლექსი ოქროს ჩარდახი</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N84 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ჯანმრთელობის დაზღვევის მედიაციის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ზესტაფონის მუნიციპალიტეტის სამხატვრო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ რაფიელ დვალის მანქანათა მექანიკის ინსტიტუტი</Name>
+</Organization>
+<Organization>
+<Name>ს. ჩაქვის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ ჯვარის N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ თბილისის N102 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>პროფესიული კოლეჯი ,,ოპიზარი”</Name>
+</Organization>
+<Organization>
+<Name>ქ. ხონის კომპლექსური სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მედანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზემო აფხაზეთის საკითხებში აფხაზეთის მინისტრის აპარატი</Name>
+</Organization>
+<Organization>
+<Name>ქობულეთის N5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზ.ფალიაშვილის სახელობის სამუსიკო სკოლა თერთმეტწლედი</Name>
+</Organization>
+<Organization>
+<Name>ზესტაფონის მუნიციპალიტეტის ხელოვნების სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ოკუპირებული ტერიტორიებიდან იძულებით გადაადგილებულ პირთა, განსახლებისა და ლტოლვილთა სამინისტროს ქვემო ქართლის, მცხეთა–მთიანეთისა და კახეთის სამმ.</Name>
+</Organization>
+<Organization>
+<Name>ბათუმის მე–11 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ქ. ბათუმის #14 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს გარდაბნის მუნიციპალიტეტის ტრანსპორტი</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის ლიტერატურისა და ხელოვნების შემოქმედებითი კავშირი</Name>
+</Organization>
+<Organization>
+<Name>სოფ. დიცის საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ხვანჭკარის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>წესის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ქვედა კვირიკეს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ აჭყვისთავის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფელ ქობულეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N54 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის მუნიციპალიტეტის სოფელ აცანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ქუთაისის ნიკო ბერძენიშვილის სახელობის სახელმწიფო მუზეუმი</Name>
+</Organization>
+<Organization>
+<Name>ყვარლის ილია ჭავჭავაძის სახელმწიფო  მუზეუმი</Name>
+</Organization>
+<Organization>
+<Name>ჭრებალოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს.ახალგორის მუნიციპალიტეტის დასუფთავებისა და კეთილმოწყობის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>შპს ”საქავტოტრანსი”</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N 172 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საჭე ცაგერი</Name>
+</Organization>
+<Organization>
+<Name>ტექნიკური და სამშენებლო ინსპექცია</Name>
+</Organization>
+<Organization>
+<Name>ს. ქვედა ვაშლოვანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ყაზბეგის მუნიც.კეთილ.გამწვ.და დას.სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ხორნაბუჯის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>რუსთავის საბიბლიოთეკო გაერთიანება-ი.ჭავჭავაძის სახ. მთავარი ბიბლიოთეკა</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,ახმეტაგამწვანება</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ქობულეთის წყალკანალი</Name>
+</Organization>
+<Organization>
+<Name>ნასაგურის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ჯვარის დასუფთავებისა და კეთითილმოწყობის სამს</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის მუნიციპალიტეტის ცენტრალური ბიბლიოთეკა</Name>
+</Organization>
+<Organization>
+<Name>ქ. გურჯაანის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თავისუფალი ვაჭრობისა და კონკურენციის საგენტო</Name>
+</Organization>
+<Organization>
+<Name>ბუნებრივი კატაკლიზმების პროგნოზირებისა და მართვის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>პარლამენტის მაჟორიტარი წევრის ბიურო ხონის #55 საარჩევნო ოლქში</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N88 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს ალაზანი-მ</Name>
+</Organization>
+<Organization>
+<Name>ოზურგეთის მუნიციპალიტეტის გამგეობის ქორეოგრაფიული ანსამბლი  გურია</Name>
+</Organization>
+<Organization>
+<Name>კლდეეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის პროფესიული სწავლების ცენტრი მარგი</Name>
+</Organization>
+<Organization>
+<Name>მცენარეთა დაცვის საწარმო</Name>
+</Organization>
+<Organization>
+<Name>შპს მზრუნველობას მოკლებულთა სასადილო</Name>
+</Organization>
+<Organization>
+<Name>ფუთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ორულუს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ქობულეთის ტრანსრეგულირება</Name>
+</Organization>
+<Organization>
+<Name>სამოქალაქო ინსტიტუციონალიზმის განვითარების ფონდი</Name>
+</Organization>
+<Organization>
+<Name>წალენჯიხის მაჟორიტარი პარლამენტის წევრის ბიურო</Name>
+</Organization>
+<Organization>
+<Name>ახუთის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ტიციან ტაბიძის სახელობის N43 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სკრის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N72 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. გორის N4 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მუხურის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>N67 ზუგდიდის საარჩევნო ოლქის მაჟორიტარი დეპუტატის ბიურო</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. აგრომეტი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ”მარნეულის სარაიონთაშორისო საავადმყოფო”</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ფეხბურთის ფედერაცია</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს საფეხბურთო კლუბ კოლხეთი</Name>
+</Organization>
+<Organization>
+<Name>ს. მელაანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საჩხერის მუნიციპალიტეტის სოფელ ჭორვილის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის მართვის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს თბილისის რელსშესადუღებელი ქარხანა</Name>
+</Organization>
+<Organization>
+<Name>ს. ოძისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აჭარის სამაშველო სამსახური</Name>
+</Organization>
+<Organization>
+<Name>სენაკის მუნიციპალიტეტის სასპორტო გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N117 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ლანჩხუთის მუნიციპალიტეტის ცენტრალური ბიბლიოთეკა</Name>
+</Organization>
+<Organization>
+<Name>ს. ღოუბნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ბალანთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სამტრედიის N11 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>პროფესიული კოლეჯი  აიტი</Name>
+</Organization>
+<Organization>
+<Name>ს. კახაბრის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.ამბროლაურის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბორბალოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ხონის ირ. აბაშიძის სახელობის N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ქობულეთის რაიონული საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>სსიპ მუღანლოს სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.რუსთავის #9 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კიცხის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N120 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქალაქ ქუთაისის სკოლისგარეშე სახელოვნებო საგანმანათლებლო დაწესებულების სამუსიკო სასწავლებლებისა და სკოლების გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N32 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N9 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის #9 საჯარო</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ჟებოტის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ქ. თბილისის #128 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის N83 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისი N65 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. მაღლაკის №2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. წყალტუბოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბზვანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ფოთის წყლის სახეობათა კომპლექსური სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N 146 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N39 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ქუთაისის N28-ე საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ლატალის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ფიროსმანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. არაგვის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ახალციხის მუნიციპალიტეტის ს. აწყურის საჯარო სკილა</Name>
+</Organization>
+<Organization>
+<Name>კვახჭირის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ.ენისლის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. გორის N12 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. აზავრეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბოგდანოვკის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ.შსს სახელმწიფო მატერიალური რეზერვების დეპარტამენტი</Name>
+</Organization>
+<Organization>
+<Name>ს. ატენის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>მაღრაანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ოჟიოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დაბა წაღვერის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>წყალტუბოს მუნიციპალიტეტის საბიბლიოთეკო სამუზეუმო გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>ლესია უკრაინკას სახ. სურამის N3 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ქინძათის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ვარიანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. იტრიის სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს ,,თიანეთის კეთილმოწყობის და დასუფთავების სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ქ. რუსთავის N7 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>რუსთავის #6 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სათხის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დაბა მესტიის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სს ბ. პაიჭაძის სახელობის ეროვნული სტდიონი</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N122 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ქართული ტრადიციები</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N68 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N49 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>№37 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს გზაკომუნპროექტი და ექსპერტიზა</Name>
+</Organization>
+<Organization>
+<Name>შპსავტოსატრანსპორტო საწარმო 2006</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N14 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>პარლამენტის მაჟორიტარი წევრის გელა ლონდარიძის ბიურო ასპინძის საარჩევნო ოლქში</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. საქართველოს ტელერადიოცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს ზოოლოგიური პარკი</Name>
+</Organization>
+<Organization>
+<Name>საცხენოსნო სპორტული კლუბი იმედი</Name>
+</Organization>
+<Organization>
+<Name>ქ. საგარეჯოს N105 კომპლექსური სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს კაჭრეთის პროფესიული კოლეჯი ,,აისი</Name>
+</Organization>
+<Organization>
+<Name>ბოლნისის მუნიციპალიტეტის კულტურის საკლუბო, საბიბლიოთეკო და სამუზეუმო გაერთიანება.</Name>
+</Organization>
+<Organization>
+<Name>ქუთაისის მოსწავლე-ახალგაზრდობის პარკი</Name>
+</Organization>
+<Organization>
+<Name>შპს ქ.ფოთის კულტურისა და დასვენების პარკი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ,,ივენთ პროტოკოლ ჯგუფი</Name>
+</Organization>
+<Organization>
+<Name>რევაზ ლაღიძის სახელობის სამუსიკო სკოლა-ცხრაწლედი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ჯანმრთელობისა და სოციალური დაცვის პროექტების განმახორციელებელი ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს ლანჩხუთი-გზა</Name>
+</Organization>
+<Organization>
+<Name>შპს ბათუმის სამშობიარო სახლი</Name>
+</Organization>
+<Organization>
+<Name>ქობულეთის პროფესიული სწავლების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>კაჭრეთის პროფესიული სასწავლო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თელავის პროფესიული სწავლების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სსიპ   სკოლის მანდატურის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ს. წყოუშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს\ს  ენერგომშენკონსტრუქცია</Name>
+</Organization>
+<Organization>
+<Name>შპს თელავის ინფრასტრუქტურისა და უზრუნველყოფის სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>ა(ა)იპ ხულოს კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ყაზბეგის მუნიციპალიტეტის სააღმზრდელო საგანმანათმლებლო სკოლამდელი დაწესებულებათა ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>დუშეთის მუნიციპალიტეტის საკრებულოს მოსწავლეთა ხელშეწყობის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>მსოფლიო ბანკის ფინანსური მხარდაჭერით განსახორციელებელი საქართველოს სოფლის მეურნეობის განვითარების პროექტების საკოორდინაციო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ცხინვალის ივანე მაჩაბლის სახელობის სახელმწიფო დრამატული თეატრი</Name>
+</Organization>
+<Organization>
+<Name>სოხუმის ი. ვეკუას ფიზიკა-ტექნიკის ინსტიტუტი</Name>
+</Organization>
+<Organization>
+<Name>შპს რეფერალური დახმარების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სოფელ ნარაზენის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შპს ,, დმანისტრანსპორტი”</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. უძრავი ქონების განვითარების ფონდი</Name>
+</Organization>
+<Organization>
+<Name>ს.ს. საქართველოს ენერგეტიკის განვითარების ფონდი</Name>
+</Organization>
+<Organization>
+<Name>წყალზე სამაშველო სამსახური</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,წყალკანალი XXI</Name>
+</Organization>
+<Organization>
+<Name>მესტიის პროფესიული სწავლების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ხელვაჩაურის წყალკანალი და კომუნალური მომსახურება</Name>
+</Organization>
+<Organization>
+<Name>განსაკუთრებულ დავალებათა საკითხებში აფხაზეთის მინისტრის აპარატი</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს ქუთაისის აეროპორტი</Name>
+</Organization>
+<Organization>
+<Name>შპს სასტუმრო ანაკლია</Name>
+</Organization>
+<Organization>
+<Name>შპს გორის სასწრაფო სამედიცინო დახმარების სამსახური03</Name>
+</Organization>
+<Organization>
+<Name>ს.ს. თბილისის საერთაშორისო აეროპორტი</Name>
+</Organization>
+<Organization>
+<Name>N57 ტყიბულის საარჩევნო ოლქის მაჟორიტარი დეპუტატის ბიურო</Name>
+</Organization>
+<Organization>
+<Name>ჭაქვინჯის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქედის წყალკანალი</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო შესყიდვების სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>მარტვილის მუნიციპალიტეტის კომპლექსური სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს.ფოთის N1პოლიკლინიკა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N171 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N10 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N116 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N63 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N103 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N127 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N114 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სუფსის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. ნაბეღლავის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ხაშურის N 2 საშუალო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ. შუასურების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. სპასოვკის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>რუსთავის N17 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ბახვის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>რუსთავის N 25 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. დვაბზუს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. უშგულის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. დიდი სმადის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>დაბა სურამის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ხერთვისის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კართუბნის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ზარიძეების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ტუშურების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ქვქემო ბოდბის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს.საბათლოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. გორის N5 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ასპინძის მუნიციპალიტეტის სოფელ ტოლოშის  საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ონის მუნიციპალიტეტი ჭიორის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ქვედა საქარის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N162 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ნიგოზეთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სამტრედიის მუნიციპალიტეტის სოფელ კულაშის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N119 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.დმანისის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ზარზმის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. თაზაქენდის N1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის N8 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. გუბის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გალაკტიონ და ტიციან ტაბიძეების სახლ-მუზეუმი</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N138-ე საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ვაჩნაძიანის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N165 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ველისციხის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისი N52 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>300 არაგველის სახელობის 75-ე საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ილემის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ.თბილისის #92 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს საავტომობილო გზების დეპარტამენტის აჭარის ავტონომიური რესპუბლიკის საავტომობილო გზების დირექცია</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ქედის კომუნალურსერვისი</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის N152 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ხარაგაული-2011</Name>
+</Organization>
+<Organization>
+<Name>ქ. ოზურგეთის ალ. წუწუნავას სახელობის სახელმწიფო დრამატული თეატრი</Name>
+</Organization>
+<Organization>
+<Name>ააიპ ქედის სახელოვნებო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. აძვის   საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. წყავროკას საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ქუთაისის №37 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ბ.მამიაურის სახ.მოსწავლე ახალგაზრდობის სახელოვნებო და შემეცნებითი სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ოქრუაშვილების საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის მერიის მიხეილ იპოლიტოვ-ივანოვის სახელობის N 6 ხელოვნების სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. შუქრუთის N2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის №7 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. ტირძნისის საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ფოთის N 1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ნიკო ნიკოლაძის ქ. ფოთის #2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>პროფესიული კოლეჯი იკაროსი</Name>
+</Organization>
+<Organization>
+<Name>ქ.გორის ს.ცინცაძის სახელობის სამუსიკო კოლეჯი</Name>
+</Organization>
+<Organization>
+<Name>ომალოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თბილისის #35 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ს. კირნათის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>გორის მუნიც.  გ. პაპიტაშვილის სახ. ჭიდაობის კომპ. სპ. სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ოკუპირებული ტერიტორიებიდან იძულებით გადაადგილებულ პირთა, განსახლებისა და ლტოლვილთა სამინისტროს შიდა ქართლისა და სამცხე-ჯავახეთის სამმართველო</Name>
+</Organization>
+<Organization>
+<Name>პარლამენტის მაჟორიტარი წევრის ანზორ ბოლქვაძის ბიურო ხულოს საარჩევნო ოლქში</Name>
+</Organization>
+<Organization>
+<Name>ს. სხალთის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქ. ბათუმის N6 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სოფ.ცხმორისის#2 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>თელავის სასპორტო გაერთიანება</Name>
+</Organization>
+<Organization>
+<Name>სსიპ სოფელ ვაიოს საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ერედვის მუნიციპალიტეტის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>აჭარის მწერალთა ორგანიზაცია</Name>
+</Organization>
+<Organization>
+<Name>სამტრედიის მუნიციპალიტეტის ეროს მანჯგალაძის სახელობის კულტურის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს ტყიბულის რაიონული მრავალპროფილიანი საავადმყოფო</Name>
+</Organization>
+<Organization>
+<Name>შპს ხულოს წყალკანალი</Name>
+</Organization>
+<Organization>
+<Name>ზ. ზვიადაურის სახელობის ძიუდოს სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აღმოსავლეთ საქართველოში აფხაზეთის ავტონომიური რესპუბლიკის მთავრობის წარმომადგენლობა</Name>
+</Organization>
+<Organization>
+<Name>ს. დიდაჭარის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ახალციხის საზოგადოებრივი ჯანმთელობის დაცვის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>აჭარის ავტონომიური რესპუბლიკის სოფლის მეურნეობის სამინისტროს საქვეუწყებო დაწესებულება - სურსათის უვნებლობის, ვეტერინარიისა და მცენარეთა დაცვის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,კომუნალური 1</Name>
+</Organization>
+<Organization>
+<Name>თბილისის პროფესიული სწავლების ცენტრი ,,სპექტრი</Name>
+</Organization>
+<Organization>
+<Name>ააიპ  თბილისელების ადვოკატი</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის N2საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქუთაისის # 1 პროფესიული სწავლების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შსს ჯანმრთელობის დაცვის სამსახური</Name>
+</Organization>
+<Organization>
+<Name>ააიპ.თელავის მუნიციპალიტეტის ქართული ხალხური სიმღერისა და ცეკვის ანსამბლი</Name>
+</Organization>
+<Organization>
+<Name>ჭიათურის მუნიციპალიტეტის # 23 სასპორტო საფეხბურთო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>წალენჯიხის მუნიციპალიტეტის სკოლისგარეშე კომპლექსური სასპორტო საგანმანათლებლო სააღმზრდელო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>სადმელის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>აფხაზეთის მედია-ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ს.ღორჯომის საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ეკონომიკისა და მდგრადი განვითარების სამინისტროს სახელმწიფო საქვეუწყებო დაწესებულება -ერთიანი სატრანსპორტო ადმინისტრაცია</Name>
+</Organization>
+<Organization>
+<Name>საგზაო ტექნიკა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ თბილისის 58 საჯარო  სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სახელისუფლებო სპეციალური კავშირების სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>შპს. ქედის რაიონული საავადმყოფო~</Name>
+</Organization>
+<Organization>
+<Name>ბოლნისის მოხუცთა პანსიონატი ჭაღარა</Name>
+</Organization>
+<Organization>
+<Name>ახალციხის პროფესიული სწავლების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>თეთრიწყაროს ა.ა.ი.პ. საზოგადოებრივი ჯანდაცვა და უსაფრთხო გარემოს უზრუნველყოფის ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ენერგეტიკის სამინისტროს საქვეუწყებო დაწესებულება ნავთობისა და გაზის ეროვნული სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>სსიპ სოფელ შულავერის #1 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>სსიპ ბადრი ბერანძის სახელობის ქ. ქობულეთის #6 საჯარო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. მადლიერების სახლი</Name>
+</Organization>
+<Organization>
+<Name>შპს „კასპის კეთილმოწყობა</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს 69 ოლქის ჩხოროწყუს მაჟორიტარი პარლამენტის წევრის ბიურო</Name>
+</Organization>
+<Organization>
+<Name>გარემოს დაცვის ინსპექცია</Name>
+</Organization>
+<Organization>
+<Name>მელიტონ ბალანჩივაძის სახელობის ხელოვნების სკოლა</Name>
+</Organization>
+<Organization>
+<Name>ქართული ფილმი</Name>
+</Organization>
+<Organization>
+<Name>ზუგდიდის მუნიციპალიტეტის სკოლის გარეშე საღმზრდელო საგანმანათლებლო მოსწავლე-ახალგაზრდობის სასახლე</Name>
+</Organization>
+<Organization>
+<Name>თელავის N8 ბაგა-ბაღი</Name>
+</Organization>
+<Organization>
+<Name>იმერეთის რეგიონში აფხაზეთის მთავრობის წარმომადგენლობა</Name>
+</Organization>
+<Organization>
+<Name>თელავის N5 ბაგა-ბაღი</Name>
+</Organization>
+<Organization>
+<Name>სატყეო სააგენტო</Name>
+</Organization>
+<Organization>
+<Name>სახელმწიფო რწმუნებულის-გუბერნატორის ადმინისტრაცია დუშეთის, მცხეთის, თიანეთის და ყაზბეგის მუნიციპალიტეტებში</Name>
+</Organization>
+<Organization>
+<Name>მაჟორიტარი პარლამენტის წევრის ბიურო ბაღდათის #52 საარჩევნო ოლქში</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს ფინანსთა სამინისტროს საფინანსო აკადემია</Name>
+</Organization>
+<Organization>
+<Name>შპს თბილისის პარკები</Name>
+</Organization>
+<Organization>
+<Name>სს აკად. ო. ღუდუშაურის ეროვნული სამედიცინო ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს ,,სახელმწიფო მომსახურების ბიურო</Name>
+</Organization>
+<Organization>
+<Name>ქ. თბილისის სასწრაფო სამედიცინო დახმარების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>რუსთავგანათება</Name>
+</Organization>
+<Organization>
+<Name>ერედვის მუნიციპალიტეტის სასპორტო სკოლა</Name>
+</Organization>
+<Organization>
+<Name>შ.პ.ს. ,,მერკური კაპიტალი</Name>
+</Organization>
+<Organization>
+<Name>ააიპ თელავის #5 საბავშვო ბაღი</Name>
+</Organization>
+<Organization>
+<Name>საქართველოს პარლამენტთან არსებული აუდიტორული საქმიანობის საბჭო</Name>
+</Organization>
+<Organization>
+<Name>ააიპ თელავის #1 ბაგა-ბაღი</Name>
+</Organization>
+<Organization>
+<Name>შპს ტრამვაი-ტროლეიბუსების საწარმო</Name>
+</Organization>
+<Organization>
+<Name>ჩხოროწყუს მუნიციპალიტეტის განათლების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ააიპ თელავის #3 ბაგა-ბაღი</Name>
+</Organization>
+<Organization>
+<Name>წალენჯიხის საგანმანათლებლო რესურსცენტრი</Name>
+</Organization>
+<Organization>
+<Name>შპს ქ.ბათუმის დედათა და ბავშვთა ჯანმრთელობის დაცვის რესპუბლიური ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>ინფორმაციული ტექნოლოგიების პროფესიული სწავლების ცენტრი</Name>
+</Organization>
+<Organization>
+<Name>კასპის მუნიციპალიტეტის მუზეუმების გაერთიანება</Name>
+</Organization>
+</procurers>

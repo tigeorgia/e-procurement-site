@@ -3,7 +3,7 @@
   <h1><%= t("Procurers")%></h1>
 </div>
 
-<%= t("Number Of Organizations found")%>: <%= @numResults %>
+<%= t("Number Of Organizations Found")%>: <%= @numResults %>
 <p>
   <%= t("Download")%>:
   <% csvParams = @params.clone%>

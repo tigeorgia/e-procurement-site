@@ -1,0 +1,174 @@
+  Proposals process started: წინადადებების მიღება დაწყებულია
+  The Winner revealed: გამარჯვებული გამოვლენილია
+  Completed negative result: დასრულებულია უარყოფითი შედეგით 
+  Preparation of contract: მიმდინარეობს ხელშეკრულების მომზადება
+  Bidding failed: ტენდერი არ შედგა
+  Tender announced: ტენდერი გამოცხადებულია
+  Tender terminated: ტენდერი შეწყვეტილია
+  Selection/Evaluation: შერჩევა/შეფასება
+  Completed proposals: წინადადებების მიღება დასრულებულია
+  Bids starting: წინადადებების მიღება დაწყებული
+  Agreement concluded: ხელშეკრულება დადებულია
+  Search Tenders: ძებნა ტენდერები
+  Tender: სატენდერო
+  Tenders: ტენდერები
+  Status: სტატუსი
+  Category: კატეგორია
+  Risk Indicator: რისკის მაჩვენებელი
+  Registration Code: სარეგისტრაციო კოდი
+  Announced After: მგალობლიშვილთან
+  Announced Before: გამოაცხადა ადრე
+  Minimum Cost Estimate: მინიმალური ხარჯთა
+  Maximum Cost Estimate: მაქსიმალური ხარჯთა
+  Min Number Of Bids: მინიმალური რაოდენობის განაცხადების
+  Max Number Of Bids: მაქსიმალური რაოდენობა განაცხადების
+  Min Number Of Bidders: მინიმალური რაოდენობის პრეტენდენტებისთვის
+  Max Number Of Bidders: მაქსიმალური რაოდენობა პრეტენდენტებისთვის
+  Search Companies: ძებნა კომპანიები
+  Search Name: ძებნა სახელი
+  Name: სახელი
+  Total Spent: სულ გატარებული
+  Code: კოდი
+  Type: ტიპი
+  Only Foreign: მხოლოდ უცხოური
+  Successful Tenders: წარმატებული ტენდერები
+  Search Procurers: ძებნა შემსყიდველის
+  Search: ძებნის
+  Show Major Players: აჩვენოს ძირითადი მოთამაშე
+  Top Ten Players: ათეულში მოთამაშეებს
+  Lari: ლარი
+  Awarded Contract Total: დაჯილდოებულია ხელშეკრულების სულ
+  Tender Registration Number: ტენდერი რეგისტრაციის ნომერი
+  Procurer: შემსყიდველის
+  Announcement Date: გამოცხადების თარიღი
+  CPV Code: CPV კოდი
+  Type: გაცნობის
+  Status: სტატუსი
+  Estimated Value: სავარაუდო ღირებულება
+  Contract Value: კონტრაქტის ღირებულება
+  Number Of Bidders: პუნქტების პრეტენდენტებს
+  Year: წელი
+  Analysis: ანალიზი
+  Search Page: ძებნის გვერდი
+  Save Category: გადარჩენა კატეგორია
+  Category Name: კატეგორია სახელი
+  Estimated value of Tender by Type: სავარაუდო ღირებულება სატენდერო მიერ გაცნობის
+  Electronic: ელექტრონული
+  Simple Electronic: მარტივი ელექტრონული
+  Number Of Tenders By Type: პუნქტების ტენდერები მიერ გაცნობის
+  Average Bidding Duration: საშუალო სატენდერო ხანგრძლივობა
+  Average Time Between Tender Announcement And Bidding: საშუალო დრო შორის სატენდერო განცხადება და სატენდერო
+  Average Number Of Bidders Per Tender: საშუალო რაოდენობის პრეტენდენტთა სატენდერო პოსტი
+  Average Number Of Bids Per Tender: საშუალო რაოდენობას განაცხადების პოსტი სატენდერო
+  bids: განაცხადების
+  Bids: განაცხადების
+  bidders: კონკურსის მონაწილეებს
+  Bidders: კონკურსის მონაწილეებს
+  Email: ელ
+  Password: პაროლი
+  Remember me: დამიმახსოვრე
+  sign in: შესვლა
+  sign up: დარეგისტრირდით
+  Remove Category: ამოიღონ კატეგორია
+  Edit Category: შეცვალონ კატეგორია
+  Add New Category: ახალი კატეგორია
+  Your CPV Groups: შენი CPV ჯგუფები
+  Your Saved Searches: შენი შენახული ძიებები
+  Tenders You Are Watching: ტენდერები თქვენ თვალს
+  Days After Announcement: დღისა განცხადების
+  Percentage Of Bids That Had At Least One Bidder: პროცენტული განაცხადების რომ ჰქონდა სულ მცირე ერთი პრეტენდენტი
+  Percentage: პროცენტული
+  Account: ანგარიშის
+  Admin: ადმინისტრაცია
+  Subscribe: გამოწერა
+  Unsubscribe: გაუქმება
+  Email Alerts: იგზავნება
+  Date Saved: თარიღი გადაარჩინა
+  Delete: წაშლა
+  Organizations: ორგანიზაციები
+  Number Of Organizations Found: პუნქტების ორგანიზაციები ნაპოვნია
+  Duration Of Tender Vs Average Number Of Bidders: ხანგრძლივობა სატენდერო vs საშუალო რაოდენობა პრეტენდენტებისთვის
+  Observations: დაკვირვებები
+  day: დღეში
+  days: დღის განმავლობაში
+  Days: დღის განმავლობაში
+  Country: ქვეყანა
+  Total Revenue: სულ შემოსავლების
+  Tenders Bid On: ტენდერები განაცხადის შესახებ
+  Tenders Won: ტენდერები მოგებული
+  Organization type: ორგანიზაციის ტიპი
+  Total spent: სულ დახარჯული
+  Tenders Issued: ტენდერები გაიცა
+  Successful tenders: წარმატებული ტენდერები
+  Download: ჩამოტვირთვა
+  Success?: წარმატება?
+  Success: წარმატება
+  Failed: ვერ მოხერხდა
+  Procurers: შემსყიდველის
+  Saved As: შენახულია როგორც
+  CPV Description: CPV აღწერა
+  Identification Code: საიდენტიფიკაციო კოდი
+  City: ქალაქი
+  Address: მისამართი
+  Phone Number: ტელეფონის ნომერი
+  Fax Number: ფაქსის ნომერი
+  Website: ვებგვერდზე
+  Estimated Cost: ღირებულება
+  Actual Cost: ფაქტიური ღირებულება
+  All tenders: ყველა ტენდერების
+  Savings Percentage: შემნახველი პროცენტული
+  Average Bidders: საშუალო პრეტენდენტებისთვის
+  Average Bids: საშუალო განაცხადების
+  Successful Tenders vs Failed Tenders: წარმატებული ტენდერები vs ვერ
+  First: პირველი
+  previous: წინა
+  next: შემდეგი
+  last: ბოლო
+  Competitors: კონკურენტები
+  Tender CPV Code Distribution: სატენდერო CPV კოდი განაწილების
+  Number Of Results: პუნქტების შედეგები
+  Save Search: შენახვა ძებნა
+  Save To Profile: შენახვა საწყისი პროფილი
+  Remove From Profile: ამოღება პროფილი
+  Remove Search: ამოიღონ ძებნა
+  Procuring Entity: შემსყიდველი პირი
+  Tender Type: ტენდერის ტიპი
+  Tender Announcement Date: ტენდერის გამოცხადების თარიღი
+  Bid Start Date: თქვან დაწყების თარიღი
+  Bid End Date: თქვან დასრულების თარიღი
+  Bidding Duration: სატენდერო ხანგრძლივობა
+  Procuring Category: შემსყიდველი კატეგორია
+  CPV Codes: CPV კოდები
+  Risk Score: რისკის ანგარიში
+  Participants: მონაწილეები
+  First Bid: პირველი განაცხადის
+  Last Bid: ბოლო განაცხადის
+  Number Of Bids: პუნქტების შეთავაზებები
+  Bidding Result: სატენდერო შედეგი
+  Contract Type: გარიგების ტიპი
+  Organization: ორგანიზაცია
+  Start Date: დაწყების თარიღი
+  Expiry Date: ვადის გასვლის
+  Documentation: დოკუმენტაცია
+  Title: სათაური
+  Author: ავტორი
+  Date Submitted: თარიღი წარდგენილია
+  Bidding Duration: სატენდერო ხანგრძლივობა
+  Procurer Estimate: შემსყიდველის შეფასება
+  Tenders Won Vs Tenders Lost: განაცხადები მოგებული Vs განაცხადები წაგებული
+  Tenders Lost: განაცხადები წაგებული
+  Simple Electronic Tender Activity: მარტივი ელექტრონული ტენდერი აქტიურობა
+  Electronic Tender Activity: ელექტრონული ტენდერი აქტიურობა
+  Tenders Bid On: განაცხადები სატენდერო წლის
+  Total Estimated Value of Contracts Won: სულ სავარაუდო ღირებულება კონტრაქტები მოგებული
+  Total Actual Value of Contracts Won: სულ რეალურ საბაზრო ღირებულებას კონტრაქტები მოგებული
+  Estimated vs Actual Ratio: სავარაუდო Vs ფაქტობრივი თანაფარდობა
+  Average Number of Bidders on Contracts Won: საშუალო პუნქტების კონკურსის მონაწილეებს კონტრაქტები მოგებული
+  Total Expenditure Breakdown: სულ ხარჯების Breakdown
+  yes_caps: დიახ
+  no_caps: არ
+  Estimated Cost All Tenders: სავარაუდო ღირებულება ყველა განაცხადები
+  Actual Cost All Tenders: ფაქტობრივი ხარჯების ყველა განაცხადები
+  Generate Aggregate Data: გენერაცია ერთიანი მონაცემები
+  Estimated Value Of Tenders By Type: სავარაუდო ღირებულება განაცხადები ტიპის
+  Tender Duration: ტენდერი ხანგრძლივობა

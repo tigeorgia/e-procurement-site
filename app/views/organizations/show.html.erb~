@@ -129,7 +129,6 @@ $(function () {
             },
            xAxis: {
               categories: [
-                 '<%=t("Tenders Bid On")%>',
                  <% @competitors.each do |competitor| %> 
                     <% item = [link_to(competitor[0].name, organization_path(competitor[0].id))] %>
                     <%= raw item %>, 
@@ -146,7 +145,7 @@ $(function () {
             series: [{
                 name: '<%=t("Tenders")%>',
                 data: [ 
-                        ['<%=t("Number of tenders bid on")%>', <%= @numTenders %>],
+                        [
                         <% @competitors.each do |competitor| %> 
                           <% item = [ link_to(competitor[0].name, organization_path(competitor[0].id)), competitor[1] ] %>
                           <%= raw item %>, 
@@ -284,6 +283,10 @@ $(function () {
         ]
 		  });
     <% end %>
+
+    <% if @jsonString.length > 0 %>
+      createD3Graphs( <%= raw @jsonString %> );
+    <% end %>
   })
 });
 </script>
@@ -294,7 +297,7 @@ $(function () {
 </div>
 
 <div class="row" id="mid-row">
-  <div class="span6">
+  <div class="span7">
     <dl class="info-horizontal">
       <dt><strong><%= t("Name") %>:</strong></dt>
       <dd><%= @organization.name %></dd>
@@ -324,25 +327,25 @@ $(function () {
 
       <dt><strong><%= t("Website") %>:</strong></dt>
       <dd><a href="<%= @organization.webpage%>"> <%= @organization.webpage %></a></dd>
+
+      <dt><strong><%= t("Number of Tenders Bid on")%>:</strong></dt>
+      <dd><%= @tenderInfo.count %></dd>
+
       <dt><strong><%= t("Total Estimated Value of Contracts Won")%>:</strong></dt>
-      <dd><%= @totalEstimatedValueOfContractsWon %></dd>
+      <dd><%= number_to_currency(@totalEstimatedValueOfContractsWon, :unit => "GEL ") %></dd>
       <dt><strong><%= t("Total Actual Value of Contracts Won")%>:</strong></dt>
-      <dd><%= @totalValueOfAllContracts %></dd>
+      <dd><%= number_to_currency(@totalValueOfAllContracts, :unit => "GEL ") %></dd>
       <dt><strong><%= t("Estimated vs Actual Ratio")%>:</strong></dt>
-      <dd><%= @EstimatedVActual %></dd>
+      <dd><%= number_with_precision(@EstimatedVActual, :precision => 2)+"%"%></dd>
       <dt><strong><%= t("Average Number of Bidders on Contracts Won")%>:</strong></dt>
-      <dd><%= @averageNumBiddersOnContractsWon %></dd>
+      <dd><%= number_with_precision(@averageNumBiddersOnContractsWon, :precision => 2)%></dd>
     </dl>
   </div>
-  <div class="span6">
+  <div class="span5">
     <div id="winLossChart" style="min-width: 250px; height: 250px; margin: 0 auto"></div>
   </div>
 </div>
-
 <hr>
-
-
-
 <br></br>
 <h3><%= t("Tenders Bid On")%></h3>
 <br></br>
@@ -360,6 +363,7 @@ $(function () {
       <th><%=t("Announcement Date")%></th>
       <th><%=t("Bidding Duration")%></th>
       <th><%=t("Procurer Estimate")%></th>
+      <th><%=t("Contract Value")%></th>
       <th><%=t("First Bid")%></th>
       <th><%=t("Last Bid")%></th>
       <th><%=t("Number Of Bids")%></th>
@@ -372,26 +376,36 @@ $(function () {
         <% if tender[:won] %>
           <td><font color="green"><strong><%=t("yes_caps")%></strong></font></td>
         <% else %>
-          <td><font color="red">NO</font></td>
+          <td><font color="red"><%=t("no_caps")%></font></td>
         <% end %>
         <td><%= tender[:numBidders]%></td>
         <td><%= link_to tender[:procurerName], :controller => "organizations", :action => "show_procurer", :id => tender[:procurerID] %></td>
         <td><%= tender[:tenderAnnouncementDate]%></td>
         <td><%= tender[:bidDuration]%> Days</td>
-        <td><%= tender[:start_amount] %></td>
-        <td><%= tender[:highest_bid] %></td>
-        <td><%= tender[:lowest_bid] %></td>
+        <td><%= number_to_currency(tender[:start_amount],:unit => "") %></td>
+        <% if tender[:contract_value] %>
+          <td><%= number_to_currency(tender[:contract_value],:unit => "") %></td>
+        <%else%>
+          <td>N/A</td>
+        <%end%>
+        <td><%= number_to_currency(tender[:highest_bid],:unit => "") %></td>
+        <td><%= number_to_currency(tender[:lowest_bid],:unit => "") %></td>
         <td><%= tender[:numBids] %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
 <% if  @simpleTenderStats.count > 0  %>
 <div id="tendersValueChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <% end %>
 
 <% if  @TenderStats.count > 0  %>
   <div id="altTendersValueChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<% end %>
+
+<% if @jsonString.length > 0 %>
+  <p id="cpvChart"></p>
 <% end %>
 
 <div id="ProcurersChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>

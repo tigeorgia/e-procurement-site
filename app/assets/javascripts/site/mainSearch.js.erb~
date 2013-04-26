@@ -1,0 +1,35 @@
+$(function() {
+  $.ajax({
+    url: "<%= asset_path 'procurers.xml' %>",
+    dataType: "xml",
+    success: function( xmlResponse ) {
+      var data = $( "Organization", xmlResponse ).map(function() {
+        return {
+          value: $( "Name", this ).text()
+        };
+      }).get();
+
+      $( "#proc_search" ).autocomplete({
+        source: data,
+          minLength: 2,
+      });
+    }
+  });
+
+  $.ajax({
+    url: "<%= asset_path 'suppliers.xml' %>",
+    dataType: "xml",
+    success: function( xmlResponse ) {
+      var data = $( "Organization", xmlResponse ).map(function() {
+        return {
+          value: $( "Name", this ).text()
+        };
+      }).get();
+
+      $( "#supply_search" ).autocomplete({
+        source: data,
+          minLength: 2,
+      });
+    }
+  });
+});

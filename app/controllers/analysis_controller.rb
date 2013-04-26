@@ -32,6 +32,7 @@ include GraphHelper
       bidData.each do |bidStat|
         data[:bidInfo].push([bidStat.duration,bidStat.average_bids,bidStat.tender_count])
       end
+      data[:bidInfo].sort! { |x, y| x[0] <=> y[0] }
       cpvData = AggregateCpvStatistic.where(:aggregate_statistic_type_id => typeData.id)
       cpvTree = {}
       cpvData.each do |cpv|

@@ -63,11 +63,11 @@
 				          </a>
 				          <ul class="dropdown-menu">
 						        <li>
-				 		         <%= link_to "Account", user_path %>
+				 		         <%= link_to t("Account"), user_path %>
 										</li>
                     <% if current_user.role == 'admin' %>
                       <li>
-				 		            <%= link_to "Admin", admin_path %>
+				 		            <%= link_to t("Admin"), admin_path %>
 										  </li>
                     <% end %>
 						        <li>
@@ -95,11 +95,7 @@
       </div>
     </div>
 
-		<div id="wrapper">
-		  <div class="container">
-		    <div class="content">
-		      <div class="row">
-		         <div class="span12">
+
 							<% flash.each do |key, msg| %>
 								<div class="alert <%= flash_translation(key) %> fade in">
 									<a href="#" data-dismiss="alert" class="close">×</a>
@@ -108,11 +104,7 @@
 							<% end %>
 
 	            <%= yield %>
-	          </div><!--/span-->
-		      </div><!--/row-->
-		    </div><!--/content-->
-		   </div> <!-- /container -->
-		</div><!--/wrapper-->
+
 
     <div class="push"><!--//--></div>
 

@@ -36,7 +36,7 @@ $(function () {
                         color: '#000000',
                         connectorColor: '#000000',
                         formatter: function() {
-                            return '<b>'+ this.point.name +'</b>:' +this.y+' <%=t("GEL")%>';
+                            return '<b>'+ this.point.name +'</b>:' +this.y+' GEL';
                         }
                     }
                 }
@@ -271,38 +271,31 @@ $(function () {
             }]
         });
 
-        biddingDurationChart = new Highcharts.Chart({
-          chart: {
-              renderTo: 'biddingDurationGraph',
-              plotBackgroundColor: null,
-              plotBorderWidth: null,
-              plotShadow: false
-          },
+
+        
+      biddingDurationChart = new Highcharts.Chart({
+       chart: {
+          renderTo: 'biddingDurationGraph',
+          type: 'bar'
+       },
+       title: {
+          text: '<%=t("Bidding Duration")%> (<%=t("Simple Electronic")%>)'
+       },
+       xAxis: {
+          categories: [
+              <% @info["simple electronic"][:bidInfo].each do |data| %>
+              "<%=data[0].to_s+' '+t("Days") %>",
+              <% end %>
+          ]
+       },
+       yAxis: {
           title: {
-              text: '<%=t("Bidding Duration")%> (<%=t("Simple Electronic")%>)'
-          },
-          tooltip: {
-      	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
-          	percentageDecimals: 1
-          },
-          plotOptions: {
-              pie: {
-                  allowPointSelect: true,
-                  cursor: 'pointer',
-                  dataLabels: {
-                      enabled: true,
-                      color: '#000000',
-                      connectorColor: '#000000',
-                      formatter: function() {
-                          return '<b>'+ this.point.name +'</b>:' +this.y;
-                      }
-                  }
-              }
-          },
-          series: [{
-              type: 'pie',
+             text: '<%=t("Number of Tenders")%>'
+          }
+       },
+        series: [{
               name: '<%=t("Bidding Duration")%>',
-              data: [  <% @info["simple electronic"][:bidInfo].each do |data| %> [ " <%=data[0].to_s+' '+t("Days") %>",  <%=data[2]%>  ], <%end%>  ]
+              data: [  <% @info["simple electronic"][:bidInfo].each do |data| %><%=data[2]%>, <%end%>]
           }]
         });
 

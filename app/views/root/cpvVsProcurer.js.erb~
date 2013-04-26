@@ -1,0 +1,30 @@
+$(document).ready(function() {
+    procChart = new Highcharts.Chart({
+       chart: {
+          renderTo: 'procGraph',
+          type: 'bar'
+       },
+       title: {
+          text: 'Top 10 Procurers'
+       },
+       xAxis: {
+          categories: [
+             <% @TopTen.each do |info| %>
+              <% item = link_to( raw(info[:company].name),  :controller => "organizations", :action => "show_procurer", :id => info[:company].id)%>
+              '<%= item%>',
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: 'Lari'
+          }
+       },
+       series: [        
+               {
+                name: "Awarded Contract Total",
+                data: [ <% @topTenProcurers.each do |info| %> <%= info[:total] %>, <% end %>]
+               },  
+      ]   
+    });
+ });

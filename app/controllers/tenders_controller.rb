@@ -2,6 +2,7 @@ class TendersController < ApplicationController
   require "query_helpers" 
   helper_method :sort_column, :sort_direction
   include ApplicationHelper
+
   def performSearch( data )
     query = QueryHelper.buildTenderSearchQuery(data)
     @params = params
@@ -41,8 +42,9 @@ class TendersController < ApplicationController
     reg_num = data[:tender_registration_number]
     status = data[:tender_status]
     cpvGroupID = data[:cpvGroup]
+    keywords = data[:keyword]
+    type = data[:type]
 
-    
     reg_num = "%"+reg_num.gsub('%','')+"%"
     status = "%"+status.gsub('%','')+"%"
 
@@ -67,6 +69,9 @@ class TendersController < ApplicationController
     minBidders = data[:min_num_bidders]
     maxBidders = data[:max_num_bidders]
 
+    procurer = "%"+data[:procurer]+"%"
+    supplier = "%"+data[:supplier]+"%"
+
      
     translated_status =  "%%"
     status = status.gsub('%','')
@@ -74,9 +79,11 @@ class TendersController < ApplicationController
       translated_status = t(status, :locale => :ka)
     end
     queryData = {
+                 :keywords => keywords, 
                  :cpvGroupID => cpvGroupID.to_s,
                  :tender_registration_number => reg_num.to_s,
                  :tender_status => translated_status,
+                 :tender_type => type,
                  :announced_after => startDate.to_s,
                  :announced_before => endDate.to_s,
                  :min_estimate => minVal.to_s,
@@ -85,7 +92,9 @@ class TendersController < ApplicationController
                  :max_num_bids => maxBids,
                  :min_num_bidders => minBidders,
                  :max_num_bidders => maxBidders,
-                 :risk_indicator => data[:risk_indicator]
+                 :risk_indicator => data[:risk_indicator],
+                 :procurer => procurer,
+                 :supplier => supplier
             }
     return queryData
   end

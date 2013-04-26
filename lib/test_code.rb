@@ -3,6 +3,55 @@ module TestFile
   require "aggregate_helper"
   require "cpv_helper"
 
+
+
+  def self.processProcAggregates
+    ProcurerCpvRevenue.delete_all
+    classifiers = TenderCpvClassifier.find(:all)
+    classifiers.each do |classifier|
+      puts classifier.cpv_code
+      Tender.find_each(:conditions => "cpv_code = " + classifier.cpv_code) do |tender|
+        if tender.contract_value and tender.contract_value > 0
+          tenderValue = tender.contract_value
+          procurer = Organization.find(tender.procurring_entity_id)
+          if procurer
+            aggregateData = ProcurerCpvRevenue.where(:cpv_code => classifier.cpv_code, :organization_id => procurer.id).first
+            if not aggregateData
+              aggregateData = ProcurerCpvRevenue.new
+              aggregateData.organization_id = procurer.id
+              aggregateData.cpv_code = classifier.cpv_code
+              aggregateData.total_value = tenderValue
+            else
+              aggregateData.total_value = aggregateData.total_value + tenderValue
+            end
+            aggregateData.save
+          end
+        end
+      end
+    end
+  end
+
+  def self.cleanNames
+    Organization.find_each do |org|
+      name = org.name.delete('"').delete("'")
+      org.name = name
+      puts name
+      org.save
+    end
+  end
+
+  def self.storeOrgNamesOnTenders
+    Tender.find_each do |tender|
+      org = Organization.find(tender.procurring_entity_id)
+      tender.procurer_name = org.name + "#" + org.translation
+      if tender.winning_org_id
+        org = Organization.find(tender.winning_org_id)
+        tender.supplier_name = org.name + "#" + org.translation
+      end
+      tender.save
+    end
+  end
+
   def self.storeOrgMeta()
      Organization.find_each do |org|
       #get total revenue
@@ -94,7 +143,7 @@ module TestFile
   def self.run
     #CpvHelper.createCPVClassifiers(false)
     #self.storeTenderContractValues()
-    self.addRiskIndicatorsToTenders()
+    self.processProcAggregates()
   end
 
 end

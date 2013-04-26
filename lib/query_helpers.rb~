@@ -18,9 +18,7 @@ module QueryHelper
     return count
   end
 
-
-
-   def self.buildSearchParamsFromString(searchString)
+  def self.buildSearchParamsFromString(searchString)
     fields = searchString.split("#")
     params = {
       :cpvGroup => fields[0],
@@ -37,7 +35,7 @@ module QueryHelper
       :risk_indicator => ""
     }
     if fields[11]
-      params[:risk_indicator] = field[11]
+      params[:risk_indicator] = fields[11]
     end
     params.each do |key,param|
       if param.length == 1
@@ -48,35 +46,35 @@ module QueryHelper
   end
 
 
- def self.buildTenderSearchQuery(params)
+  def self.addParamsToQuery(query, param, sql_field, operator,conjunction)
+    if param != "" and param != "%%"
+      query += " "+conjunction+" "
+      query += sql_field +" "+operator+" "+ "'"+param+"'"
+    end
+    return query
+  end
+  
 
+ def self.buildTenderSearchQuery(params)
     #all params should already be in string format
     query = ""
-    addAnd = false
+    query += self.addParamToQuery(query, params[:tender_registration_number], "tender_registration_number", "LIKE", "")
+    query += self.addParamToQuery(query, params[:tender_status], "tender_status", "=", "AND" )
+    query += self.addParamToQuery(query, params[:tender_type], "tender_type", "=", "AND" )
+    query += self.addParamToQuery(query, params[:announced_after], "tender_announcement_date", ">=" , "AND" )
+    query += self.addParamToQuery(query, params[:announced_before], "tender_announcement_date", "<=", "AND" )
+    query += self.addParamToQuery(query, params[:min_estimate], "estimated_value", ">=", "AND" )
+    query += self.addParamToQuery(query, params[:max_estimate], "estimated_value", "<=", "AND" )
+    query += self.addParamToQuery(query, params[:min_num_bids], "num_bids", ">=", "AND" )
+    query += self.addParamToQuery(query, params[:max_num_bids], "num_bids", "<=", "AND" )
+    query += self.addParamToQuery(query, params[:min_num_bidders], "num_bidders", ">=", "AND" )
+    query += self.addParamToQuery(query, params[:max_num_bidders], "num_bidders", "<=" , "AND" )
+    query += self.addParamToQuery(query, params[:risk_indicator], "risk_indicators", "LIKE", "AND" )
+    query += self.addParamToQuery(query, params[:procurer], "procurer_name", "LIKE", "AND" )
+    query += self.addParamToQuery(query, params[:supplier], "supplier_name", "LIKE", "AND" )
 
-    addParamToQuery = Proc.new{ |param, sql_field, operator|
-      if param != "" and param != "%%"
-        if addAnd
-          query += " AND "
-        else
-          addAnd = true
-        end
-        query += sql_field +" "+operator+" "+ "'"+param+"'"
-      end
-    }   
 
-    addParamToQuery.call( params[:tender_registration_number], "tender_registration_number", "LIKE" )
-    addParamToQuery.call( params[:tender_status], "tender_status", "LIKE" )
-    addParamToQuery.call( params[:announced_after], "tender_announcement_date", ">=" )
-    addParamToQuery.call( params[:announced_before], "tender_announcement_date", "<=" )
-    addParamToQuery.call( params[:min_estimate], "estimated_value", ">=" )
-    addParamToQuery.call( params[:max_estimate], "estimated_value", "<=" )
-    addParamToQuery.call( params[:min_num_bids], "num_bids", ">=" )
-    addParamToQuery.call( params[:max_num_bids], "num_bids", "<=" )
-    addParamToQuery.call( params[:min_num_bidders], "num_bidders", ">=" )
-    addParamToQuery.call( params[:max_num_bidders], "num_bidders", "<=" )
-    addParamToQuery.call( params[:risk_indicator], "risk_indicators", "LIKE" )
-
+    #add cpv codes
     cpvGroup = CpvGroup.where(:id => params[:cpvGroupID]).first
     if not cpvGroup or cpvGroup.id == 1
     else      
@@ -99,7 +97,24 @@ module QueryHelper
         query = query + " )"
       end
     end
+
+    #add keywords
+    if params[:keywords]
+      keywords = params[:keywords].split
+      count = 0
+      queryAddition = query.length > 0
+      conjunction = (queryAddition)? " AND (":""
+      keywords.each do |word|
+        if count > 0 
+          conjunction = " OR"
+        end
+        subString = "'%"+word+"%'" 
+        query+= conjunction+" addition_info LIKE "+subString+" OR supplier_name LIKE "+subString+" OR procurer_name LIKE "+subString 
+        count+=1
+      end
+      query+= (queryAddition and count > 0 )? ")":""
+    end
+
     return query
   end
-
 end

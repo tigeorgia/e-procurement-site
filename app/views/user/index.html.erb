@@ -34,7 +34,7 @@
         <td <%=highlightClass%>><%= link_to tender.tender_registration_number, tender_path(:id => tender.id, :highlights => highlights) %></td>
         <td <%=highlightClass%>><%= t(tender.tender_type.strip) %></td>
         <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
-        <td <%=highlightClass%>><%= tender.estimated_value %></td>
+        <td <%=highlightClass%>><%= number_to_currency(tender.estimated_value, :unit => "GEL ") %></td>
         <td <%=highlightClass%>><%= button_to t("Delete"), {:action => "remove_tender_watch_from_account", :tender_url => tender.url_id} %></td>
       </tr>
     <% end %>

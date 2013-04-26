@@ -1,0 +1,29 @@
+$(document).ready(function() {
+    procChart = new Highcharts.Chart({
+       chart: {
+          renderTo: 'groupGraph',
+          type: 'bar'
+       },
+       title: {
+          text: 'Top 10 Groups'
+       },
+       xAxis: {
+          categories: [
+             <% @majorGroups.each do |info| %>
+              '<%= info[:name]%>',
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: 'Lari'
+          }
+       },
+       series: [        
+               {
+                name: "Awarded Contract Total",
+                data: [ <% @majorGroups.each do |info| %> <%= info[:total] %>, <% end %>]
+               },  
+      ]   
+    });
+ });

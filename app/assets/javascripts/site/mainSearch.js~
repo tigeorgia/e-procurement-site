@@ -1,0 +1,18 @@
+$(function() {
+  $.ajax({
+    url: "london.xml",
+    dataType: "xml",
+    success: function( xmlResponse ) {
+      var data = $( "geoname", xmlResponse ).map(function() {
+        return {
+          value: $( "name", this ).text()
+        };
+      }).get();
+
+      $( "#proc_search" ).autocomplete({
+        source: data,
+          minLength: 0,
+      });
+    }
+  });
+});

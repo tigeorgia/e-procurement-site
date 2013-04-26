@@ -1,0 +1,9 @@
+$(document).ready(function() {
+    var advancedToggle = $("#advancedToggle");
+    var advancedDiv = $("#advancedDiv");
+    var advancedHeight = advancedDiv.height();
+    advancedDiv.hide();
+    advancedToggle.click(function() {
+     advancedDiv.slideToggle({duration:"slow"});
+    });
+});

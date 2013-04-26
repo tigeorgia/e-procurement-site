@@ -33,7 +33,7 @@
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
   <dt <%=highlightClass%> ><strong><%=t("Tender Type") %>:</strong></dt>
-  <dd <%=highlightClass%> ><%= t(@tender.tender_type) %></dd>
+  <dd <%=highlightClass%> ><%= t(@tender.tender_type.strip()) %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('tender_registration_number') %>
@@ -75,7 +75,7 @@
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
   <dt <%=highlightClass%> ><strong><%= t("Estimated Value")%>:</strong></dt>
-  <dd <%=highlightClass%> ><%= @tender.estimated_value %></dd>
+  <dd <%=highlightClass%> ><%= number_to_currency(@tender.estimated_value,:unit => "GEL ") %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('cpv_code') %>
@@ -125,8 +125,8 @@
          <% end %>
         <tr <%=myClass%>>
             <td <%=myClass%>><%= link_to info[:name], organization_path(info[:id]) %></td>
-            <td <%=myClass%>><%= info[:highBid] %></td>
-            <td <%=myClass%>><%= info[:lowBid] %></td>
+            <td <%=myClass%>><%=  number_to_currency(info[:highBid],:unit => "") %></td>
+            <td <%=myClass%>><%=  number_to_currency(info[:lowBid],:unit => "") %></td>
             <td <%=myClass%>><%= info[:numBids] %></td>
          </tr>
       <% end %>
@@ -152,16 +152,16 @@
       <% @agreementInfo.each do |agreement| %>
         <% if agreement[:value] == -1 %>
           <tr>
-            <td><%= agreement[:Type] %></td>
+            <td><%= agreement[:Type].strip() %></td>
             <td><%= link_to agreement[:OrgName], organization_path(agreement[:OrgID]) %></td>
             <td><%= agreement[:document] %></td>
             <td><%= agreement[:startDate] %></td>        
           </tr> 
        <% else %>
           <tr>
-            <td><%= agreement[:Type] %></td>
+            <td><%= agreement[:Type].strip() %></td>
             <td><%= link_to agreement[:OrgName], organization_path(agreement[:OrgID]) %></td>
-            <td><%= agreement[:value] %></td>
+            <td><%= number_to_currency(agreement[:value],:unit => "") %></td>
             <td><%= agreement[:startDate] %></td>
             <td><%= agreement[:expiryDate] %></td>
             <td><a href=<%= agreement[:document] %>>link</a></td>

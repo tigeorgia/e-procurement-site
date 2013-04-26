@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130412070310) do
+ActiveRecord::Schema.define(:version => 20130425112024) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -177,6 +177,14 @@ ActiveRecord::Schema.define(:version => 20130412070310) do
 
   add_index "organizations", ["organization_url", "name"], :name => "index_organizations_on_organization_url_and_name"
 
+  create_table "procurer_cpv_revenues", :force => true do |t|
+    t.integer  "organization_id"
+    t.string   "cpv_code"
+    t.decimal  "total_value",     :precision => 11, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "searches", :force => true do |t|
     t.integer  "user_id"
     t.string   "search_string"
@@ -241,6 +249,8 @@ ActiveRecord::Schema.define(:version => 20130412070310) do
     t.integer  "contract_value"
     t.integer  "winning_org_id"
     t.string   "risk_indicators"
+    t.string   "procurer_name"
+    t.string   "supplier_name"
   end
 
   add_index "tenders", ["estimated_value"], :name => "index_tenders_on_estimated_value"

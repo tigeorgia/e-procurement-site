@@ -19,6 +19,17 @@ module ApplicationHelper
     return count
   end
 
+  def formatGEL(num, useFractions)
+    var p = num.toFixed(2).split(".");
+    var num =  "GEL " + p[0].split("").reverse().reduce(function(acc, num, i, orig) {
+        return num + (i && !(i % 3) ? "," : "") + acc;
+    }, "")
+    if(useFractions){
+      num += "." + p[1];
+    }
+    return num;
+  end
+
 
   def sortable(params, column, title = nil)
     myParams = params.clone
@@ -40,7 +51,7 @@ module ApplicationHelper
                 tender.units_to_supply,tender.supply_period,tender.guarantee_amount,tender.guarantee_period]
        end
       end
-    return csv_string
+    return BOM + csv_string
   end
 
   def buildTenderSearchQuery(params)

@@ -76,5 +76,5 @@
 </table>
 
 <hr>
-<h3>Your CPV groups</h3>
+<h3><%=t("Your CPV Groups")%></h3>
 <%= render :partial => "user/cpvGroups", :locals => {:cpvGroups => @cpvGroups, :referrer => "user"} %>
