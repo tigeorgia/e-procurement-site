@@ -145,7 +145,6 @@ $(function () {
             series: [{
                 name: '<%=t("Tenders")%>',
                 data: [ 
-                        [
                         <% @competitors.each do |competitor| %> 
                           <% item = [ link_to(competitor[0].name, organization_path(competitor[0].id)), competitor[1] ] %>
                           <%= raw item %>, 
@@ -295,6 +294,17 @@ $(function () {
 <div class="page-header">
   <h1><%=t '.title', :default => t("Organization") %></h1>
 </div>
+
+
+<% if user_signed_in? %>
+  <div class="procurer_subscription">
+    <% if @isWatched %>
+      <%= button_to t("Remove From Profile"), {:controller => :user, :action => "remove_supplier_watch", :supplier_url => @procUrl, :user_id => current_user.id}, :remote => true %>
+    <% else %>
+      <%= button_to t("Save To Profile"), {:controller => :user, :action => "add_supplier_watch", :supplier_url => @supplierUrl, :supplier_id => @organization.id, :user_id => current_user.id}, :remote => true %>
+    <% end %>
+  </div>
+<% end %>
 
 <div class="row" id="mid-row">
   <div class="span7">

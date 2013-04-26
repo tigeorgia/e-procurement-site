@@ -46,7 +46,7 @@ module QueryHelper
   end
 
 
-  def self.addParamsToQuery(query, param, sql_field, operator,conjunction)
+  def self.addParamToQuery(query, param, sql_field, operator,conjunction)
     if param != "" and param != "%%"
       query += " "+conjunction+" "
       query += sql_field +" "+operator+" "+ "'"+param+"'"

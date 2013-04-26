@@ -62,6 +62,12 @@ class UserController < ApplicationController
   end
 
 
+  def add_procurer_watch
+  end
+
+  def remove_procurer_watch
+  end
+
   def add_tender_watch
     watch_item = WatchTender.new
     watch_item.tender_url = params[:tender_url]
@@ -147,7 +153,9 @@ class UserController < ApplicationController
     
     codes.each do |code|
       cpv = TenderCpvClassifier.where( :cpv_code => code.to_i ).first
-      cpvGroup.tender_cpv_classifiers << cpv
+      if cpv
+        cpvGroup.tender_cpv_classifiers << cpv
+      end
     end
     cpvGroup.save
     if cpvGroup.user_id == current_user.id

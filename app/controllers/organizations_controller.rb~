@@ -31,13 +31,13 @@ class OrganizationsController < ApplicationController
       orgString = " AND org_type = '"+org_type+"'"
     end
     query = "is_bidder = true"
-    query = QueryHelper.addParamsToQuery(query, code, "code", "LIKE", "AND")
-    query = QueryHelper.addParamsToQuery(query, org_type, "org_type", "=","AND")
-    query = QueryHelper.addParamsToQuery(query, city, "city", "LIKE","AND")
-    query = QueryHelper.addParamsToQuery(query, email, "email", "LIKE","AND")
+    query = QueryHelper.addParamToQuery(query, code, "code", "LIKE", "AND")
+    query = QueryHelper.addParamToQuery(query, org_type, "org_type", "=","AND")
+    query = QueryHelper.addParamToQuery(query, city, "city", "LIKE","AND")
+    query = QueryHelper.addParamToQuery(query, email, "email", "LIKE","AND")
     query = QueryHelper.addParamsToQuery(query, phone_number, "phone_number", "LIKE","AND")
     if foreignOnly == '1'
-      query = QueryHelper.addParamsToQuery(query, 'საქართველო', "country", "NOT LIKE","AND")
+      query = QueryHelper.addParamToQuery(query, 'საქართველო', "country", "NOT LIKE","AND")
     end
     if willSearchName
       query += " AND ( name LIKE '"+name+"' OR translation LIKE '"+name+"' )"
@@ -278,7 +278,11 @@ class OrganizationsController < ApplicationController
     tenderList = Tender.where(:winning_org_id => id)
     tenderList.each do |tender|
       tendersWon[tender.id] = [tender.contract_value,tender]
-      item = { :name => tender.cpvDescription, :value => tender.contract_value, :code => tender.cpv_code, :children => [] }       
+      cpvDescription = TenderCpvClassifier.where(:cpv_code => tender.cpv_code).first.description_english
+      if cpvDescription == nil
+        cpvDescription = "NA"
+      end
+      item = { :name => cpvDescription, :value => tender.contract_value, :code => tender.cpv_code, :children => [] }       
       cpvAgreements[tender.cpv_code] = item
     end
 

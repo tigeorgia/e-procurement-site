@@ -155,6 +155,16 @@ $(function () {
 });
 </script>
 
+<% if user_signed_in? %>
+  <div class="procurer_subscription">
+    <% if @isWatched %>
+      <%= button_to t("Remove From Profile"), {:controller => :user, :action => "remove_procurer_watch", :procurer_url => @procurerUrl, :user_id => current_user.id}, :remote => true %>
+    <% else %>
+      <%= button_to t("Save To Profile"), {:controller => :user, :action => "add_procurer_watch", :procurer_url => @procurerUrl, :procurer_id => @organization.id, :user_id => current_user.id}, :remote => true %>
+    <% end %>
+  </div>
+<% end %>
+
 
 <%- model_class = Organization -%>
 <div class="page-header">
@@ -200,14 +210,14 @@ $(function () {
       <% if @averageTenderDurationSimple == -1 %>
         <dd>N/A</dd>
       <%else%>
-        <dd><%= number_with_precision(@averageTenderDurationSimple, :precision => 2)%> t("Days")</dd>
+        <dd><%= number_with_precision(@averageTenderDurationSimple, :precision => 2)%> <%=t("Days")%></dd>
       <%end%>
        
       <dt><strong><%= t("Average Electronic Tender Duration") %></strong></dt>
       <% if @averageTenderDurationElectronic == -1 %>
         <dd>N/A</dd>
       <%else%>
-        <dd><%= number_with_precision(@averageTenderDurationElectronic, :precision => 2)%> t("Days")</dd>
+        <dd><%= number_with_precision(@averageTenderDurationElectronic, :precision => 2)%> <%=t("Days")%></dd>
       <%end%>
     </dl>
   </div>

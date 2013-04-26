@@ -62,6 +62,18 @@ class UserController < ApplicationController
   end
 
 
+  def add_procurer_watch
+  end
+
+  def remove_procurer_watch
+  end
+
+  def add_supplier_watch
+  end
+  
+  def remove_supplier_watch
+  end
+
   def add_tender_watch
     watch_item = WatchTender.new
     watch_item.tender_url = params[:tender_url]
