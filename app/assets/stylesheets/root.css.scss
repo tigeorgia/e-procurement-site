@@ -1,3 +1,46 @@
+.info-tip {
+	padding-right: 15px;
+	margin-left: 8px;
+	background: url(icon-info-small.gif) no-repeat center right;
+}
+
+.content a.info-tip{
+  text-decoration:none; 
+}
+
+.search {
+  display: inline-block;
+}
+
+.search-input[type="text"]{
+  display: block;
+}
+
+a.info-tip {
+    text-decoration: none
+}
+a.info-tip:hover {
+    cursor: help;
+    position: relative
+}
+a.info-tip span {
+    display: none
+}
+a.info-tip:hover span {
+    border: #c0c0c0 1px dotted;
+    padding: 5px 20px 5px 5px;
+    display: block;
+    z-index: 100;
+    background: #f0f0f0 no-repeat 100% 5%;
+    left: 0px;
+    margin: 10px;
+    width: 250px;
+    position: absolute;
+    top: 10px;
+    text-decoration: none
+}
+
+
 /* clear floats */
 .clearfix:after, .clear:after {
     visibility: hidden;
@@ -95,7 +138,6 @@ ol.standard li {
 	list-style-type:decimal;
 	line-height: 1.1;
 }
-
 
 label.horizontal {
   display: inline-block;

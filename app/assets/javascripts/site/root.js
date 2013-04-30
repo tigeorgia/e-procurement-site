@@ -13,5 +13,6 @@ $(document).ready(function() {
         "sDom": '<"top"flp><"bottom"irt><"clear">',
         "sPaginationType": "full_numbers"
     } );
-     $( ".tabs" ).tabs();
+    $( ".tabs" ).tabs();
+    $( document ).tooltip();
 });

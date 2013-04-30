@@ -4,22 +4,14 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
 
  *= require_self
- *= require jquery.ui.core
- *= require jquery.ui.button
- *= require jquery.ui.dialog
- *= require jquery.ui.menu
- *= require jquery.ui.progressbar
- *= require jquery.ui.resizable
- *= require jquery.ui.selectable
- *= require jquery.ui.slider
- *= require jquery.ui.spinner
- *= require jquery.ui.tabs
- *= require jquery.ui.tooltip
- *= require jquery.ui.theme
+ *= require root
+ *= require jquery.ui.all
  *= require bootstrap-datepicker
  *= require formtastic
  *= require formtastic-bootstrap
  *= require dataTables/src/demo_table_jui
- *= require_tree .
+ *= require bootstrap_and_overrides
+ *= require cpvChart
+
 */
 

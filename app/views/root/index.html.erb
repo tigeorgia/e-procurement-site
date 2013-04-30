@@ -43,23 +43,25 @@ $(document).ready(function() {
     <li><a href="#tabs-2"><%=t("Search Companies")%></a></li>
     <li><a href="#tabs-3"><%=t("Search Procurers")%></a></li>
   </ul>
-  <div id="tabs-1">
+  <div id="tabs-1" class="expansion" >
     <%= form_tag({:controller => "tender", :action => "search"}, :method => "get") do %>
       <div class="row-fluid">
-        <div class="span4 offset4">
-          <label for="keyword"><%=t("Keyword Search")%></label>
-          <input name="keyword" type="text" />
+        <div class="span3 offset2" >
+          <label for="supplier" class="search"><%=t("Supplier")%></label>
+          <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
+          <input class="supply_search" name="supplier" type="text"/>
+        </div>
+        <div class="span3 offset2" >
+          <label for="procurer" class="search"><%=t("Procurer")%></label>
+          <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
+          <input class="proc_search" name="procurer" type="text"/>
         </div>
       </div>
-      <div class="row-fluid">
-        <div class="span4 offset4">
-          <%= submit_tag( t('Search')) %>
-        </div>
-      </div>
-      
+   
       <div class="row-fluid">
         <div class="span3">
-          <label for="tender_status"><%=t("Status")%></label>
+          <label for="tender_status" class="search"><%=t("Status")%></label>
+          <a href="#" class="info-tip">&nbsp;<span>The stage a tender is currently in</span></a>
           <% options = [] %>
           <% @uniqueStatus.each do |status| %>
             <% options.push(item = [t(status),status]) %>
@@ -67,15 +69,18 @@ $(document).ready(function() {
           <%= select_tag(:tender_status, options_for_select(options), :include_blank => true)  %>
         </div>
         <div class="span3">        
-          <label for="cpvGroup"><%= t("Category")%></label>
+          <label for="cpvGroup" class="search"><%= t("Category")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name)) %>
         </div>
         <div class="span3">
-          <label for="risk_indicator"><%=t("Risk Indicator")%> </label>
+          <label for="risk_indicator" class="search"><%=t("Risk Indicator")%> </label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <%= select_tag(:risk_indicator,  options_from_collection_for_select(@indicators,:id,:name),{:include_blank => true})  %>
         </div>
         <div class="span3">
-          <label for="type"><%=t("Type")%> </label>
+          <label for="type" class="search"><%=t("Type")%> </label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <% options = [] %>
           <% @uniqueTypes.each do |type| %>
             <% options.push(item = [t(type.strip()),type]) %>
@@ -84,96 +89,163 @@ $(document).ready(function() {
         </div>
       </div>
       <div class="row-fluid">
-        <div class="span4 offset4" id="advancedToggle">
+        <div class="span4 offset4 expandToggle">
           Advanced 
           <div class="arrow"></div>
         </div>
       </div>
-      <div class="row-fluid" id="advancedDiv">          
+      
+      <div class="row-fluid expandable">    
+        <hr>      
         <div class="span3 offset1">
-          <label for="min_estimate"><%=t("Minimum Cost Estimate")%></label>
+          <label for="min_estimate" class="search"><%=t("Minimum Cost Estimate")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <input name="min_estimate" type="text"/>
-          <label for="max_estimate"><%=t("Maximum Cost Estimate")%></label>
+          <label for="max_estimate" class="search"><%=t("Maximum Cost Estimate")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <input name="max_estimate" type="text"/>
 
-          <label for="min_num_bids"><%=t("Min Number Of Bids")%></label>
+          <label for="min_num_bids" class="search"><%=t("Min Number Of Bids")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <input name="min_num_bids" type="text"/>
-          <label for="max_num_bids"><%=t("Max Number Of Bids")%></label>
+          <label for="max_num_bids" class="search"><%=t("Max Number Of Bids")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <input name="max_num_bids" type="text"/>
 
-          <label for="min_num_bidders"><%=t("Min Number Of Bidders")%></label>
+          <label for="min_num_bidders" class="search"><%=t("Min Number Of Bidders")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <input name="min_num_bidders" type="text"/>
-          <label for="max_num_bidders"><%=t("Max Number Of Bidders")%></label>
+          <label for="max_num_bidders" class="search"><%=t("Max Number Of Bidders")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <input name="max_num_bidders" type="text"/>
         </div>
         <div class="span3" >
-          <label for="tender_registration_number"><%=t("Registration Code")%></label>
+          <label for="tender_registration_number" class="search"><%=t("Registration Code")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <input name="tender_registration_number" type="text"/>
-          <label for="announced_after"><%=t("Announced After")%></label>
+          <label for="announced_after" class="search"><%=t("Announced After")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <input name="announced_after" type="text" class="dp2" value="" data-date-format="yyyy/mm/dd" id="dp2"/>
-          <label for="announced_before"><%=t("Announced Before")%></label>
+          <label for="announced_before" class="search"><%=t("Announced Before")%></label>  
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <input name="announced_before" type="text" class="dp2" value="" data-date-format="yyyy/mm/dd" id="dp3"/>
         </div>
-        <div class="span3" >
-          <label for="procurer"><%=t("Procurer")%></label>
-          <input class="proc_search" name="procurer" type="text"/>
-          <label for="supplier"><%=t("Supplier")%></label>
-          <input class="supply_search" name="supplier" type="text"/>
+        <div class="span3">
+          <label for="keyword" class="search"><%=t("Keyword")%></label>
+          <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
+          <input name="keyword" class="search-input" type="text"/>
+        </div>
+      </div>
+      <hr>
+      <div class="row-fluid">
+        <div class="span4 offset4">
+          <%= submit_tag( t('Search')) %>
         </div>
       </div>
     <% end %>
   </div>
-  <div id="tabs-2">
-    <div class="search-org">
-      <%= form_tag({:controller => "organization", :action => "search"}, :method => "get") do %>
-        <label for="name"><%=t("Name")%></label>
+  <div id="tabs-2" class="expansion">
+    <%= form_tag({:controller => "organization", :action => "search"}, :method => "get") do %>
+    <div class="row-fluid">
+      <div class="span4">    
+        <label for="name" class="search"><%=t("Name")%></label>
+       <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
         <input class="supply_search" name="name" type="text"/>
-
-        <label for="code"><%=t("Code")%></label>
+      </div>
+      <div class="span4">
+        <label for="code" class="search"><%=t("Code")%></label>
+       <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
         <input name="code" type="text"/>
-
-        <label for="org_type"><%=t("Type")%></label>
+      </div>
+      <div class="span4">
+        <label for="org_type" class="search"><%=t("Type")%></label>
+       <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
         <% types = [] %>
         <% @orgTypes.each do |orgType| %>
           <% types.push(item = [t(orgType),orgType]) %>
         <%end%>
         <%= select_tag(:org_type, options_for_select(types), :include_blank => true)  %>
+      </div>
+    </div>
+ 
+    <div class="row-fluid">
+      <div class="span4 offset4 expandToggle">
+        Advanced 
+        <div class="arrow"></div>
+      </div>
+    </div>
+    <div class="row-fluid expandable">
+      <div class="row-fluid">
+        <hr>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <label for="email" class="search"><%=t("Email")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
+          <input name="email" type="text"/>
+        </div>
+        <div class="span3">
+          <label for="address" class="search"><%=t("Address")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
+          <input name="address" type="text"/>
+        </div>
+        <div class="span3">
+          <label for="city" class="search"><%=t("City")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
+          <input name="city" type="text"/>
+        </div>
+        <div class="span3">
+          <label for="phone_number" class="search"><%=t("Phone Number")%></label>
+         <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
+          <input name="phone_number" type="text"/>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <%= label_tag(:isForeign, "Only Foreign") %>
+          <%= check_box_tag(:isForeign) %>
+        </div>
+      </div>
+    </div>
 
-        <label for="email"><%=t("Email")%></label>
-        <input name="email" type="text"/>
-        <label for="address"><%=t("Address")%></label>
-        <input name="address" type="text"/>
-        <label for="city"><%=t("City")%></label>
-        <input name="city" type="text"/>
-        <label for="phone_number"><%=t("Phone Number")%></label>
-        <input name="phone_number" type="text"/>
-
-        <%= label_tag(:isForeign, "Only Foreign") %>
-        <%= check_box_tag(:isForeign) %>
-        <br>
+    <hr>   
+    <div class="row-fluid">
+      <div class="span4 offset4">
         <%= submit_tag( t('Search')) %>
-      <% end %>
-     </div>
+      </div>
+    </div>
+     <% end %>
   </div>
   <div id="tabs-3">
-    <div class="search-org">
-      <%= form_tag({:controller => "organization", :action => "search_procurer"}, :method => "get") do %>
-        <label for="name"><%=t("Name")%></label>
+    <%= form_tag({:controller => "organization", :action => "search_procurer"}, :method => "get") do %>
+    <div class="row-fluid">
+      <div class="span4">
+        <label for="name" class="search"><%=t("Name")%></label>
+       <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
         <input class="proc_search" name="name" type="text"/>
-
-        <label for="code"><%=t("Code")%></label>
+      </div>
+      <div class="span4">
+        <label for="code" class="search"><%=t("Code")%></label>
+       <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
         <input name="code" type="text"/>
-
-        <label for="org_type"><%=t("Type")%></label>
+      </div>
+      <div class="span4">
+        <label for="org_type" class="search"><%=t("Type")%></label>
+       <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
         <% types = [] %>
         <% @procTypes.each do |orgType| %>
           <% orgType = orgType.gsub(".","") %>
           <% types.push(item = [t(orgType),orgType]) %>
         <% end %>
-        <%= select_tag(:org_type, options_for_select(types), :include_blank => true )%>
-        <%= submit_tag( t('Search')) %>
-      <% end %>
+        <%= select_tag(:org_type, options_for_select(types), :include_blank => true )%>    
+      </div>
     </div>
+    <div class="row-fluid">
+      <div class="span4 offset4">
+        <%= submit_tag( t('Search')) %>
+      </div>
+    </div>
+    <% end %>
   </div>
 </div>
 
