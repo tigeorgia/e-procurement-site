@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425112024) do
+ActiveRecord::Schema.define(:version => 20130426130055) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -185,6 +185,16 @@ ActiveRecord::Schema.define(:version => 20130425112024) do
     t.datetime "updated_at"
   end
 
+  create_table "procurer_watches", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "procurer_id"
+    t.string   "hash"
+    t.boolean  "email_alert"
+    t.boolean  "has_updated"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "searches", :force => true do |t|
     t.integer  "user_id"
     t.string   "search_string"
@@ -196,6 +206,16 @@ ActiveRecord::Schema.define(:version => 20130425112024) do
     t.boolean  "email_alert"
     t.boolean  "has_updated"
     t.datetime "last_viewed"
+  end
+
+  create_table "supplier_watches", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "supplier_id"
+    t.string   "hash"
+    t.boolean  "email_alert"
+    t.boolean  "has_updated"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tender_corruption_flags", :force => true do |t|

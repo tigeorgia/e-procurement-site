@@ -1,0 +1,4 @@
+$(function () {
+  $("<%= "#"+@buttonID %>").html("<%= escape_javascript( button_to t("Subscribe"), {:action => "subscribe_supplier", :supplier_watch_id => @supplier_watch_id, :buttonID => @buttonID}, :remote => true ) %>");
+  return false;
+});

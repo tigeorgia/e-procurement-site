@@ -31,13 +31,13 @@ class OrganizationsController < ApplicationController
       orgString = " AND org_type = '"+org_type+"'"
     end
     query = "is_bidder = true"
-    query = QueryHelper.addParamToQuery(query, code, "code", "LIKE", "AND")
-    query = QueryHelper.addParamToQuery(query, org_type, "org_type", "=","AND")
-    query = QueryHelper.addParamToQuery(query, city, "city", "LIKE","AND")
-    query = QueryHelper.addParamToQuery(query, email, "email", "LIKE","AND")
-    query = QueryHelper.addParamToQuery(query, phone_number, "phone_number", "LIKE","AND")
+    query = QueryHelper.addParamToQuery(query, code, "code", "LIKE")
+    query = QueryHelper.addParamToQuery(query, org_type, "org_type", "=")
+    query = QueryHelper.addParamToQuery(query, city, "city", "LIKE")
+    query = QueryHelper.addParamToQuery(query, email, "email", "LIKE")
+    query = QueryHelper.addParamToQuery(query, phone_number, "phone_number", "LIKE")
     if foreignOnly == '1'
-      query = QueryHelper.addParamToQuery(query, 'საქართველო', "country", "NOT LIKE","AND")
+      query = QueryHelper.addParamToQuery(query, 'საქართველო', "country", "NOT LIKE")
     end
     if willSearchName
       query += " AND ( name LIKE '"+name+"' OR translation LIKE '"+name+"' )"
@@ -107,6 +107,26 @@ class OrganizationsController < ApplicationController
   def show_procurer
     id = params[:id]
     @organization = Organization.find(id)
+
+    @isWatched = false
+    @highlights = ""
+    if params[:highlights]
+     @highlights = params[:highlights].split("#")
+    end
+    if current_user
+      watched_procurers = current_user.procurer_watches
+      watched_procurers.each do |watched|
+        if watched.procurer_id.to_i == @organization.id.to_i
+          @isWatched = true
+          @procurer_watch_id = watched.id
+          #reset the update flag to false since this procurer has now been viewed
+          watched.has_updated = false
+          watched.save
+          break
+        end
+      end
+    end
+
     tenders = Tender.find_all_by_procurring_entity_id(id)
     @numTenders = tenders.count
     @totalEstimate = 0
@@ -245,6 +265,25 @@ class OrganizationsController < ApplicationController
   def show
     id = params[:id]
     @organization = Organization.find(id)
+
+    @isWatched = false
+    @highlights = ""
+    if params[:highlights]
+     @highlights = params[:highlights].split("#")
+    end
+    if current_user
+      watched_suppliers = current_user.supplier_watches
+      watched_suppliers.each do |watched|
+        if watched.supplier_id.to_i == @organization.id.to_i
+          @isWatched = true
+          @supplier_watch_id = watched.id
+          #reset the update flag to false since this tender has now been viewed
+          watched.has_updated = false
+          watched.save
+          break
+        end
+      end
+    end
 
     allBids = Bidder.find_all_by_organization_id(id)
     allTenders = []

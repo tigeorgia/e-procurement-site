@@ -41,6 +41,78 @@
   </tbody>
 </table>
 
+
+<hr>
+<h3><%=t("Suppliers You Are Watching")%></h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%=t("Email Alerts")%></th>
+      <th><%=t("Name")%></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% count = 0 %>
+    <% @watched_suppliers.each do |watch_supplier| %>
+      <% count = count + 1 %>
+      <% buttonID = "supplier_watch_button_"+count.to_s %>
+      <% highlightClass = "" %>
+      <% if watch_supplier.has_updated %>
+        <% highlightClass = 'class="bidwinner"'.html_safe %>
+      <% end %>
+      <tr>
+        <% if watch_supplier.email_alert %>
+          <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Unsubscribe"), {:action => "unsubscribe_supplier", :supplier_watch_id => watch_supplier.id, :buttonID => buttonID}, :remote => true %></div></td>
+        <% else %>
+          <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Subscribe"), {:action => "subscribe_supplier", :supplier_watch_id => watch_supplier.id, :buttonID => buttonID}, :remote => true %></div></td>
+        <% end %>
+        <% supplier = Organization.find(watch_supplier.supplier_id )%>
+        <% highlights = nil %>
+        <% if watch_supplier.has_updated %>
+          <% highlights = watch_supplier.hash %>
+        <% end %>
+        <td <%=highlightClass%>><%= link_to supplier.name, organization_path(:id => supplier.id, :highlights => highlights) %></td>
+        <td <%=highlightClass%>><%= button_to t("Delete"), {:action => "remove_supplier_watch_from_account", :supplier_watch_id => watch_supplier.id} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<hr>
+
+<h3><%=t("Procurers You Are Watching")%></h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%=t("Email Alerts")%></th>
+      <th><%=t("Name")%></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% count = 0 %>
+    <% @watched_procurers.each do |watch_procurer| %>
+      <% count = count + 1 %>
+      <% buttonID = "procurer_watch_button_"+count.to_s %>
+      <% highlightClass = "" %>
+      <% if watch_procurer.has_updated %>
+        <% highlightClass = 'class="bidwinner"'.html_safe %>
+      <% end %>
+      <tr>
+        <% if watch_procurer.email_alert %>
+          <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Unsubscribe"), {:action => "unsubscribe_procurer", :procurer_watch_id => watch_procurer.id, :buttonID => buttonID}, :remote => true %></div></td>
+        <% else %>
+          <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Subscribe"), {:action => "subscribe_procurer", :procurer_watch_id => watch_procurer.id, :buttonID => buttonID}, :remote => true %></div></td>
+        <% end %>
+        <% procurer = Organization.find(watch_procurer.procurer_id )%>
+        <% highlights = nil %>
+        <% if watch_procurer.has_updated %>
+          <% highlights = watch_procurer.hash %>
+        <% end %>
+        <td <%=highlightClass%>><%= link_to procurer.name, {:controller => "organizations", :action => "show_procurer", :id => procurer.id, :highlights => highlights} %></td>
+        <td <%=highlightClass%>><%= button_to t("Delete"), {:action => "remove_procurer_watch_from_account", :procurer_watch_id => watch_procurer.id} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 <hr>
 <h3><%=t("Your Saved Searches")%></h3>
 <table class="table table-striped">

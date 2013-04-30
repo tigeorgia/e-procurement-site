@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_many :watch_tenders
   has_many :searches
   has_many :cpvGroups
+  has_many :procurer_watches
+  has_many :supplier_watches
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable

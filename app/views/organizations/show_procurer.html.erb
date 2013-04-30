@@ -156,19 +156,18 @@ $(function () {
 </script>
 
 
-
-
 <%- model_class = Organization -%>
 <div class="page-header">
   <h1><%= t("Procurer")%></h1>
 </div>
 
+
 <% if user_signed_in? %>
   <div class="procurer_subscription">
     <% if @isWatched %>
-      <%= button_to t("Remove From Profile"), {:controller => :user, :action => "remove_procurer_watch", :procurer_url => @procurerUrl, :user_id => current_user.id}, :remote => true %>
+      <%= button_to t("Remove From Profile"), {:controller => :user, :action => "remove_procurer_watch", :procurer_watch_id => @procurer_watch_id, :user_id => current_user.id}, :remote => true %>
     <% else %>
-      <%= button_to t("Save To Profile"), {:controller => :user, :action => "add_procurer_watch", :procurer_url => @procurerUrl, :procurer_id => @organization.id, :user_id => current_user.id}, :remote => true %>
+      <%= button_to t("Save To Profile"), {:controller => :user, :action => "add_procurer_watch", :procurer_id => @organization.id, :user_id => current_user.id}, :remote => true %>
     <% end %>
   </div>
 <% end %>

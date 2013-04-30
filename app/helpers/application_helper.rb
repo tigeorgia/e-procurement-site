@@ -43,6 +43,16 @@ module ApplicationHelper
     return BOM + csv_string
   end
 
+  def buildCSVString( column_headers, data )
+    csv_string = CSV.generate do |csv|
+      csv << column_headers
+      data.each do |data|
+       csv << data
+      end
+    end
+    return BOM + csv_string
+  end
+
   def buildTenderSearchQuery(params)
     #all params should already be in string format
     query = "dataset_id = '" +params[:datasetID]+"'"+

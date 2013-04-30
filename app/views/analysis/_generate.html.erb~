@@ -1,2 +1,30 @@
-<div id="amountGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div><div id="countGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div><div id="averageBidDurationGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div><div id="averageWarningPeriodGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div><div id="averageBiddersGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div><div id="averageBidsGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-<div id="moreThan1BidGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div><div id="scatterGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div><div id="biddingDurationGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+<p id="cpvChart"></p>
+<%= button_to("Download Data", {:controller => :analysis, :action => "download_cpv_data", :format => "csv", :year => @year}) %>
+
+<div id="amountGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<%= button_to("Download Data", {:controller => :analysis, :action => "download_tender_type_amount_data", :format => "csv", :year => @year}) %>
+
+<div id="countGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<%= button_to("Download Data", {:controller => :analysis, :action => "download_tender_type_count_data", :format => "csv", :year => @year}) %>
+
+<div id="averageBidDurationGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<%= button_to("Download Data", {:controller => :analysis, :action => "download_average_bid_duration_data", :format => "csv", :year => @year}) %>
+
+<div id="averageWarningPeriodGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<%= button_to("Download Data", {:controller => :analysis, :action => "download_average_warning_period_data", :format => "csv", :year => @year}) %>
+
+<div id="averageBiddersGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<%= button_to("Download Data", {:controller => :analysis, :action => "download_average_bidders_data", :format => "csv", :year => @year}) %>
+
+<div id="averageBidsGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<%= button_to("Download Data", {:controller => :analysis, :action => "download_average_bids_data", :format => "csv", :year => @year}) %>
+
+<div id="moreThan1BidGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<%= button_to("Download Data", {:controller => :analysis, :action => " download_more_than_one_bid_data", :format => "csv", :year => @year}) %>
+
+<div id="scatterGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<%= button_to("Download Data", {:controller => :analysis, :action => "download_scatter_data", :format => "csv", :year => @year}) %>
+
+<div id="biddingDurationGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<%= button_to("Download Data", {:controller => :analysis, :action => "download_duration_data", :format => "csv", :year => @year}) %>

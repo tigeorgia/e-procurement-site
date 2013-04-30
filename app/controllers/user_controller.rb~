@@ -4,7 +4,8 @@ class UserController < ApplicationController
   
   def index
     @watched_tenders = current_user.watch_tenders
-
+    @watched_procurers = current_user.procurer_watches
+    @watched_suppliers = current_user.supplier_watches
     @savedSearches = current_user.searches
     @cpvGroups = current_user.cpvGroups
     @userID = current_user.id
@@ -42,12 +43,11 @@ class UserController < ApplicationController
       @thisSearchString = params[:search_string]
       @searchType = params[:searchtype]
     end
- 
   end
 
   def unsubscribe_search
     @buttonID = params[:buttonID]
-    search = Search.find( params[:search_id] )
+    search = Search.find(params[:search_id])
     search.email_alert = false
     search.save
     @searchID = search.id
@@ -55,7 +55,7 @@ class UserController < ApplicationController
 
   def subscribe_search
     @buttonID = params[:buttonID]
-    search = Search.find( params[:search_id] )
+    search = Search.find(params[:search_id])
     search.email_alert = true
     search.save
     @searchID = search.id
@@ -63,9 +63,72 @@ class UserController < ApplicationController
 
 
   def add_procurer_watch
+    watch_item = ProcurerWatch.new
+    watch_item.procurer_id = params[:procurer_id]
+    watch_item.user_id = current_user.id
+    watch_item.save
+    @procurer_watch_id = watch_item.id
   end
 
   def remove_procurer_watch
+    watch = ProcurerWatch.find(params[:procurer_watch_id])
+    watch.destroy
+  end
+
+  def remove_procurer_watch_from_account
+    remove_procurer_watch
+    redirect_to :back
+  end
+
+  def unsubscribe_procurer
+    @buttonID = params[:buttonID]
+    watch = ProcurerWatch.find(params[:procurer_watch_id])
+    watch.email_alert = false
+    watch.save
+    @procurer_watch_id = watch.id
+  end
+
+  def subscribe_procurer
+    @buttonID = params[:buttonID]
+    watch = ProcurerWatch.find(params[:procurer_watch_id])
+    watch.email_alert = true
+    watch.save
+    @procurer_watch_id = watch.id
+  end
+
+  def add_supplier_watch
+    watch_item = SupplierWatch.new
+    watch_item.supplier_id = params[:supplier_id]
+    watch_item.user_id = current_user.id
+    watch_item.save
+    @supplier_watch_id = watch_item.id
+  end
+  
+  def remove_supplier_watch
+    watch = SupplierWatch.find(params[:supplier_watch_id])
+    watch.destroy
+    @supplier_watch_id = params[:supplier_watch_id]
+  end
+
+  def remove_supplier_watch_from_account
+    remove_supplier_watch()
+    redirect_to :back
+  end
+
+  def unsubscribe_supplier
+    @buttonID = params[:buttonID]
+    watch = SupplierWatch.find(params[:supplier_watch_id])
+    watch.email_alert = false
+    watch.save
+    @supplier_watch_id = watch.id
+  end
+
+  def subscribe_supplier
+    @buttonID = params[:buttonID]
+    watch = SupplierWatch.find(params[:supplier_watch_id])
+    watch.email_alert = true
+    watch.save
+    @supplier_watch_id = watch.id
   end
 
   def add_tender_watch
@@ -90,8 +153,7 @@ class UserController < ApplicationController
     @tenderUrl = params[:tender_url]
   end
 
-  def subscribe_tender( tender_watch = nil )
-    
+  def subscribe_tender( tender_watch = nil ) 
     if tender_watch == nil
       #nothing passed so this must be coming from a view
       tender_watch = WatchTender.find(params[:tender_watch_id])

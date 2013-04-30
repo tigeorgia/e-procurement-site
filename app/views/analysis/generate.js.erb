@@ -1,9 +1,5 @@
 $(function () {
   $("#results").html('<%= escape_javascript( render :partial => "generate" ) %>');
-    var tenderTypeChart;
-    var tenderTypeCountChart;
-    var bidDurationChart;
-    var warningPeriodChart;
     <% tenderData = [ [t("Simple Electronic"),@info["simple electronic"]], [t("Electronic"),@info["electronic"]] ]%>
 
     var dataset = []
@@ -13,7 +9,7 @@ $(function () {
     <%end%> 
 
     $(document).ready(function() {
-        tenderTypeChart = new Highcharts.Chart({
+        tenderTypeAmountChart = new Highcharts.Chart({
             chart: {
                 renderTo: 'amountGraph',
                 plotBackgroundColor: null,
@@ -145,7 +141,7 @@ $(function () {
 
         });
 
-      averageBidders = new Highcharts.Chart({
+      averageBiddersChart = new Highcharts.Chart({
 
        chart: {
           renderTo: 'averageBiddersGraph',
@@ -175,7 +171,7 @@ $(function () {
 
         });
 
-      averageBids = new Highcharts.Chart({
+      averageBidsChart = new Highcharts.Chart({
 
        chart: {
           renderTo: 'averageBidsGraph',
@@ -205,7 +201,7 @@ $(function () {
 
         });
 
-      moreThan1Bid = new Highcharts.Chart({
+      moreThan1BidChart = new Highcharts.Chart({
 
        chart: {
           renderTo: 'moreThan1BidGraph',
@@ -301,6 +297,7 @@ $(function () {
 
       
       createD3Graphs(<%=raw @info["total"][:cpvTree]%>);
+
     });
   return false;
 });

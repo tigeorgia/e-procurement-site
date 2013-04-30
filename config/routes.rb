@@ -36,9 +36,6 @@ BootstrapStarter::Application.routes.draw do
     match ':controller/:action'
     match '/build_user_data', :to => 'root#build_user_data', :as => :build_user_data, :via => :get
     match '/generate_cpv_codes', :to => 'root#generate_cpv_codes', :as => :generate_cpv_codes, :via => :get
-    #match '/process_full_scrape', :to => 'root#process_full_scrape', :as => :process_full_scrape, :via => :get
-    #match '/process_incremental_scrape', :to => 'root#process_incremental_scrape', :as => :process_incremental_scrape, :via => :get
-		#match '/process_json', :to => 'root#process_json', :as => :process_json, :via => :get
     match '/:locale' => 'root#index'		
     root :to => 'root#index'
 	  

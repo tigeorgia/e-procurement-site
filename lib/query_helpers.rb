@@ -46,9 +46,11 @@ module QueryHelper
   end
 
 
-  def self.addParamToQuery(query, param, sql_field, operator,conjunction)
+  def self.addParamToQuery(query, param, sql_field, operator)
     if param != "" and param != "%%"
-      query += " "+conjunction+" "
+      if query.length > 0
+        query += " AND "
+      end
       query += sql_field +" "+operator+" "+ "'"+param+"'"
     end
     return query
@@ -58,20 +60,20 @@ module QueryHelper
  def self.buildTenderSearchQuery(params)
     #all params should already be in string format
     query = ""
-    query = self.addParamToQuery(query, params[:tender_registration_number], "tender_registration_number", "LIKE", "")
-    query = self.addParamToQuery(query, params[:tender_status], "tender_status", "=", "AND" )
-    query = self.addParamToQuery(query, params[:tender_type], "tender_type", "=", "AND" )
-    query = self.addParamToQuery(query, params[:announced_after], "tender_announcement_date", ">=" , "AND" )
-    query = self.addParamToQuery(query, params[:announced_before], "tender_announcement_date", "<=", "AND" )
-    query = self.addParamToQuery(query, params[:min_estimate], "estimated_value", ">=", "AND" )
-    query = self.addParamToQuery(query, params[:max_estimate], "estimated_value", "<=", "AND" )
-    query = self.addParamToQuery(query, params[:min_num_bids], "num_bids", ">=", "AND" )
-    query = self.addParamToQuery(query, params[:max_num_bids], "num_bids", "<=", "AND" )
-    query = self.addParamToQuery(query, params[:min_num_bidders], "num_bidders", ">=", "AND" )
-    query = self.addParamToQuery(query, params[:max_num_bidders], "num_bidders", "<=" , "AND" )
-    query = self.addParamToQuery(query, params[:risk_indicator], "risk_indicators", "LIKE", "AND" )
-    query = self.addParamToQuery(query, params[:procurer], "procurer_name", "LIKE", "AND" )
-    query = self.addParamToQuery(query, params[:supplier], "supplier_name", "LIKE", "AND" )
+    query = self.addParamToQuery(query, params[:tender_registration_number], "tender_registration_number", "LIKE")
+    query = self.addParamToQuery(query, params[:tender_status], "tender_status", "=")
+    query = self.addParamToQuery(query, params[:tender_type], "tender_type", "=")
+    query = self.addParamToQuery(query, params[:announced_after], "tender_announcement_date", ">=" )
+    query = self.addParamToQuery(query, params[:announced_before], "tender_announcement_date", "<=")
+    query = self.addParamToQuery(query, params[:min_estimate], "estimated_value", ">=")
+    query = self.addParamToQuery(query, params[:max_estimate], "estimated_value", "<=")
+    query = self.addParamToQuery(query, params[:min_num_bids], "num_bids", ">=")
+    query = self.addParamToQuery(query, params[:max_num_bids], "num_bids", "<=")
+    query = self.addParamToQuery(query, params[:min_num_bidders], "num_bidders", ">=")
+    query = self.addParamToQuery(query, params[:max_num_bidders], "num_bidders", "<=")
+    query = self.addParamToQuery(query, params[:risk_indicator], "risk_indicators", "LIKE")
+    query = self.addParamToQuery(query, params[:procurer], "procurer_name", "LIKE")
+    query = self.addParamToQuery(query, params[:supplier], "supplier_name", "LIKE")
 
 
     #add cpv codes

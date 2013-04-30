@@ -1,0 +1,8 @@
+class ProcurerWatch < ActiveRecord::Base
+  belongs_to :user  
+  attr_accessible :id,
+      :procurer_url,
+      :user_id,
+      :email_alert,
+      :has_updated
+end

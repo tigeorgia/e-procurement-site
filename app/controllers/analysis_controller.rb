@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 class AnalysisController < ApplicationController
+include ApplicationHelper
 include GraphHelper 
   def index
     @years = []
@@ -13,8 +14,8 @@ include GraphHelper
   end
   
   def generate
-    year = params[:year]
-    stats = AggregateStatistic.where(:year => year).first
+    @year = params[:year]
+    stats = AggregateStatistic.where(:year => @year).first
 
     #reconstruct stat structure
     @info = { 
@@ -42,7 +43,6 @@ include GraphHelper
         while code.length < 8
           code = "0"+code
         end
-        puts code
         name = TenderCpvClassifier.where(:cpv_code => code).first.description_english
         if not name
           name = "Not Specified"
@@ -56,4 +56,192 @@ include GraphHelper
       format.js   
     end
   end
+
+  def download_cpv_data
+    header = ["CPV Code","Description", "Value"]
+    data = []
+    
+    stats = AggregateStatistic.where(:year => params[:year]).first
+    typeData = AggregateStatisticType.where(:aggregate_statistic_id => stats.id, :name => "total").first
+    cpvData = AggregateCpvStatistic.where(:aggregate_statistic_type_id => typeData.id)
+    cpvData.each do |cpv|
+      name = TenderCpvClassifier.where(:cpv_code => cpv.cpv_code).first.description_english
+      if not name
+        name = "Not Specified"
+      end
+      data.push( [cpv.cpv_code,name,cpv.value] )
+    end
+
+    respond_to do |format|
+      format.csv {      
+        send_data buildCSVString(header, data)
+      }
+    end
+  end
+
+
+  def getTenderStatistics( year )
+    stats = AggregateStatistic.where(:year => year).first
+
+    simpleType = AggregateStatisticType.where(:aggregate_statistic_id => stats.id, :name => "simple electronic").first
+    electronicType = AggregateStatisticType.where(:aggregate_statistic_id => stats.id, :name => "electronic").first
+    
+    simpleData = AggregateTenderStatistic.where(:aggregate_statistic_type_id => simpleType.id).first
+    electronicData = AggregateTenderStatistic.where(:aggregate_statistic_type_id => electronicType.id).first
+
+    data = {:simple => simpleData, :electronic=> electronicData}
+    return data
+  end
+
+  def download_tender_type_amount_data
+    header = ["Type", "Total Value"]
+    data = []
+    hash = getTenderStatistics( params[:year] )
+
+    data.push( ["Simple Electronic Tender", hash[:simple].total_value] )
+    data.push( ["Electronic Tender", hash[:electronic].total_value] )
+    
+    respond_to do |format|
+      format.csv {            
+        send_data buildCSVString(header,data)
+      }
+    end
+  end
+
+  def download_tender_type_count_data
+    header = ["Type", "Count"]
+    data = []
+    hash = getTenderStatistics( params[:year] )
+
+    data.push( ["Simple Electronic Tender", hash[:simple].count] )
+    data.push( ["Electronic Tender", hash[:electronic].count] )
+    
+    respond_to do |format|
+      format.csv {            
+        send_data buildCSVString(header,data)
+      }
+    end
+  end
+
+  def download_average_bid_duration_data
+    header = ["Type", "Average Bid Duration"]
+    data = []
+    hash = getTenderStatistics( params[:year] )
+
+    data.push( ["Simple Electronic Tender", hash[:simple].average_bid_duration] )
+    data.push( ["Electronic Tender", hash[:electronic].average_bid_duration] )
+    
+    respond_to do |format|
+      format.csv {            
+        send_data buildCSVString(header,data)
+      }
+    end
+  end
+
+  def download_average_warning_period_data
+    header = ["Type", "Average Warning Period"]
+    data = []
+    hash = getTenderStatistics( params[:year] )
+
+    data.push( ["Simple Electronic Tender", hash[:simple].average_warning_period] )
+    data.push( ["Electronic Tender", hash[:electronic].average_warning_period] )
+    
+    respond_to do |format|
+      format.csv {            
+        send_data buildCSVString(header,data)
+      }
+    end
+  end
+
+  def download_average_bidders_data
+    header = ["Type", "Average Bidders"]
+    data = []
+    hash = getTenderStatistics( params[:year] )
+
+    data.push( ["Simple Electronic Tender", hash[:simple].total_bidders.to_f/hash[:simple].count] )
+    data.push( ["Electronic Tender", hash[:electronic].total_bidders.to_f/hash[:electronic].count] )
+    
+    respond_to do |format|
+      format.csv {            
+        send_data buildCSVString(header,data)
+      }
+    end
+  end
+
+  def download_average_bids_data
+    header = ["Type", "Average Bids Made"]
+    data = []
+    hash = getTenderStatistics( params[:year] )
+
+    data.push( ["Simple Electronic Tender", hash[:simple].total_bids.to_f/hash[:simple].count] )
+    data.push( ["Electronic Tender", hash[:electronic].total_bids.to_f/hash[:electronic].count] )
+    
+    respond_to do |format|
+      format.csv {            
+        send_data buildCSVString(header,data)
+      }
+    end
+  end
+
+  def download_more_than_one_bid_data
+    header = ["Type", "Percentage of tenders with atleast one bidder"]
+    data = []
+    hash = getTenderStatistics( params[:year] )
+
+    data.push( ["Simple Electronic Tender", hash[:simple].success_count.to_f/hash[:simple].count] )
+    data.push( ["Electronic Tender", hash[:electronic].success_count.to_f/hash[:electronic].count] )
+    
+    respond_to do |format|
+      format.csv {            
+        send_data buildCSVString(header,data)
+      }
+    end
+  end
+
+  def download_scatter_data
+    header = ["Bidding Duration (days)", "Count","Average Bidders"]
+    data = []
+    stats = AggregateStatistic.where(:year => params[:year]).first
+    simpleType = AggregateStatisticType.where(:aggregate_statistic_id => stats.id, :name => "simple electronic").first
+
+    simpleData = AggregateBidStatistic.where(:aggregate_statistic_type_id => simpleType.id)
+    simpleData.each do |bidData|
+      data.push( [bidData.duration,bidData.tender_count,bidData.average_bids] )
+    end
+    
+    respond_to do |format|
+      format.csv {            
+        send_data buildCSVString(header,data)
+      }
+    end
+  end
+
+  def download_duration_data
+    header = ["Bidding Duration (days)", "Count"]
+    data = []
+    stats = AggregateStatistic.where(:year => params[:year]).first
+    simpleType = AggregateStatisticType.where(:aggregate_statistic_id => stats.id, :name => "simple electronic").first
+
+    simpleData = AggregateBidStatistic.where(:aggregate_statistic_type_id => simpleType.id)
+    simpleData.each do |bidData|
+      data.push( [bidData.duration,bidData.tender_count] )
+    end
+    
+    respond_to do |format|
+      format.csv {            
+        send_data buildCSVString(header,data)
+      }
+    end
+  end 
+
 end
+
+
+
+
+
+
+
+
+
+
