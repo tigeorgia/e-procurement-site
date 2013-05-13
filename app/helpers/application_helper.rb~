@@ -29,7 +29,6 @@ module ApplicationHelper
     link_to title, myParams
   end
 
-
   def checkSavedSearch( attributes, type )
     if current_user
       searches = current_user.searches
@@ -41,15 +40,13 @@ module ApplicationHelper
         end
         @thisSearchString += field + "#"
       end
-        
-      results = Search.where( :user_id => current_user.id, :searchtype => @searchType, :search_string => @thisSearchString )
+      results = Search.where( :user_id => current_user.id, :searchtype => type, :search_string => @thisSearchString )
       if results.count > 0
         @searchIsSaved = true
         @savedName = results.first.name
       end
     end
   end
-
 
   def buildTenderCSVString( tenders )
     csv_string = CSV.generate do |csv|

@@ -4,8 +4,8 @@ class TendersController < ApplicationController
   include ApplicationHelper
 
   def performSearch( data )
-    query = QueryHelper.buildTenderSearchQuery(data)
     @params = params
+    query = QueryHelper.buildTenderSearchQuery(data)
     @fullResult = Tender.where(query)
     @numResults = @fullResult.count
     @tenders = @fullResult.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
@@ -17,7 +17,6 @@ class TendersController < ApplicationController
     end
 
     @searchType = "tender" 
-
     paramList = []
     data.each do |key, field|
       paramList.push(field)
@@ -25,72 +24,9 @@ class TendersController < ApplicationController
     checkSavedSearch(paramList, @searchType)
   end
 
-  def buildQueryData( data )
-    reg_num = data[:tender_registration_number]
-    status = data[:tender_status]
-    cpvGroupID = data[:cpvGroup]
-    keywords = data[:keyword]
-    type = data[:type]
-
-    reg_num = "%"+reg_num.gsub('%','')+"%"
-    status = "%"+status.gsub('%','')+"%"
-
-    startDate = ""
-    endDate = ""
-    if data[:announced_after] != ""
-      strDate = data[:announced_after].gsub('/','-')
-      startDate = Date.strptime(strDate,'%Y-%m-%d')
-    end
-
-    if data[:announced_before] != ""
-      strDate = data[:announced_before].gsub('/','-')
-      endDate = Date.strptime(strDate,'%Y-%m-%d')
-    end
-
-    minVal = data[:min_estimate]
-    maxVal = data[:max_estimate]
-
-    minBids = data[:min_num_bids]
-    maxBids = data[:max_num_bids]
-    
-    minBidders = data[:min_num_bidders]
-    maxBidders = data[:max_num_bidders]
-
-    procurer = "%"+data[:procurer]+"%"
-    supplier = "%"+data[:supplier]+"%"
-
-     
-    translated_status =  "%%"
-    status = status.gsub('%','')
-    if not status == ""
-      translated_status = t(status, :locale => :ka)
-    end
-    queryData = {
-                 :keywords => keywords, 
-                 :cpvGroupID => cpvGroupID.to_s,
-                 :tender_registration_number => reg_num.to_s,
-                 :tender_status => translated_status,
-                 :tender_type => type,
-                 :announced_after => startDate.to_s,
-                 :announced_before => endDate.to_s,
-                 :min_estimate => minVal.to_s,
-                 :max_estimate => maxVal.to_s,
-                 :min_num_bids => minBids,
-                 :max_num_bids => maxBids,
-                 :min_num_bidders => minBidders,
-                 :max_num_bidders => maxBidders,
-                 :risk_indicator => data[:risk_indicator],
-                 :procurer => procurer,
-                 :supplier => supplier
-            }
-    return queryData
-  end
-
-
-
   def search
-    data = buildQueryData( params )
-    performSearch( data )
+    data = QueryHelper.buildTenderQueryData(params)
+    performSearch(data)
   end
 
   def download
@@ -101,19 +37,7 @@ class TendersController < ApplicationController
       }
     end
   end 
-    
-  def search_via_saved
-    search = Search.find(params[:search_id])
-    searchParams = QueryHelper.buildSearchParamsFromString(search.search_string)
-    data = buildQueryData( searchParams )
-    performSearch( data )
-    @search = search
-    render "search"
-    @search.last_viewed = DateTime.now
-    @search.has_updated = false
-    @search.save
-  end
-
+   
   def show
     @tender = Tender.find(params[:id])
     @cpv = TenderCpvClassifier.where(:cpv_code => @tender.cpv_code).first

@@ -4,55 +4,13 @@ class OrganizationsController < ApplicationController
   require "query_helpers" 
   include GraphHelper 
   include ApplicationHelper
+  include QueryHelper
 
   BOM = "\uFEFF" #Byte Order Mark
   def search
     @params = params
-    searchParams = []
 
-    name = params[:name]
-    code = params[:code]
-    org_type = params[:org_type]
-    city = params[:city]
-    address = params[:address]
-    email = params[:email]
-    phone_number = params[:phone_number]
-    foreignOnly = params[:foreign]
-
-    searchParams.push(name)
-    searchParams.push(code)
-    searchParams.push(org_type)
-    searchParams.push(city)
-    searchParams.push(address)
-    searchParams.push(email)
-    searchParams.push(phone_number)
-    searchParams.push(foreignOnly)
-    
-    willSearchName = name.length > 0
-    name = "%"+name+"%"
-    code = "%"+code+"%"
-    city = "%"+city+"%"
-    address = "%"+address+"%"
-    email = "%"+email+"%"
-    phone_number = "%"+phone_number+"%"
-    
-    orgString = ""
-    if not org_type == ""
-      orgString = " AND org_type = '"+org_type+"'"
-    end
-    query = "is_bidder = true"
-    query = QueryHelper.addParamToQuery(query, code, "code", "LIKE")
-    query = QueryHelper.addParamToQuery(query, org_type, "org_type", "=")
-    query = QueryHelper.addParamToQuery(query, city, "city", "LIKE")
-    query = QueryHelper.addParamToQuery(query, email, "email", "LIKE")
-    query = QueryHelper.addParamToQuery(query, phone_number, "phone_number", "LIKE")
-    if foreignOnly == '1'
-      query = QueryHelper.addParamToQuery(query, 'საქართველო', "country", "NOT LIKE")
-    end
-    if willSearchName
-      query += " AND ( name LIKE '"+name+"' OR translation LIKE '"+name+"' )"
-    end
-    
+    query, searchParams = QueryHelper.buildSupplierSearchQuery(params)
     results = Organization.where(query)
     
     @numResults = results.count
@@ -85,35 +43,10 @@ class OrganizationsController < ApplicationController
 
   def search_procurer
     @params = params
-    searchParams = []
-    name = params[:name]
-    code = params[:code]
-    org_type = params[:org_type]
-    searchParams.push(name)
-    searchParams.push(code)
-    searchParams.push(org_type)
-
-    willSearchName = name.length > 0
-
-    name = "%"+name+"%"
-    code = "%"+code+"%"
-    #dirty hack remove this scrape side
-    if org_type == "50% მეტი სახ წილ საწარმო"
-      org_type = "50% მეტი სახ. წილ. საწარმო"
-    end
-    orgString = ""
-    if not org_type == ""
-      orgString = " AND org_type ='"+org_type+"'"
-    end
-    conditions = "is_procurer = true AND code LIKE '"+code+"'"+ orgString
-    if willSearchName
-      conditions += " AND ( name LIKE '"+name+"' OR translation LIKE '"+"%"+name+"%"+"' )"
-    end
-
-    results = Organization.where(conditions)
+    query, searchParams = QueryHelper.buildProcurerSearchQuery(params)
+    results = Organization.where(query)
     @numResults = results.count
     @organizations = results.paginate( :page => params[:page]).order(sort_column + ' ' + sort_direction)
-
 
     @searchType = "procurer" 
     checkSavedSearch(searchParams, @searchType)

@@ -1,15 +1,24 @@
-<p>You saved search <a href= <%= url_for(:host => "0.0.0.0", :controller => "tender", :action => "search_via_saved", :search_id => @search.id)%> > <%=@search.name%></a> has returned new results
+<%host = "0.0.0.0"%>
+<p>You saved search <a href= <%= url_for(:host => <%=host%>, :controller => "user", :action => "search_via_saved", :search_id => @search.id)%> > <%=@search.name%></a> has returned new results
 <br>
-The following tenders have been updated
+
+<%type_name = search.searchtype + "s"%>
+
+ 
+The following <%=type_name%> have been updated
 <br>
 <% count = 0 %>
 <% max = 25 %>
-<% @tenders.each do |tender| %>
-  <a href= <%= tender_url(tender, :host => "0.0.0.0") %>><%=tender.tender_registration_number%></a>
+<% @updates.each do |update| %>
+  <%if search.searchtype == "tender"%>
+    <a href= <%= tender_url(update, :host => host) %>><%=update.tender_registration_number%></a>
+  <%else%>
+    <a href= <%= organization_url(update, :host => host) %>><%=update.name%></a>
+  <%end%>
   <br>
   <% count = count + 1 %>
   <% if count > max %>
-    and <%= @tenders.count - max %> more
+    and <%= @updates.count - max %> more
     <% break %>
   <% end %>
 <% end %>

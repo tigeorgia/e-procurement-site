@@ -173,13 +173,35 @@ class UserController < ApplicationController
     tender_watch.save
   end
 
-  def rebuild_search
-    if params[:searchtype] == "tender"
-      searchParams = QueryHelper.buildSearchParamsFromString(params[:searchString])
+  def search_via_saved
+    search = Search.find(params[:search_id])
+    rebuild_search( search.searchtype, search.search_string )
+    @search = search
+    @search.last_viewed = DateTime.now
+    @search.has_updated = false
+    @search.save
+  end
+
+  def rebuild_search(searchType, searchString)
+    if not searchType
+      searchType = params[:searchtype]
+      searchString = params[:searchString]   
+    end
+
+    if searchType == "tender"
+      searchParams = QueryHelper.buildTenderSearchParamsFromString(searchString)
       searchParams[:controller] = "tenders"
       searchParams[:action] = "search"
-      redirect_to searchParams
+    elsif searchType == "supplier"
+      searchParams = QueryHelper.buildSupplierSearchParamsFromString(searchString)
+      searchParams[:controller] = "organizations"
+      searchParams[:action] = "search"
+    else
+      searchParams = QueryHelper.buildProcurerSearchParamsFromString(searchString)
+      searchParams[:controller] = "organizations"
+      searchParams[:action] = "search_procurer"
     end
+    redirect_to searchParams
   end
 
   def newCPVGroup

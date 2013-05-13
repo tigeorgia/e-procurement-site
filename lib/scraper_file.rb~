@@ -149,6 +149,7 @@ module ScraperFile
                 end
               end          
               organization.save
+              newOrgsTemp.push(organization)
               #now we know everything is sorted we can run a name translation
               self.generateOrganizationNameTranslation( organization )
             else
@@ -545,7 +546,7 @@ module ScraperFile
     string = string.gsub(",,","")
     string = string.gsub("”","")
     string = string.gsub("&amp;","&")
-    string = sting.strip
+    string = string.strip
 
     return string		
   end
@@ -916,25 +917,41 @@ module ScraperFile
   end
 
   def self.sendSearchAlertMail
-    if @newTenders
-      Search.all.each do |search|
-        #rerun search and check for new tenders
-        queryData = QueryHelper.buildSearchParamsFromString(search.search_string)
-        query = QueryHelper.buildTenderSearchQuery(queryData)
+    Search.all.each do |search|
+      #rerun search and check for new tenders
+      queryParams = nil
+      query = nil
+      updateList = nil
+      results = nil
+      if search.searchtype == "tender"
+        queryParams = QueryHelper.buildTenderSearchParamsFromString(search.search_string)
+        data = QueryHelper.buildTenderQueryData(queryParams)
+        query = QueryHelper.buildTenderSearchQuery(data)
         results = Tender.where(query)
-        searchUpdates = []
-        results.each do |tender|
-          if @newTenders.include?(tender)
-            searchUpdates.push(tender)
-          end
+        updateList = @newTenders
+      elsif search.searchtype == "supplier"
+        queryParams = QueryHelper.buildSupplierSearchParamsFromString(search.search_string)
+        query = QueryHelper.buildSupplierSearchQuery(queryParams)
+        results = Organization.where(query)
+        updateList = @newSuppliers
+      else
+        queryParams = QueryHelper.buildProcurerSearchParamsFromString(search.search_string)
+        query = QueryHelper.buildProcurerSearchQuery(queryParams)
+        updateList = @newProcurers
+      end
+
+      searchUpdates = []
+      results.each do |result|
+        if updateList.include?(result)
+          searchUpdates.push(result)
         end
-        if searchUpdates.length > 0
-          user = User.find(search.user_id)
-          search.has_updated = true
-          search.save
-          if search.email_alert
-            AlertMailer.search_alert(user, search, searchUpdates).deliver
-          end
+      end
+      if searchUpdates.length > 0
+        user = User.find(search.user_id)
+        search.has_updated = true
+        search.save
+        if search.email_alert
+          AlertMailer.search_alert(user, search, searchUpdates).deliver
         end
       end
     end
@@ -993,6 +1010,9 @@ module ScraperFile
     start = Time.now
     I18n.locale = :en # do this so formating of floats and dates is correct when reading in json
     @newTenders = []
+    @newSuppliers = []
+    @newProcurers = []
+    newOrgsTemp = []
 
     #parse orgs first so that other objects can sort out relationships
     puts "processing Orgs"
@@ -1006,7 +1026,16 @@ module ScraperFile
     puts "processing docs"
     self.processDocuments
     puts "processing sub cpv codes"
-    self.processCPVCodes	
+    self.processCPVCodes
+
+    newOrgsTemp.each do |org|
+      if org.is_bidder
+        @newSuppliers.push(org)
+      end
+      if org.is_procurer
+        @newProcurers.push(org)
+      end
+    end
   end
 
   def self.generateMetaData

@@ -1,9 +1,17 @@
 class AlertMailer < ActionMailer::Base
   default from: "alerts@procwatch.com"
 
-  def search_alert(user, search, tenders)
+  def search_alert(user, search, searchUpdates)
     @search = search
-    @tenders = tenders
+    @updates = searchUpdates
+    subject = ""
+    if search.searchtype == "supplier"
+      subject = "New Supplier Search Update"
+    elsif search.searchtype == "procurer"
+      subject = "New Procurer Search Update"
+    else
+      subject = "New Tender Search Update"
+    end
     mail(:to => user.email, :subject => "New Search Updates")
   end
 
@@ -16,6 +24,7 @@ class AlertMailer < ActionMailer::Base
   def data_process_started()
     mail(:to => "Chris@transparency.ge", :subject => "data process started")
   end
+
   def data_process_finished()
     mail(:to => "Chris@transparency.ge", :subject => "data process finished")
   end

@@ -138,7 +138,7 @@
         <% else %>
           <td <%=highlightClass%>><div id="<%= buttonID %>"> <%= button_to t("Subscribe"), {:action => "subscribe_search", :search_id => search.id, :buttonID => buttonID}, :remote => true %></div></td>
         <% end %>
-        <td <%=highlightClass%>><%= link_to search.name, :controller => "tender", :action => "search_via_saved", :search_id => search.id %></td>
+        <td <%=highlightClass%>><%= link_to search.name, :controller => "user", :action => "search_via_saved", :search_id => search.id %></td>
         <td <%=highlightClass%>><%= search.searchtype %></td>
         <td <%=highlightClass%>><%= search.created_at %></td>
         <td <%=highlightClass%>><%= button_to t("Delete"), {:action => "remove_search_from_account", :search_id => search.id} %></td>

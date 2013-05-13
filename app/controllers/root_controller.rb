@@ -48,7 +48,19 @@ class RootController < ApplicationController
 
   def majorGroups
     groupAggregates = []
-    cpvGroups = CpvGroup.find(:all)
+    cpvGroups = []
+    profileAccount = User.where( :role => "profile" ).first
+    if profileAccount 
+      profileAccount.cpvGroups.each do |group|
+        cpvGroups.push(group)
+      end
+      if user_signed_in?
+        current_user.cpvGroups.each do |group|
+          cpvGroups.push(group)
+        end
+		  end
+    end
+
     cpvGroups.each do |cpvGroup|
       if cpvGroup.id == 1
         next
