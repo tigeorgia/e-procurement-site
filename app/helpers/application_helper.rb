@@ -30,6 +30,27 @@ module ApplicationHelper
   end
 
 
+  def checkSavedSearch( attributes, type )
+    if current_user
+      searches = current_user.searches
+      delim = '#'
+      @thisSearchString = ""
+      attributes.each do |field|
+        if not field or field == ""
+          field = "_"
+        end
+        @thisSearchString += field + "#"
+      end
+        
+      results = Search.where( :user_id => current_user.id, :searchtype => type, :search_string => @thisSearchString )
+      if results.count > 0
+        @searchIsSaved = true
+        @savedName = results.first.name
+      end
+    end
+  end
+
+
   def buildTenderCSVString( tenders )
     csv_string = CSV.generate do |csv|
        csv << ["Type","Registration Number","Status", "Announcement Date", "Bidding Start Date", "Bidding End Date", "Estimated Value",

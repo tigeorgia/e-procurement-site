@@ -76,7 +76,7 @@ class UserController < ApplicationController
   end
 
   def remove_procurer_watch_from_account
-    remove_procurer_watch
+    remove_procurer_watch()
     redirect_to :back
   end
 
