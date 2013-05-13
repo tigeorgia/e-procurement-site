@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 module ScraperFile
 
   FILE_TENDER = "tenders.json"
@@ -44,9 +47,9 @@ module ScraperFile
           end
           tender.url_id = item["tenderID"]
           tender.dataset_id = @newDataset.id
-          tender.tender_type = item["tenderType"]
+          tender.tender_type = self.cleanString(item["tenderType"])
           tender.tender_registration_number = item["tenderRegistrationNumber"]
-          tender.tender_status = item["tenderStatus"]
+          tender.tender_status = self.cleanString(item["tenderStatus"])
           tender.tender_announcement_date = Date.parse(item["tenderAnnouncementDate"])     
           tender.bid_start_date = Date.parse(item["bidsStartDate"])
           tender.bid_end_date = Date.parse(item["bidsEndDate"])
@@ -126,15 +129,15 @@ module ScraperFile
             organization.dataset_id = @newDataset.id
             organization.organization_url = item["OrgUrl"]
             organization.code = item["OrgID"]
-            organization.name = item["Name"].gsub("&amp;","&")
-            organization.country = item["Country"]
-            organization.org_type = item["Type"]
-            organization.city = item["city"]
-            organization.address = item["address"]  
+            organization.name = self.cleanString(item["Name"])
+            organization.country = self.cleanString(item["Country"])
+            organization.org_type = self.cleanString(item["Type"])
+            organization.city = self.cleanString(item["city"])
+            organization.address = self.cleanString(item["address"])  
             organization.phone_number = item["phoneNumber"]
             organization.fax_number = item["faxNumber"]
-            organization.email = item["email"]
-            organization.webpage = item["webpage"]
+            organization.email = self.cleanString(item["email"])
+            organization.webpage = self.cleanString(item["webpage"])
             organization.is_procurer = false
             organization.is_bidder = false
             if organization.valid?
@@ -146,7 +149,7 @@ module ScraperFile
                 end
               end          
               organization.save
-              #now we know everything sorted we can run a name translation
+              #now we know everything is sorted we can run a name translation
               self.generateOrganizationNameTranslation( organization )
             else
               raise ActiveRecord::Rollback
@@ -535,6 +538,16 @@ module ScraperFile
       risky.name = "Risky"
       risky.save
     end
+  end
+
+  #take a string  and remove special characters and whitespace
+  def self.cleanString( string )
+    string = string.gsub(",,","")
+    string = string.gsub("”","")
+    string = string.gsub("&amp;","&")
+    string = sting.strip
+
+    return string		
   end
 
   def self.generateRiskFactors
@@ -993,7 +1006,7 @@ module ScraperFile
     puts "processing docs"
     self.processDocuments
     puts "processing sub cpv codes"
-    self.processCPVCodes
+    self.processCPVCodes	
   end
 
   def self.generateMetaData

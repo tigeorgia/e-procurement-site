@@ -131,14 +131,15 @@ class RootController < ApplicationController
      
     #Get special profile account cpv groups
     profileAccount = User.where( :role => "profile" ).first
-    @cpvGroups = []
+    @globalCpvGroups = []
+		@userCpvGroups = []
     if profileAccount 
       profileAccount.cpvGroups.each do |group|
-        @cpvGroups.push(group)
+        @globalCpvGroups.push(group)
       end
       if user_signed_in?
         current_user.cpvGroups.each do |group|
-          @cpvGroups.push(group)
+          @userCpvGroups.push(group)
         end
 		  end
     end

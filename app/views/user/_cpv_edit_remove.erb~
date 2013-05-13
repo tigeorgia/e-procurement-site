@@ -1,3 +1,2 @@
 <%= button_to "Remove Category", {:controller => "cpv_tree", :action => "deleteCPVTree", :cpvGroup => cpvGroup, :user_id => @userID, :referrer => referrer} %>
 <%= button_to "Edit Category", {:controller => "cpv_tree", :action => "editCPVTree", :cpvGroup => cpvGroup, :user_id => @userID, :referrer => referrer} %>
-<%= referrer %>

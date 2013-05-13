@@ -37,6 +37,22 @@ $(document).ready(function() {
  });
 </script>
 
+
+<%cpvArray = []%>
+<% @globalCpvGroups.each do |group| %>
+	<% cpvArray.push([group.name, group.id]) %>
+<%end%>
+
+<% if @userCpvGroups.count > 0 %>
+	<% cpvArray.push(["---User CPV Groups---", 0,{:disabled => true}])%>
+	<% @userCpvGroups.each do |group| %>
+		<% cpvArray.push([group.name, group.id]) %>
+	<%end%>
+<%end%>
+<% newCPVUrl = url_for(:controller => "cpv_tree", :action => "showCPVTree") %>
+
+<% cpvArray.push(["---Create Custom CPV Group---", -1, {:onclick => "window.location.replace('"+newCPVUrl+"');"}])%>
+
 <div class="tabs">
   <ul>
     <li><a href="#tabs-1"><%=t("Search Tenders")%></a></li>
@@ -71,7 +87,7 @@ $(document).ready(function() {
         <div class="span3">        
           <label for="cpvGroup" class="search"><%= t("Category")%></label>
          <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
-          <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name)) %>
+          <%= select_tag(:cpvGroup, options_for_select(cpvArray)) %>
         </div>
         <div class="span3">
           <label for="risk_indicator" class="search"><%=t("Risk Indicator")%> </label>
@@ -269,7 +285,7 @@ $(document).ready(function() {
     <div class="row-fluid">
       <div class="span8 offset4">
         <h4><%=t("Sector")%></<h4><br>
-        <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name), 
+        <%= select_tag(:cpvGroup, options_for_select(cpvArray), 
           :data => { :remote => true, 
                      :url => url_for(:controller => "root", 
                      :action => "cpvVsCompany") } )  %>     
@@ -283,7 +299,7 @@ $(document).ready(function() {
       <div class="row-fluid">
         <div class="span8 offset4">
           <h4><%=t("Sector")%></<h4><br>
-          <%= select_tag(:cpvGroup, options_from_collection_for_select(@cpvGroups, :id, :name), 
+          <%= select_tag(:cpvGroup, options_for_select(cpvArray),
             :data => { :remote => true, 
                        :url => url_for(:controller => "root", 
                        :action => "cpvVsProcurer") } )  %>     

@@ -1,8 +1,22 @@
+#!/bin/env ruby
+# encoding: utf-8
 module TestFile
   require "translation_helper"
   require "aggregate_helper"
   require "cpv_helper"
 
+
+  def self.cleanNames
+		Organization.transaction do 
+		  Organization.all.each do |org|
+				org.name = org.name.gsub(",,","")
+    		org.name = org.name.gsub("”","")
+    		org.name = org.name.gsub("&amp;","&")
+    		org.name = org.name.strip
+				org.save
+			end
+		end
+  end
 
 
   def self.processProcAggregates
@@ -28,15 +42,6 @@ module TestFile
           end
         end
       end
-    end
-  end
-
-  def self.cleanNames
-    Organization.find_each do |org|
-      name = org.name.delete('"').delete("'")
-      org.name = name
-      puts name
-      org.save
     end
   end
 
@@ -143,7 +148,8 @@ module TestFile
   def self.run
     #CpvHelper.createCPVClassifiers(false)
     #self.storeTenderContractValues()
-    self.processProcAggregates()
+    #self.processProcAggregates()
+		self.cleanNames()
   end
 
 end

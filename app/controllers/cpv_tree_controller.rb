@@ -1,4 +1,6 @@
 class CpvTreeController < ApplicationController
+before_filter :authenticate_user!
+
   include ApplicationHelper
   include GraphHelper
   def sortDescending( x, y )
@@ -117,7 +119,7 @@ class CpvTreeController < ApplicationController
   end
 
   def showCPVTree
-    @userID = params[:user_id]
+    @userID = current_user.id
     @checkedNodes = ""
     #outputTree()
   end
