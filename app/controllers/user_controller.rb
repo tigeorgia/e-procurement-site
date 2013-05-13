@@ -25,7 +25,6 @@ class UserController < ApplicationController
     @searchType = params[:searchtype]
   end
 
-
   def remove_search_from_account
     remove_search()
     redirect_to :back

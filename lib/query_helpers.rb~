@@ -18,6 +18,8 @@ module QueryHelper
     return count
   end
 
+   def self.runOrgQueryFromString(searchString)
+
   def self.buildSearchParamsFromString(searchString)
     fields = searchString.split("#")
     params = {

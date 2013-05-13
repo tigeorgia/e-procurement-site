@@ -18,24 +18,11 @@ class TendersController < ApplicationController
 
     @searchType = "tender" 
 
-    if current_user
-      searches = current_user.searches
-      delim = '#'
-      @thisSearchString = ""
-      data.each do |key,field|
-        if field == ""
-          field = "_"
-        end
-        @thisSearchString += field + "#"
-      end
-        
-      results = Search.where( :user_id => current_user.id, :searchtype => @searchType, :search_string => @thisSearchString )
-      if results.count > 0
-        @searchIsSaved = true
-        @savedName = results.first.name
-      end
+    paramList = []
+    data.each do |key, field|
+      paramList.push(field)
     end
-
+    checkSavedSearch(paramList, @searchType)
   end
 
   def buildQueryData( data )

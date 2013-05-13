@@ -3,7 +3,19 @@
   <h1><%=t '.title', :default => t("Organizations") %></h1>
 </div>
 
-<%= t("Number of Organizations Found")%>: <%= @numResults %>
+
+
+<% if user_signed_in? %>
+  <div class="search_serialization">
+    <% if @searchIsSaved %>
+      <%= render "user/remove_form" %>
+    <% else %>
+      <%= render "user/save_form" %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= t("Number Of Organizations Found")%>: <%= @numResults %>
 <p>
   <%= t("Download")%>:
   <% csvParams = @params.clone%>

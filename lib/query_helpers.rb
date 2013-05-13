@@ -18,6 +18,12 @@ module QueryHelper
     return count
   end
 
+  def self.runSupplierQueryFromString(searchString)
+  end
+  
+  def self.runProcurerQueryFromString(searchString)
+  end
+
   def self.buildSearchParamsFromString(searchString)
     fields = searchString.split("#")
     params = {

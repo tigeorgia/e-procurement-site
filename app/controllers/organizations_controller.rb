@@ -8,6 +8,8 @@ class OrganizationsController < ApplicationController
   BOM = "\uFEFF" #Byte Order Mark
   def search
     @params = params
+    searchParams = []
+
     name = params[:name]
     code = params[:code]
     org_type = params[:org_type]
@@ -15,6 +17,16 @@ class OrganizationsController < ApplicationController
     address = params[:address]
     email = params[:email]
     phone_number = params[:phone_number]
+    foreignOnly = params[:foreign]
+
+    searchParams.push(name)
+    searchParams.push(code)
+    searchParams.push(org_type)
+    searchParams.push(city)
+    searchParams.push(address)
+    searchParams.push(email)
+    searchParams.push(phone_number)
+    searchParams.push(foreignOnly)
     
     willSearchName = name.length > 0
     name = "%"+name+"%"
@@ -24,8 +36,6 @@ class OrganizationsController < ApplicationController
     email = "%"+email+"%"
     phone_number = "%"+phone_number+"%"
     
-    foreignOnly = params[:foreign]
-
     orgString = ""
     if not org_type == ""
       orgString = " AND org_type = '"+org_type+"'"
@@ -47,6 +57,9 @@ class OrganizationsController < ApplicationController
     
     @numResults = results.count
     @organizations = results.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
+
+    @searchType = "supplier" 
+    checkSavedSearch(searchParams, @searchType)
 
     respond_to do |format|
       format.html
@@ -72,9 +85,13 @@ class OrganizationsController < ApplicationController
 
   def search_procurer
     @params = params
+    searchParams = []
     name = params[:name]
     code = params[:code]
     org_type = params[:org_type]
+    searchParams.push(name)
+    searchParams.push(code)
+    searchParams.push(org_type)
 
     willSearchName = name.length > 0
 
@@ -96,6 +113,10 @@ class OrganizationsController < ApplicationController
     results = Organization.where(conditions)
     @numResults = results.count
     @organizations = results.paginate( :page => params[:page]).order(sort_column + ' ' + sort_direction)
+
+
+    @searchType = "procurer" 
+    checkSavedSearch(searchParams, @searchType)
     respond_to do |format|
       format.html
       format.csv {        
