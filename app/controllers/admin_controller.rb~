@@ -14,7 +14,10 @@ class AdminController < ApplicationController
 
   def manageCPVs
     profileAccount = User.where(:role => "profile").first
+    @isGlobal = true
+    @referrer = "admin"
     @userID = profileAccount.id
+    @cpvGroups = []
     groups = profileAccount.cpvGroups
     groups.each do |group|
       if group.id > 2

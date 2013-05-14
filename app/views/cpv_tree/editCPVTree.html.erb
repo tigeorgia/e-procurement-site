@@ -1,6 +1,6 @@
 <%= javascript_include_tag "cpvTree" %>
 
-<%= form_tag( { :controller => :cpv_tree, :action => "save_cpv_group", :user_id => @userID, :cpvGroup => @cpvGroup, :referrer => @referrer}, {:id => "saveTree"} ) do %>
+<%= form_tag( { :controller => :cpv_tree, :action => "save_cpv_group", :isGlobal=> @isGlobal, :cpvGroup => @cpvGroup}, {:id => "saveTree"} ) do %>
   <%= label_tag(:category, @cpvName) %>
   <%= hidden_field_tag(:codes, @checkedNodes) %>
   <%= submit_tag( t("Save Category")) %>

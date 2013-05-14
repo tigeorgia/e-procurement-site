@@ -14,6 +14,7 @@ class AdminController < ApplicationController
 
   def manageCPVs
     profileAccount = User.where(:role => "profile").first
+    @isGlobal = true
     @userID = profileAccount.id
     @cpvGroups = []
     groups = profileAccount.cpvGroups

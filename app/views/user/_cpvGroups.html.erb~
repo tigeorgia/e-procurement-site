@@ -8,12 +8,12 @@
       <th><%=t("Date Saved")%></th>
   </thead>
   <tbody>
-    <% cpvGroups.each do |cpvGroup| %>
+    <% @cpvGroups.each do |cpvGroup| %>
       <tr>
         <td><%= cpvGroup.name %></td>
         <td><%= cpvGroup.created_at %></td>
-        <td><%= button_to "Edit Category", {:controller => "cpv_tree", :action => "editCPVTree", :cpvGroup => cpvGroup, :user_id => @userID, :referrer => referrer} %></td>
-        <td><%= button_to t("Remove Category"), {:controller => "cpv_tree", :action => "deleteCPVTree", :cpvGroup => cpvGroup, :user_id => @userID, :referrer => referrer} %></td>
+        <td><%= button_to t("Edit Category"), {:controller => "cpv_tree", :action => "editCPVTree", :cpvGroup => cpvGroup, :isGlobal => @isGlobal, :referrer => @referrer} %></td>
+        <td><%= button_to t("Remove Category"), {:controller => "cpv_tree", :action => "deleteCPVTree", :cpvGroup => cpvGroup, :isGlobal => @isGlobal, :referrer => @referrer} %></td>
       </tr>
     <% end %>
   </tbody>

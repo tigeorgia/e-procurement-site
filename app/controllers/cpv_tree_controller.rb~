@@ -16,7 +16,7 @@ before_filter :authenticate_user!
     cpvGroup = CpvGroup.find(params[:cpvGroup])
     cpvGroup.destroy
     
-    if params[:referrer] == 'admin'
+    if params[:isGlobal]
       redirect_to :controller => :admin, :action =>:manageCPVs
     else
       redirect_to :controller => :user, :action =>:index
@@ -26,22 +26,29 @@ before_filter :authenticate_user!
   def save_cpv_group
     codes = params[:codes].split(",")
     category = params[:category]
-    if params[:cpvGroup]
-      cpvGroup = CpvGroup.find(params[:cpvGroup])
-      cpvGroup.tender_cpv_classifiers.delete_all
-    else
-      cpvGroup = CpvGroup.new
-      cpvGroup.user_id = params[:user_id]
-      cpvGroup.name = category
-    end
-    
-    codes.each do |code|      
-      cpvs = TenderCpvClassifier.where( :cpv_code => code.to_i )
-      cpvs.each do |cpvObject|
-        cpvGroup.tender_cpv_classifiers << cpvObject
+    isGlobal = params[:isGlobal]
+    if (isGlobal and current_user.role == 'admin') or (not isGlobal)
+      if params[:cpvGroup]
+        cpvGroup = CpvGroup.find(params[:cpvGroup])
+        cpvGroup.tender_cpv_classifiers.delete_all
+      else
+        cpvGroup = CpvGroup.new       
+        if isGlobal
+          cpvGroup.user_id = 2
+        else
+          cpvGroup.user_id = current_user.id
+        end
+        cpvGroup.name = category
       end
+      
+      codes.each do |code|      
+        cpvs = TenderCpvClassifier.where( :cpv_code => code.to_i )
+        cpvs.each do |cpvObject|
+          cpvGroup.tender_cpv_classifiers << cpvObject
+        end
+      end
+      cpvGroup.save
     end
-    cpvGroup.save
 
     if params[:referrer] == 'admin'
       redirect_to :controller => :admin, :action =>:manageCPVs
@@ -67,7 +74,6 @@ before_filter :authenticate_user!
     end
     @cpvGroup = group.id
     @cpvName = group.name
-    @referrer = params[:referrer]
   end
 
 
@@ -119,7 +125,7 @@ before_filter :authenticate_user!
   end
 
   def showCPVTree
-    @userID = params[:user_id]
+    @isGlobal = params[:isGlobal]
     @checkedNodes = ""
     #outputTree()
   end

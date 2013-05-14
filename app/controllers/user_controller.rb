@@ -226,26 +226,4 @@ class UserController < ApplicationController
     group.name = params[:name]
     group.save
   end
-
-  def save_cpv_group
-    codes = params[:codes].split(",")
-    category = params[:category]
-    cpvGroup = CpvGroup.new
-    cpvGroup.user_id = params[:user_id]
-    cpvGroup.name = category
-    
-    codes.each do |code|
-      cpv = TenderCpvClassifier.where( :cpv_code => code.to_i ).first
-      if cpv
-        cpvGroup.tender_cpv_classifiers << cpv
-      end
-    end
-    cpvGroup.save
-    if cpvGroup.user_id == current_user.id
-      redirect_to :action => :index
-    else
-      redirect_to :controller => :admin, :action =>:manageCPVs
-    end
-  end
-
 end

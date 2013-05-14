@@ -231,7 +231,13 @@ class UserController < ApplicationController
     codes = params[:codes].split(",")
     category = params[:category]
     cpvGroup = CpvGroup.new
-    cpvGroup.user_id = params[:user_id]
+    isGlobal = params[:isGlobal]
+    if isGlobal and current_user.role == 'admin'
+      cpvGroup.user_id = 2
+    else
+      cpvGroup.user_id = current_user.id
+    end
+
     cpvGroup.name = category
     
     codes.each do |code|
