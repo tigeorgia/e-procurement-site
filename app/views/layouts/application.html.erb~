@@ -5,16 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-
     <%= stylesheet_link_tag "application", :media => "all" %>
-    <!-- Javascripts
-    ================================================== -->
     <%= javascript_include_tag "application" %>
-    
 		<script type="text/javascript">
 			I18n.defaultLocale = "<%= I18n.default_locale %>";
 			I18n.locale = "<%= I18n.locale %>";
 		</script>
+
+    <!-- Javascripts
+    ================================================== -->
+    
 
 		<% if Rails.env.production? %>
 			<!-- insert google analytics for production site here -->
@@ -95,7 +95,11 @@
       </div>
     </div>
 
-
+		<div id="wrapper">
+		  <div class="container">
+		    <div class="content">
+		      <div class="row">
+		         <div class="span12">
 							<% flash.each do |key, msg| %>
 								<div class="alert <%= flash_translation(key) %> fade in">
 									<a href="#" data-dismiss="alert" class="close">×</a>
@@ -104,7 +108,11 @@
 							<% end %>
 
 	            <%= yield %>
-
+	          </div><!--/span-->
+		      </div><!--/row-->
+		    </div><!--/content-->
+		   </div> <!-- /container -->
+		</div><!--/wrapper-->
 
     <div class="push"><!--//--></div>
 

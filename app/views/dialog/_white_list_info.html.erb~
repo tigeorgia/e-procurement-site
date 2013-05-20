@@ -1,0 +1,7 @@
+White Listed
+
+<% baseUrl = "http://procurement.gov.ge/"%>
+Organization Name: <%= @item.organization_name %>
+Issue Date: <%= @item.issue_date %>
+Registration Document: <%= url_for(baseUrl+@item.agreement_url) %>
+Organization Information Document: <%= url_for(baseUrl+@item.company_Info_url) %>

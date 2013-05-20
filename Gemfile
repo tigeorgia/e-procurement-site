@@ -31,6 +31,7 @@ gem 'rvm-capistrano'
 gem "exception_notification", ">= 2.5.2" # send an email when exception occurs
 gem "useragent", :git => "https://github.com/jilion/useragent.git" # browser detection
 gem "passenger" # App server gem
+gem "rails3-jquery-autocomplete"
 
 #gem "pdfkit", ">= 0.5.2" # generate pdfs
 #gem "use_tinymce", ">= 0.0.15" # wysiwyg

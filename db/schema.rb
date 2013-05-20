@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426130055) do
+ActiveRecord::Schema.define(:version => 20130520123426) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -104,10 +104,34 @@ ActiveRecord::Schema.define(:version => 20130426130055) do
 
   add_index "bidders", ["tender_id", "organization_id"], :name => "index_bidders_on_tender_id_and_organization_id"
 
+  create_table "black_list_items", :force => true do |t|
+    t.integer  "organization_id"
+    t.string   "organization_name"
+    t.string   "issue_date"
+    t.string   "procurer_name"
+    t.integer  "procurer_id"
+    t.string   "tender_id"
+    t.string   "tender_number"
+    t.string   "reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "competitors", :force => true do |t|
     t.integer  "organization_id"
     t.integer  "rival_org_id"
     t.integer  "num_tenders"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "complaints", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "tender_id"
+    t.date     "issue_date"
+    t.text     "complaint"
+    t.string   "legal_basis"
+    t.text     "demand"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -173,6 +197,7 @@ ActiveRecord::Schema.define(:version => 20130426130055) do
     t.integer  "total_offered_contract_value"
     t.integer  "total_offered_tenders"
     t.integer  "total_success_tenders"
+    t.string   "bw_list_flag"
   end
 
   add_index "organizations", ["organization_url", "name"], :name => "index_organizations_on_organization_url_and_name"
@@ -305,6 +330,16 @@ ActiveRecord::Schema.define(:version => 20130426130055) do
     t.string   "hash"
     t.boolean  "email_alert"
     t.boolean  "has_updated"
+  end
+
+  create_table "white_list_items", :force => true do |t|
+    t.integer  "organization_id"
+    t.string   "organization_name"
+    t.string   "issue_date"
+    t.string   "agreement_url"
+    t.string   "company_info_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

@@ -50,8 +50,8 @@ module QueryHelper
     minBidders = data[:min_num_bidders]
     maxBidders = data[:max_num_bidders]
 
-    procurer = "%"+data[:procurer]+"%"
-    supplier = "%"+data[:supplier]+"%"
+    procurer = "%"+data[:procurer_name]+"%"
+    supplier = "%"+data[:supplier_name]+"%"
 
     translated_status =  "%%"
     status = status.gsub('%','')
@@ -82,14 +82,15 @@ module QueryHelper
   def self.buildSupplierSearchParamsFromString(searchString)
     fields = searchString.split("#")
     params = {
-      :name => self.removeWildCards(fields[0]),
+      :supplier_search_name => self.removeWildCards(fields[0]),
       :code => self.removeWildCards(fields[1]),
       :org_type => fields[2],
       :city => self.removeWildCards(fields[3]),
       :address => self.removeWildCards(fields[4]),
       :email => self.removeWildCards(fields[5]),
       :phone_number => self.removeWildCards(fields[6]),
-      :foreign => fields[7]
+      :foreign => fields[7],
+      :bw_list => fields[8]
     }
     params.each do |key,param|
       if param.length == 1
@@ -101,7 +102,7 @@ module QueryHelper
 
   def self.buildSupplierSearchQuery(params)
     searchParams = []
-    name = params[:name]
+    name = params[:supplier_search_name]
     code = params[:code]
     org_type = params[:org_type]
     city = params[:city]
@@ -109,6 +110,7 @@ module QueryHelper
     email = params[:email]
     phone_number = params[:phone_number]
     foreignOnly = params[:foreign]
+    bw_list = params[:bw_list]
 
     searchParams.push(name)
     searchParams.push(code)
@@ -118,6 +120,7 @@ module QueryHelper
     searchParams.push(email)
     searchParams.push(phone_number)
     searchParams.push(foreignOnly)
+    searchParams.push(bw_list)
     
     willSearchName = name.length > 0
     name = "%"+name+"%"
@@ -137,6 +140,8 @@ module QueryHelper
     query = QueryHelper.addParamToQuery(query, city, "city", "LIKE")
     query = QueryHelper.addParamToQuery(query, email, "email", "LIKE")
     query = QueryHelper.addParamToQuery(query, phone_number, "phone_number", "LIKE")
+    query = QueryHelper.addParamToQuery(query, bw_list, "bw_list_flag", "=")
+
     if foreignOnly == '1'
       query = QueryHelper.addParamToQuery(query, 'საქართველო', "country", "NOT LIKE")
     end
@@ -149,7 +154,7 @@ module QueryHelper
   def self.buildProcurerSearchParamsFromString(searchString)
     fields = searchString.split("#")
     params = {
-     :name => self.removeWildCards(fields[0]),
+     :procurer_search_name => self.removeWildCards(fields[0]),
      :code => self.removeWildCards(fields[1]),
      :org_type => fields[2]
     }
@@ -163,9 +168,10 @@ module QueryHelper
 
   def self.buildProcurerSearchQuery(params)
     searchParams = []
-    name = params[:name]
+    name = params[:procurer_search_name]
     code = params[:code]
     org_type = params[:org_type]
+
     searchParams.push(name)
     searchParams.push(code)
     searchParams.push(org_type)

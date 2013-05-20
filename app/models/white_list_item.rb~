@@ -1,0 +1,8 @@
+class WhiteListItem < ActiveRecord::Base
+  attr_accessible :id,
+    :orgID,
+    :orgName,
+    :issueDate,
+    :agreementUrl,
+    :companyInfoUrl
+end 

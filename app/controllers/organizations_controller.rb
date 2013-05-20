@@ -1,12 +1,31 @@
 # encoding: utf-8 
 class OrganizationsController < ApplicationController
+
   helper_method :sort_column, :sort_direction
-  require "query_helpers" 
   include GraphHelper 
   include ApplicationHelper
   include QueryHelper
 
   BOM = "\uFEFF" #Byte Order Mark
+
+  def getSuppliers
+    @suppliers = []
+    if params[:term]
+      @suppliers = Organization.where("is_bidder = true AND name LIKE ?", "%#{params[:term]}%")
+    end
+ 
+    render :json => @suppliers.map(&:name)
+  end
+
+  def getProcurers
+    @procurers = []
+    if params[:term]
+      @procurers = Organization.where("is_procurer = true AND name LIKE ?", "%#{params[:term]}%")
+    end
+
+    render :json => @procurers.map(&:name)
+  end
+
   def search
     @params = params
 
@@ -239,6 +258,15 @@ class OrganizationsController < ApplicationController
       end
     end
 
+    @blackListed = false
+    @whiteListed = false
+    if WhiteListItem.where("organization_id = ?",id).count > 0
+      @whiteListed = true
+    end
+    if BlackListItem.where("organization_id = ?",id).count > 0
+      @blackListed = true
+    end
+
     allBids = Bidder.find_all_by_organization_id(id)
     allTenders = []
     @topFiveCpvs = []
@@ -321,9 +349,11 @@ class OrganizationsController < ApplicationController
       end
       @topTenProcuringEntities.push( [Organization.find(key), value] )
     end
-    if @numTendersWon != 0
+
+    @EstimatedVActual = 0
+    if @numTendersWon > 0
       @averageNumBiddersOnContractsWon = @averageNumBiddersOnContractsWon.to_f / @numTendersWon.to_f
-      @EstimatedVActual = @totalValueOfAllContracts/ @totalEstimatedValueOfContractsWon
+      @EstimatedVActual = (@totalValueOfAllContracts/@totalEstimatedValueOfContractsWon) * 100
     end
 
     @tenderInfo = []

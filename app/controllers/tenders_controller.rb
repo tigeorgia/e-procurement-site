@@ -60,6 +60,7 @@ class TendersController < ApplicationController
       end
     end
 
+    @complaints = Complaint.where(:tender_id => @tender.id)
     @minorCPVCategories = []
     cpvCodes = TenderCpvCode.where(:tender_id => @tender.id)
     cpvCodes.each do |code|
@@ -87,15 +88,18 @@ class TendersController < ApplicationController
       @documentation.push( document )
     end
 
+
     @procurer = Organization.find(@tender.procurring_entity_id).name
     agreements = @tender.agreements
     @agreementInfo = []
     agreements.each do |agreement|
-      infoItem = { :Type => "Agreement", :OrgName => nil, :OrgID => agreement.organization_id, :value => agreement.amount, :startDate => agreement.start_date, :expiryDate => agreement.expiry_date, :document => agreement.documentation_url }
+      infoItem = { :Type => "Agreement", :OrgName => nil, :whiteList => false, :blackList => false, :OrgID => agreement.organization_id, :value => agreement.amount, :startDate => agreement.start_date, :expiryDate => agreement.expiry_date, :document => agreement.documentation_url }
       if agreement.amendment_number > 0
         infoItem[:Type] = "Amendment "+agreement.amendment_number.to_s
       end
       infoItem[:OrgName] = Organization.find(agreement.organization_id).name
+      infoItem[:whiteList] = WhiteListItem.where("organization_id = ?",agreement.organization_id).count > 0
+      infoItem[:blackList] = BlackListItem.where("organization_id = ?",agreement.organization_id).count > 0
       @agreementInfo.push(infoItem)
     end
 
@@ -104,14 +108,15 @@ class TendersController < ApplicationController
     bidders.each do |bidder|
       org = Organization.find(bidder.organization_id)
       if org
-        infoItem = { :id => org.id, :name => org.name, :won => false, :highBid => bidder.first_bid_amount, :lowBid => bidder.last_bid_amount, :numBids => bidder.number_of_bids}
-
+        infoItem = { :id => org.id, :whiteList => false, :blackList => false, :name => org.name, :won => false, :highBid => bidder.first_bid_amount, :lowBid => bidder.last_bid_amount, :numBids => bidder.number_of_bids}
         agreements.each do |agreement|
           if agreement.organization_id == org.id
             infoItem[:won] = true
             break
           end
         end
+        infoItem[:whiteList] = WhiteListItem.where("organization_id = ?",org.id).count > 0
+        infoItem[:blackList] = BlackListItem.where("organization_id = ?",org.id).count > 0
         @bidderInfo.push(infoItem)
       end
     end

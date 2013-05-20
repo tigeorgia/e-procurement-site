@@ -9,10 +9,15 @@ module TestFile
   def self.cleanNames
 		Organization.transaction do 
 		  Organization.all.each do |org|
-				org.name = org.name.gsub(",,","")
-    		org.name = org.name.gsub("”","")
-    		org.name = org.name.gsub("&amp;","&")
-    		org.name = org.name.strip
+        string = org.name
+        string = string.gsub(",,","")
+        string = string.gsub("„","")
+        string = string.gsub("”","")
+        string = string.gsub('"',"")
+        string = string.gsub("“",'')
+        string = string.gsub("&amp;","&")
+        string = string.strip
+        org.name = string
 				org.save
 			end
 		end

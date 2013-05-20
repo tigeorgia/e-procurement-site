@@ -9,6 +9,10 @@ module ScraperFile
   FILE_TENDER_AGREEMENTS = "tenderAgreements.json"
   FILE_TENDER_DOCUMENTS = "tenderDocumentation.json"
   FILE_TENDER_CPV_CODES = "tenderCPVCode.json"
+  FILE_WHITE_LIST = "whiteList.json"
+  FILE_BLACK_LIST = "blackList.json"
+  FILE_COMPLAINTS = "complaints.json"
+
   require 'csv'
   require 'json'
   require "query_helpers"
@@ -407,6 +411,125 @@ module ScraperFile
   end#createcpv
 
 
+  def self.georgianToDate( dateString )
+    elements = dateString.split()
+    month = elements[1]
+    monthInt = -1
+
+    case month
+    when "იანვარი"
+      monthInt = "1"
+    when "თებერვალი"
+      monthInt = "2"
+    when "მარტი"
+      monthInt = "3"
+    when "აპრილი"
+      monthInt = "4"
+    when "მაისი"
+      monthInt = "5"
+    when "ივნისი"
+      monthInt = "6"
+    when "ივლისი"
+      monthInt = "7"
+    when "აგვისტო"
+      monthInt = "8"
+    when "სექტემბერი"
+      monthInt = "9"
+    when "ოქტომბერი"
+      monthInt = "10"
+    when "ნოემბერი"
+      monthInt = "11"
+    when "დეკემბერი"
+      monthInt = "12"
+    end
+
+    monthString = elements[2]+"/"+monthInt+"/"+elements[0]
+    return Date.parse(monthString)
+  end
+
+  def self.processWhiteList
+    white_list_file_path = "#{Rails.root}/public/system/#{FILE_WHITE_LIST}"
+    File.open(white_list_file_path, "r") do |infile|
+      WhiteListItem.transaction do
+        while(line = infile.gets)
+          item = JSON.parse(line)         
+          whiteListItem = WhiteListItem.new
+          whiteListItem.organization_id = nil
+          org = Organization.where("code = ?",item["orgID"]).first 
+          if org
+            whiteListItem.organization_id = org.id
+            org.bw_list_flag = "W"
+            org.save
+          end
+          whiteListItem.organization_name = self.cleanString(item["orgName"])
+          whiteListItem.issue_date = self.georgianToDate(item["issueDate"])
+          whiteListItem.agreement_url = self.cleanString(item["agreementUrl"])
+          whiteListItem.company_info_url = self.cleanString(item["companyInfoUrl"])
+          whiteListItem.save
+        end
+      end
+    end
+  end
+
+  def self.processBlackList
+    black_list_file_path = "#{Rails.root}/public/system/#{FILE_BLACK_LIST}"
+    File.open(black_list_file_path, "r") do |infile|
+      BlackListItem.transaction do
+        while(line = infile.gets)
+          item = JSON.parse(line)
+          blackListItem = BlackListItem.new
+          blackListItem.organization_id = nil
+          org = Organization.where("code = ?",item["orgID"]).first
+          if org
+            blackListItem.organization_id = org.id
+            org.bw_list_flag = "B"
+            org.save
+          end
+          blackListItem.organization_name = self.cleanString(item["orgName"])
+          blackListItem.issue_date = self.georgianToDate(item["issueDate"])
+          blackListItem.procurer_id = nil
+          procurer_name = self.cleanString(item["procurer"])
+          org = Organization.where("name = ?",procurer_name).first
+          if org
+            blackListItem.procurer_id = org.id
+          end
+          blackListItem.procurer_name  = procurer_name
+          blackListItem.tender_id = item["tenderID"]
+          blackListItem.tender_number = item["tenderNum"]
+          blackListItem.reason = item["reason"]
+          blackListItem.save
+        end
+      end
+    end
+  end
+
+  def self.processComplaints
+    complaints_file_path = "#{Rails.root}/public/system/#{FILE_COMPLAINTS}"
+    File.open(complaints_file_path, "r") do |infile|
+      Complaint.transaction do
+       while(line = infile.gets)
+          item = JSON.parse(line)
+          complaintItem = Complaint.new
+          complaintItem.organization_id = nil
+          org = Organization.where("code = ?",item["orgID"]).first
+          if org
+            complaintItem.organization_id = org.id
+          end
+          complaintItem.status = self.cleanString(item["status"])
+          complaintItem.tender_id = nil
+          tender = Tender.where("code = ?", item["tenderID"]).first
+          if tender
+            complaintItem.tender_id = tender.id
+          end
+          complaintItem.complaint = self.cleanString(item["complaint"])
+          complaintItem.legal_basis = self.cleanString(item["legalBasis"])
+          complaintItem.demand = self.cleanString(item["demand"])
+          complaintItem.save
+        end     
+      end
+    end
+  end
+
   def self.storeTenderContractValues
     count = 0
     Tender.find_each do |tender|
@@ -544,10 +667,12 @@ module ScraperFile
   #take a string  and remove special characters and whitespace
   def self.cleanString( string )
     string = string.gsub(",,","")
+    string = string.gsub("„","")
     string = string.gsub("”","")
+    string = string.gsub('"',"")
+    string = string.gsub("“",'')
     string = string.gsub("&amp;","&")
     string = string.strip
-
     return string		
   end
 
@@ -614,6 +739,16 @@ module ScraperFile
       contractAmendmentIndicator.save
     end
 
+    blackListedSupplierIndicatior = CorruptionIndicator.where(:id => 7).first
+    if not blackListedSupplierIndicatior
+      blackListedSupplierIndicatior = CorruptionIndicator.new
+      blackListedSupplierIndicatior.name = "A Blacklisted Company Won the Tender"
+      blackListedSupplierIndicatior.id = 7     
+      blackListedSupplierIndicatior.weight = 5
+      blackListedSupplierIndicatior.description = "The winner of this tender has been placed on the blacklist"
+      blackListedSupplierIndicatior.save
+    end
+
     @totalIndicator = CorruptionIndicator.where(:id => 100).first
     if not @totalIndicator
       @totalIndicator = CorruptionIndicator.new
@@ -639,6 +774,9 @@ module ScraperFile
     self.majorPlayerCompetitionAssessment(majorPlayerIndicator)
     puts "amendment"
     self.contractAmendmentAssessment(contractAmendmentIndicator)
+    puts "black list"
+    self.blackListedSupplierIndicatior
+
     puts "storing risk indicators on tenders"
     self.addRiskIndicatorsToTenders
   end
@@ -791,6 +929,21 @@ module ScraperFile
     puts "not done"
   end
 
+  def self.blacklistSupplierAssessment(indicator)
+    blackListedOrgs = BlackListItems.select(:organization_id)
+    Tender.find_each do |tender|
+      if blackListedOrgs.include?(tender.winning_org_id)
+        #risky tender!
+        corruptionFlag = TenderCorruptionFlag.new
+        corruptionFlag.corruption_indicator_id = indicator.id
+        corruptionFlag.value = 1
+        corruptionFlag.save
+        self.addRiskIndicatorToTender(tender, indicator.id)
+        self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
+      end
+    end
+  end
+
 
   def self.generateCompetitorData()
 
@@ -937,6 +1090,7 @@ module ScraperFile
       else
         queryParams = QueryHelper.buildProcurerSearchParamsFromString(search.search_string)
         query = QueryHelper.buildProcurerSearchQuery(queryParams)
+        results = Organization.where(query)
         updateList = @newProcurers
       end
 
@@ -1027,6 +1181,10 @@ module ScraperFile
     self.processDocuments
     puts "processing sub cpv codes"
     self.processCPVCodes
+    
+    self.processWhiteList
+    self.processBlackList
+    self.processComplaints
 
     newOrgsTemp.each do |org|
       if org.is_bidder
@@ -1064,8 +1222,7 @@ module ScraperFile
     self.sendSearchAlertMail
   end
 
-  def self.processFullScrape
-    
+  def self.processFullScrape   
     @numDatasets = Dataset.find(:all).count
     @liveDataset = nil
     @newDataset = nil
@@ -1096,14 +1253,17 @@ module ScraperFile
   end
 
   def self.processIncrementalScrape
+    self.processWhiteList
+    self.processBlackList
+
     #get current dataset
-    @dataset = Dataset.last
-    AlertMailer.data_process_started().deliver
-    self.process
-    AlertMailer.meta_started().deliver
-    self.generateMetaData
-    self.generateAlerts
-    AlertMailer.data_process_finished().deliver
+   # @dataset = Dataset.last
+    #AlertMailer.data_process_started().deliver
+    #self.process
+    #AlertMailer.meta_started().deliver
+    #self.generateMetaData
+    #self.generateAlerts
+    #AlertMailer.data_process_finished().deliver
   end
 
   def self.buildUserDataOnly

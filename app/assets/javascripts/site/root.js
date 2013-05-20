@@ -7,6 +7,12 @@ initDatePickers = function ()
   $('.dp2').datepicker({ format: "yyyy/mm/dd"});
 }
 
+launchDialog = function( htmlData )
+{
+  $(".modal").html(htmlData);
+}
+
+
 
 $(document).ready(function() {
     $('.dataTable').dataTable( {

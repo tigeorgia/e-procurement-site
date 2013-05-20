@@ -37,7 +37,6 @@ $(document).ready(function() {
  });
 </script>
 
-
 <%cpvArray = []%>
 <% @globalCpvGroups.each do |group| %>
 	<% cpvArray.push([group.name, group.id]) %>
@@ -51,7 +50,7 @@ $(document).ready(function() {
 <%end%>
 <% newCPVUrl = url_for(:controller => "cpv_tree", :action => "showCPVTree") %>
 
-<% cpvArray.push(["---Create Custom CPV Group---", -1, {:onclick => "window.location.replace('"newCPVUrl+"');"}])%>
+<% cpvArray.push(["---Create Custom CPV Group---", -1, {:onclick => "window.location.replace('"+newCPVUrl+"');"}])%>
 
 <div class="tabs">
   <ul>
@@ -65,12 +64,12 @@ $(document).ready(function() {
         <div class="span3 offset2" >
           <label for="supplier" class="search"><%=t("Supplier")%></label>
           <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
-          <input class="supply_search" name="supplier" type="text"/>
+          <%=text_field_tag( 'supplier_name', nil, :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getSuppliers") } ) %>
         </div>
         <div class="span3 offset2" >
           <label for="procurer" class="search"><%=t("Procurer")%></label>
           <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
-          <input class="proc_search" name="procurer" type="text"/>
+          <%=text_field_tag( 'procurer_name', nil, :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getProcurers") } ) %>
         </div>
       </div>
    
@@ -165,8 +164,8 @@ $(document).ready(function() {
     <div class="row-fluid">
       <div class="span4">    
         <label for="name" class="search"><%=t("Name")%></label>
-       <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
-        <input class="supply_search" name="name" type="text"/>
+        <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
+        <%=text_field_tag( 'supplier_search_name', nil, :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getSuppliers") } ) %>
       </div>
       <div class="span4">
         <label for="code" class="search"><%=t("Code")%></label>
@@ -221,6 +220,10 @@ $(document).ready(function() {
           <%= label_tag(:isForeign, "Only Foreign") %>
           <%= check_box_tag(:isForeign) %>
         </div>
+        <div class="span3">
+          <%= label_tag(:bw_list, "Black or White list") %>
+          <%= select_tag(:bw_list, options_for_select([[t("White List"),"W"], [t("Black List"), "B"]), :include_blank => true )%>
+        </div>
       </div>
     </div>
 
@@ -237,8 +240,8 @@ $(document).ready(function() {
     <div class="row-fluid">
       <div class="span4">
         <label for="name" class="search"><%=t("Name")%></label>
-       <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
-        <input class="proc_search" name="name" type="text"/>
+        <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
+        <%=text_field_tag( 'procurer_search_name', nil, :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getProcurers") } ) %>
       </div>
       <div class="span4">
         <label for="code" class="search"><%=t("Code")%></label>

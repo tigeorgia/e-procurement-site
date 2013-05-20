@@ -20,6 +20,7 @@
 <h3 <%=highlightClass%> ><%= t(@tender.tender_status) %></h3>
 <br>
 <br>
+
 <dl class="info-horizontal">
   <% highlightClass = "" %>
   <% if @highlights.include?('procurring_entity_id') %>
@@ -33,7 +34,7 @@
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
   <dt <%=highlightClass%> ><strong><%=t("Tender Type") %>:</strong></dt>
-  <dd <%=highlightClass%> ><%= t(@tender.tender_type) %></dd>
+  <dd <%=highlightClass%> ><%= t(@tender.tender_type.strip()) %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('tender_registration_number') %>
@@ -103,6 +104,9 @@
     <% end %>
   <% end %> 
 
+<div class="modal">
+</div>
+
 
 <% if @bidderInfo.length > 0 %>
   <hr>
@@ -114,6 +118,7 @@
         <th><%=t("First Bid")%></th>
         <th><%=t("Last Bid")%></th>
         <th><%=t("Number Of Bids")%></th>
+
       </tr>
     </thead>
     <tbody>
@@ -124,7 +129,14 @@
           <% myClass = "" %>
          <% end %>
         <tr <%=myClass%>>
-            <td <%=myClass%>><%= link_to info[:name], organization_path(info[:id]) %></td>
+            <% iconPath = nil %>
+            <% if info[:whiteList] %>
+             <%iconPath = "plusIcon.png"%>
+            <% elsif info[:blackList] %>
+             <%iconPath = "minusIcon.png"%><
+            <% end %>
+            
+            <td <%=myClass%>><%if iconPath %><%= link_to( image_tag(iconPath, :size => "16x16"), {:controller => "dialog", :action => "showWhiteList", :id => info[:id] }, :remote => true ) %><%end%> <%=link_to info[:name], organization_path(info[:id]) %></td>
             <td <%=myClass%>><%=  number_to_currency(info[:highBid],:unit => "") %></td>
             <td <%=myClass%>><%=  number_to_currency(info[:lowBid],:unit => "") %></td>
             <td <%=myClass%>><%= info[:numBids] %></td>
@@ -172,6 +184,28 @@
   </table>
 <% end %>
 
+<% if @complaints.length > 0 %>
+  <hr>
+  <table class="table table-striped">
+    <thead>
+      <h3><%=t("Complaints")%><h3>
+      <tr>
+        <th><%=t("Status")%></th>
+        <th><%=t("Complainant")%></th>
+      </tr>
+    </thead>
+   <tbody>
+      <% @complaints.each do |complaint| %>
+        <tr>
+        <td><%= link_to( complaint.status, {:controller => "dialog", :action => "showComplaint", :id => complaint.id }, :remote => true ) %></td>
+        <td><%= complaint.status %></td>
+        <td><%= link_to complaint.organization_name, organization_path(complaint.organization_id)%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
 <% if @documentation.length > 0 %>
   <hr>
   <table class="table table-striped">
@@ -184,7 +218,6 @@
       </tr>
     </thead>
     <tbody>
-
       <% @documentation.each do |document| %>
         <tr>
         <td><a href=<%= document.document_url %>><%= document.title %></a></td> 

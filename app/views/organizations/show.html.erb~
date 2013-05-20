@@ -306,6 +306,14 @@ $(function () {
   </div>
 <% end %>
 
+<%if @whiteListed%>
+  <h2>WHITE LISTED</h2>
+<%end%>
+
+<% if @blackListed %>
+  <h2>BLACK LISTED</h2>
+<%end%>
+
 <div class="row" id="mid-row">
   <div class="span7">
     <dl class="info-horizontal">

@@ -1,0 +1,10 @@
+class Complaint < ActiveRecord::Base
+  attr_accessible :id,
+    :status,
+    :orgName,
+    :orgID,
+    :tenderID,
+    :complaint,
+    :legalBasis,
+    :demand
+end

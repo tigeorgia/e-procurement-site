@@ -1,0 +1,9 @@
+class BlackListItem < ActiveRecord::Base
+  attr_accessible :id,
+    :organization_id,
+    :issueDate,
+    :procurer,
+    :tender_id,
+    :tenderNum,
+    :reason
+end

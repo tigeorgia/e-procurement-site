@@ -1,35 +1,22 @@
-$(function() {
-  $.ajax({
-    url: "<%= asset_path 'procurers.xml' %>",
-    dataType: "xml",
-    success: function( xmlResponse ) {
-      var data = $( "Organization", xmlResponse ).map(function() {
-        return {
-          value: $( "Name", this ).text()
-        };
-      }).get();
-
-      $( "#proc_search" ).autocomplete({
-        source: data,
-          minLength: 2,
-      });
-    }
+$(document).ready(function() {
+  $('#procurer_name').autocomplete({
+    source: $('#procurer_name').data('autocomplete-source'),
+    minLength: 2
   });
 
-  $.ajax({
-    url: "<%= asset_path 'suppliers.xml' %>",
-    dataType: "xml",
-    success: function( xmlResponse ) {
-      var data = $( "Organization", xmlResponse ).map(function() {
-        return {
-          value: $( "Name", this ).text()
-        };
-      }).get();
-
-      $( "#supply_search" ).autocomplete({
-        source: data,
-          minLength: 2,
-      });
-    }
+  $('#supplier_name').autocomplete({
+    source: $('#supplier_name').data('autocomplete-source'),
+    minLength: 2
   });
+
+  $('#procurer_search_name').autocomplete({
+    source: $('#procurer_name').data('autocomplete-source'),
+    minLength: 2
+  });
+
+  $('#supplier_search_name').autocomplete({
+    source: $('#supplier_name').data('autocomplete-source'),
+    minLength: 2
+  });
+
 });
