@@ -1,20 +1,38 @@
-.info-tip {
-	padding-right: 15px;
-	margin-left: 8px;
-	background: url(icon-info-small.gif) no-repeat center right;
+
+html,body {
+    height: 100%;
+    background-color: #f1f1f1;
 }
 
-.content a.info-tip{
-  text-decoration:none; 
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -60px;
 }
 
-.search {
-  display: inline-block;
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+  height: 60px;
 }
 
-.search-input[type="text"]{
-  display: block;
+#footer {
+  background-color: #ffffff;
 }
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+  #footer {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
 
 a.info-tip {
     text-decoration: none
@@ -107,10 +125,6 @@ h3 {
 h4 {
   font-size: 12pt;
 }
-
-.page-header h1 {
-  color: #348be8;
-}
 strong {
 	font-weight: bold;
 }
@@ -186,7 +200,7 @@ div#form-ka {
 footer {
 	margin-top: -64px; /* negative value of footer height */
 	min-height: 41px !important;
-	background: #D4D4D4 !important;
+  background-color: #FFFFFF;
 	padding: 10px 20px;
 	padding-top: 13px;
 	font-size: 10pt;
@@ -294,27 +308,6 @@ footer, footer ul li, footer div#right ul li {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
-
-
-#tabs-nohdr { 
-    padding: 0px; 
-    background: none; 
-    border-width: 0px; 
-} 
-#tabs-nohdr .ui-tabs-nav { 
-    padding-left: 0px; 
-    background: transparent; 
-    border-width: 0px 0px 1px 0px; 
-    -moz-border-radius: 0px; 
-    -webkit-border-radius: 0px; 
-    border-radius: 0px; 
-} 
-#tabs-nohdr .ui-tabs-panel { 
-    background: #f5f3e5 url(http://code.jquery.com/ui/1.8.23/themes/south-street/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png) repeat-x scroll 50% top; 
-   border-width: 0px 1px 1px 1px; 
-}
-
 
 #top-row {
   margin-bottom: 20px;
@@ -438,3 +431,136 @@ table, td, th
   padding:10px;
   vertical-align:center;
 }
+
+.top {
+  background-color: #0abebf;
+}
+
+.bottom {
+ background-color: #ffffff;
+}
+
+.navigation-menu {
+  background-color: #333f4f;
+  height: 50px;
+  text-align: middle;
+}
+.navigation-menu a {
+  color: #FFFFFF;
+}
+
+.heading {
+  color: #FFFFFF;
+}
+
+.info-tip {
+	padding-right: 15px;
+	margin-left: 8px;
+	background: url(icon-info-small.gif) no-repeat center right;
+}
+
+.content a.info-tip{
+  text-decoration:none; 
+}
+
+.search {
+  display: inline-block;
+}
+
+.search-input[type="text"]{
+  display: block;
+}
+
+.top-tab {
+  background:  #e4e4e4!important;
+}
+
+.submit-button {
+  background: #f9a300;
+  font-weight:bold;
+}
+
+div.arrow-label {
+  display:inline-block;
+}
+div.arrow { 
+  background:transparent url("/assets/arrows.png") no-repeat scroll 0px -16px; 
+  width:16px!important; height:16px!important;
+  display:inline-block;
+}
+
+div.up { 
+  background-position:0px 0px;
+}
+
+.tabs {
+  border: none;
+}
+.ui-tabs-anchor{
+  color: white!important;
+}
+
+.tab-div {
+  border: none;
+  background: transparent;
+}
+
+.tab-inner {
+  border: none;
+  background: #ffffff!important;
+}
+
+
+.ui-tabs-nav { 
+    background: transparent; 
+    border: none;
+    padding: 0!important;
+} 
+
+.ui-tabs-anchor{
+  border: none;
+  background: #bfbfbf;
+  text-color: white!important;
+}
+
+.large-textfield{
+  width: 300px;
+}
+
+.nav-item {
+  font-size: 21px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+
+.dropdown{
+  list-style: none;
+}
+
+
+.parent-height{
+  height: 100%
+}
+
+.parent-block {
+  line-height: 50px
+}
+
+.header {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #d3d3d3/*{borderColorDefault}*/; background: #bfbfbf; font-weight: normal/*{fwDefault}*/; color: #555555/*{fcDefault}*/; }
+
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #555555/*{fcDefault}*/; text-decoration: none; }
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #999999/*{borderColorHover}*/; background: #dadada/*{bgColorHover}*/ url(/assets/jquery-ui/ui-bg_glass_75_dadada_1x400.png)/*{bgImgUrlHover}*/ 50%/*{bgHoverXPos}*/ 50%/*{bgHoverYPos}*/ repeat-x/*{bgHoverRepeat}*/; font-weight: normal/*{fwDefault}*/; color: #212121/*{fcHover}*/; }
+
+.ui-state-hover a, .ui-state-hover a:hover, .ui-state-hover a:link, .ui-state-hover a:visited { color: #212121/*{fcHover}*/; text-decoration: none; }
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #aaaaaa/*{borderColorActive}*/; background: #0abebf; font-weight: normal/*{fwDefault}*/; color: #212121/*{fcActive}*/; }
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #212121/*{fcActive}*/; text-decoration: none; }

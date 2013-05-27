@@ -451,6 +451,7 @@ module ScraperFile
     white_list_file_path = "#{Rails.root}/public/system/#{FILE_WHITE_LIST}"
     File.open(white_list_file_path, "r") do |infile|
       WhiteListItem.transaction do
+        WhiteListItem.delete_all
         while(line = infile.gets)
           item = JSON.parse(line)         
           whiteListItem = WhiteListItem.new
@@ -475,6 +476,7 @@ module ScraperFile
     black_list_file_path = "#{Rails.root}/public/system/#{FILE_BLACK_LIST}"
     File.open(black_list_file_path, "r") do |infile|
       BlackListItem.transaction do
+        BlackListItem.delete_all
         while(line = infile.gets)
           item = JSON.parse(line)
           blackListItem = BlackListItem.new
@@ -507,6 +509,7 @@ module ScraperFile
     complaints_file_path = "#{Rails.root}/public/system/#{FILE_COMPLAINTS}"
     File.open(complaints_file_path, "r") do |infile|
       Complaint.transaction do
+       Complaint.delete_all
        while(line = infile.gets)
           item = JSON.parse(line)
           complaintItem = Complaint.new
@@ -517,7 +520,7 @@ module ScraperFile
           end
           complaintItem.status = self.cleanString(item["status"])
           complaintItem.tender_id = nil
-          tender = Tender.where("code = ?", item["tenderID"]).first
+          tender = Tender.where("tender_registration_number = ?", item["tenderID"]).first
           if tender
             complaintItem.tender_id = tender.id
           end
@@ -672,6 +675,8 @@ module ScraperFile
     string = string.gsub('"',"")
     string = string.gsub("“",'')
     string = string.gsub("&amp;","&")
+    string = string.gsub("<br>","\n")
+    string = string.gsub("<span>"," ")
     string = string.strip
     return string		
   end
@@ -1182,8 +1187,11 @@ module ScraperFile
     puts "processing sub cpv codes"
     self.processCPVCodes
     
+    puts "processing white list"
     self.processWhiteList
+    puts "processing black list"
     self.processBlackList
+    puts "process complaints"    
     self.processComplaints
 
     newOrgsTemp.each do |org|
@@ -1255,6 +1263,7 @@ module ScraperFile
   def self.processIncrementalScrape
     self.processWhiteList
     self.processBlackList
+    self.processComplaints
 
     #get current dataset
    # @dataset = Dataset.last

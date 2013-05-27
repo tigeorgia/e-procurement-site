@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20130520123426) do
 
   create_table "complaints", :force => true do |t|
     t.integer  "organization_id"
+    t.string   "status"
     t.integer  "tender_id"
     t.date     "issue_date"
     t.text     "complaint"

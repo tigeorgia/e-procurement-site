@@ -8,15 +8,6 @@ class CreateComplaints < ActiveRecord::Migration
       t.string :legal_basis
       t.text :demand
       t.timestamps
-
-
-    :status,
-    :orgName,
-    :orgID,
-    :tenderID,
-    :complaint,
-    :legalBasis,
-    :demand
     end
   end
 end

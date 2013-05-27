@@ -9,7 +9,7 @@ initDatePickers = function ()
 
 launchDialog = function( htmlData )
 {
-    $(".modal").html();
+  $(".modal").html(htmlData);
 }
 
 

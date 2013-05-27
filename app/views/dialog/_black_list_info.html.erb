@@ -1,0 +1,40 @@
+<h1>Black Listed</h1>
+<% baseUrl = "http://procurement.gov.ge/"%>
+
+<div>
+  <div class="row-fluid">
+    <div class="span4">Name</div>
+    <div class="span4"><%= @item.organization_name %></div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span4">Issue Date</div>
+    <div class="span4"><%= @item.issue_date %></div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span4">Tender which caused blacklisting</div>
+    <%if @tenderDB%>
+      <div class="span4"><%= link_to(@item.tender_id, tender_path(@tenderDB)) %></div>
+    <%elsif @item.tender_id%>
+      <div class="span4"><%=@item.tender_id%></div>
+    <%elsif @item.tender_number%>
+      <div class="span4"><%=@item.tender_number%></div>
+    <%end%>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span4">Procurer who took action</div>
+    <%if @item.procurer_id%>
+      <div class="span4"><%= link_to @item.procurer_name, :controller => "organizations", :action => "show_procurer", :id => @item.procurer_id %></div>
+    <%else%>
+      <div class="span4"><%=@item.procurer_name%>
+    <%end%>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span8">
+      <p><%= @item.reason%></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+$(function() {
+  $(".modal").html( "<%= escape_javascript(render :partial => "dialog/black_list_info") %>");
+  $(".modal").dialog({ height: 300, width: 600, modal: true});
+  return false;
+});
