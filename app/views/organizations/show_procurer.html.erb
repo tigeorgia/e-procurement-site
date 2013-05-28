@@ -6,7 +6,17 @@ function createHighChartGraphs()
           renderTo: 'winLossChart',
           plotBackgroundColor: null,
           plotBorderWidth: null,
-          plotShadow: false
+          plotShadow: false,
+          // Edit chart spacing
+          spacingBottom: 0,
+          spacingTop: 0,
+          spacingLeft: 5,
+          spacingRight: 5,
+          marginLeft: 5,
+          marginRight: 5,
+
+          backgroundColor: 'rgba(255,255,255,0)'
+             
       },
       title: {
           text: '<%= t("Successful Tenders vs Failed Tenders")%>'
@@ -42,7 +52,8 @@ function createHighChartGraphs()
         renderTo: 'cpvDistributionChart',
         plotBackgroundColor: null,
         plotBorderWidth: null,
-        plotShadow: false
+        plotShadow: false,
+        backgroundColor: 'rgba(255,255,255,0)'
     },
     title: {
         text: '<%= t("Tender CPV Code Distribution")%>'
@@ -77,7 +88,8 @@ function createHighChartGraphs()
   	altChart = new Highcharts.StockChart({
 	  chart : {
 		  renderTo : 'TenderActivityChart',
-      type: 'column'
+      type: 'column',
+      backgroundColor: 'rgba(255,255,255,0)'
 	  },
 
 	  rangeSelector : {
@@ -165,15 +177,15 @@ $(function () {
 <% if user_signed_in? %>
   <div class="procurer_subscription">
     <% if @isWatched %>
-      <%= button_to t("Remove From Profile"), {:controller => :user, :action => "remove_procurer_watch", :procurer_watch_id => @procurer_watch_id, :user_id => current_user.id}, :remote => true %>
+      <%= button_to t("Remove From Profile"), {:controller => :user, :action => "remove_procurer_watch", :procurer_watch_id => @procurer_watch_id, :user_id => current_user.id}, :remote => true, :class => "user-button" %>
     <% else %>
-      <%= button_to t("Save To Profile"), {:controller => :user, :action => "add_procurer_watch", :procurer_id => @organization.id, :user_id => current_user.id}, :remote => true %>
+      <%= button_to t("Save To Profile"), {:controller => :user, :action => "add_procurer_watch", :procurer_id => @organization.id, :user_id => current_user.id}, :remote => true, :class => "user-button" %>
     <% end %>
   </div>
 <% end %>
 
 <div class="row" id="mid-row">
-  <div class="span6">
+  <div class="span8">
     <dl class="info-horizontal">
       <dt><strong><%= t("Name") %>:</strong></dt>
       <dd><%= @organization.name %></dd>
@@ -223,8 +235,8 @@ $(function () {
     </dl>
   </div>
 
-  <div class="span6">
-    <div id="winLossChart" style="min-width: 200px; height: 200px; margin: 0 auto"></div>
+  <div class="span4">
+    <div id="winLossChart" style="min-width: 200px; height: 150px; margin: 0 auto"></div>
   </div>
 </div>
 
@@ -233,8 +245,7 @@ $(function () {
 <h3><%= t("Tenders Issued")%></h3>
 <br></br>
 <p>
-  <%= t("Download")%>:
-  <%= link_to "CSV", :controller => "organization", :action => "download_proc_tenders", :format => "csv", :id => @organization.id %>
+  <%= button_to "Download CSV",{ :controller => "organization", :action => "download_proc_tenders", :format => "csv", :id => @organization.id}, :class => "submit-button" %>
 </p>
 
   <table class="dataTable" cellpadding="0" cellspacing="0" border="0" width="100%" >
@@ -246,7 +257,7 @@ $(function () {
       <th><%= t("Estimated Value")%></th>
       <th><%= t("Contract Value")%></th>
       <th><%= t("CPV Description")%></th>
-      <th><%= t("Number of Bidders")%></th>
+      <th><%= t("Bidders")%></th>
     </tr>
   </thead>
   <tbody>      

@@ -1,4 +1,4 @@
 $(function () {
-  $(".supplier_subscription").html("<%= escape_javascript( button_to "Remove from Profile", {:controller => :user, :action => "remove_supplier_watch", :supplier_watch_id => @supplier_watch_id}, :remote => true) %>");
+  $(".supplier_subscription").html("<%= escape_javascript( button_to "Remove from Profile", {:controller => :user, :action => "remove_supplier_watch", :supplier_watch_id => @supplier_watch_id}, :remote => true, :class => "user-button") %>");
   return false;
 });

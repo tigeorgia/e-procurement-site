@@ -61,7 +61,7 @@ function formatGEL(num, useFractions) {
 
 function createD3Graphs( root )
 {
-  var margin = {top: 20, right: 0, bottom: 0, left: 0},
+  var margin = {top: 50, right: 0, bottom: 0, left: 0},
     width = 1170,
     height = 500 - margin.top - margin.bottom,
     formatNumber = d3.format(",d"),

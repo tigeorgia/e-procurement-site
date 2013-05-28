@@ -1,4 +1,4 @@
 $(function () {
-  $(".tender_subscription").html("<%= escape_javascript( button_to "Save to Profile", {:controller => :user, :action => "add_tender_watch", :tender_url => @tenderUrl }, :remote => true) %>");
+  $(".tender_subscription").html("<%= escape_javascript( button_to "Save to Profile", {:controller => :user, :action => "add_tender_watch", :tender_url => @tenderUrl }, :remote => true, :class => "user-button") %>");
   return false;
 });

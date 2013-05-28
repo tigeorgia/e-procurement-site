@@ -99,7 +99,7 @@ $(document).ready(function() {
         </div>
       </div>
       <div class="row-fluid">
-        <div class="span3 offset9">
+        <div class="right-align">
           <div class="arrow-label expandToggle">Additional Search</div>
           <div class="arrow expandToggle"></div> 
           <%= submit_tag( t('Search'), :class => "submit-button") %>
@@ -172,7 +172,7 @@ $(document).ready(function() {
         <%= select_tag(:org_type, options_for_select(types), :include_blank => true)  %>
       </div>
 
-      <div class="span3 offset9">
+      <div class="right-align">
         <div class="arrow-label expandToggle">Additional Search</div>
         <div class="arrow expandToggle"></div> 
         <%= submit_tag( t('Search'), :class => "submit-button") %>
@@ -244,9 +244,7 @@ $(document).ready(function() {
     </div>
 
     <div class="row-fluid">
-      <div class="span3 offset9">
         <%= submit_tag( t('Search'), :class => "submit-button") %>
-      </div>
     </div>
     <% end %>
   </div>

@@ -39,11 +39,67 @@ html, body {
 	font-size: 13px;
 }
 
+a, a:link, a:hover, a:visited, a:active
+{
+  color: #555;
+  background-color: transparent;
+}
 
-.caret {
+.pagination a, .pagination span {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.pagination a:hover,
+.pagination .active a,
+.pagination .active span {
+  background-color: #0abebf;
+}
+.pagination .active a,
+.pagination .active span {
+  color: #ffffff;
+  cursor: default;
+}
+
+.pagination .disabled span,
+.pagination .disabled a,
+.pagination .disabled a:hover {
+  color: #000000;
+  background-color: #ffffff;
+  cursor: default;
+}
+
+.dropdown .caret {
   border-top: 4px solid rgb(242, 252, 251);
   margin-top: 25px;
 }
+
+.dropdown-menu {
+  background-color: #333f4f;
+}
+
+
+dd{
+  margin: 0px 0px 5px 210px;
+  padding: 5px 0;
+}
+
+dt {
+  float: left;
+  clear: left;
+  width: 200px;
+}
+
+dt, dd{
+  background: #ffffff;
+  padding: 5px 0px 5px 5px;
+  height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 25px;
+}
+
 
 
 

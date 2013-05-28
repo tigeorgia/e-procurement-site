@@ -1,7 +1,4 @@
 #cpvChart {
-  width: 500px;
-  height: 500px;
-  background: #aaa;
 }
 
 #cpvChart text {
@@ -10,6 +7,7 @@
 
 #cpvChart .grandparent text {
   font-weight: bold;
+   font-size: 25px;
 }
 
 #cpvChart rect {
@@ -24,7 +22,7 @@
 }
 
 #cpvChart .grandparent rect {
-  fill: #fff;
+  fill: #d1d1d1;
 }
 
 #cpvChart .children rect.parent,

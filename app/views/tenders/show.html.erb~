@@ -26,56 +26,56 @@
   <% if @highlights.include?('procurring_entity_id') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong> <%=t("Procuring Entity")%>:</strong></dt>
+  <dt <%=highlightClass%> > <%=t("Procuring Entity")%>:</dt>
   <dd <%=highlightClass%> ><%= link_to @procurer, :controller => "organizations", :action => "show_procurer", :id => @tender.procurring_entity_id %></td>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('tender_type') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%=t("Tender Type") %>:</strong></dt>
+  <dt <%=highlightClass%> ><%=t("Tender Type") %>:</dt>
   <dd <%=highlightClass%> ><%= t(@tender.tender_type.strip()) %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('tender_registration_number') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%=t("Tender Registration Number")%>:</strong></dt>
+  <dt <%=highlightClass%> ><%=t("Tender Registration Number")%>:</dt>
   <dd <%=highlightClass%> ><%= @tender.tender_registration_number %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('tender_announcement_date') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%=t("Tender Announcement Date")%>:</strong></dt>
+  <dt <%=highlightClass%> ><%=t("Tender Announcement Date")%>:</dt>
   <dd <%=highlightClass%> ><%= @tender.tender_announcement_date %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('bid_start_date') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%=t("Bid Start Date")%>:</strong></dt>
+  <dt <%=highlightClass%> ><%=t("Bid Start Date")%>:</dt>
   <dd <%=highlightClass%> ><%= @tender.bid_start_date %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('bid_end_date') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%= t("Bid End Date")%>:</strong></dt>
+  <dt <%=highlightClass%> ><%= t("Bid End Date")%>:</dt>
   <dd <%=highlightClass%> ><%= @tender.bid_end_date %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('bid_start_date') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%=t("Bidding Duration")%>:</strong></dt>
+  <dt <%=highlightClass%> ><%=t("Bidding Duration")%>:</dt>
   <dd <%=highlightClass%> ><%= (@tender.bid_end_date - @tender.bid_start_date).to_i.to_s+ " "+t("Days")%></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('estimated_value') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> ><strong><%= t("Estimated Value")%>:</strong></dt>
+  <dt <%=highlightClass%> ><%= t("Estimated Value")%>:</dt>
   <dd <%=highlightClass%> ><%= number_to_currency(@tender.estimated_value,:unit => "GEL ") %></dd>
 
   <% highlightClass = "" %>
@@ -83,10 +83,10 @@
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
 
-  <dt <%=highlightClass%> ><strong><%=t("Procuring Category")%>:</strong></dt>
+  <dt <%=highlightClass%> ><%=t("Procuring Category")%>:</dt>
   <dd <%=highlightClass%> ><%= @tender.cpv_code %> - <%= @cpv.description_english %></dd>
 
-  <dt <%=highlightClass%> ><strong><%=t("CPV Codes")%>:</strong></dt>
+  <dt <%=highlightClass%> ><%=t("CPV Codes")%>:</dt>
   <% @minorCPVCategories.each do |code| %>
     <dd <%=highlightClass%> ><%= code.cpv_code %></dd>
   <% end %>
@@ -196,7 +196,7 @@
    <tbody>
       <% @complaints.each do |complaint| %>
         <tr>
-        <td><%= link_to( complaint.status, {:controller => "dialog", :action => "showComplaint", :id => complaint.id }, :remote => true ) %></td>
+        <td><%= link_to( complaint.status, {:controller => "dialog", :action => "show_complaint", :id => complaint.id }, :remote => true ) %></td>
         <td><%= link_to complaint.organization_name, organization_path(complaint.organization_id)%></td>
         </tr>
       <% end %>

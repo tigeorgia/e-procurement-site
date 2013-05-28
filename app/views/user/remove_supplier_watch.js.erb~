@@ -1,4 +1,4 @@
 $(function () {
-  $(".supplier_subscription").html("<%= escape_javascript( button_to "Save to Profile", {:controller => :user, :action => "add_supplier_watch", :supplier_watch_id => @supplierUrl }, :remote => true) %>");
+  $(".supplier_subscription").html("<%= escape_javascript( button_to "Save to Profile", {:controller => :user, :action => "add_supplier_watch", :supplier_watch_id => @supplier_watch_id }, :remote => true) %>");
   return false;
 });

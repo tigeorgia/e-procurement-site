@@ -20,13 +20,13 @@ module ApplicationHelper
   end
 
 
-  def sortable(params, column, title = nil)
+  def sortable(params, column, title = nil, cssClass = "arrow-link")
     myParams = params.clone
     title ||= column.titleize
     direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
     myParams[:sort] = column
     myParams[:direction] = direction
-    link_to title, myParams
+    link_to title, myParams, :class => cssClass
   end
 
   def checkSavedSearch( attributes, type )
