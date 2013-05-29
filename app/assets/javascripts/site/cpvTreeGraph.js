@@ -61,8 +61,11 @@ function formatGEL(num, useFractions) {
 
 function createD3Graphs( root )
 {
+  var widthPadding = 50;
+  var pWidth = $('#cpvChart').width() - widthPadding;
+
   var margin = {top: 50, right: 0, bottom: 0, left: 0},
-    width = 1170,
+    width = pWidth,
     height = 500 - margin.top - margin.bottom,
     formatNumber = d3.format(",d"),
     transitioning;

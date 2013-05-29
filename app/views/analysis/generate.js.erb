@@ -14,7 +14,8 @@ $(function () {
                 renderTo: 'amountGraph',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
-                plotShadow: false
+                plotShadow: false,
+                backgroundColor: 'rgba(255,255,255,0)'
             },
             title: {
                 text: '<%=t("Estimated Value Of Tenders By Type")%>'
@@ -50,7 +51,8 @@ $(function () {
                 renderTo: 'countGraph',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
-                plotShadow: false
+                plotShadow: false,
+                backgroundColor: 'rgba(255,255,255,0)'
             },
             title: {
                 text: '<%=t("Number Of Tenders By Type")%>'
@@ -85,7 +87,8 @@ $(function () {
       bidDurationChart = new Highcharts.Chart({
        chart: {
           renderTo: 'averageBidDurationGraph',
-          type: 'bar'
+          type: 'bar',
+          backgroundColor: 'rgba(255,255,255,0)'
        },
        title: {
           text: '<%=t("Average Bidding Duration")%>'
@@ -115,7 +118,8 @@ $(function () {
 
        chart: {
           renderTo: 'averageWarningPeriodGraph',
-          type: 'bar'
+          type: 'bar',
+          backgroundColor: 'rgba(255,255,255,0)'
        },
        title: {
           text: '<%=t("Average Time Between Tender Announcement And Bidding")%>'
@@ -145,7 +149,8 @@ $(function () {
 
        chart: {
           renderTo: 'averageBiddersGraph',
-          type: 'bar'
+          type: 'bar',
+          backgroundColor: 'rgba(255,255,255,0)'
        },
        title: {
           text: '<%=t("Average Number Of Bidders Per Tender")%>'
@@ -175,7 +180,8 @@ $(function () {
 
        chart: {
           renderTo: 'averageBidsGraph',
-          type: 'bar'
+          type: 'bar',
+          backgroundColor: 'rgba(255,255,255,0)'
        },
        title: {
           text: '<%=t("Average Number Of Bids Per Tender")%>'
@@ -205,7 +211,8 @@ $(function () {
 
        chart: {
           renderTo: 'moreThan1BidGraph',
-          type: 'bar'
+          type: 'bar',
+          backgroundColor: 'rgba(255,255,255,0)'
        },
        title: {
           text: '<%=t("Percentage Of Bids That Had At Least One Bidder")%>'
@@ -233,7 +240,8 @@ $(function () {
 
     scatterChart = new Highcharts.Chart({
             chart: {
-                renderTo: 'scatterGraph'
+                renderTo: 'scatterGraph',
+                backgroundColor: 'rgba(255,255,255,0)'
             },
             xAxis: {
                 min: 2,
@@ -272,7 +280,8 @@ $(function () {
       biddingDurationChart = new Highcharts.Chart({
        chart: {
           renderTo: 'biddingDurationGraph',
-          type: 'bar'
+          type: 'bar',
+          backgroundColor: 'rgba(255,255,255,0)'
        },
        title: {
           text: '<%=t("Bidding Duration")%> (<%=t("Simple Electronic")%>)'

@@ -63,6 +63,7 @@ class UserController < ApplicationController
 
   def add_procurer_watch
     watch_item = ProcurerWatch.new
+    puts "PROCURER ID "+ params[:procurer_id]
     watch_item.procurer_id = params[:procurer_id]
     watch_item.user_id = current_user.id
     watch_item.save
@@ -70,6 +71,7 @@ class UserController < ApplicationController
   end
 
   def remove_procurer_watch
+    puts "PROC-WATCH-ID: "+ params[:procurer_watch_id]
     watch = ProcurerWatch.find(params[:procurer_watch_id])
     watch.destroy
   end

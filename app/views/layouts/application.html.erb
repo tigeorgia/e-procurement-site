@@ -101,22 +101,8 @@
         </div>
       </div>
     </div>
-	  <div class="main-content container">
-	    <div class="content">
-	      <div class="row">
-	         <div class="span12">
-						<% flash.each do |key, msg| %>
-							<div class="alert <%= flash_translation(key) %> fade in">
-								<a href="#" data-dismiss="alert" class="close">×</a>
-								<%= msg %>
-							</div>
-						<% end %>
 
-            <%= yield %>
-          </div><!--/span-->
-	      </div><!--/row-->
-	    </div><!--/content-->
-    </div>
+    <div id="content"><%= content_for?(:content) ? yield(:content) : yield %></div>
 
     <div id="push"></div>
   </div>

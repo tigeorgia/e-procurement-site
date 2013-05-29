@@ -243,9 +243,10 @@ $(document).ready(function() {
       </div>
     </div>
 
-    <div class="row-fluid">
-        <%= submit_tag( t('Search'), :class => "submit-button") %>
-      </div>
+    <div class="row-fluid right-align">
+        <div class="right-align">
+          <%= submit_tag( t('Search'), :class => "submit-button") %>
+        </div>
     </div>
     <% end %>
   </div>

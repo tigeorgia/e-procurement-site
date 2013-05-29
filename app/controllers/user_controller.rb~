@@ -63,6 +63,7 @@ class UserController < ApplicationController
 
   def add_procurer_watch
     watch_item = ProcurerWatch.new
+    puts "PROCURER ID "+ params[:procurer_id]
     watch_item.procurer_id = params[:procurer_id]
     watch_item.user_id = current_user.id
     watch_item.save
@@ -226,32 +227,4 @@ class UserController < ApplicationController
     group.name = params[:name]
     group.save
   end
-
-  def save_cpv_group
-    codes = params[:codes].split(",")
-    category = params[:category]
-    cpvGroup = CpvGroup.new
-    isGlobal = params[:isGlobal]
-    if isGlobal and current_user.role == 'admin'
-      cpvGroup.user_id = 2
-    else
-      cpvGroup.user_id = current_user.id
-    end
-
-    cpvGroup.name = category
-    
-    codes.each do |code|
-      cpv = TenderCpvClassifier.where( :cpv_code => code.to_i ).first
-      if cpv
-        cpvGroup.tender_cpv_classifiers << cpv
-      end
-    end
-    cpvGroup.save
-    if cpvGroup.user_id == current_user.id
-      redirect_to :action => :index
-    else
-      redirect_to :controller => :admin, :action =>:manageCPVs
-    end
-  end
-
 end

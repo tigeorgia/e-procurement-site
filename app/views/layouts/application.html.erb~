@@ -45,10 +45,10 @@
       <div class="container">
         <div class="heading">
           <div class="row-fluid">
-            <div class="span4">
+            <div class="span5">
               <h1 class="heading">PROCUREMENT GEORGIA</h1>
             </div>
-            <div class="span2 offset6">
+            <div class="span2 offset5">
               <%= link_to(image_tag("ti-logo.jpg"), "http://www.transparency.ge", :target => "_blank", :title => t(".ti_link_title"), :class => "banner"	) %>
             </div>
           </div>

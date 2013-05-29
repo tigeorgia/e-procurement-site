@@ -32,6 +32,8 @@ class ApplicationController < ActionController::Base
 		Browser.new("Opera", "11.0")
 	]
 
+  layout "standard"
+
 	def is_browser_supported?
 		user_agent = UserAgent.parse(request.user_agent)
 logger.debug "////////////////////////// BROWSER = #{user_agent}"

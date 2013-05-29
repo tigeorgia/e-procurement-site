@@ -4,6 +4,8 @@
 class AnalysisController < ApplicationController
 include ApplicationHelper
 include GraphHelper 
+layout "full-screen"
+
   def index
     @years = []
     AggregateStatistic.all.each do |dbYear|

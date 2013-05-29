@@ -536,8 +536,6 @@ div.up {
   float: right;
 }
 
-
-
 tr.odd {
   background: transparent;
 }
@@ -554,30 +552,53 @@ tr.even td.sorting_1 {
   background: #fff;
 }
 
-.bottom {
- background: transparent;
- border: none;
-}
-
 .top, .bottom {
 padding: 0px;
-background-color: #F5F5F5;
-border: 1px solid #CCCCCC;
+background: transparent;
+border: none;
 }
 
-.top {
- background: transparent;
- border: none;
-}
 
 tr[role=row]{
   background: #fff;
 }
 
 
+.sidebar{
+}
 
+.main-display{
+}
 
+.sidebar ul{
+  width: 100%;
+}
 
+.sidebar li{
+}
+
+.sidebar a{
+  display: block;
+  background: #0abebf;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 2px;
+  border: 2px outset buttonface;
+  color: #000;
+  text-weight: bold;
+}
+
+.sidebar a:hover {
+  background: #333f4f;
+  color: #fff;
+  text-decoration: none;
+}
+
+.hori-nav {
+  float: left;
+  width: 50px;
+  text-align: center;
+}
 
 .dropdown{
   list-style: none;
@@ -654,3 +675,8 @@ tr[role=row]{
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { background: #0abebf; font-weight: normal/*{fwDefault}*/; color: #212121/*{fcActive}*/; }
 
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #212121/*{fcActive}*/; text-decoration: none; }
+
+
+.jstree-default.jstree-focused { 
+  background:transparent!important; 
+}

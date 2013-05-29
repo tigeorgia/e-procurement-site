@@ -298,37 +298,6 @@ $(function () {
       
       createD3Graphs(<%=raw @info["total"][:cpvTree]%>);
 
-      $('#getCpvCSV').click(function () {
-      alert(cpvChart.getCSV());
-      });
-      $('#getAmountCSV').click(function () {
-        alert(tenderTypeAmountChart.getCSV());
-      });
-      $('#getCountCSV').click(function () {
-        alert(tenderTypeCountChart.getCSV());
-      });
-      $('#getAveBidCSV').click(function () {
-        alert(bidDurationChart.getCSV());
-      });
-      $('#getAveWarnCSV').click(function () {
-        alert(warningPeriodChart.getCSV());
-      });
-      $('#getAveBidderCSV').click(function () {
-        alert(averageBiddersChart.getCSV());
-      });
-      $('#getAveBidCSV').click(function () {
-        alert(averageBidsChart.getCSV());
-      });
-      $('#getMorethan1CSV').click(function () {
-        alert(moreThan1BidChart.getCSV());
-      });
-      $('#getScatterCSV').click(function () {
-        alert(scatterChart.getCSV());
-      });
-      $('#getDurationCSV').click(function () {
-        alert(biddingDurationChart.getCSV());
-      });
-
     });
   return false;
 });

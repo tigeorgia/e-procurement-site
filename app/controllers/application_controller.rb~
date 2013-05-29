@@ -67,7 +67,7 @@ logger.debug "////////////////////////// BROWSER TEST NOT REQUIRED"
 	def after_sign_in_path_for(resource)
     puts resource.role
     puts resource.email
-		if resource.role = 'admin'
+		if resource.role == 'admin'
       admin_path
     else
       user_path

@@ -22,12 +22,12 @@
   <% csvParams[:action] = "download" %>
 
   <%= t("Number of Results")%> : <%= @numResults %>
-  <%= button_to "Download as CSV",  csvParams, :class => "submit-button" %>
+  <%= button_to "Download CSV",  csvParams, :class => "submit-button" %>
     <hr>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th class="arrow"><%= sortable(@params, t("Tender Registration Number"), "Tender") %></th>
+          <th class="arrow"><%= sortable(@params, "tender-registration-number", "Tender") %></th>
           <th class="header-20 arrow"><%= sortable(@params, "procurer_name", t("Procurer")) %></th>
           <th class="header-10 arrow"><%= sortable(@params, "supplier_name", t("Supplier")) %></th>
           <th class="arrow"><%= sortable(@params, "tender_announcement_date", t("Date")) %></th>

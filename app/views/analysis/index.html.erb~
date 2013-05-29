@@ -1,10 +1,58 @@
 <% title "Procurement Analysis" %>
 
-Year
-<%= form_tag( {:action => "generate"}, :remote => true) do %>
-  <%= select_tag(:year, options_for_select(@years))  %>
-  <%= submit_tag t("Generate Aggregate Data") %>
-<% end %>
 
-<div id ="results">
+
+<div class="row-fluid">
+  <div class="offset3">
+    <ul>
+      <% @years.each do |year| %>
+        <li class="hori-nav sidebar">
+          <%= link_to(year, {:action => "generate"}, :remote => true) %>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="sidebar span3">
+    <ul>
+      <li>
+        <%= link_to( "Revenue Graph", {:action => "showGraph"}, :remote => true) %>
+      </li>     
+      <li>
+        <%= link_to( "Value of Tenders by Type", {:action => "revenueGraph"}, :remote => true) %>
+      </li>
+      <li>
+        <%= link_to( "Number of Tenders by Type", {:action => "revenueGraph"}, :remote => true) %>
+      </li>
+      <li>
+        <%= link_to( "Bidding Durations", {:action => "revenueGraph"}, :remote => true) %>
+      </li>
+      <li>
+        <%= link_to( "Tender Warning Period", {:action => "revenueGraph"}, :remote => true) %>
+      </li>
+      <li>
+        <%= link_to( "Average Number of Bidders", {:action => "revenueGraph"}, :remote => true) %>
+      </li>
+      <li>
+        <%= link_to( "Average Number of Bids", {:action => "revenueGraph"}, :remote => true) %>
+      </li>
+      <li>
+        <%= link_to( "Percentage of Bids that Had Atleast One Bidder", {:action => "revenueGraph"}, :remote => true) %>
+      </li>    
+      <li>
+        <%= link_to( "Duration of Tender vs Average Bidders", {:action => "revenueGraph"}, :remote => true) %>
+      </li>
+      <li>
+        <%= link_to( "Bidding Duration Days", {:action => "revenueGraph"}, :remote => true) %>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-display span9"> 
+    <div class="row-fluid">
+      <div id ="results"></div>
+    </div>
+  </div>
 </div>
