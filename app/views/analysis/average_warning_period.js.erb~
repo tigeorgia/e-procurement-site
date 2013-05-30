@@ -1,0 +1,35 @@
+$(function () {
+  $("#results").html('<%= escape_javascript( render :partial => "average_warning_period" ) %>');
+
+  $(document).ready(function() {
+      warningPeriodChart = new Highcharts.Chart({
+
+       chart: {
+          renderTo: 'averageWarningPeriodGraph',
+          type: 'bar',
+          backgroundColor: 'rgba(255,255,255,0)'
+       },
+       title: {
+          text: "Average Time Between Tender Announcement And Bidding"
+       },
+       xAxis: {
+          categories: [
+             <% @info.each do |key,data| %>
+              "<%=data[:name]%",
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: "Days"
+          }
+       },
+       series: [{
+          name: '<%=t("Days After Announcement")%>',
+          data: [<% @info.each do |key,data| %> ["<%=data[:name]%>",<%=data[:tenderInfo].average_warning_period%>], <% end %>]
+        }]
+      });
+  });
+
+  return false;
+});

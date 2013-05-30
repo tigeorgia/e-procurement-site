@@ -4,7 +4,7 @@
 class AnalysisController < ApplicationController
 include ApplicationHelper
 include GraphHelper 
-layout "graphs"
+layout "full-screen"
 
   def index
     @years = []
@@ -13,11 +13,145 @@ layout "graphs"
         @years.push(dbYear.year)
       end
     end
+    count = @years.count
+    if count > 1
+      @selectedYear = @years[-2]
+    else
+      @selectedYear = @years[-1]
+    end
+    @defaultAction = "generate"
   end
-  
-  def generate
+
+
+  def get_tender_info(year, include_total = false )
+    stats = AggregateStatistic.where(:year => year).first
+    @info = { "simple electronic" => {}, "electronic" => {} }
+    if include_total
+      @info["total"] = {}
+    end
+    @info.each do |type, data|
+      typeData = AggregateStatisticType.where(:aggregate_statistic_id => stats.id, :name => type).first
+      data[:tenderInfo] = AggregateTenderStatistic.where(:aggregate_statistic_type_id => typeData.id).first
+      data[:name] = type
+    end
+  end
+
+  def get_bid_info(year)
+    stats = AggregateStatistic.where(:year => year).first
+    typeData = AggregateStatisticType.where(:aggregate_statistic_id => stats.id, :name => "simple electronic").first
+    bidData = AggregateBidStatistic.where(:aggregate_statistic_type_id => typeData.id)
+    @data = []
+    @count = 0
+    bidData.each do |bidStat|
+      @data.push([bidStat.duration,bidStat.average_bids,bidStat.tender_count])
+      @count += bidStat.tender_count
+    end
+    @data.sort! { |x, y| x[0] <=> y[0] }
+  end
+
+  def cpv_revenue
     @year = params[:year]
     stats = AggregateStatistic.where(:year => @year).first
+    typeData = AggregateStatisticType.where(:aggregate_statistic_id => stats.id, :name => "total").first 
+    cpvData = AggregateCpvStatistic.where(:aggregate_statistic_type_id => typeData.id)
+
+    cpvTree = {}
+    cpvData.each do |cpv|
+      #get cpv name
+      code = cpv.cpv_code.to_s
+      #hax to convert int to string with 0s at the front
+      while code.length < 8
+        code = "0"+code
+      end
+      name = TenderCpvClassifier.where(:cpv_code => code).first.description_english
+      if not name
+        name = "Not Specified"
+      end
+      cpvTree[code] = { :name => name, :code => code, :value => cpv.value, :children => [] }
+    end
+    @cpvTree = createTreeGraphStringFromAgreements( cpvTree )
+    respond_to do |format|  
+      format.js
+    end
+  end
+
+  def tender_type_amount
+    @year = params[:year]
+    get_tender_info(@year)
+    respond_to do |format|  
+      format.js
+    end
+  end
+
+  def tender_type_count
+    @year = params[:year]
+    get_tender_info(@year)
+    respond_to do |format|  
+      format.js
+    end
+  end
+
+  def average_bid_duration
+    @year = params[:year]
+    get_tender_info(@year)
+    respond_to do |format|  
+      format.js
+    end
+  end
+
+  def average_warning_period
+    @year = params[:year]
+    get_tender_info(@year)
+    respond_to do |format|  
+      format.js
+    end
+  end
+
+  def average_bidders
+    @year = params[:year]
+    get_tender_info(@year)
+    respond_to do |format|  
+      format.js
+    end
+  end
+
+  def average_bids
+    @year = params[:year]
+    get_tender_info(@year)
+    respond_to do |format|  
+      format.js
+    end
+  end
+
+  def more_than_one_bid
+    @year = params[:year]
+    get_tender_info(@year)
+    respond_to do |format|  
+      format.js
+    end
+  end
+
+  def scatter
+    @year = params[:year]
+    get_bid_info(@year)
+    respond_to do |format|  
+      format.js
+    end
+  end
+
+  def duration
+    @year = params[:year]
+    get_bid_info(@year)
+    respond_to do |format|  
+      format.js
+    end
+  end
+
+  def generate
+    if params[:year]
+      @selectedYear = params[:year]
+    end
+    stats = AggregateStatistic.where(:year => @selectedYear).first
 
     #reconstruct stat structure
     @info = { 

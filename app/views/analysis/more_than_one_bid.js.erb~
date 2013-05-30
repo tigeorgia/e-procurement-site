@@ -1,0 +1,34 @@
+$(function () {
+  $("#results").html('<%= escape_javascript( render :partial => "average_bidders" ) %>');
+
+  $(document).ready(function() {
+      moreThan1BidChart = new Highcharts.Chart({
+       chart: {
+          renderTo: 'moreThan1BidGraph',
+          type: 'bar',
+          backgroundColor: 'rgba(255,255,255,0)'
+       },
+       title: {
+          text: '<%=t("Percentage Of Bids That Had At Least One Bidder")%>'
+       },
+       xAxis: {
+          categories: [
+             <% @info.each do |key,data| %>
+              "<%=data[:name]%>",
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: '<%=t("Percentage")%>'
+          }
+       },
+        series: [{
+          name: '<%=t("Percentage")%>',
+          data: [<% @info.each do |key,data| %> ["<%=data[:name]%>",<%=data[:tenderInfo].success_count.to_f/data[:tenderInfo].count%>], <% end %>]
+        }]
+      });
+  });
+
+  return false;
+});

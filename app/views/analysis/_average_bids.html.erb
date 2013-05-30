@@ -1,0 +1,2 @@
+<%= button_to("Download Data", {:controller => :analysis, :action => "download_average_bids_data", :format => "csv", :year => @year},:class => "submit-button") %>
+<div id="averageBidsGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>

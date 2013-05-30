@@ -1,0 +1,34 @@
+$(function () {
+  $("#results").html('<%= escape_javascript( render :partial => "average_bid_duration" ) %>');
+
+  $(document).ready(function() {
+      bidDurationChart = new Highcharts.Chart({
+       chart: {
+          renderTo: 'averageBidDurationGraph',
+          type: 'bar',
+          backgroundColor: 'rgba(255,255,255,0)'
+       },
+       title: {
+          text: '<%=t("Average Bidding Duration")%>'
+       },
+       xAxis: {
+          categories: [
+             <% @info.each do |key,data| %>
+              "<%= type[0] %>",
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: '<%=t("Days")%>'
+          }
+       },
+        series: [{
+          name: '<%=t("Average Bidding Duration")%>',
+          data: [<% @info.each do |key,data| %> ["<%=data[:name]%>",<%=data[:tenderInfo].average_bid_duration%>], <% end %>]
+        }]
+      });
+  });
+
+  return false;
+});

@@ -1,0 +1,34 @@
+$(function () {
+  $("#results").html('<%= escape_javascript( render :partial => "average_bids" ) %>');
+
+  $(document).ready(function() {
+      averageBidsChart = new Highcharts.Chart({
+       chart: {
+          renderTo: 'averageBidsGraph',
+          type: 'bar',
+          backgroundColor: 'rgba(255,255,255,0)'
+       },
+       title: {
+          text: '<%=t("Average Number Of Bids Per Tender")%>'
+       },
+       xAxis: {
+          categories: [
+             <% @info.each do |key,data| %>
+              "<%=data[:name]%>",
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: '<%=t("Bids")%>'
+          }
+       },
+        series: [{
+          name: '<%=t("Average Bids")%>',
+          data: [<% @info.each do |key,data| %> ["<%=data[:name]%>",<%=data[:tenderInfo].total_bids.to_f/data[:tenderInfo].count%>], <% end %>]
+        }]
+      });
+  });
+
+  return false;
+});

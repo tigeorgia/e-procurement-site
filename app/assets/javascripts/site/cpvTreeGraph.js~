@@ -61,12 +61,12 @@ function formatGEL(num, useFractions) {
 
 function createD3Graphs( root )
 {
-  var widthPadding = 100;
-  var pWidth = $('#cpvChart').width() - widthPadding;
+  var pWidth = $('#cpvChart').width()
+  var pheight = 500
 
-  var margin = {top: 50, right: 0, bottom: 0, left: 0},
-    width = pWidth,
-    height = 500 - margin.top - margin.bottom,
+  var margin = {top: 25, right: 0, bottom: 0, left: 0},
+    width = pWidth - margin.left - margin. right,
+    height = pheight - margin.top - margin.bottom,
     formatNumber = d3.format(",d"),
     transitioning;
 

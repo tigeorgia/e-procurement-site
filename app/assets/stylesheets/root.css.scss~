@@ -568,6 +568,7 @@ tr[role=row]{
 }
 
 .main-display{
+  height: 100%;
 }
 
 .sidebar ul{
@@ -594,10 +595,15 @@ tr[role=row]{
   text-decoration: none;
 }
 
+a.active-year{
+  background: #fff;
+}
+
 .hori-nav {
   float: left;
   width: 50px;
   text-align: center;
+  text-size: 25px;
 }
 
 .dropdown{

@@ -1,0 +1,34 @@
+$(function () {
+  $("#results").html('<%= escape_javascript( render :partial => "scatter" ) %>');
+
+  $(document).ready(function() {
+      biddingDurationChart = new Highcharts.Chart({
+       chart: {
+          renderTo: 'biddingDurationGraph',
+          type: 'bar',
+          backgroundColor: 'rgba(255,255,255,0)'
+       },
+       title: {
+          text: '<%=t("Bidding Duration")%> (<%=t("Simple Electronic")%>)'
+       },
+       xAxis: {
+          categories: [
+              <% @data.each do |datapoint| %>
+              "<%=datapoint[0].to_s+' '+t("Days") %>",
+              <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: '<%=t("Number of Tenders")%>'
+          }
+       },
+        series: [{
+              name: '<%=t("Bidding Duration")%>',
+              data: [  <% @data.each do |datapoint| %><%=datapoint[2]%>, <%end%>]
+          }]
+      });
+  });
+
+  return false;
+});

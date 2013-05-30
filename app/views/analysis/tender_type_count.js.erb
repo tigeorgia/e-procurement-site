@@ -1,0 +1,44 @@
+$(function () {
+  $("#results").html('<%= escape_javascript( render :partial => "tender_type_count" ) %>');
+
+  $(document).ready(function() {
+      tenderTypeCountChart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'countGraph',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                backgroundColor: 'rgba(255,255,255,0)'
+            },
+            title: {
+                text: '<%=t("Number Of Tenders By Type")%>'
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            	percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>:' +this.y;
+                        }
+                    }
+                }
+            },
+
+        series: [{
+            type: 'pie',
+            name: '<%=t("Estimated Value Of Tenders By Type")%>',
+            data: [<% @info.each do |key,data| %> ["<%=data[:name]%>",<%=data[:tenderInfo].count%>], <% end %>]
+        }]
+      });
+  });
+
+  return false;
+});

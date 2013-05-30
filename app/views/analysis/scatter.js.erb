@@ -1,0 +1,49 @@
+$(function () {
+  $("#results").html('<%= escape_javascript( render :partial => "scatter" ) %>');
+    var dataset = []
+    <% @data.each do |datapoint| %>
+      var dataPoint = { x: <%=datapoint[0]%>, y: <%=datapoint[1]%>, marker: { radius: <%=datapoint[2]%>/(<%=@count%> / 100) }, count: <%=datapoint[2]%>}
+      dataset.push(dataPoint)
+    <%end%> 
+
+  $(document).ready(function() {
+    scatterChart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'scatterGraph',
+                backgroundColor: 'rgba(255,255,255,0)'
+            },
+            xAxis: {
+                min: 2,
+                title: {
+                  enabled: true,
+                  text: '<%=t("Tender Duration")%>'
+                },
+            },
+            yAxis: {
+                min: 1.25,
+                title: {
+                  enabled: true,
+                  text: '<%=t("Number Of Bidders")%>'
+                },
+            },
+            title: {
+                text: '<%=t("Duration Of Tender Vs Average Number Of Bidders")%> (<%=t("Simple Electronic")%>)'
+            },
+            tooltip: {
+                formatter:function (){
+                  return ''+
+                  this.x +' days, '+ this.y +' average bidders';
+                }
+            },
+
+
+            series: [ {
+                type: 'scatter',
+                name: '<%=t("Observations")%>',
+                data: dataset
+            }]
+        });
+    });
+
+  return false;
+});

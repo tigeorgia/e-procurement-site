@@ -568,6 +568,7 @@ tr[role=row]{
 }
 
 .main-display{
+  height: 100%;
 }
 
 .sidebar ul{
@@ -592,6 +593,10 @@ tr[role=row]{
   background: #333f4f;
   color: #fff;
   text-decoration: none;
+}
+
+a.active-button{
+  background: #fff;
 }
 
 .hori-nav {

@@ -1,13 +1,24 @@
 <% title "Procurement Analysis" %>
 
+<script>
 
+  $(document).ready(function() {
+    $('.year-default').trigger('click');
+  });
+
+</script>
 
 <div class="row-fluid">
   <div class="offset3">
     <ul>
+      <%= link_to("2012", {:action => "generate", :year => "2012"}, :class => "year-option", :remote => true) %>
       <% @years.each do |year| %>
         <li class="hori-nav sidebar">
-          <%= link_to(year, {:action => "generate"}, :remote => true) %>
+          <%classString = "year-option"%>
+          <%if year == @selectedYear%>
+            <%classString +=" active-button year-default"%>
+          <%end%>
+          <%= link_to(year, {:action => @defaultAction, :year => year}, :class => classString, :remote => true) %>
         </li>
       <%end%>
     </ul>
@@ -15,42 +26,42 @@
 </div>
 
 <div class="row-fluid">
-  <div class="sidebar span3">
+  <div class="sidebar graph-options span3">
     <ul>
       <li>
-        <%= link_to( "Revenue Graph", {:action => "showGraph"}, :remote => true) %>
+        <%= link_to( "Revenue Graph", {:action => "cpv_revenue", :year => @selectedYear}, :remote => true, :class => "active-button") %>
       </li>     
       <li>
-        <%= link_to( "Value of Tenders by Type", {:action => "showGraph"}, :remote => true) %>
+        <%= link_to( "Value of Tenders by Type", {:action => "tender_type_amount", :year => @selectedYear}, :remote => true) %>
       </li>
       <li>
-        <%= link_to( "Number of Tenders by Type", {:action => "showGraph"}, :remote => true) %>
+        <%= link_to( "Number of Tenders by Type", {:action => "tender_type_count", :year => @selectedYear}, :remote => true) %>
       </li>
       <li>
-        <%= link_to( "Bidding Durations", {:action => "showGraph"}, :remote => true) %>
+        <%= link_to( "Bidding Durations", {:action => "average_bid_duration", :year => @selectedYear}, :remote => true) %>
       </li>
       <li>
-        <%= link_to( "Tender Warning Period", {:action => "showGraph"}, :remote => true) %>
+        <%= link_to( "Tender Warning Period", {:action => "average_warning_period", :year => @selectedYear}, :remote => true) %>
       </li>
       <li>
-        <%= link_to( "Average Number of Bidders", {:action => "showGraph"}, :remote => true) %>
+        <%= link_to( "Average Number of Bidders", {:action => "average_bidders", :year => @selectedYear}, :remote => true) %>
       </li>
       <li>
-        <%= link_to( "Average Number of Bids", {:action => "showGraph"}, :remote => true) %>
+        <%= link_to( "Average Number of Bids", {:action => "average_bids", :year => @selectedYear}, :remote => true) %>
       </li>
       <li>
-        <%= link_to( "Percentage of Bids that Had Atleast One Bidder", {:action => "showGraph"}, :remote => true) %>
+        <%= link_to( "Percentage of Bids that Had Atleast One Bidder", {:action => "more_than_one_bid", :year => @selectedYear}, :remote => true) %>
       </li>    
       <li>
-        <%= link_to( "Duration of Tender vs Average Bidders", {:action => "showGraph"}, :remote => true) %>
+        <%= link_to( "Duration of Tender vs Average Bidders", {:action => "scatter", :year => @selectedYear}, :remote => true) %>
       </li>
       <li>
-        <%= link_to( "Bidding Duration Days", {:action => "showGraph"}, :remote => true) %>
+        <%= link_to( "Bidding Duration Days", {:action => "duration", :year => @selectedYear}, :remote => true) %>
       </li>
     </ul>
   </div>
 
-  <div class="main-display span9"> 
+  <div class="main-display span8"> 
     <div class="row-fluid">
       <div id ="results"></div>
     </div>

@@ -1,0 +1,3 @@
+<%= button_to("Download Data", {:controller => :analysis, :action => "download_cpv_data", :format => "csv", :year => @year},:class => "submit-button") %>
+<div id="cpvChart"></div>
+

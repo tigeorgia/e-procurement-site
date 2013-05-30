@@ -8,21 +8,6 @@ var initDatePickers = function ()
 }
 
 
-$.fn.arrowClick = function()
-{  
-  var cur_value = this.data('arrow-state');
-
-  $('.arrow-link').data('arrow-state',0);
-  $('.arrow-link').parent().css('background-image','url(http://0.0.0.0:3000/assets/arrows.png)');
-
-  if( cur_value == 0 ){
-    this.data('arrow-state',1);
-  }
-  else{
-    this.data('arrow-state', cur_value * -1);
-  }
-}
-
 $(document).ready(function() {
     $('.dataTable').dataTable( {
         "sDom": '<"top"flp><"bottom"irt><"clear">',
@@ -30,10 +15,37 @@ $(document).ready(function() {
     } );
     $( ".tabs" ).tabs();
 
-    if($('.arrow-link').data('arrow-state')===undefined){
-      $('.arrow-link').data('arrow-state', 0);
-    }
-    $('.arrow-link').click( function(){ $(this).arrowClick(); } );
+    $('.year-option').click( function(){  
+      $('.year-option').removeClass('active-button');
+      $(this).addClass('active-button');
+      var links = $('.graph-options').find('a');
+      for (var i = 0; i < links.length; i++) {
+        var linkObject = $(links[i]);
+        var ref = linkObject.attr('href');
+        ref = ref.replace(/year=(.*)/, "year="+this.text);
+        linkObject.attr('href', ref);
+      }
+    });
+
+
+   $('.graph-options').find('a').click( function() {
+      $('.graph-options').find('a').removeClass('active-button');
+      $(this).addClass('active-button');
+
+      var startIndex = this.href.indexOf("analysis");
+      startIndex = this.href.indexOf("/",startIndex);
+      endIndex = this.href.indexOf("?",startIndex);
+      var action = this.href.substring(startIndex+1,endIndex);
+
+      var links = $('.year-option');
+      for (var i = 0; i < links.length; i++) {
+       var linkObject = $(links[i]);
+       var year = linkObject.text();
+       var ref = linkObject.attr('href');
+       ref = ref.replace(/analysis(.*)/, "analysis/"+action+"?"+"year="+year); 
+       linkObject.attr('href', ref);
+      }
+   });
 });
 
 

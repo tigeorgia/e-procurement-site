@@ -1,0 +1,7 @@
+$(function () {
+  $("#results").html('<%= escape_javascript( render :partial => "cpv_revenue" ) %>');
+  $(document).ready(function() {
+    createD3Graphs(<%=raw @cpvTree%>);
+  });
+  return false;
+});
