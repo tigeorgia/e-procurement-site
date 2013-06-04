@@ -145,6 +145,11 @@ $(document).ready(function() {
           <label for="keyword" class="search"><%=t("Keyword")%></label>
           <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <input name="keyword" class="search-input" type="text"/>
+
+          <label for="CPV Code" class="search"><%=t("Keyword")%></label>
+          <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
+          <input name="cpv_code" class="search-input" type="text"/>
+
         </div>
       </div>
     <% end %>
@@ -243,7 +248,7 @@ $(document).ready(function() {
       </div>
     </div>
 
-    <div class="row-fluid right-align">
+    <div class="row-fluid">
         <div class="right-align">
           <%= submit_tag( t('Search'), :class => "submit-button") %>
         </div>

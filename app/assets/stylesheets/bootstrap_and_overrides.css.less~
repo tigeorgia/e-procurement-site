@@ -75,12 +75,12 @@ a, a:link, a:hover, a:visited, a:active
 }
 
 .dropdown-menu {
-  background-color: #333f4f;
+  background-color: #2b2b2b;
 }
 
 
 dd{
-  margin: 0px 0px 5px 210px;
+  margin: 0px 0px 3px 210px;
   padding: 5px 0;
 }
 
@@ -100,6 +100,13 @@ dt, dd{
   line-height: 25px;
 }
 
-
+a,
+a:link,
+a:hover,
+a:visited,
+a:active {
+  color: #fff;
+  background-color: transparent;
+}
 
 

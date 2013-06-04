@@ -1,6 +1,7 @@
 class UserController < ApplicationController
   before_filter :authenticate_user!
   require "query_helpers" 
+
   
   def index
     @watched_tenders = current_user.watch_tenders

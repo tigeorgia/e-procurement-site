@@ -1,6 +1,7 @@
 class UserController < ApplicationController
   before_filter :authenticate_user!
   require "query_helpers" 
+  layout "full-screen"
   
   def index
     @watched_tenders = current_user.watch_tenders
@@ -71,6 +72,7 @@ class UserController < ApplicationController
   end
 
   def remove_procurer_watch
+    puts "PROC-WATCH-ID: "+ params[:procurer_watch_id]
     watch = ProcurerWatch.find(params[:procurer_watch_id])
     watch.destroy
   end

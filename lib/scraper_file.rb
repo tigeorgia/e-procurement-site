@@ -828,7 +828,7 @@ module ScraperFile
       holidayStart = Date.new(year,12,30).to_s
       holidayEnd = Date.new(year+1,1,11).to_s
 
-      sql = sql + "(tender_announcement_date > "+holidayStart+" AND tender_announcement_date < "+holidayEnd+")"
+      sql = sql + "(tender_announcement_date BETWEEN '"+holidayStart+"' AND '"+holidayEnd+"')"
     end
 
     Tender.find_each(:conditions => sql) do |tender|
@@ -1133,6 +1133,33 @@ module ScraperFile
     end
   end
 
+
+  def self.outputOrgRevenue
+    file_path = "#{Rails.root}/public/system/numbers.txt"
+    orgs = {}
+    File.open(file_path, "r") do |infile|
+      while(line = infile.gets)
+        orgCode = line.strip()
+        org = Organization.where(:code => orgCode).first
+        if org and org.total_won_contract_value > 0
+          orgs[org.id] = org
+        end
+      end
+    end
+
+    orgs = orgs.sort{ |x, y| y[1][:total_won_contract_value] <=> x[1][:total_won_contract_value] }
+
+    csv_data = CSV.generate() do |csv|
+      csv << ["Name","Code","Revenue"]
+      orgs.each do |index,org|
+       csv << [org.name,org.code,org.total_won_contract_value]
+      end
+    end
+    File.open("app/assets/data/revenues.csv", "w+") do |file|
+      file.write(csv_data)
+    end
+  end
+
   def buildOrganizationXmlStrings
     xmlString = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>'
     procurers = Organization.where(:is_procurer => true)
@@ -1261,9 +1288,10 @@ module ScraperFile
   end
 
   def self.processIncrementalScrape
-    self.processWhiteList
-    self.processBlackList
-    self.processComplaints
+    #self.processWhiteList
+    #self.processBlackList
+    #self.processComplaints
+    self.outputOrgRevenue
 
     #get current dataset
    # @dataset = Dataset.last

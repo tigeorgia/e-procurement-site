@@ -3,22 +3,23 @@
 <script>
 
   $(document).ready(function() {
-    $('.year-default').click();
+    $('.year-default').trigger('click');
   });
 
 </script>
 
 <div class="row-fluid">
-  <div class="offset3">
+  <div class="offset3 sidebar hori-nav">
     <ul>
-      <%= link_to("2012", {:action => "generate", :year => "2012"}, :class => "year-option", :remote => true) %>
       <% @years.each do |year| %>
-        <li class="hori-nav sidebar">
+        <li>
           <%classString = "year-option"%>
           <%if year == @selectedYear%>
             <%classString +=" active-button year-default"%>
           <%end%>
-          <%= link_to(year, {:action => @defaultAction, :year => year}, :class => classString, :remote => true) %>
+          <div>
+            <%= link_to(year, {:action => @defaultAction, :year => year}, :class => classString, :remote => true) %>
+          </div>
         </li>
       <%end%>
     </ul>
@@ -29,39 +30,59 @@
   <div class="sidebar graph-options span3">
     <ul>
       <li>
-        <%= link_to( "Revenue Graph", {:action => "cpv_revenue", :year => @selectedYear}, :remote => true, :class => "active-button") %>
+        <div class="active-button">
+          <%= link_to( "Revenue Graph", {:action => "cpv_revenue", :year => @selectedYear}, :remote => true) %>
+        </div>
       </li>     
       <li>
-        <%= link_to( "Value of Tenders by Type", {:action => "tender_type_amount", :year => @selectedYear}, :remote => true) %>
+        <div>
+          <%= link_to( "Value of Tenders by Type", {:action => "tender_type_amount", :year => @selectedYear}, :remote => true) %>
+        </div>
       </li>
       <li>
-        <%= link_to( "Number of Tenders by Type", {:action => "tender_type_count", :year => @selectedYear}, :remote => true) %>
+        <div>
+          <%= link_to( "Number of Tenders by Type", {:action => "tender_type_count", :year => @selectedYear}, :remote => true) %>
+        </div>
       </li>
       <li>
-        <%= link_to( "Bidding Durations", {:action => "average_bid_duration", :year => @selectedYear}, :remote => true) %>
+        <div>
+          <%= link_to( "Bidding Durations", {:action => "average_bid_duration", :year => @selectedYear}, :remote => true) %>
+        </div>
       </li>
       <li>
-        <%= link_to( "Tender Warning Period", {:action => "average_warning_period", :year => @selectedYear}, :remote => true) %>
+        <div>
+          <%= link_to( "Tender Warning Period", {:action => "average_warning_period", :year => @selectedYear}, :remote => true) %>
+        </div>
       </li>
       <li>
-        <%= link_to( "Average Number of Bidders", {:action => "average_bidders", :year => @selectedYear}, :remote => true) %>
+        <div>
+          <%= link_to( "Average Number of Bidders", {:action => "average_bidders", :year => @selectedYear}, :remote => true) %>
+        </div>
       </li>
       <li>
-        <%= link_to( "Average Number of Bids", {:action => "average_bids", :year => @selectedYear}, :remote => true) %>
+        <div>
+          <%= link_to( "Average Number of Bids", {:action => "average_bids", :year => @selectedYear}, :remote => true) %>
+        </div>
       </li>
       <li>
-        <%= link_to( "Percentage of Bids that Had Atleast One Bidder", {:action => "more_than_one_bid", :year => @selectedYear}, :remote => true) %>
+        <div>
+          <%= link_to( "Percentage of Bids that Had Atleast One Bidder", {:action => "more_than_one_bid", :year => @selectedYear}, :remote => true) %>
+        </div>
       </li>    
       <li>
-        <%= link_to( "Duration of Tender vs Average Bidders", {:action => "scatter", :year => @selectedYear}, :remote => true) %>
+        <div>
+          <%= link_to( "Duration of Tender vs Average Bidders", {:action => "scatter", :year => @selectedYear}, :remote => true) %>
+        </div>
       </li>
       <li>
-        <%= link_to( "Bidding Duration Days", {:action => "duration", :year => @selectedYear}, :remote => true) %>
+        <div>
+          <%= link_to( "Bidding Duration Days", {:action => "duration", :year => @selectedYear}, :remote => true) %>
+        </div>
       </li>
     </ul>
   </div>
 
-  <div class="main-display span8"> 
+  <div class="span9"> 
     <div class="row-fluid">
       <div id ="results"></div>
     </div>

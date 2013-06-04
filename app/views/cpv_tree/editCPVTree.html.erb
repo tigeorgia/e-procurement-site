@@ -1,9 +1,10 @@
 <%= javascript_include_tag "cpvTree" %>
-
+<%= button_to "Back to Profile", user_path,:method => :get, :class => "user-button" %>
+<br>
 <%= form_tag( { :controller => :cpv_tree, :action => "save_cpv_group", :isGlobal=> @isGlobal, :cpvGroup => @cpvGroup}, {:id => "saveTree"} ) do %>
   <%= label_tag(:category, @cpvName) %>
   <%= hidden_field_tag(:codes, @checkedNodes) %>
-  <%= submit_tag( t("Save Category")) %>
+  <%= submit_tag( t("Save Category"), :class => "submit-button") %>
 <% end %>
 
 <div id="demo1" class="demo">

@@ -14,10 +14,13 @@ $(document).ready(function() {
         "sPaginationType": "full_numbers"
     } );
     $( ".tabs" ).tabs();
+    $( ".vertical-tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+    $( ".vertical-tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+    
 
     $('.year-option').click( function(){  
-      $('.year-option').removeClass('active-button');
-      $(this).addClass('active-button');
+      $('.year-option').parent().removeClass('active-button');
+      $(this).parent().addClass('active-button');
       var links = $('.graph-options').find('a');
       for (var i = 0; i < links.length; i++) {
         var linkObject = $(links[i]);
@@ -29,8 +32,8 @@ $(document).ready(function() {
 
 
    $('.graph-options').find('a').click( function() {
-      $('.year-option').removeClass('active-button');
-      $(this).addClass('active-button');
+      $('.graph-options').find('a').parent().removeClass('active-button');
+      $(this).parent().addClass('active-button');
 
       var startIndex = this.href.indexOf("analysis");
       startIndex = this.href.indexOf("/",startIndex);

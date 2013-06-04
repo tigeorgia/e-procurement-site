@@ -74,7 +74,8 @@ module QueryHelper
                  :max_num_bidders => maxBidders,
                  :risk_indicator => data[:risk_indicator],
                  :procurer => procurer,
-                 :supplier => supplier
+                 :supplier => supplier,
+                 :cpv_code => data[:cpv_code]
             }
     return queryData
   end
@@ -216,8 +217,9 @@ module QueryHelper
       :min_num_bidders => fields[11],
       :max_num_bidders => fields[12],
       :risk_indicator => fields[13],
-      :procurer => self.removeWildCards(fields[14]),
-      :supplier => self.removeWildCards(fields[15])
+      :procurer_name => self.removeWildCards(fields[14]),
+      :supplier_name => self.removeWildCards(fields[15]),
+      :cpv_code => fields[16]
     }
     params.each do |key,param|
       if param.length == 1
@@ -255,6 +257,7 @@ module QueryHelper
     query = self.addParamToQuery(query, params[:risk_indicator], "risk_indicators", "LIKE")
     query = self.addParamToQuery(query, params[:procurer], "procurer_name", "LIKE")
     query = self.addParamToQuery(query, params[:supplier], "supplier_name", "LIKE")
+    query = self.addParamToQuery(query, params[:cpv_code], "cpv_code", "=")
 
 
     #add cpv codes
