@@ -15,7 +15,7 @@ class DialogController < ApplicationController
   def show_complaint
     complaintID = params[:id]
     @item = Complaint.find(complaintID)
-    @tenderName = Tender.find(@item.tender_id) 
-    @orgName = Organization.find(@item.organization_id)
+    @tenderName = Tender.find(@item.tender_id).tender_registration_number
+    @orgName = Organization.find(@item.organization_id).name
   end
 end

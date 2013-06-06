@@ -1,4 +1,4 @@
 $(function () {
-  $(".procurer_subscription").html("<%= escape_javascript( button_to "Remove from Profile", {:controller => :user, :action => "remove_procurer_watch", :procurer_url => @procurerUrl}, :remote => true, :class => "user-button") %>");
+  $(".procurer_subscription").html("<%= escape_javascript( button_to t("Remove From Profile"), {:controller => :user, :action => "remove_procurer_watch", :procurer_watch_id => @procurer_watch_id, :user_id => current_user.id}, :remote => true, :class => "user-button") %>");
   return false;
 });

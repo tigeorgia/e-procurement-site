@@ -8,7 +8,7 @@
     <% if @isWatched %>
       <%= button_to t("Remove From Profile"), {:controller => :user, :action => "remove_tender_watch", :tender_url => @tenderUrl, :user_id => current_user.id}, :remote => true, :class => "user-button" %>
     <% else %>
-      <%= button_to t("Save To Profile"), {:controller => :user, :action => "add_tender_watch", :tender_url => @tenderUrl, :tender_id => @tender.id, :user_id => current_user.id}, :remote => true %>
+      <%= button_to t("Save To Profile"), {:controller => :user, :action => "add_tender_watch", :tender_url => @tenderUrl, :tender_id => @tender.id, :user_id => current_user.id}, :remote => true, :class => "user-button" %>
     <% end %>
   </div>
 <% end %>
@@ -198,7 +198,7 @@
       <% @complaints.each do |complaint| %>
         <tr>
         <td><%= link_to( complaint.status, {:controller => "dialog", :action => "show_complaint", :id => complaint.id }, :remote => true ) %></td>
-        <td><%= link_to complaint.organization_name, organization_path(complaint.organization_id)%></td>
+        <td><%= link_to complaint.organization_id, organization_path(complaint.organization_id)%></td>
         </tr>
       <% end %>
     </tbody>

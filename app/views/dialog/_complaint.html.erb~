@@ -28,7 +28,7 @@
 
   <div class="row-fluid">
     <div class="span8">
-      <p><%= @item.reason%></p>
+      <p><%= @item.complaint%></p>
     </div>
   </div>
 </div>

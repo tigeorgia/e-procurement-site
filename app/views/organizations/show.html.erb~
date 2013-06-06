@@ -136,9 +136,9 @@ $(function () {
                 backgroundColor: 'rgba(255,255,255,0)'
             },
             title: {
-                text: '<%=t("Competitors")%>'
+                text: '<%="Main Competitors"%>'
             },
-           xAxis: {
+           xAxis: {     
               categories: [
                  <% @competitors.each do |competitor| %> 
                     <% item = [link_to(competitor[0].name, organization_path(competitor[0].id))] %>
@@ -147,8 +147,9 @@ $(function () {
               ]
            },
            yAxis: {
+              allowDecimals: false,
               title: {
-                 text: '<%=t("Tenders")%>'
+                 text: '<%="Tenders Competited In"%>'
               }
            },
             plotOptions: {
@@ -303,18 +304,18 @@ $(function () {
 });
 </script>
 
-<%- model_class = Organization -%>
+<%- model_class = Supplier -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => t("Organization") %></h1>
+  <h1><%=t '.title', :default => t("Supplier") %></h1>
 </div>
 
 
 <% if user_signed_in? %>
   <div class="supplier_subscription">
     <% if @isWatched %>
-      <%= button_to t("Remove From Profile"), {:controller => :user, :action => "remove_supplier_watch", :supplier_watch_id => @supplier_watch_id, :user_id => current_user.id}, :remote => true %>
+      <%= button_to t("Remove From Profile"), {:controller => :user, :action => "remove_supplier_watch", :supplier_watch_id => @supplier_watch_id, :user_id => current_user.id}, :remote => true,:class => "user-button" %>
     <% else %>
-      <%= button_to t("Save To Profile"), {:controller => :user, :action => "add_supplier_watch", :supplier_id => @organization.id, :user_id => current_user.id}, :remote => true %>
+      <%= button_to t("Save To Profile"), {:controller => :user, :action => "add_supplier_watch", :supplier_id => @organization.id, :user_id => current_user.id}, :remote => true,:class => "user-button" %>
     <% end %>
   </div>
 <% end %>
@@ -328,7 +329,7 @@ $(function () {
 <%end%>
 
 <div class="row" id="mid-row">
-  <div class="span7">
+  <div class="span8">
     <dl class="info-horizontal">
       <dt><strong><%= t("Name") %>:</strong></dt>
       <dd><%= @organization.name %></dd>
@@ -413,20 +414,24 @@ $(function () {
         <td><%= link_to tender[:procurerName], :controller => "organizations", :action => "show_procurer", :id => tender[:procurerID] %></td>
         <td><%= tender[:tenderAnnouncementDate]%></td>
         <td><%= tender[:bidDuration]%> Days</td>
-        <td><%= number_to_currency(tender[:start_amount],:unit => "") %></td>
+        <td><%= tender[:start_amount] %></td>
         <% if tender[:contract_value] %>
-          <td><%= number_to_currency(tender[:contract_value],:unit => "") %></td>
+          <td><%= tender[:contract_value] %></td>
         <%else%>
           <td>N/A</td>
         <%end%>
-        <td><%= number_to_currency(tender[:highest_bid],:unit => "") %></td>
-        <td><%= number_to_currency(tender[:lowest_bid],:unit => "") %></td>
+        <td><%= tender[:highest_bid] %></td>
+        <td><%= tender[:lowest_bid] %></td>
         <td><%= tender[:numBids] %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<div id="competitorChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<% if @jsonString.length > 0 %>
+  <p id="cpvChart"></p>
+<% end %>
 <% if  @simpleTenderStats.count > 0  %>
 <div id="tendersValueChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <% end %>
@@ -435,12 +440,7 @@ $(function () {
   <div id="altTendersValueChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 <% end %>
 
-<% if @jsonString.length > 0 %>
-  <p id="cpvChart"></p>
-<% end %>
 
 <div id="ProcurersChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-
 <div id="cpvDistributionChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-<div id="competitorChart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-<br>
+

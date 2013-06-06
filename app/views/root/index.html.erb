@@ -113,7 +113,7 @@ $(document).ready(function() {
           <% @uniqueTypes.each do |type| %>
             <% options.push(item = [t(type.strip()),type]) %>
           <% end %>
-          <%= select_tag(:type,  options_for_select(options),{:include_blank => true})  %>
+          <%= select_tag(:tender_type,  options_for_select(options),{:include_blank => true})  %>
         </div>
       </div>
       <div class="row-fluid">

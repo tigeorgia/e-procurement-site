@@ -198,7 +198,7 @@
       <% @complaints.each do |complaint| %>
         <tr>
         <td><%= link_to( complaint.status, {:controller => "dialog", :action => "show_complaint", :id => complaint.id }, :remote => true ) %></td>
-        <td><%= link_to complaint.organization_name, organization_path(complaint.organization_id)%></td>
+        <td><%= link_to Organization.find(complaint.organization_id).name, organization_path(complaint.organization_id)%></td>
         </tr>
       <% end %>
     </tbody>

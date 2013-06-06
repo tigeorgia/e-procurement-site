@@ -24,7 +24,7 @@ module QueryHelper
     status = data[:tender_status]
     cpvGroupID = data[:cpvGroup]
     keywords = data[:keyword]
-    type = data[:type]
+    tender_type = data[:tender_type]
 
     reg_num = "%"+reg_num.gsub('%','')+"%"
     status = "%"+status.gsub('%','')+"%"
@@ -63,7 +63,7 @@ module QueryHelper
                  :cpvGroupID => cpvGroupID.to_s,
                  :tender_registration_number => reg_num.to_s,
                  :tender_status => translated_status,
-                 :tender_type => type,
+                 :tender_type => tender_type,
                  :announced_after => startDate.to_s,
                  :announced_before => endDate.to_s,
                  :min_estimate => minVal.to_s,

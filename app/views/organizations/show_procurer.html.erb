@@ -270,8 +270,8 @@ $(function () {
           <td><font color="red"><%= t("no_caps")%></font></td>
         <% end %>      
         <td><%= tender.tender_announcement_date%></td>
-        <td><%=  number_to_currency(tender.estimated_value.to_i,:unit => "")%></td>
-        <th><%if tender.contract_value and tender.contract_value > 0%><%= number_to_currency(tender.contract_value,:unit => "")%><%else%>N/A<%end%></th>
+        <td><%=  tender.estimated_value.to_i%></td>
+        <th><%if tender.contract_value and tender.contract_value > 0%><%= tender.contract_value%><%else%>N/A<%end%></th>
         <td><%= tender[:cpvDescription]%></td>
         <td><%= tender.num_bidders%></td>
       </tr>
