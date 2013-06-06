@@ -1,31 +1,5 @@
 <% title "Account Page" %>
 
-<script>
-  $(document).ready(function() {
-    $('.year-default').trigger('click');
-
-    $( ".confirm" )
-      .button()
-      .click(function() {
-        $( "#dialog-confirm" ).dialog( "open" );
-      });
-
-    $( "#dialog-confirm" ).dialog({
-        autoOpen: false,
-        resizable: false,
-        height:140,
-        modal: true,
-        buttons: {
-          "Delete": function() {
-            $( this ).dialog( "close" );
-          },
-          Cancel: function() {
-            $( this ).dialog( "close" );
-          }
-        }
-      });
-    });
-</script>
 
 
 <h1>Account Page</h1>
@@ -67,7 +41,7 @@
             <% highlightClass = 'class="bidwinner"'.html_safe %>
           <% end %>
           <tr>
-            <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_tender_watch_from_account", :tender_url => tender.url_id}) %></td>
+            <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_tender_watch_from_account", :tender_url => tender.url_id}, :class => "confirm") %></td>
             <% if watch_tender.email_alert %>
               <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Unsubscribe"), {:action => "unsubscribe_tender", :tender_watch_id => watch_tender.id, :buttonID => buttonID}, :remote => true, :class => "user-button"%></div></td>
             <% else %>
@@ -146,7 +120,7 @@
             <% highlightClass = 'class="bidwinner"'.html_safe %>
           <% end %>
           <tr>
-            <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_procurer_watch_from_account", :procurer_watch_id => watch_procurer.id}) %></td>
+            <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_procurer_watch_from_account", :procurer_watch_id => watch_procurer.id}, :class => "confirm") %></td>
             <% if watch_procurer.email_alert %>
               <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Unsubscribe"), {:action => "unsubscribe_procurer", :procurer_watch_id => watch_procurer.id, :buttonID => buttonID}, :remote => true, :class => "user-button" %></div></td>
             <% else %>
@@ -186,7 +160,7 @@
             <% highlightClass = 'class="bidwinner"'.html_safe %>
           <% end %>
           <tr>
-            <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_search_from_account", :search_id => search.id}) %></td>
+            <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_search_from_account", :search_id => search.id}, :class => "confirm") %></td>
             <% if search.email_alert %>
               <td <%=highlightClass%>><div id="<%= buttonID %>"> <%= button_to t("Unsubscribe"), {:action => "unsubscribe_search", :search_id => search.id, :buttonID => buttonID}, :remote => true, :class => "user-button" %></div></td>
             <% else %>
@@ -207,7 +181,5 @@
   </div>
 </div>
 
-<div id="dialog-confirm" title="Delete?">
-  <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>This item will be permanently deleted, Are you sure?</p>
 </div>
 

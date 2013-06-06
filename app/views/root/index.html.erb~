@@ -1,5 +1,6 @@
 <script>
 var chart1; // globally available
+
 $(document).ready(function() {
     groupChart = new Highcharts.Chart({
        chart: {
@@ -29,7 +30,24 @@ $(document).ready(function() {
       ]   
     });
 
+   /*selectBoxes = $('.auto-submit');
+   selectBoxes.trigger('change');
+
+   links = $('.tab-header').children()
+   for(var i=0;i<links.length;i++){
+    link = links[i];
+    $(link).click(function(){
+      svgParents = $('.highcharts-container');
+      for(var i=0;i<svgParents.length;i++){
+        svgParent = svgParents[i];
+        svg = svgParent.firstChild;
+        svg.forceRedraw();
+      }
+    });
+   }*/
+   
  });
+
 </script>
 
 <%cpvArray = []%>
@@ -146,7 +164,7 @@ $(document).ready(function() {
           <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <input name="keyword" class="search-input" type="text"/>
 
-          <label for="CPV Code" class="search"><%=t("Keyword")%></label>
+          <label for="CPV Code" class="search"><%=t("CPV Code")%></label>
           <a href="#" class="info-tip">&nbsp;<span>Placeholder text</span></a>
           <input name="cpv_code" class="search-input" type="text"/>
 
@@ -274,32 +292,26 @@ $(document).ready(function() {
     <div class="row-fluid">
       <div class="span8 offset4">
         <h4><%=t("Sector")%></<h4><br>
-        <%= select_tag(:cpvGroup, options_for_select(cpvArray), 
-          :data => { :remote => true, 
-                     :url => url_for(:controller => "root", 
-                     :action => "cpvVsCompany") } )  %>     
+        <%= select_tag(:cpvGroup, options_for_select(cpvArray),:class=>"auto-submit", :data => { :remote => true, :url => url_for(:controller => "root", :action => "cpvVsCompany") } )  %>     
       </div>
     </div>
     <div class="row-fluid">
       <div id="graph"></div>   
     </div>
   </div>
+
   <div id="tabs-3" class="tab-inner">
-      <div class="row-fluid">
-        <div class="span8 offset4">
-          <h4><%=t("Sector")%></<h4><br>
-          <%= select_tag(:cpvGroup, options_for_select(cpvArray),
-            :data => { :remote => true, 
-                       :url => url_for(:controller => "root", 
-                       :action => "cpvVsProcurer") } )  %>     
-        </div>
+    <div class="row-fluid">
+      <div class="span8 offset4">
+        <h4><%=t("Sector")%></<h4><br>
+        <%= select_tag(:cpvGroup, options_for_select(cpvArray),:class=>"auto-submit",:data => { :remote => true, :url => url_for(:controller => "root", :action => "cpvVsProcurer") } )  %>     
       </div>
+    </div>
 
     <div class="row-fluid">
       <div id="procGraph"></div>   
     </div>
   </div>
-
 </div>
 
 

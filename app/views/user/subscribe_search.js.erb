@@ -1,5 +1,5 @@
 $(function () {
   alert("test");
-  $("<%= "#"+@buttonID %>").html("<%= escape_javascript( button_to "Unsubscribe", {:action => "unsubscribe_search", :search_id => @searchID, :buttonID => @buttonID}, :remote => true) %>");
+  $("<%= "#"+@buttonID %>").html("<%= escape_javascript( button_to "Unsubscribe", {:action => "unsubscribe_search", :search_id => @searchID, :buttonID => @buttonID}, :remote => true,:class => "user-button") %>");
   return false;
 });

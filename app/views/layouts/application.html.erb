@@ -65,7 +65,10 @@
           <div class="span2">
             <%= link_to( t("Analysis"), {:controller => :analysis, :action => "index"}, :class=>"nav-item") %>
           </div>
-          <div class="span3 offset4">
+          <div class="span2">
+            <%= link_to( "About", {:controller => :analysis, :action => "index"}, :class=>"nav-item") %>
+          </div>
+          <div class="span3 offset2">
             <% if user_signed_in? %>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle nav-item" data-toggle="dropdown" >
@@ -113,6 +116,8 @@
     </div>
    </div>
 
+  <div id="dialog-confirm" title="Delete?">
+  <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>This item will be permanently deleted, Are you sure?</p>
   </body>
 
 </html>

@@ -37,7 +37,8 @@ class OrganizationsController < ApplicationController
 
     @searchType = "supplier" 
     checkSavedSearch(searchParams, @searchType)
-
+    @sort = params[:sort]
+    @direction = params[:direction]
     respond_to do |format|
       format.html
       format.csv {   
@@ -68,6 +69,8 @@ class OrganizationsController < ApplicationController
     @organizations = results.paginate( :page => params[:page]).order(sort_column + ' ' + sort_direction)
 
     @searchType = "procurer" 
+        @sort = params[:sort]
+    @direction = params[:direction]
     checkSavedSearch(searchParams, @searchType)
     respond_to do |format|
       format.html
@@ -353,7 +356,7 @@ class OrganizationsController < ApplicationController
     @EstimatedVActual = 0
     if @numTendersWon > 0
       @averageNumBiddersOnContractsWon = @averageNumBiddersOnContractsWon.to_f / @numTendersWon.to_f
-      @EstimatedVActual = @totalValueOfAllContracts/ @totalEstimatedValueOfContractsWon
+      @EstimatedVActual = (@totalValueOfAllContracts/@totalEstimatedValueOfContractsWon) * 100
     end
 
     @tenderInfo = []

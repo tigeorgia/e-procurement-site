@@ -5,7 +5,7 @@ $(document).ready(function() {
 
     toggles.click(function() {
      $(this).find(".arrow").toggleClass("up");
-     $(this).parents("div.expansion").children("div.expandable").slideToggle({duration:"slow"});
+     $(this).parents("div.expansion").find("div.expandable").slideToggle({duration:"slow"});
     });
 });
 

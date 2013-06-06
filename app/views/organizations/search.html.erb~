@@ -1,9 +1,13 @@
+<script>
+  $(document).ready(function() {
+    displayArrows("<%=@sort%>","<%=@direction%>");
+  });
+</script>
+
 <%- model_class = Organization -%>
 <div class="page-header">
   <h1><%=t '.title', :default => t("Organizations") %></h1>
 </div>
-
-
 
 <% if user_signed_in? %>
   <div class="search_serialization">
@@ -28,13 +32,13 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= sortable(@params, "name", t("Name")) %></th>
-      <th><%= sortable(@params, "code", t("Code")) %></th>
-      <th><%= sortable(@params, "org_type", t("Type")) %></th>
-      <th><%= sortable(@params, "country", t("Country")) %></th>
-      <th><%= sortable(@params, "total_won_contract_value", t("Total Revenue")) %></th>
-      <th><%= sortable(@params, "total_bid_tenders", t("Tenders Bid On")) %></th>
-      <th><%= sortable(@params, "total_won_tenders", t("Tenders Won")) %></th>
+      <th class="arrow"><%= sortable(@params, "name", t("Name")) %></th>
+      <th class="arrow"><%= sortable(@params, "code", t("Code")) %></th>
+      <th class="arrow"><%= sortable(@params, "org_type", t("Type")) %></th>
+      <th class="arrow"><%= sortable(@params, "country", t("Country")) %></th>
+      <th class="arrow"><%= sortable(@params, "total_won_contract_value", t("Total Revenue")) %></th>
+      <th class="arrow"><%= sortable(@params, "total_bid_tenders", t("Tenders Bid On")) %></th>
+      <th class="arrow"><%= sortable(@params, "total_won_tenders", t("Tenders Won")) %></th>
     </tr>
   </thead>
   <tbody>

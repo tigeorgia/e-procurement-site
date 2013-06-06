@@ -2,6 +2,26 @@ $(function() {
   initDatePickers();
 });
 
+
+var displayArrows = function(sorting,direction)
+{
+  items = $('.arrow-link');
+  for (var i = 0; i < items.length; i++) {
+    image = $(items[i]).parent()
+    if(sorting == items[i].classList[1]){
+      if(direction == "desc"){
+        image.css("background-image","url('/assets/arrow-down.png')");
+      }
+      else{
+        image.css("background-image","url('/assets/arrow-up.png')");
+      }
+    }
+    else{
+     image.css("background-image","url('/assets/arrows.png')");
+    }
+  }
+}
+
 var initDatePickers = function ()
 {
   $('.dp2').datepicker({ format: "yyyy/mm/dd"});
@@ -49,6 +69,31 @@ $(document).ready(function() {
        linkObject.attr('href', ref);
       }
    });
+
+
+    $( "#dialog-confirm" ).dialog({
+          autoOpen: false,
+          resizable: false,
+          height:200,
+          modal: true
+    });
+
+    $( ".confirm" ).button().click(function(e) {
+      e.preventDefault();
+      var targetUrl = $(this).attr("href");
+      $( "#dialog-confirm" ).dialog({
+          buttons: {
+            "Delete": function() {
+              window.location.href = targetUrl;
+            },
+            Cancel: function() {
+              $( this ).dialog( "close" );
+            }
+          }
+        });
+        $( "#dialog-confirm" ).dialog("open");
+    });
+  
 });
 
 

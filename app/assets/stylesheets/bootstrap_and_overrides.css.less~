@@ -100,13 +100,3 @@ dt, dd{
   line-height: 25px;
 }
 
-a,
-a:link,
-a:hover,
-a:visited,
-a:active {
-  color: #fff;
-  background-color: transparent;
-}
-
-

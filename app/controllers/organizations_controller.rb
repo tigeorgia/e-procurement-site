@@ -37,7 +37,8 @@ class OrganizationsController < ApplicationController
 
     @searchType = "supplier" 
     checkSavedSearch(searchParams, @searchType)
-
+    @sort = params[:sort]
+    @direction = params[:direction]
     respond_to do |format|
       format.html
       format.csv {   
@@ -67,7 +68,9 @@ class OrganizationsController < ApplicationController
     @numResults = results.count
     @organizations = results.paginate( :page => params[:page]).order(sort_column + ' ' + sort_direction)
 
-    @searchType = "procurer" 
+    @searchType = "procurer"
+    @sort = params[:sort]
+    @direction = params[:direction]
     checkSavedSearch(searchParams, @searchType)
     respond_to do |format|
       format.html

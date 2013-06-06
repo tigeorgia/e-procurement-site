@@ -15,6 +15,8 @@ class TendersController < ApplicationController
       item = { :tender => tender, :procurer => Organization.find(tender.procurring_entity_id).name }
       @results.push(item)
     end
+    @sort = params[:sort]
+    @direction = params[:direction]
 
     @searchType = "tender" 
     paramList = []

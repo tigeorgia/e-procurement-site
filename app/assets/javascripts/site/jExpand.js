@@ -4,7 +4,7 @@ $(document).ready(function() {
     expandables.hide();
 
     toggles.click(function() {
-     $(this).find(".arrow").toggleClass("up");
+     $(this).parent().find(".arrow").toggleClass("up");
      $(this).parents("div.expansion").find("div.expandable").slideToggle({duration:"slow"});
     });
 });

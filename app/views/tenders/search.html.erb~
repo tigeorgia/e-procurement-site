@@ -1,5 +1,11 @@
 <%= javascript_include_tag "tenders" %>
 
+<script>
+  $(document).ready(function() {
+    displayArrows("<%=@sort%>","<%=@direction%>");
+  });
+</script>
+
 <%- model_class = Tender -%>
 <div class="page-header">
   <h1><%=t '.title', :default => t("Tenders") %></h1>
@@ -27,7 +33,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th class="arrow"><%= sortable(@params, "tender-registration-number", "Tender") %></th>
+          <th class="arrow"><%= sortable(@params, "tender_registration_number", "Tender") %></th>
           <th class="header-20 arrow"><%= sortable(@params, "procurer_name", t("Procurer")) %></th>
           <th class="header-10 arrow"><%= sortable(@params, "supplier_name", t("Supplier")) %></th>
           <th class="arrow"><%= sortable(@params, "tender_announcement_date", t("Date")) %></th>

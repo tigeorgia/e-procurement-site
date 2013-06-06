@@ -1,4 +1,4 @@
 $(function () {
-  $("<%= "#"+@buttonID %>").html("<%= escape_javascript( button_to t("Subscribe"), {:action => "subscribe_procurer", :procurer_watch_id => @procurer_watch_id, :buttonID => @buttonID}, :remote => true ) %>");
+  $("<%= "#"+@buttonID %>").html("<%= escape_javascript( button_to t("Subscribe"), {:action => "subscribe_procurer", :procurer_watch_id => @procurer_watch_id, :buttonID => @buttonID}, :remote => true,:class => "user-button" ) %>");
   return false;
 });

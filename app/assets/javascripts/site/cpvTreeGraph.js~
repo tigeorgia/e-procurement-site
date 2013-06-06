@@ -61,14 +61,13 @@ function formatGEL(num, useFractions) {
 
 function createD3Graphs( root )
 {
-  var pWidth = $('#cpvChart').width()
-  var pheight = 500
+  var labelHeight = 50;
+  var width = $('#cpvChart').width();
+  var height = 650 - labelHeight;
+  
 
-  var margin = {top: 25, right: 0, bottom: 0, left: 0},
-    width = pWidth - margin.left - margin. right,
-    height = pheight - margin.top - margin.bottom,
-    formatNumber = d3.format(",d"),
-    transitioning;
+  var formatNumber = d3.format(",d");
+  var transitioning;
 
   var x = d3.scale.linear()
       .domain([0, width])
@@ -85,25 +84,23 @@ function createD3Graphs( root )
       .round(false);
 
   var svg = d3.select("#cpvChart").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.bottom + margin.top)
-      .style("margin-left", -margin.left + "px")
-      .style("margin.right", -margin.right + "px")
+      .attr("width", width)
+      .attr("height", height + labelHeight)
     .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .attr("transform", "translate(" + 0 + "," + labelHeight + ")")
       .style("shape-rendering", "crispEdges");
 
   var grandparent = svg.append("g")
       .attr("class", "grandparent");
 
   grandparent.append("rect")
-      .attr("y", -margin.top)
+      .attr("y", -labelHeight)
       .attr("width", width)
-      .attr("height", margin.top);
+      .attr("height", labelHeight);
 
   grandparent.append("text")
       .attr("x", 6)
-      .attr("y", 6 - margin.top)
+      .attr("y", 6 - labelHeight)
       .attr("dy", ".75em");
             
                

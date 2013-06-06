@@ -1,3 +1,9 @@
+<script>
+  $(document).ready(function() {
+    displayArrows("<%=@sort%>","<%=@direction%>");
+  });
+</script>
+
 <%- model_class = Organization -%>
 <div class="page-header">
   <h1><%= t("Procurers")%></h1>
@@ -26,12 +32,12 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= sortable(@params, "name", t("Name")) %></th>
-      <th><%= sortable(@params, "code", t("Code")) %></th>
-      <th><%= sortable(@params, "org_type", t("Type")) %></th>
-      <th><%= sortable(@params, "total_offered_contract_value",t("Total Spent")) %></th>
-      <th><%= sortable(@params, "total_offered_tenders",t("Tenders Issued")) %></th>
-      <th><%= sortable(@params, "total_success_tenders",t("Successful Tenders")) %></th>
+      <th class="header-20 arrow"><%= sortable(@params, "name", t("Name")) %></th>
+      <th class="arrow"><%= sortable(@params, "code", t("Code")) %></th>
+      <th class="arrow"><%= sortable(@params, "org_type", t("Type")) %></th>
+      <th class="arrow"><%= sortable(@params, "total_offered_contract_value",t("Total Spent")) %></th>
+      <th class="arrow"><%= sortable(@params, "total_offered_tenders",t("Tenders Issued")) %></th>
+      <th class="arrow"><%= sortable(@params, "total_success_tenders",t("Successful Tenders")) %></th>
     </tr>
   </thead>
   <tbody>
