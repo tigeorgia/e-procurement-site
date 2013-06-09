@@ -33,7 +33,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th class="arrow"><%= sortable(@params, "tender_registration_number", "Tender") %></th>
+          <th class="header-10 arrow"><%= sortable(@params, "tender_registration_number", "Tender") %></th>
           <th class="header-20 arrow"><%= sortable(@params, "procurer_name", t("Procurer")) %></th>
           <th class="header-10 arrow"><%= sortable(@params, "supplier_name", t("Supplier")) %></th>
           <th class="arrow"><%= sortable(@params, "tender_announcement_date", t("Date")) %></th>
@@ -68,7 +68,7 @@
             <td <%=highlightClass%>><%= t(tender.tender_type.strip()) %></td>
             <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
             <td <%=highlightClass%>><%= tender.estimated_value %></td>
-            <td <%=highlightClass%>><% if tender.contract_value %><%= tender.contract_value %><%else%>N/A<%end%></td>
+            <td <%=highlightClass%>><% if tender.contract_value and tender.contract_value != -1%><%= tender.contract_value %><%else%>N/A<%end%></td>
             <td <%=highlightClass%>><%= tender.num_bidders %></td>
           </tr>
         <% end %>

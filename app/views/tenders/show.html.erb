@@ -184,47 +184,49 @@
   </table>
 <% end %>
 
-<% if @complaints.length > 0 %>
-  <hr>
-  <table class="table table-striped">
-    <thead>
-      <h3><%=t("Complaints")%><h3>
-      <tr>
-        <th><%=t("Status")%></th>
-        <th><%=t("Complainant")%></th>
-      </tr>
-    </thead>
-   <tbody>
-      <% @complaints.each do |complaint| %>
+<% if not Rails.application.config.live_deploy %>
+  <% if @complaints.length > 0 %>
+    <hr>
+    <table class="table table-striped">
+      <thead>
+        <h3><%=t("Complaints")%><h3>
         <tr>
-        <td><%= link_to( complaint.status, {:controller => "dialog", :action => "show_complaint", :id => complaint.id }, :remote => true ) %></td>
-        <td><%= link_to Organization.find(complaint.organization_id).name, organization_path(complaint.organization_id)%></td>
+          <th><%=t("Status")%></th>
+          <th><%=t("Complainant")%></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+      </thead>
+     <tbody>
+        <% @complaints.each do |complaint| %>
+          <tr>
+          <td><%= link_to( complaint.status, {:controller => "dialog", :action => "show_complaint", :id => complaint.id }, :remote => true ) %></td>
+          <td><%= link_to Organization.find(complaint.organization_id).name, organization_path(complaint.organization_id)%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 
-<% if @documentation.length > 0 %>
-  <hr>
-  <table class="table table-striped">
-    <thead>
-      <h3><%=t("Documentation")%><h3>
-      <tr>
-        <th><%=t("Title")%></th>
-        <th><%=t("Author")%></th>
-        <th><%=t("Date Submitted")%></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @documentation.each do |document| %>
+  <% if @documentation.length > 0 %>
+    <hr>
+    <table class="table table-striped">
+      <thead>
+        <h3><%=t("Documentation")%><h3>
         <tr>
-        <td><a href=<%= document.document_url %>><%= document.title %></a></td> 
-        <td><%= document.author %></td>
-        <td><%= document.date %></td>
+          <th><%=t("Title")%></th>
+          <th><%=t("Author")%></th>
+          <th><%=t("Date Submitted")%></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @documentation.each do |document| %>
+          <tr>
+          <td><a href=<%= document.document_url %>><%= document.title %></a></td> 
+          <td><%= document.author %></td>
+          <td><%= document.date %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 <% end %>
 

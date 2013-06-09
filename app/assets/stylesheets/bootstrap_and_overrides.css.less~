@@ -78,6 +78,10 @@ a, a:link, a:hover, a:visited, a:active
   background-color: #2b2b2b;
 }
 
+.datepicker{
+  color: #ececec;
+}
+
 
 dd{
   margin: 0px 0px 3px 210px;
@@ -91,7 +95,7 @@ dt {
 }
 
 dt, dd{
-  background: #ffffff;
+  background: #ececec;
   padding: 5px 0px 5px 5px;
   height: 25px;
   overflow: hidden;

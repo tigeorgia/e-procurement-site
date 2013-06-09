@@ -68,7 +68,7 @@
             <td <%=highlightClass%>><%= t(tender.tender_type.strip()) %></td>
             <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
             <td <%=highlightClass%>><%= tender.estimated_value %></td>
-            <td <%=highlightClass%>><% if tender.contract_value %><%= tender.contract_value %><%else%>N/A<%end%></td>
+            <td <%=highlightClass%>><% if tender.contract_value and tender.contract_value != -1%><%= tender.contract_value %><%else%>N/A<%end%></td>
             <td <%=highlightClass%>><%= tender.num_bidders %></td>
           </tr>
         <% end %>

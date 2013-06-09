@@ -63,7 +63,7 @@ module QueryHelper
                  :cpvGroupID => cpvGroupID.to_s,
                  :tender_registration_number => reg_num.to_s,
                  :tender_status => translated_status,
-                 :tender_type => type,
+                 :tender_type => tender_type,
                  :announced_after => startDate.to_s,
                  :announced_before => endDate.to_s,
                  :min_estimate => minVal.to_s,
@@ -90,7 +90,7 @@ module QueryHelper
       :address => self.removeWildCards(fields[4]),
       :email => self.removeWildCards(fields[5]),
       :phone_number => self.removeWildCards(fields[6]),
-      :foreign => fields[7],
+      :isForeign => fields[7],
       :bw_list => fields[8]
     }
     params.each do |key,param|
@@ -110,7 +110,7 @@ module QueryHelper
     address = params[:address]
     email = params[:email]
     phone_number = params[:phone_number]
-    foreignOnly = params[:foreign]
+    foreignOnly = params[:isForeign]
     bw_list = params[:bw_list]
 
     searchParams.push(name)
@@ -131,25 +131,26 @@ module QueryHelper
     email = "%"+email+"%"
     phone_number = "%"+phone_number+"%"
     
-    orgString = ""
-    if not org_type == ""
-      orgString = " AND org_type = '"+org_type+"'"
-    end
-    query = "is_bidder = true"
-    query = QueryHelper.addParamToQuery(query, code, "code", "LIKE")
-    query = QueryHelper.addParamToQuery(query, org_type, "org_type", "=")
-    query = QueryHelper.addParamToQuery(query, city, "city", "LIKE")
-    query = QueryHelper.addParamToQuery(query, email, "email", "LIKE")
-    query = QueryHelper.addParamToQuery(query, phone_number, "phone_number", "LIKE")
-    query = QueryHelper.addParamToQuery(query, bw_list, "bw_list_flag", "=")
+    query = ""
+    paramsList = []
+    query = QueryHelper.addParamToQuery(query, code, "code", "LIKE",paramsList)
+    query = QueryHelper.addParamToQuery(query, org_type, "org_type", "=",paramsList)
+    query = QueryHelper.addParamToQuery(query, city, "city", "LIKE",paramsList)
+    query = QueryHelper.addParamToQuery(query, email, "email", "LIKE",paramsList)
+    query = QueryHelper.addParamToQuery(query, phone_number, "phone_number", "LIKE",paramsList)
+    query = QueryHelper.addParamToQuery(query, bw_list, "bw_list_flag", "=",paramsList)
+    query = QueryHelper.addParamToQuery(query, org_type, "org_type", "=",paramsList)
 
     if foreignOnly == '1'
-      query = QueryHelper.addParamToQuery(query, 'საქართველო', "country", "NOT LIKE")
+      query = QueryHelper.addParamToQuery(query, 'საქართველო', "country", "NOT LIKE",paramsList)
     end
     if willSearchName
-      query += " AND ( name LIKE '"+name+"' OR translation LIKE '"+name+"' )"
+      query += " AND ( name LIKE ? OR translation LIKE ? )"
+      paramsList.push(name)
+      paramsList.push(name)
     end
-    return query, searchParams
+    builtQuery = Organization.where( query, *paramsList )
+    return builtQuery, searchParams
   end
   
   def self.buildProcurerSearchParamsFromString(searchString)
@@ -177,6 +178,8 @@ module QueryHelper
     searchParams.push(code)
     searchParams.push(org_type)
 
+    queryParams = []
+
     willSearchName = name.length > 0
 
     name = "%"+name+"%"
@@ -185,15 +188,23 @@ module QueryHelper
     if org_type == "50% მეტი სახ წილ საწარმო"
       org_type = "50% მეტი სახ. წილ. საწარმო"
     end
-    orgString = ""
+
+    conditions = "is_procurer = true AND code LIKE ?"
+    queryParams.push(code)
+    
     if not org_type == ""
-      orgString = " AND org_type ='"+org_type+"'"
+      conditions += " AND org_type = ?"
+      queryParams.push(org_type)
     end
-    conditions = "is_procurer = true AND code LIKE '"+code+"'"+ orgString
+    
     if willSearchName
-      conditions += " AND ( name LIKE '"+name+"' OR translation LIKE '"+"%"+name+"%"+"' )"
+      conditions += " AND ( name LIKE ? OR translation LIKE ? )"
+      queryParams.push("%"+name+"%")
+      queryParams.push("%"+name+"%")
     end
-    return conditions, searchParams
+
+    query = Organization.where(conditions,*queryParams)    
+    return query, searchParams
   end
   
   def self.removeWildCards(string)
@@ -229,12 +240,13 @@ module QueryHelper
     return params
   end
 
-  def self.addParamToQuery(query, param, sql_field, operator)
+  def self.addParamToQuery(query, param, sql_field, operator, paramsList)
     if param and param != "" and param != "%%"
       if query.length > 0
-        query += " AND "
+        query+= " AND "
       end
-      query += sql_field +" "+operator+" "+ "'"+param+"'"
+      query+= sql_field+" "+operator+" ?"
+      paramsList.push(param)
     end
     return query
   end
@@ -242,22 +254,23 @@ module QueryHelper
 
  def self.buildTenderSearchQuery(params)
     #all params should already be in string format
+    paramsList = []
     query = ""
-    query = self.addParamToQuery(query, params[:tender_registration_number], "tender_registration_number", "LIKE")
-    query = self.addParamToQuery(query, params[:tender_status], "tender_status", "=")
-    query = self.addParamToQuery(query, params[:tender_type], "tender_type", "=")
-    query = self.addParamToQuery(query, params[:announced_after], "tender_announcement_date", ">=" )
-    query = self.addParamToQuery(query, params[:announced_before], "tender_announcement_date", "<=")
-    query = self.addParamToQuery(query, params[:min_estimate], "estimated_value", ">=")
-    query = self.addParamToQuery(query, params[:max_estimate], "estimated_value", "<=")
-    query = self.addParamToQuery(query, params[:min_num_bids], "num_bids", ">=")
-    query = self.addParamToQuery(query, params[:max_num_bids], "num_bids", "<=")
-    query = self.addParamToQuery(query, params[:min_num_bidders], "num_bidders", ">=")
-    query = self.addParamToQuery(query, params[:max_num_bidders], "num_bidders", "<=")
-    query = self.addParamToQuery(query, params[:risk_indicator], "risk_indicators", "LIKE")
-    query = self.addParamToQuery(query, params[:procurer], "procurer_name", "LIKE")
-    query = self.addParamToQuery(query, params[:supplier], "supplier_name", "LIKE")
-    query = self.addParamToQuery(query, params[:cpv_code], "cpv_code", "=")
+    query = self.addParamToQuery(query, params[:tender_registration_number], "tender_registration_number", "LIKE", paramsList)
+    query = self.addParamToQuery(query, params[:tender_status], "tender_status", "=", paramsList)
+    query = self.addParamToQuery(query, params[:tender_type], "tender_type", "=", paramsList)
+    query = self.addParamToQuery(query, params[:announced_after], "tender_announcement_date", ">=" , paramsList)
+    query = self.addParamToQuery(query, params[:announced_before], "tender_announcement_date", "<=", paramsList)
+    query = self.addParamToQuery(query, params[:min_estimate], "estimated_value", ">=", paramsList)
+    query = self.addParamToQuery(query, params[:max_estimate], "estimated_value", "<=", paramsList)
+    query = self.addParamToQuery(query, params[:min_num_bids], "num_bids", ">=", paramsList)
+    query = self.addParamToQuery(query, params[:max_num_bids], "num_bids", "<=", paramsList)
+    query = self.addParamToQuery(query, params[:min_num_bidders], "num_bidders", ">=", paramsList)
+    query = self.addParamToQuery(query, params[:max_num_bidders], "num_bidders", "<=", paramsList)
+    query = self.addParamToQuery(query, params[:risk_indicator], "risk_indicators", "LIKE", paramsList)
+    query = self.addParamToQuery(query, params[:procurer], "procurer_name", "LIKE", paramsList)
+    query = self.addParamToQuery(query, params[:supplier], "supplier_name", "LIKE", paramsList)
+    query = self.addParamToQuery(query, params[:cpv_code], "cpv_code", "=", paramsList)
 
 
     #add cpv codes
@@ -276,7 +289,8 @@ module QueryHelper
           conjunction = " OR"
         end
         cpvDropped = self.dropZeros(category.cpv_code)
-        query = query + conjunction+" cpv_code LIKE '"+cpvDropped+"%'"
+        query = query + conjunction+" cpv_code LIKE ?"
+        paramsList.push(cpvDropped+"%")
         count = count + 1
       end
       if count > 1 and queryAddition
@@ -295,12 +309,15 @@ module QueryHelper
           conjunction = " OR"
         end
         subString = "'%"+word+"%'" 
-        query+= conjunction+" addition_info LIKE "+subString+" OR supplier_name LIKE "+subString+" OR procurer_name LIKE "+subString 
+        query+= conjunction+" addition_info LIKE ? OR supplier_name LIKE ? OR procurer_name LIKE ?"
+        paramsList.push(subString)
+        paramsList.push(subString)
+        paramsList.push(subString)
         count+=1
       end
       query+= (queryAddition and count > 0 )? ")":""
     end
-
-    return query
+    builtQuery = Tender.where( query, *paramsList )
+    return builtQuery
   end
 end

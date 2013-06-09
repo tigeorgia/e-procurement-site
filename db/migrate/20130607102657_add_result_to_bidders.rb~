@@ -1,0 +1,4 @@
+class AddResultToBidders < ActiveRecord::Migration
+  def change
+  end
+end

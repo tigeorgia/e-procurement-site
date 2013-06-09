@@ -1084,18 +1084,15 @@ module ScraperFile
       if search.searchtype == "tender"
         queryParams = QueryHelper.buildTenderSearchParamsFromString(search.search_string)
         data = QueryHelper.buildTenderQueryData(queryParams)
-        query = QueryHelper.buildTenderSearchQuery(data)
-        results = Tender.where(query)
+        results = QueryHelper.buildTenderSearchQuery(data)
         updateList = @newTenders
       elsif search.searchtype == "supplier"
         queryParams = QueryHelper.buildSupplierSearchParamsFromString(search.search_string)
-        query = QueryHelper.buildSupplierSearchQuery(queryParams)
-        results = Organization.where(query)
+        results = QueryHelper.buildSupplierSearchQuery(queryParams)
         updateList = @newSuppliers
       else
         queryParams = QueryHelper.buildProcurerSearchParamsFromString(search.search_string)
-        query = QueryHelper.buildProcurerSearchQuery(queryParams)
-        results = Organization.where(query)
+        results = QueryHelper.buildProcurerSearchQuery(queryParams)
         updateList = @newProcurers
       end
 

@@ -14,9 +14,11 @@
 
   <div class="row-fluid">
     <div class="span4">Tender which caused blacklisting</div>
-    <%if @tenderDB%>
-      <div class="span4"><%= link_to(@item.tender_id, tender_path(@tenderDB)) %></div>
-    <%elsif @item.tender_id%>
+    <%if @tenders%>
+       <%@tenders.each do |tender|%>
+        <div class="span4"><%= link_to(tender.tender_registration_number, tender_path(tender)) %></div>
+       <%end%>
+    <%elsif @item.tender_id != "NULL" %>
       <div class="span4"><%=@item.tender_id%></div>
     <%elsif @item.tender_number%>
       <div class="span4"><%=@item.tender_number%></div>

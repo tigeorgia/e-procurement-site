@@ -29,9 +29,7 @@ class OrganizationsController < ApplicationController
   def search
     @params = params
 
-    query, searchParams = QueryHelper.buildSupplierSearchQuery(params)
-    results = Organization.where(query)
-    
+    results, searchParams = QueryHelper.buildSupplierSearchQuery(params)   
     @numResults = results.count
     @organizations = results.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
@@ -63,8 +61,7 @@ class OrganizationsController < ApplicationController
 
   def search_procurer
     @params = params
-    query, searchParams = QueryHelper.buildProcurerSearchQuery(params)
-    results = Organization.where(query)
+    results, searchParams = QueryHelper.buildProcurerSearchQuery(params)
     @numResults = results.count
     @organizations = results.paginate( :page => params[:page]).order(sort_column + ' ' + sort_direction)
 
@@ -314,7 +311,7 @@ class OrganizationsController < ApplicationController
 
     #find all competitors
     @competitors = []
-    org_competitors = Competitor.where("organization_id = "+id)
+    org_competitors = Competitor.where("organization_id = ?",id) 
     org_competitors.each do | competitor |
       info = []
       info.push(Organization.find(competitor.rival_org_id))
@@ -414,7 +411,5 @@ class OrganizationsController < ApplicationController
   def sort_direction
     params[:direction] || "asc"
   end
-
-
 
 end

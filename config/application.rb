@@ -44,5 +44,8 @@ module BootstrapStarter
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    #removes all non-complete features if set to true
+    config.live_deploy = true
   end
 end

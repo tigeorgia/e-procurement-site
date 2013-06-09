@@ -39,7 +39,6 @@
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag '/favicon.ico', :rel => 'shortcut icon' %>
   </head>
-  <body>
    <div id="wrap">
     <div class="main-menu" style="height: 70px">
       <div class="container" style="height: 100%">
@@ -116,6 +115,8 @@
     </div>
    </div>
 
+  <div id="dialog-confirm" title="Delete?">
+  <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>This item will be permanently deleted, Are you sure?</p>
   </body>
 
 </html>

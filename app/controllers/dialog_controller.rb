@@ -7,8 +7,18 @@ class DialogController < ApplicationController
   def show_black_list
     orgID = params[:id]
     @item = BlackListItem.where(:organization_id => orgID).first
-    if @item.tender_id
-      @tenderDB = Tender.where(:tender_registration_number => @item.tender_id).first
+   
+    if @item.tender_id != "NULL"
+      @tenders = []
+      regNumberList = @item.tender_id.split(",")
+     
+      regNumberList.each do |number|
+        puts number
+        tender = Tender.where(:tender_registration_number => number).first
+        if tender
+          @tenders.push(tender)
+        end
+      end
     end
   end
 
