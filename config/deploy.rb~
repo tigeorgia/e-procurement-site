@@ -1,19 +1,47 @@
-#set :rvm_ruby_string, 'ree@rails3'                     # Or:
-set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"") # Read from local system
+require "bundler/capistrano"
 
-require "rvm/capistrano"                               # Load RVM's capistrano plugin.
 
-set :application, "procurement"
+#require "rvm/capistrano"
+#set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"") # Read from local system
+#set :rvm_ruby_string, "ruby-1.9.2-p290"
+#set :rvm_type, :user
+#before 'deploy', 'rvm:install_rvm'
+
+#set :application, "procurement"
+#server "192.168.0.241", :app, :web, :db, :primary => true
+#set :user, "tigeorgia"
+#set :deploy_to, "/var/data/procurement/app"
+
+set :application, "tenderwatch"
+set :deploy_to, "/home/tigeorgia/webapps/tenderwatch"
 set :scm, "git"
 set :branch, "master"
-set :repository, "git://github.com/tigeorgia/e-procurement-app.git"
-server "192.168.0.241", :app, :web, :db, :primary => true
-set :user, "tigeorgia"
+set :repository, "git://github.com/tigeorgia/e-procurement-site.git"
 default_run_options[:pty] = true
+role :web, "web331.webfaction.com"
+role :app, "web331.webfaction.com"
+role :db, "web331.webfaction.com", :primary => true
+set :user, "tigeorgia"
+set :scm_username, "ChrisTIGeorgia"
 set :use_sudo, false
-set :deploy_to, "/var/data/procurement/app"
 
-desc "Install Passenger"
+
+set :default_environment, {
+  'PATH' => "#{deploy_to}/bin:$PATH",
+  'GEM_HOME' => "#{deploy_to}/gems" 
+}
+
+namespace :deploy do
+  desc "Restart nginx"
+  task :restart do
+    run "#{deploy_to}/bin/restart"
+  end
+end
+
+
+
+
+=begin desc "Install Passenger"
   task :install_passenger do
     install_passenger_module
     config_passenger
@@ -32,7 +60,7 @@ desc "Install Passenger"
 
   desc "Configure Passenger"
   task :config_passenger do
-    ruby_version = ruby-1.9.2-p290@bootstrap_starter 
+    ruby_version = "ruby-1.9.2-p290@bootstrap_starter" 
     version = 'ERROR'#default
     #passenger (2.0.3, 1.0.5)
     run("gem list | grep passenger") do |ch, stream, data|
@@ -50,3 +78,4 @@ desc "Install Passenger"
     put passenger_config, "src/passenger"
     sudo "mv src/passenger /etc/apache2/conf.d/passenger"
   end
+=end
