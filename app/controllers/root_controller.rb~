@@ -60,7 +60,6 @@ class RootController < ApplicationController
         end
 		  end
     end
-    
 
     cpvGroups.each do |cpvGroup|
       if cpvGroup.id == 1

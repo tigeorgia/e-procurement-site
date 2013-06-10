@@ -4,5 +4,5 @@ class CorruptionIndicator < ActiveRecord::Base
   attr_accessible :id,
       :weight,
       :description,
-      :name,
+      :name
 end

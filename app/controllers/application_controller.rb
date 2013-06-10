@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
 
 	before_filter :set_locale
 	before_filter :is_browser_supported?
-	before_filter :initialize_gon
 
 	unless Rails.application.config.consider_all_requests_local
 		rescue_from Exception,
@@ -59,11 +58,6 @@ logger.debug "////////////////////////// BROWSER TEST NOT REQUIRED"
   def default_url_options(options={})
     { :locale => I18n.locale }
   end
-
-	def initialize_gon
-		gon.set = true
-		gon.highlight_first_form_field = true
-	end
 
 	# after user logs in, go to admin page
 	def after_sign_in_path_for(resource)
