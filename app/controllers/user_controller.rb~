@@ -99,8 +99,6 @@ class UserController < ApplicationController
 
   def add_supplier_watch
     watch_item = SupplierWatch.new
-    puts "SUP ID"
-    puts params[:supplier_id]
     watch_item.supplier_id = params[:supplier_id]
     watch_item.user_id = current_user.id
     watch_item.save

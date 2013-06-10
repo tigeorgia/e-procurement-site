@@ -134,7 +134,6 @@ class RootController < ApplicationController
       end
     end
 
-
     top10 = Organization.order("total_won_contract_value DESC").limit(10)
     @TopTen = []
     top10.each do |company|

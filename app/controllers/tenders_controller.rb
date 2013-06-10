@@ -1,11 +1,11 @@
 class TendersController < ApplicationController
-  require "query_helpers" 
   helper_method :sort_column, :sort_direction
   include ApplicationHelper
+  include QueryHelper
 
   def performSearch( data )
     @params = params
-    query = QueryHelper.buildTenderSearchQuery(data)
+    query = buildTenderSearchQuery(data)
     @fullResult = query
     @numResults = @fullResult.count
     @tenders = @fullResult.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
@@ -27,7 +27,7 @@ class TendersController < ApplicationController
   end
 
   def search
-    data = QueryHelper.buildTenderQueryData(params)
+    data = buildTenderQueryData(params)
     performSearch(data)
   end
 
