@@ -5,7 +5,7 @@ $(document).ready(function() {
           type: 'bar'
        },
        title: {
-          text: 'Top 10 Procurers'
+          text: '<%=t("Major Procurers")%>'
        },
        xAxis: {
           categories: [
@@ -17,12 +17,12 @@ $(document).ready(function() {
        },
        yAxis: {
           title: {
-             text: 'Lari'
+             text: '<%=t("Lari")%>'
           }
        },
        series: [        
                {
-                name: "Awarded Contract Total",
+                name: "<%=t("Awarded Contract Total")%>",
                 data: [ <% @topTenProcurers.each do |info| %> <%= info[:total] %>, <% end %>]
                },  
       ]   

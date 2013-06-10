@@ -1,192 +1,4 @@
 # encoding: utf-8
-ka:
-  Proposals process started: წინადადებების მიღება დაწყებულია
-  The Winner revealed: გამარჯვებული გამოვლენილია
-  Completed negative result: დასრულებულია უარყოფითი შედეგით 
-  Preparation of contract: მიმდინარეობს ხელშეკრულების მომზადება
-  Bidding failed: ტენდერი არ შედგა
-  Tender announced: ტენდერი გამოცხადებულია
-  Tender terminated: ტენდერი შეწყვეტილია
-  Selection/Evaluation: შერჩევა/შეფასება
-  Completed proposals: დასრულებული შეთავაზებები
-  Bids starting: წინადადებების მიღება დაწყებულია
-  Agreement concluded: ხელშეკრულება დადებულია
-  Search Tenders: ტენდერების ძიება
-  Tender: ტენდერი
-  Tenders: ტენდერები
-  Status: სტატუსი
-  Category: კატეგორია
-  Risk Indicator: რისკის მაჩვენებელი
-  Registration Code: სარეგისტრაციო კოდი
-  Announced After: გამოცხადდა შემდეგ
-  Announced Before: გამოაცხადა ადრე
-  Minimum Cost Estimate: მინიმალური ხარჯის შეფასება
-  Maximum Cost Estimate: მაქსიმალური ხარჯის შეფასება
-  Min Number Of Bids: შეთავაზებების მინიმალური ოდენობა
-  Max Number Of Bids: შეთავაზებების მაქსიმალური ოდენობა
-  Min Number Of Bidders: პრეტენდენტების მინიმალური რაოდენობა
-  Max Number Of Bidders: პრეტენდენტების მაქსიმალური რაოდენობა
-  Search Companies:  კომპანიების ძიება
-  Search Name: სახელის ძიება 
-  Name: სახელი
-  Total Spent: სულ დახარჯულია
-  Code: კოდი
-  Type: კატეგორია
-  Only Foreign: მხოლოდ უცხოური
-  Successful Tenders: წარმატებული ტენდერები
-  Search Procurers: შემსყიდველის ძიება
-  Search: ძიება
-  Show Major Players: ძირითადი მოთამაშეების ჩვენება
-  Top Ten Players: ათი მოწინავე მოთამაშე
-  Lari: ლარი
-  Awarded Contract Total: მოგებული კონტრაქტების ღირებულება
-  Tender Registration Number: ტენდერის სარეგისტრაციო ნომერი
-  Procurer: შემსყიდველი
-  Announcement Date: გამოცხადების თარიღი
-  CPV Code: CPV კოდი
-  Type: კატეგორია
-  Status: სტატუსი
-  Estimated Value: სავარაუდო ღირებულება
-  Contract Value: კონტრაქტის ღირებულება
-  Number Of Bidders: პრეტენდენტების რაოდენობა
-  Year: წელი
-  Analysis: ანალიზი
-  Search Page: საძიებო გვერდი
-  Save Category: კატეგორიის შენახვა
-  Category Name: კატეგორიის დასახელება
-  Estimated value of Tender by Type: კატეგორიის მიხედვით ტენდერის სავარაუდო ღირებულება 
-  Electronic: ელექტრონული ტენდერი
-  Simple Electronic: გამარტივებული ელექტრონული ტენდერი
-  Number Of Tenders By Type: ტენდერების რაოდენობა კატეგორიის მიხედვით
-  Average Bidding Duration: სატენდერო შეთავაზებების საშუალო ხანგრძლივობა
-  Average Time Between Tender Announcement And Bidding: საშუალო დრო ტენდერის გამოცხადებიდან სატენდერო შეთავაზებამდე
-  Average Number Of Bidders Per Tender: ტენდერის მიხედვით შემსყიდველთა საშუალო რაოდენობა
-  Average Number Of Bids Per Tender: ტენდერის მიხედვით შეთავაზებათა საშუალო რაოდენობა
-  bids: შეთავაზებათა რაოდენობა
-  Bids: შეთავაზებათა რაოდენობა
-  bidders: შემსყიდველთა რაოდენობა
-  Bidders: შემსყიდველთა რაოდენობა
-  Email: ელეტქრონული ფოსტა
-  Password: პაროლი
-  Remember me: დამიმახსოვრე
-  sign in: შესვლა
-  sign up: დარეგისტრირდით
-  Remove Category: კატეგორიის გაუქმება
-  Edit Category: კატეგორიის რედაქტირება
-  Add New Category: ახალი კატეგორიის დამატება
-  Your CPV Groups: შენი CPV ჯგუფები
-  Your Saved Searches: შენი შენახული ძიებები
-  Tenders You Are Watching: ტენდერები, რომელსაც აკვირდებით
-  Days After Announcement: დღეები ტენდერის გამოცხადებიდან
-  Percentage Of Bids That Had At Least One Bidder: იმ ტენდერების პროცენტული წილი, რომელშიც ერთი შემსყიდველი მაინც იღებდა მონაწილეობას
-  Percentage: პროცენტული მაჩვენებელი
-  Account: ანგარიშის
-  Admin: ადმინი
-  Subscribe: გამოწერა
-  Unsubscribe: გაუქმება
-  Email Alerts: ელექტრონული გაფრთხილებები
-  Date Saved: დამახსოვრებული თარიღი
-  Delete: წაშლა
-  Organizations: ორგანიზაციები
-  Number Of Organizations Found: ნაპოვნი ორგანიცაზიების რაოდენობა
-  Duration Of Tender Vs Average Number Bidders: ტენდერის ხანგრძლივობა vs პრეტენდენტების საშუალო რაოდენობა
-  Observations: დაკვირვებები
-  day: დღეში
-  days: დღეები
-  Days: დღეები
-  Country: ქვეყანა
-  Total Revenue: სრული შემოსავალი
-  Tenders Bid On: სატენდერო შეთავაზებები
-  Tenders Won: მოგებული ტენდერები 
-  Organization type: ორგანიზაციის ტიპი
-  Total spent: სულ დახარჯული
-  Tenders Issued: გამოქვეყნებული ტენდერები
-  Successful tenders: წარმატებული ტენდერები
-  Download: ჩამოტვირთვა
-  Success?: დასრულდა წარმატებით?
-  Success: წარმატებული
-  Failed: წარუმატებელი
-  Procurers: შემსყიდველი
-  Saved As: შენახულია როგორც
-  CPV Description: CPV-ის აღწერა
-  Identification Code: საიდენტიფიკაციო კოდი
-  City: ქალაქი
-  Address: მისამართი
-  Phone Number: ტელეფონის ნომერი
-  Fax Number: ფაქსის ნომერი
-  Website: ვებგვერდი
-  Estimated Cost: ღირებულება
-  Actual Cost: ფაქტიური ღირებულება
-  All tenders: ყველა ტენდერი
-  Savings Percentage: დანაზოგის პროცენტი
-  Average Bidders: პრეტენდენტთა საშუალო წილი
-  Average Bids: შეთავაზებათა საშუალო წილი
-  Successful Tenders vs Failed Tenders: წარმატებული ტენდერები vs წარუმატებელი ტენდერები
-  First: პირველი
-  previous: წინა
-  next: შემდეგი
-  last: ბოლო
-  Competitors: კონკურენტები
-  Tender CPV Code Distribution: ტენდერის CPV კოდების გადანაწილება
-  Number Of Results: შედეგთა რაოდენობა
-  Save Search: ძიების შენახვა
-  Save To Profile: შენახვა საწყისი პროფაილზე
-  Remove From Profile: ამოღება პროფაილიდან
-  Remove Search: ძიების გაუქმება
-  Procuring Entity: შემსყიდველი პირი
-  Tender Type: ტენდერის ტიპი
-  Tender Announcement Date: ტენდერის გამოცხადების თარიღი
-  Bid Start Date: შეთავაზებების დაწყების თარიღი
-  Bid End Date: შეთავაზებების დასრულების თარიღი
-  Bidding Duration: შეთავაზებათა ხანგრძლივობა
-  Procuring Category: შემსყიდველის კატეგორია
-  CPV Codes: CPV კოდები
-  Risk Score: რისკის მაჩვენებელი
-  Participants: მონაწილეები
-  First Bid: საწყისი შეთავაზება
-  Last Bid: საბოლოო შეთავაზება
-  Number Of Bids: შეთავაზებათა რაოდენობა
-  Bidding Result: სატენდერო შედეგი
-  Contract Type: გარიგების ტიპი
-  Organization: ორგანიზაცია
-  Start Date: დაწყების თარიღი
-  Expiry Date: ვადის ამოწურვის თარიღი
-  Documentation: დოკუმენტაცია
-  Title: სათაური
-  Author: ავტორი
-  Date Submitted: წარდგენის თარიღი
-  Bidding Duration: შეთავაზებათა ხანგრძლივობა
-  Procurer Estimate: შემსყიდველის შეფასება
-  Tenders Won Vs Tenders Lost: მოგებული ტენდერები Vs წაგებული ტენდერები
-  Tenders Lost: წაგებული ტენდერები
-  Simple Electronic Tender Activity: გამარტივებული ელექტრონული ტენდერის აქტივობა
-  Electronic Tender Activity: ელექტრონული ტენდერი აქტივობა
-  Tenders Bid On: სატენდერო შეთავაზებები
-  Total Estimated Value of Contracts Won: მოგებული კონტრაქტების საერთო სავარაუდო ღირებულება 
-  Total Actual Value of Contracts Won: მოგებული კონტრაქტების საერთო საბაზრო ღირებულება
-  Estimated vs Actual Ratio: სავარაუდო Vs ფაქტობრივი თანაფარდობა
-  Average Number of Bidders on Contracts Won: მოგებულ კონტრაქტებზე შემსყიდველთა საშუალო რაოდენობა
-  Total Expenditure Breakdown: სრული ხარჯების ჩაშლა
-  yes_caps: დიახ
-  no_caps: არა
-  Estimated Cost All Tenders: ყველა ტენდერის სავარაუდო ღირებულება
-  Actual Cost All Tenders: ყველა ტენდერის ფაქტობრივი ღირებულება
-  Generate Aggregate Data: ერთიანი მონაცემების გენერირება
-  Estimated Value Of Tenders By Type: ტენდერის სავარაუდო ღირებულება კატეგორიის მიხედვით
-  Tender Duration: ტენდერის ხანგრძლივობა
-  
-  წინადადებების მიღება დაწყებულია: წინადადებების მიღება დაწყებულია
-  გამარჯვებული გამოვლენილია: გამარჯვებული გამოვლენილია
-  დასრულებულია უარყოფითი შედეგით: დასრულებულია უარყოფითი შედეგით 
-  მიმდინარეობს ხელშეკრულების მომზადება: მიმდინარეობს ხელშეკრულების მომზადება
-  ტენდერი არ შედგა: ტენდერი არ შედგა
-  ტენდერი გამოცხადებულია: ტენდერი გამოცხადებულია
-  ტენდერი შეწყვეტილია: ტენდერი შეწყვეტილია
-  შერჩევა/შეფასება: შერჩევა/შეფასება
-  წინადადებების მიღება დასრულებულია: წინადადებების მიღება დასრულებულია
-  წინადადებების მიღება დაწყებული: წინადადებების მიღება დაწყებული
-  ხელშეკრულება დადებულია: ხელშეკრულება დადებულია
-
 en:
   წინადადებების მიღება დაწყებულია: Proposals process started
   გამარჯვებული გამოვლენილია: The Winner revealed
@@ -224,6 +36,8 @@ en:
   ელექტრონული ტენდერი: Electronic Tender
   საქართველო: Georgia
 
+
+  Tender Monitor: Tender Monitor
   Save To Profile: Save To Profile
   Remove From Profile: Remove From Profile
   Search: Search
@@ -236,8 +50,8 @@ en:
   Save Category: Save Category
   Category Name: Category Name
   Generate Aggregate Data: Generate Aggregate Data
-  Simple Electronic: Simple Electronic
-  Electronic: Electronic
+  simple electronic: Simple Electronic
+  electronic: Electronic
   Estimated Value Of Tenders By Type: Estimated Value Of Tenders By Type
   Number Of Tenders By Type: Number Of Tenders By Type
   Average Bidding Duration: Average Bidding Duration
@@ -260,6 +74,64 @@ en:
   Edit Category: Edit Category
   Remove Category: Remove Category
 
+  Major Sectors: Major Sectors
+  Major Suppliers: Major Suppliers
+  Major Procurers: Major Procurers
+  Additional Search: Addition Search
+  Keyword: Keyword
+  About: About
+  Download CSV: Download CSV
+  Tender: Tender
+  Supplier: Supplier
+  Date: Date
+  CPV: CPV
+  Est Value: Est. Value
+  Actual Value: Actual Value
+  Bidders: Bidders
+  Number of Tenders Found: Number of Tenders Found
+  N/A: N/A
+  Only Foreign: Only Foreign
+  Black or White List: Black or White List
+  Number of Organizations Found: Number of Organizations Found
+
+  Revenue Graph: Revenue Graph
+  Value of Tenders by Type: Value of Tenders by Type
+  Number of Tenders by Type: Number of Tenders by Type
+  Bidding Durations: Bidding Durations
+  Tender Warning Period: Tender Warning Period
+  Average Number of Bidders: Average Number of Bidders
+  Average Number of Bids: Average Number of Bids
+  Percentage of Bids that had Atleast One Bidder: Percentage of Bids that had Atleast One Bidder
+  Duration of Tender vs Average Bidders: Duration of Tender vs Average Bidders
+  Bidding Duration Days: Bidding Duration Days
+  Download Data: Download Data
+  Your Categories: Your Categories
+  Create Custom Category: Create Custom Category
+
+  Account Page: Account Page
+  Suppliers You Are Watching: Suppliers You Are Watching
+  Procurers You Are Watching: Procurers You Are Watching
+  Edit: Edit
+  Tenders: Tenders
+  Suppliers: Suppliers
+  Procurers: Procurers
+  Searches: Searches
+  Custom CPV Categories: Custom CPV Categories
+  Add New Category: Add New Category
+  Back to Profile: Back to Profile
+
+  Number of Tenders Bid on: Number of Tenders Bid on
+  Main Competitors: Main Competitors
+  Tenders Competited on: Tenders Competited on
+
+  Average Simple Tender Duration: Average Simple Tender Duration
+  Average Electronic Tender Duration: Average Electronic Tender Duration
+
+  Lari: Lari
+  Awarded Contract Total: Awarded Contract Total
+
+  Number of Tenders: Number of Tenders
+  
   app:
     language:
       en: English

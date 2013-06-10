@@ -2,7 +2,6 @@ class AggregateTenderStatistic < ActiveRecord::Base
   belongs_to :aggregate_statistic_type
     attr_accessible :id,
     :aggregate_statistic_type_id,
-    :name,
     :count,
     :success_count,
     :total_value,

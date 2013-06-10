@@ -6,7 +6,7 @@ $(document).ready(function() {
           type: 'bar'
        },
        title: {
-          text: 'Top 10 Players'
+          text: '<%=t("Major Supplier")%>'
        },
        xAxis: {
           categories: [
@@ -18,12 +18,12 @@ $(document).ready(function() {
        },
        yAxis: {
           title: {
-             text: 'Lari'
+             text: '<%=t("Lari")%>'
           }
        },
        series: [        
                {
-                name: "Awarded Contract Total",
+                name: "<%=t("Awarded Contract Total")%>",
                 data: [ <% @TopTen.each do |info| %> <%= info[:total] %>, <% end %>]
                },  
       ]   

@@ -14,5 +14,5 @@ class AggregateTenderStatistic < ActiveRecord::Base
     :agreements,
     :illegal_tenders,
     :bidding_times_stats,
-    :bidding_warning_stats,
+    :bidding_warning_stats
 end

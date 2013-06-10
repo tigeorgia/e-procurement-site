@@ -1,1 +1,31 @@
-<%= javascript_include_tag "cpvVsCompany" %>
+var chart1; // globally available
+$(document).ready(function() {
+    chart1 = new Highcharts.Chart({
+       chart: {
+          renderTo: 'graph',
+          type: 'bar'
+       },
+       title: {
+          text: '<%=t("Major Supplier")%>'
+       },
+       xAxis: {
+          categories: [
+             <% @TopTen.each do |info| %>
+              <% item = link_to( raw(info[:company].name),  :controller => "organizations", :action => "show", :id => info[:company].id)%>
+              '<%= item%>',
+             <% end %>
+          ]
+       },
+       yAxis: {
+          title: {
+             text: 'Lari'
+          }
+       },
+       series: [        
+               {
+                name: "<%=t("Awarded Contract Total")%>",
+                data: [ <% @TopTen.each do |info| %> <%= info[:total] %>, <% end %>]
+               },  
+      ]   
+    });
+ });

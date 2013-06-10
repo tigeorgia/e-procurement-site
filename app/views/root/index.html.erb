@@ -8,7 +8,7 @@ $(document).ready(function() {
           type: 'bar'
        },
        title: {
-          text: 'Top 10 Groups'
+          text: '<%=t("Major Sectors")%>'
        },
        xAxis: {
           categories: [
@@ -19,12 +19,12 @@ $(document).ready(function() {
        },
        yAxis: {
           title: {
-             text: 'Lari'
+             text: '<%=t("Lari")%>'
           }
        },
        series: [        
                {
-                name: "Awarded Contract Total",
+                name: "<%=t("Awarded Contract Total")%>",
                 data: [ <% @majorGroups.each do |info| %> <%= info[:total] %>, <% end %>]
                },  
       ]   
@@ -56,14 +56,14 @@ $(document).ready(function() {
 <%end%>
 
 <% if @userCpvGroups.count > 0 %>
-	<% cpvArray.push(["---User CPV Groups---", 0,{:disabled => true}])%>
+	<% cpvArray.push(["---"+t("Your Categories")+"---", 0,{:disabled => true}])%>
 	<% @userCpvGroups.each do |group| %>
 		<% cpvArray.push([group.name, group.id]) %>
 	<%end%>
 <%end%>
 <% newCPVUrl = url_for(:controller => "cpv_tree", :action => "showCPVTree") %>
 
-<% cpvArray.push(["---Create Custom CPV Group---", -1, {:onclick => "window.location.replace('"+newCPVUrl+"');"}])%>
+<% cpvArray.push(["---"+("Create Custom Category")+"---", -1, {:onclick => "window.location.replace('"+newCPVUrl+"');"}])%>
 
 <div class="tabs tab-div">
   <ul>
@@ -118,7 +118,7 @@ $(document).ready(function() {
       </div>
       <div class="row-fluid">
         <div class="right-align">
-          <div class="arrow-label expandToggle">Additional Search</div>
+          <div class="arrow-label expandToggle"><%=t("Additional Search")%></div>
           <div class="arrow expandToggle"></div> 
           <%= submit_tag( t('Search'), :class => "submit-button") %>
         </div>
@@ -230,11 +230,11 @@ $(document).ready(function() {
       </div>
       <div class="row-fluid">
         <div class="span3">
-          <%= label_tag(:isForeign, "Only Foreign") %>
+          <%= label_tag(:isForeign, t("Only Foreign") )%>
           <%= check_box_tag(:isForeign) %>
         </div>
         <div class="span3">
-          <%= label_tag(:bw_list, "Black or White list") %>
+          <%= label_tag(:bw_list, t("Black or White list") ) %>
           <%= select_tag(:bw_list, options_for_select([[t("White List"),"W"], [t("Black List"), "B"]]), :include_blank => true )%>
         </div>
       </div>
@@ -277,9 +277,9 @@ $(document).ready(function() {
 
 <div class="tabs ui-tabs tab-div">
   <ul>
-    <li class="tab-header"><a href="#tabs-1"><%=t("Top CPV Groups")%></a></li>
-    <li class="tab-header"><a href="#tabs-2"><%=t("Top Suppliers")%></a></li>
-    <li class="tab-header"><a href="#tabs-3"><%=t("Top Procurers")%></a></li>
+    <li class="tab-header"><a href="#tabs-1"><%=t("Major Sectors")%></a></li>
+    <li class="tab-header"><a href="#tabs-2"><%=t("Major Suppliers")%></a></li>
+    <li class="tab-header"><a href="#tabs-3"><%=t("Major Procurers")%></a></li>
   </ul>
 
   <div id="tabs-1" class="tab-inner">

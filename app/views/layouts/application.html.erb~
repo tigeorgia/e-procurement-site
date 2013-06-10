@@ -39,6 +39,7 @@
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag '/favicon.ico', :rel => 'shortcut icon' %>
   </head>
+  <body>
    <div id="wrap">
     <div class="main-menu" style="height: 70px">
       <div class="container" style="height: 100%">

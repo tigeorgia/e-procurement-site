@@ -4,5 +4,5 @@ class Dataset < ActiveRecord::Base
   
   attr_accessible :id,
       :date,
-      :is_live,
+      :is_live
 end
