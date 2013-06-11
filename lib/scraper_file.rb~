@@ -15,7 +15,7 @@ module ScraperFile
 
   require 'csv'
   require 'json'
-  require "query_helpers"
+  require "query_helper"
   require "translation_helper"
   require "aggregate_helper"
   

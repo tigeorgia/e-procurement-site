@@ -190,15 +190,15 @@ class UserController < ApplicationController
     end
 
     if searchType == "tender"
-      searchParams = buildTenderSearchParamsFromString(searchString)
+      searchParams = QueryHelper.buildTenderSearchParamsFromString(searchString)
       searchParams[:controller] = "tenders"
       searchParams[:action] = "search"
     elsif searchType == "supplier"
-      searchParams = buildSupplierSearchParamsFromString(searchString)
+      searchParams = QueryHelper.buildSupplierSearchParamsFromString(searchString)
       searchParams[:controller] = "organizations"
       searchParams[:action] = "search"
     else
-      searchParams = buildProcurerSearchParamsFromString(searchString)
+      searchParams = QueryHelper.buildProcurerSearchParamsFromString(searchString)
       searchParams[:controller] = "organizations"
       searchParams[:action] = "search_procurer"
     end

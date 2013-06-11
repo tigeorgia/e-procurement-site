@@ -15,7 +15,7 @@ module ScraperFile
 
   require 'csv'
   require 'json'
-  require "query_helpers"
+  require "query_helper"
   require "translation_helper"
   require "aggregate_helper"
   
@@ -153,7 +153,7 @@ module ScraperFile
                 end
               end          
               organization.save
-              newOrgsTemp.push(organization)
+              @newOrgsTemp.push(organization)
               #now we know everything is sorted we can run a name translation
               self.generateOrganizationNameTranslation( organization )
             else
@@ -1195,7 +1195,7 @@ module ScraperFile
     @newTenders = []
     @newSuppliers = []
     @newProcurers = []
-    newOrgsTemp = []
+    @newOrgsTemp = []
 
     #parse orgs first so that other objects can sort out relationships
     puts "processing Orgs"
@@ -1218,7 +1218,7 @@ module ScraperFile
     puts "process complaints"    
     self.processComplaints
 
-    newOrgsTemp.each do |org|
+    @newOrgsTemp.each do |org|
       if org.is_bidder
         @newSuppliers.push(org)
       end

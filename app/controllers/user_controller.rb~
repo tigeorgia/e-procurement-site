@@ -1,8 +1,7 @@
 class UserController < ApplicationController
   before_filter :authenticate_user!
-  require "query_helpers" 
+  include QueryHelper
 
-  
   def index
     @watched_tenders = current_user.watch_tenders
     @watched_procurers = current_user.procurer_watches
@@ -191,15 +190,15 @@ class UserController < ApplicationController
     end
 
     if searchType == "tender"
-      searchParams = QueryHelper.buildTenderSearchParamsFromString(searchString)
+      searchParams = buildTenderSearchParamsFromString(searchString)
       searchParams[:controller] = "tenders"
       searchParams[:action] = "search"
     elsif searchType == "supplier"
-      searchParams = QueryHelper.buildSupplierSearchParamsFromString(searchString)
+      searchParams = buildSupplierSearchParamsFromString(searchString)
       searchParams[:controller] = "organizations"
       searchParams[:action] = "search"
     else
-      searchParams = QueryHelper.buildProcurerSearchParamsFromString(searchString)
+      searchParams = buildProcurerSearchParamsFromString(searchString)
       searchParams[:controller] = "organizations"
       searchParams[:action] = "search_procurer"
     end
