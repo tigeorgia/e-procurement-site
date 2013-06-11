@@ -112,6 +112,8 @@ class RootController < ApplicationController
     end
   end
 
+  def about
+  end
 
   def index
     #buildOrganizationXmlStrings
