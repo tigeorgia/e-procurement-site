@@ -1,0 +1,69 @@
+<div>
+			<span style="font-size:16px;">Tender Monitor provides the public with an in-depth look at government spending in Georgia by making detailed information about state procurement available. Tender Monitor was created by Transparency International Georgia, the Georgia chapter of Transparency International, the global anti-corruption movement.</span></div>
+		<div>
+			&nbsp;</div>
+		<div>
+			<span style="font-size:22px;"><strong>Features</strong></span></div>
+          <br>
+		<ul>
+			<li>
+				<strong>Email Alerts</strong></li>
+		</ul>
+		<div style="margin-left: 40px;">
+			Users can sign up to receive email alerts about information they&rsquo;re interested in. For example, a company might sign up to receive email alerts whenever a new tender is posted that calls for the goods or services they provide. A journalist might sign up to receive an alert whenever an agency they are investigating posts a new tender.</div>
+    <br>
+		<ul>
+			<li>
+				<strong>Detailed Supplier Profiles</strong></li>
+		</ul>
+		<div style="margin-left: 40px;">
+			Users can view detailed profiles about every supplier registered in the procurement system, including:</div>
+		<div style="margin-left: 40px;">
+			Total value of tenders won</div>
+		<div style="margin-left: 40px;">
+			Number of tenders the supplier bid on and number won</div>
+		<div style="margin-left: 40px;">
+			Top three competitors; the companies who most commonly bid against this company</div>
+		<div style="margin-left: 40px;">
+			Visualization of tenders won by the supplier, grouped CPV code</div>
+		<div style="margin-left: 40px;">
+			Timeline of tenders won and their value</div>
+    <br>
+		<ul>
+			<li>
+				<strong>Detailed Procurer Profiles</strong></li>
+		</ul>
+		<div style="margin-left: 40px;">
+			Users can view detailed profiles about every procurer registered in the procurement system, including:</div>
+		<div style="margin-left: 40px;">
+			A listing of all tenders issued along with the value and success of the tender</div>
+		<div style="margin-left: 40px;">
+			A timeline of tenders issued, with estimated and actual value</div>
+		<div style="margin-left: 40px;">
+			Visualization of the value of tenders issued, grouped by CPV code</div>
+		<div style="margin-left: 40px;">
+			Visualization of the number of tenders issued, grouped by CPV code</div>
+    <br>
+		<ul>
+			<li>
+				<strong>Corruption Risk Analysis</strong></li>
+		</ul>
+		<div style="margin-left: 40px;">
+			Tenders stored in the system are checked against several metrics designed to assess the risk of corruption for that particular tender. Users can search using the different metrics in order to view tenders which are at risk for corruption. There is a detailed description of the metrics below.</div>
+		<ul>
+			<li>
+				<strong>Aggregate Analysis</strong></li>
+		</ul>
+		<div style="margin-left: 40px;">
+			Aggregate statistics are generated for each year of data in the procurement system, allowing users to view intuitive visualizations of key indicators such as the value of all tenders, grouped by CPV code.</div>
+    <br>
+		<ul>
+			<li>
+				<strong>Data Sources</strong></li>
+		</ul>
+		<div style="margin-left: 40px;">
+			The data on this website comes from the Competition and State Procurement Agency&rsquo;s online procurement platform. There is an auxiliary program attached to this website which automatically downloads and parses the data, and also calculates the derived and aggregate statistics that we display. This reprocessed data is then loaded onto the website so that it is publicly viewable.&nbsp;</div>
+		<div>
+			&nbsp;</div>
+		<div style="margin-left: 40px;">
+			Although we make every effort to ensure that the data available on this website is current and accurate, it is possible that there may be errors or delays caused by the downloading process described above. This website should not be regarded as a primary source for procurement information, and all statistics and information should be confirmed using the official procurement platform website before being used in print or as the basis for research and analysis.</div>
