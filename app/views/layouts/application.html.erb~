@@ -65,7 +65,7 @@
             <%= link_to( t("Analysis"), {:controller => :analysis, :action => "index"}, :class=>"nav-item") %>
           </div>
           <div class="span2">
-            <%= link_to( "About", {:controller => :root, :action => "about"}, :class=>"nav-item") %>
+            <%= link_to( t("About"), {:controller => :root, :action => "about"}, :class=>"nav-item") %>
           </div>
           <div class="span3 offset2">
             <% if user_signed_in? %>
