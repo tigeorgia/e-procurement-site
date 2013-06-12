@@ -50,7 +50,7 @@ before_filter :authenticate_user!
       cpvGroup.save
     end
 
-    if params[:referrer] == 'admin'
+    if params[:isGlobal]
       redirect_to :controller => :admin, :action =>:manageCPVs
     else
       redirect_to :controller => :user, :action =>:index

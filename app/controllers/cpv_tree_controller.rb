@@ -127,7 +127,6 @@ before_filter :authenticate_user!
   def showCPVTree
     @isGlobal = params[:isGlobal]
     @checkedNodes = ""
-    #outputTree()
   end
 
 end
