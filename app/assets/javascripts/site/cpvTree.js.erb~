@@ -1,3 +1,7 @@
+$(document).ready( function() {
+  initTree();
+})
+
 saveData = function(event, data)
 {
   var checked = $("#demo1").jstree("get_checked",null,true);

@@ -1,5 +1,6 @@
 $(function() {
   initDatePickers();
+  initTree();
 });
 
 

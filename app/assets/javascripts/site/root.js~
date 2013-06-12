@@ -1,5 +1,8 @@
 $(function() {
   initDatePickers();
+  $(document).ready( function() {
+  initTree();
+})
 });
 
 
@@ -69,6 +72,30 @@ $(document).ready(function() {
        linkObject.attr('href', ref);
       }
    });
+
+
+    $( "#dialog-confirm" ).dialog({
+          autoOpen: false,
+          resizable: false,
+          height:200,
+          modal: true
+    });
+
+    $( ".confirm" ).button().click(function(e) {
+      e.preventDefault();
+      var targetUrl = $(this).attr("href");
+      $( "#dialog-confirm" ).dialog({
+          buttons: {
+            "Delete": function() {
+              window.location.href = targetUrl;
+            },
+            Cancel: function() {
+              $( this ).dialog( "close" );
+            }
+          }
+        });
+        $( "#dialog-confirm" ).dialog("open");
+    });
   
 });
 
