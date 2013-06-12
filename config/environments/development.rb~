@@ -10,7 +10,7 @@ BootstrapStarter::Application.configure do
   config.whiny_nils = true
 
   # Show full error reports and disable caching
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
@@ -36,7 +36,7 @@ BootstrapStarter::Application.configure do
 
   config.action_mailer.default_url_options = {
     :host => '0.0.0.0',
-    :port => 3000
+    :port => 3000,
     :locale => "en"
   }
 end

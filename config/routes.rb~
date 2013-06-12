@@ -19,8 +19,8 @@ BootstrapStarter::Application.routes.draw do
 
     match '/organization/search_procurer' => 'organizations#search_procurer'
     match '/organization/search' => 'organizations#search'
-    match '/organizations/getProcurers' => 'organizations#getProcurers'
-    match '/organizations/getSuppliers' => 'organizations#getSuppliers'
+    match '/organization/getProcurers' => 'organizations#getProcurers'
+    match '/organization/getSuppliers' => 'organizations#getSuppliers'
     match '/root/organization/search_procurer' => 'organizations#search_procurer'
     match '/root/organization/search' => 'organizations#search'
 

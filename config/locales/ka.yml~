@@ -187,97 +187,97 @@ ka:
   წინადადებების მიღება დაწყებული: წინადადებების მიღება დაწყებული
   ხელშეკრულება დადებულია: ხელშეკრულება დადებულია
 
-  Major Sectors: GEO NEEDED
-  Major Suppliers: GEO NEEDED
-  Major Procurers: GEO NEEDED
-  Additional Search: GEO NEEDED
-  Keyword: GEO NEEDED
-  About: GEO NEEDED
-  Download CSV: GEO NEEDED
-  Tender: GEO NEEDED
-  Supplier: GEO NEEDED
-  Date: GEO NEEDED
-  CPV: GEO NEEDED
-  Est Value: GEO NEEDED
-  Actual Value: GEO NEEDED
-  Bidders: GEO NEEDED
-  Number of Tenders Found: GEO NEEDED
-  N/A: GEO NEEDED
-  Only Foreign: GEO NEEDED
-  Black or White List: GEO NEEDED
-  Number of Organizations Found: GEO NEEDED
-  Duration Of Tender Vs Average Number Of Bidders: GEO NEEDED
+ ﻿  Major Sectors: ძირითადი სექტორები
+  Major Suppliers: ძირითადი მიმწოდებლები
+  Major Procurers: ძირითადი შემსყიდველები
+  Additional Search: დამატებითი ძიება
+  Keyword: ძირითადი სიტყვა 
+  About: შესახებ 
+  Download CSV: CSV-ს ჩამოტვირთვა 
+  Tender: ტენდერი
+  Supplier: მიმწოდებელი 
+  Date: თარიღი 
+  CPV: CPV კოდი
+  Est Value: სავარაუდო ღირებულება 
+  Actual Value: ფაქტობრივი ღირებულება
+  Bidders: პრეტენდენტები 
+  Number of Tenders Found: ნაპოვნი ტენდერების რაოდენობა 
+  N/A: არ შეესაბამება
+  Only Foreign: მხოლოდ უცხოური
+  Black or White List: შავი ან თეთრი სია
+  Number of Organizations Found: ნაპოვნი ორგანიზაციების რაოდენობა
+  Duration Of Tender VS Average Number Of Bidders: ტენდერის ხანგრძლივობა VS პრეტენდენტების საშუალო რიცხვი 
 
-  Revenue Graph: GEO NEEDED
-  Value of Tenders by Type: GEO NEEDED
-  Number of Tenders by Type: GEO NEEDED
-  Bidding Durations: GEO NEEDED
-  Tender Warning Period: GEO NEEDED
-  Average Number of Bidders: GEO NEEDED
-  Average Number of Bids: GEO NEEDED
-  Percentage of Bids that had Atleast One Bidder: GEO NEEDED
-  Duration of Tender vs Average Bidders: GEO NEEDED
-  Bidding Duration Days: GEO NEEDED
-  Download Data: GEO NEEDED
-  Your Categories: GEO NEEDED
-  Create Custom Category: GEO NEEDED
+  Revenue Graph: შემოსავლების გრაფიკი 
+  Value of Tenders by Type: ტენდერების ღირებულება კატეგორიების მიხედვით
+  Number of Tenders by Type: ტენდერების რაოდენობა კატეგორიების მიხედვით
+  Bidding Durations: ტენდერის ხანგრძლივობა 
+  Tender Warning Period: ტენდერის გაფრთხილების პერიოდი
+  Average Number of Bidders: პრეტენდენტების საშუალო რაოდენობა
+  Average Number of Bids: შეთავაზებების საშუალო რაოდენობა 
+  Percentage of Bids that had Atleast One Bidder: იმ ტენდერების საშუალო რაოდენობა სადაც ერთი პრეტენდენტი მაინც მონაწილეობდა
+  Duration of Tender vs Average Bidders: ტენდერების ხანგრძლივობა VS პრეტენდენტების საშუალო რაოდენობა  
+  Bidding Duration Days: შეთავაზებების ხანგრძლივობა 
+  Download Data: მონაცემების ჩამოტვირთვა 
+  Your Categories: შენი კატეგორიები
+  Create Custom Category: შექმენი საკუთარი კატეგორია 
 
-  Account Page: GEO NEEDED
-  Suppliers You Are Watching: GEO NEEDED
-  Procurers You Are Watching: GEO NEEDED
-  Edit: GEO NEEDED
-  Tenders: GEO NEEDED
-  Suppliers: GEO NEEDED
-  Procurers: GEO NEEDED
-  Searches: GEO NEEDED
-  tender: GEO NEEDED 
-  supplier: GEO NEEDED
-  procurer: GEO NEEDED
-  Custom CPV Categories: GEO NEEDED
-  Add New Category: GEO NEEDED
-  Back to Profile: GEO NEEDED
+  Account Page: ანგარიშის გვერდი 
+  Suppliers You Are Watching: მიმწოდებლები, რომლებსაც აკვირდები 
+  Procurers You Are Watching: შემსყიდველები, რომლებსაც აკვირდები 
+  Edit: შესწორება 
+  Tenders: ტენდერები 
+  Suppliers: მიმწოდებლები 
+  Procurers: შემსყიდველები 
+  Searches: ძიება 
+  tender: ტენდერი 
+  supplier: მიმწოდებელი 
+  procurer: შემსყიდველი 
+  Custom CPV Categories: CPV კატეგორიების შესწორება 
+  Add New Category: ახალი კატეგორიის დამატება 
+  Back to Profile: პროფაილზე დაბრუნება 
 
-  Number of Tenders Bid on: GEO NEEDED
-  Main Competitors: GEO NEEDED
-  Tenders Competited on: GEO NEEDED
+  Number of Tenders Bid on: ტენდერების რაოდენობა შეთავაზებების მიხედვით 
+  Main Competitors: ძირითადი კონკურენტები  
+  Tenders Competited on: კონკურენტული ტენდერები 
 
-  Average Simple Tender Duration: GEO NEEDED
-  Average Electronic Tender Duration: GEO NEEDED
+  Average Simple Tender Duration: გამარტივებული ტენდერის საშუალო ხანგრძლივობა 
+  Average Electronic Tender Duration: ელექტრონული ტენდერების საშუალო ხანგრძლივობა 
 
-  Lari: GEO NEEDED
-  Awarded Contract Total: GEO NEEDED
-  Number of Tenders: GEO NEEDED
+  Lari: ლარი 
+  Awarded Contract Total: გაფორმებული კონტრაქტების საერთო რაოდენობა
+  Number of Tenders: ტენდერების რაოდენობა 
 
-  supplier_description: GEO NEEDED
-  procurer_description: GEO NEEDED
-  status_description: GEO NEEDED
-  category_description: GEO NEEDED
-  risk_description: GEO NEEDED
-  min_cost_description: GEO NEEDED
-  max_cost_description: GEO NEEDED
-  min_bids_description: GEO NEEDED
-  max_bids_description: GEO NEEDED
-  min_bidders_description: GEO NEEDED
-  max_bidders_description: GEO NEEDED
-  reg_code_description: GEO NEEDED
-  announced_after_description: GEO NEEDED
-  announced_before_description: GEO NEEDED
-  keyword_description: GEO NEEDED
-  cpv_description: GEO NEEDED
-  supplier_name_description: GEO NEEDED
-  supplier_code_description: GEO NEEDED
-  supplier_type_description: GEO NEEDED
-  supplier_email_description: GEO NEEDED
-  supplier_address_description: GEO NEEDED
-  supplier_city_description: GEO NEEDED
-  supplier_phnumber_description: GEO NEEDED
-  supplier_foreign_description: GEO NEEDED
-  supplier_bwlist_description: GEO NEEDED
-  procurer_name_description: GEO NEEDED
-  procurer_code_description: GEO NEEDED
-  procurer_type_description: GEO NEEDED
+  supplier_description: იმ ორგანიზაციის დასახელება რომელიც ტენდერს პასუხობს.
+  procurer_description: იმ სამთავრობო სააგენტოს დასახელება, რომელმაც ტენდერი გამოაცხადა. 
+  status_description: ტენდერის მიმდინარეობის ფაზა.
+  category_description: შეძენილი საქონლისა და მომსახურეობის ტიპი. ამ საიტზე ანგარიშის შექმნით, თქვენ შეძლებთ საკუთარი კატეგორიების შექმნას და გამოყენებას. 
+  risk_description: ზოგიერთი ნიმუში მოუთითებს ტენდერში არსებული მაღალი რისკის მაჩვენებელს. აღნიშნული მაჩვენებლების გაანგარიშებების შესახებ დეტალური ინფორმაციისთვის ეწვიეთ გვერდს „ ჩვენს შესახებ“.
+  min_cost_description: მოიცავს მხოლოდ იმ ტენდერებს, რომლის მოსალოდნელი ღირებულებაც ემთხვევა ან მეტია ამ ღირებულებაზე.
+  max_cost_description: მოიცავს მხოლოდ იმ ტენდერებს, რომლის მოსალოდნელი ღირებულებაც ემთხვევა ან ნაკლებია ამ ღირებულებაზე.
+  min_bids_description: მოიცავს მხოლოდ იმ ტენდერებს, რომლებმაც მიიღო მინიმუმ ამ  რაოდენობის შეთავაზებები.
+  max_bids_description: მოიცავს მხოლოდ იმ ტენდერებს, რომლებმაც მიიღო ამ შეთავაზებების მაქსიმალური რაოდენობა. 
+  min_bidders_description: მოიცავს მხოლოდ იმ ტენდერებს, რომელზეც სულ მცირე ამ რაოდენობის ორგანიზაციებმა მინიმუმ ერთი შეთავაზება მაინც გააკეთეს. 
+  max_bidders_description: მოიცავს მხოლოდ იმ ტენდერებს, რომელზეც ამ რაოდენობის ორგანიზაციებზე უმეტესმა გააკეთა მინიმუმ ერთი შეთავაზება.
+  reg_code_description: უნიკალური კოდი, რომელიც კონკურენციისა და შესყიდვების სააგენტოს მიერ თითოეულ ტენდერს მიენიჭება. 
+  announced_after_description: ოიცავს მხოლოდ იმ ტენდერებს რომლებიც ამ თარიღის შემდეგ გამოცხადდა.
+  announced_before_description: მოიცავს მხოლოდ იმ ტენდერებს რომლებიც ამ თარიღამდე გამოცხადდა.
+  keyword_description: მოიცავს მხოლოდ იმ ტენდერებს, რომლის „ინფორმაციაც“ შეიცავს აღნიშნულ საკვანძო სიტვას.
+  cpv_description: მოიცავს მხოლოდ ამ cpv კოდების შესაბამის ტენდერებს
+  supplier_name_description: ორგანიზაციის დასახელება.
+  supplier_code_description: ორგანიზაციის საიდენტიფიკაციო კოდი. ქართული კომპანიებისთვის ის არის საჯარო რეესტრის მიერ განსაზღვრული 9 ნიშნა კოდი.
+  supplier_type_description: ორგანიზაციის სამართლებრივი ფორმა. 
+  supplier_email_description: შესყიდვების სააგენტოს მონაცემთა ბაზაში მითითებული ორგანიზაციის ელექტრონული ფოსტა. 
+  supplier_address_description: შესყიდვების სააგენტოს მონაცემთა ბაზაში მითითებული ორგანიზაციის მისამართი.
+  supplier_city_description: შესყიდვების სააგენტოს მონაცემთა ბაზაში  ორგანიზაციის მიერ მითითებული ქალაქი.
+  supplier_phnumber_description: შესყიდვების სააგენტოს მონაცემთა ბაზაში  ორგანიზაციის მიერ მითითებული ტელეფონის ნომერი.
+  supplier_foreign_description: არაქართული ორგანიზაციებისთვის შეზღუდული საძიებო სისტემა. 
+  supplier_bwlist_description: არის თუ არა აღნიშნული ორგანიზაცია შესყიდვების სააგენტოს მიერ შექმნილ შავ ან თეთრ სიაში.
+  procurer_name_description: იმ ორგანიზაციის დასახელება, რომელიც ტენდერს აცხადებს (ხშირად სამთავრობო ინსტიტუტი).  
+  procurer_code_description: საჯარო რეესტრის მიერ განსაზღვრული 9 ნიშნა კოდი.
+  procurer_type_description: იმ ორგანიზაციების კლასიფიკაცია, რომლებიც ტენდერს აცხადებენ .
 
-  Annual Data : GEO NEEDED
+  Annual Data: GEO NEEDED
 
 
   app:
