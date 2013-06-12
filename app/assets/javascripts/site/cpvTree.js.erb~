@@ -4,10 +4,10 @@ $(document).ready( function() {
 
 saveData = function(event, data)
 {
-  var checked = $("#demo1").jstree("get_checked",null,true);
+  var checked = $("#cpvTree").jstree("get_checked",null,true);
   var codestring = "";
   $(checked).each(function (i,node){
-    var full_string = $("#demo1").jstree("get_text",node);
+    var full_string = $("#cpvTree").jstree("get_text",node);
     var strings = full_string.split(":");
     var cpv = $.trim(strings[0]);
     codestring = codestring + cpv + ','
@@ -40,12 +40,12 @@ isChild = function(code, candidate)
 openParentNodes = function( childNodes, codes )
 {
 
-  var myTree = $("#demo1");
+  var myTree = $("#cpvTree");
   var myTreeContainer = $.jstree._reference(myTree).get_container();
   var fullNodeList = myTreeContainer.find("li");
 
   for (var k = 0; k < childNodes.length; ++k){
-    var full_string = $("#demo1").jstree("get_text",childNodes[k]);
+    var full_string = $("#cpvTree").jstree("get_text",childNodes[k]);
     var strings = full_string.split(":");
     var cpv = $.trim(strings[0]);
     if( cpv == "00000000" ){
@@ -53,7 +53,7 @@ openParentNodes = function( childNodes, codes )
     }
     for( var i = 0; i < codes.length; i++){
       if(isChild(cpv, codes[i])){
-        $("#demo1").jstree("open_node",childNodes[k]);
+        $("#cpvTree").jstree("open_node",childNodes[k]);
       }
     }
   }
@@ -80,7 +80,7 @@ openParentNodes = function( childNodes, codes )
 
 loadSavedNodes = function()
 {
-  var myTree = $("#demo1");
+  var myTree = $("#cpvTree");
   var codestring = $("#codes").val();
   var codes = codestring.split(",");
   var myTreeContainer = $.jstree._reference(myTree).get_container();
@@ -94,7 +94,7 @@ loadSavedNodes = function()
 
 checkExisting = function()
 {
-  var myTree = $("#demo1");
+  var myTree = $("#cpvTree");
   var codestring = $("#codes").val();
   var codes = codestring.split(",");
   var myTreeContainer = $.jstree._reference(myTree).get_container();
@@ -102,20 +102,20 @@ checkExisting = function()
 
   for( var i = 0; i < codes.length; i++){
     for (var k = 0; k < childNodes.length; ++k){
-      var full_string = $("#demo1").jstree("get_text",childNodes[k]);
+      var full_string = $("#cpvTree").jstree("get_text",childNodes[k]);
       var strings = full_string.split(":");
       var cpv = $.trim(strings[0]);
       if(cpv == codes[i]){
-        var parent = $("#demo1").jstree("_get_parent",childNodes[k]);
-        $("#demo1").jstree("check_node",childNodes[k]);
+        var parent = $("#cpvTree").jstree("_get_parent",childNodes[k]);
+        $("#cpvTree").jstree("check_node",childNodes[k]);
       }
     }
   }
 }
 
-initTree = function()
+initTree = function( )
 {
-  var myTree = $("#demo1").bind("check_node.jstree uncheck_node.jstree",saveData).jstree({
+  var myTree = $("#cpvTree").bind("check_node.jstree uncheck_node.jstree",saveData).jstree({
 	        "json_data" : {
 	            "ajax" : { 
                 "url" : "<%= asset_path 'cpvTree.json' %>",
@@ -129,5 +129,5 @@ initTree = function()
       "plugins" : [ "ui","themes", "json_data", "checkbox"]
   });
 
-  $("#demo1").bind("loaded.jstree",loadSavedNodes)
+  $("#cpvTree").bind("loaded.jstree",loadSavedNodes)
 }

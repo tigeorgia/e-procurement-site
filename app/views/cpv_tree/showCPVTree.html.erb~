@@ -1,6 +1,7 @@
-<script>$(document).ready( function() {
-  initTree();
-})
+<script>
+  $(document).ready( function() {
+    initTree();
+  })
 </script>
 
 <%= button_to "Back to Profile", user_path,:method => :get, :class => "user-button" %>
@@ -13,5 +14,5 @@
 <% end %>
 
 
-<div id="demo1" class="demo">
+<div id="cpvTree">
 </div>

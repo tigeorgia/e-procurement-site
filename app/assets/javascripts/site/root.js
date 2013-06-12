@@ -1,6 +1,5 @@
 $(function() {
   initDatePickers();
-  initTree();
 });
 
 
@@ -96,6 +95,3 @@ $(document).ready(function() {
     });
   
 });
-
-
-
