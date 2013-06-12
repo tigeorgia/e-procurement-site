@@ -4,8 +4,6 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
 
  *= require_self
- *= require jquery.ui.core
- *= require jquery.ui.theme
  *= require jquery.ui.base
 
  *= require bootstrap-datepicker
@@ -14,6 +12,8 @@
  *= require dataTables/src/demo_table_jui
  *= require bootstrap_and_overrides
  *= require cpvChart
+ *= require ./jtree/jquery.jstree
+ *= require style
  *= require root
 */
 

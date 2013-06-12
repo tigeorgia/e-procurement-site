@@ -115,10 +115,12 @@ checkExisting = function()
 
 initTree = function( )
 {
+
+  $("#cpvTree1").jstree("set_theme","default", "./");
   var myTree = $("#cpvTree").bind("check_node.jstree uncheck_node.jstree",saveData).jstree({
 	        "json_data" : {
 	            "ajax" : { 
-                "url" : "<%= asset_path 'cpvTree.json' %>",
+                "url" : "/assets/cpvTree.json",
                 "data" : function (n) {
 	                return { id : n.attr ? n.attr("id") : 0 };
                  }

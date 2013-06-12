@@ -62,10 +62,10 @@
             <%= link_to( t("Search Page"), root_path(:locale => I18n.locale),:class=>"nav-item") %>
           </div>
           <div class="span2">
-            <%= link_to( t("Annual Data"), {:controller => :analysis, :action => "index"}, :class=>"nav-item") %>
+            <%= link_to( t("Annual Data"), {:controller => '/analysis', :action => "index"}, :class=>"nav-item") %>
           </div>
           <div class="span2">
-            <%= link_to( t("About"), {:controller => :root, :action => "about"}, :class=>"nav-item") %>
+            <%= link_to( t("About"), {:controller => '/root', :action => "about"}, :class=>"nav-item") %>
           </div>
           <div class="span3 offset2">
             <% if user_signed_in? %>
