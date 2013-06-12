@@ -1190,24 +1190,24 @@ module ScraperFile
 
     #parse orgs first so that other objects can sort out relationships
     puts "processing Orgs"
-    #self.processOrganizations
+    self.processOrganizations
     puts "processing tenders"  
-    #self.processTenders
+    self.processTenders
     puts "processing bidders"
-    #self.processBidders
+    self.processBidders
     puts "processing agreements"
-    #self.processAgreements
+    self.processAgreements
     puts "processing docs"
-    #self.processDocuments
+    self.processDocuments
     puts "processing sub cpv codes"
-    #self.processCPVCodes
+    self.processCPVCodes
     
     puts "processing white list"
-    #self.processWhiteList
+    self.processWhiteList
     puts "processing black list"
-    #self.processBlackList
+    self.processBlackList
     puts "process complaints"    
-    #self.processComplaints
+    self.processComplaints
 
     @newOrgsTemp.each do |org|
       if org.is_bidder
