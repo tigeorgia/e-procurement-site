@@ -52,6 +52,7 @@ module ScraperFile
           tender.url_id = item["tenderID"]
           tender.dataset_id = @newDataset.id
           tender.tender_type = self.cleanString(item["tenderType"])
+
           tender.tender_registration_number = item["tenderRegistrationNumber"]
           tender.tender_status = self.cleanString(item["tenderStatus"])
           tender.tender_announcement_date = Date.parse(item["tenderAnnouncementDate"])     
@@ -78,37 +79,33 @@ module ScraperFile
               organization.save
             end
           end
-          if tender.valid?
-            #is there an old tender with this url?
-            oldTender = nil
-            if @numDatasets > 1
-              #look at previous scraped data and see if we have the same tender
-              oldTender = Tender.where(:url_id => tender.url_id,:dataset_id => @liveDataset.id).first
-              if oldTender
-                watch_tender = WatchTender.where(:tender_url => tender.url_id).first
-                if watch_tender
-                  differences = oldTender.findTenderDifferences(tender)
-                  if differences.length > 0
-                    #store changed fields in hash
-                    hash = ""
-                    differences.each do |difference|
-                      hash += difference + "#"
-                    end
-                    watch_tender.hash = hash
-                    watch_tender.has_updated = true
+          #is there an old tender with this url?
+          oldTender = nil
+          if @numDatasets > 1
+            #look at previous scraped data and see if we have the same tender
+            oldTender = Tender.where(:url_id => tender.url_id,:dataset_id => @liveDataset.id).first
+            if oldTender
+              watch_tender = WatchTender.where(:tender_url => tender.url_id).first
+              if watch_tender
+                differences = oldTender.findTenderDifferences(tender)
+                if differences.length > 0
+                  #store changed fields in hash
+                  hash = ""
+                  differences.each do |difference|
+                    hash += difference + "#"
                   end
+                  watch_tender.hash = hash
+                  watch_tender.has_updated = true
                 end
               end
-            end
-            tender.save
-            @newTenders.push(tender)
-            if oldTender
-              oldTender.destroy
-            end
-          else
-	          raise ActiveRecord::Rollback
-	          break
-          end #if tender valid   
+            end 
+          end         
+          tender.save
+          @newTenders.push(tender)
+          if oldTender
+            puts "destroying tender: " + oldTender.id.to_s
+            oldTender.destroy
+          end 
         end #while
       end#transaction
     end#file
@@ -144,22 +141,18 @@ module ScraperFile
             organization.webpage = self.cleanString(item["webpage"])
             organization.is_procurer = false
             organization.is_bidder = false
-            if organization.valid?
-              #if we have an old dataset we can check if this org has been updated
-              if @numDatasets > 1
-                oldOrganization = Organization.where(:organization_url => organization.organization_url, :dataset_id => @liveDataset.id).first
-                if oldOrganization
-                  #this is an org update we could send email alerts here
-                end
-              end          
-              organization.save
-              @newOrgsTemp.push(organization)
-              #now we know everything is sorted we can run a name translation
-              self.generateOrganizationNameTranslation( organization )
-            else
-              raise ActiveRecord::Rollback
-              break
-            end        
+            #if we have an old dataset we can check if this org has been updated
+            if @numDatasets > 1
+              oldOrganization = Organization.where(:organization_url => organization.organization_url, :dataset_id => @liveDataset.id).first
+              if oldOrganization
+                #this is an org update we could send email alerts here
+              end
+            end   
+            puts "saving org: " + organization.id.to_s       
+            organization.save
+            @newOrgsTemp.push(organization)
+            #now we know everything is sorted we can run a name translation
+            self.generateOrganizationNameTranslation( organization )      
           end#if
         end#while
       end#transaction
@@ -209,13 +202,8 @@ module ScraperFile
               organization.save
             end
           end
-          if bidder.valid?
-            bidder.save
-            tender.save
-          else
-            raise ActiveRecord::Rollback
-            break
-          end
+          bidder.save
+          tender.save
         end#while
       end#transaction
     end#file  
@@ -240,18 +228,23 @@ module ScraperFile
           agreement.documentation_url = item["documentUrl"]
           
           if agreement.documentation_url == "disqualifed" or agreement.documentation_url == "bidder refused agreement"
+
+            puts "disqualifed agreement"
             organization = Organization.where(["name = ? AND dataset_id = ?",item["OrgUrl"].gsub("&amp;","&"),@newDataset.id]).first
-            agreement.organization_url = organization.organization_url
-            agreement.organization_id = organization.id
-            agreement.amount = -1
-            agreement.currency ="NULL"
-            begin
-              agreement.start_date = Date.parse(item["StartDate"])
-            rescue
-              agreement.start_date = "NULL"
+            if organization
+              agreement.organization_url = organization.organization_url
+              agreement.organization_id = organization.id
+              agreement.amount = -1
+              agreement.currency ="NULL"
+              begin
+                agreement.start_date = Date.parse(item["StartDate"])
+              rescue
+                agreement.start_date = "NULL"
+              end
+              agreement.expiry_date = "NULL"
             end
-            agreement.expiry_date = "NULL"
           else
+            puts "normal agreement"
             agreement.organization_url = item["OrgUrl"]
             string_arr = item["Amount"].gsub(/\s+/m, ' ').strip.split(" ")
             agreement.amount = string_arr[0]
@@ -280,12 +273,7 @@ module ScraperFile
               agreement.organization_id = organization.id
             end
                   
-            if agreement.valid?
-              agreement.save
-            else
-              raise ActiveRecord::Rollback
-              break
-            end
+            agreement.save
           end
         end#while
       end#transaction
@@ -309,12 +297,7 @@ module ScraperFile
           if count%100 == 0
             puts "cpvCode: #{count}"
           end
-          if cpvCode.valid?
-            cpvCode.save
-          else
-            raise ActiveRecord::Rollback
-            break
-          end
+          cpvCode.save
         end#while
       end#transaction
     end#file 
@@ -339,18 +322,14 @@ module ScraperFile
           if count%100 == 0
             puts "document: #{count}"
           end
-          if document.valid?
-            #if this an update to an old doc
-            #remove old doc
-            oldDoc = Document.where(:document_url => document.document_url).first
-            if oldDoc
-              oldDoc.destroy
-            end
-            document.save
-          else
-            raise ActiveRecord::Rollback
-            break
+
+          #if this an update to an old doc
+          #remove old doc
+          oldDoc = Document.where(:document_url => document.document_url).first
+          if oldDoc
+            oldDoc.destroy
           end
+          document.save
         end#while
       end#transaction
     end #file
@@ -691,7 +670,7 @@ module ScraperFile
       holidayIndicator.id = 1     
       holidayIndicator.weight = 5
       holidayIndicator.description = "This tender was announced during the holiday period which seems like a strange time to start procurements"
-      holidayIndicator.save
+      #holidayIndicator.save
     end
 
     compeitionIndicator = CorruptionIndicator.where(:id => 2).first
@@ -707,7 +686,7 @@ module ScraperFile
     biddingIndicator = CorruptionIndicator.where(:id => 3).first
     if not biddingIndicator
       biddingIndicator = CorruptionIndicator.new
-      biddingIndicator.name = "Tame bidding exchange"
+      biddingIndicator.name = "Low Price Decrease"
       biddingIndicator.id = 3     
       biddingIndicator.weight = 3
       biddingIndicator.description = "When two or more companies are bidding for a contract it is expected that a bidding war should lower the price a reasonble amount this has not happened in this case"
@@ -731,7 +710,7 @@ module ScraperFile
       majorPlayerIndicator.id = 5     
       majorPlayerIndicator.weight = 2
       majorPlayerIndicator.description = "Only one major player has been a bid on this contract"
-      majorPlayerIndicator.save
+      #majorPlayerIndicator.save
     end
 
     contractAmendmentIndicator = CorruptionIndicator.where(:id => 6).first
@@ -767,16 +746,16 @@ module ScraperFile
     #remove old flags
     TenderCorruptionFlag.delete_all
     
-    puts "holiday"
-    self.identifyHolidayPeriodTenders(holidayIndicator)   
+    #puts "holiday"
+    #self.identifyHolidayPeriodTenders(holidayIndicator)   
     puts "competition"
     self.competitionAssessment(compeitionIndicator)
     puts "bidding"
     self.biddingWarAssessment(biddingIndicator)
     puts "risky codes"
     self.identifyRiskyCPVCodes(cpvRiskIndicator)
-    puts "Major players"
-    self.majorPlayerCompetitionAssessment(majorPlayerIndicator)
+    #puts "Major players"
+    #self.majorPlayerCompetitionAssessment(majorPlayerIndicator)
     puts "amendment"
     self.contractAmendmentAssessment(contractAmendmentIndicator)
     puts "black list"
@@ -907,19 +886,29 @@ module ScraperFile
       if tender.contract_value and tender.contract_value > 0
         #needs atleast 1 amendment
         if tender.agreements.count > 1
+          winningBidder = nil
           tender.bidders.each do |bidder|
-            #if another bidders price was lower than an amended price
-            if bidder.organization_id != tender.winning_org_id
-              if bidder.last_bid_amount < tender.contract_value
-                #risky tender!
-                corruptionFlag = TenderCorruptionFlag.new
-                corruptionFlag.tender_id = tender.id
-                corruptionFlag.corruption_indicator_id = indicator.id
-                corruptionFlag.value = 1
-                corruptionFlag.save
-                self.addRiskIndicatorToTender(tender, indicator.id)
-                self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
-                break
+            if bidder.organization_id == tender.winning_org_id
+              winningBidder = bidder
+              break
+            end
+          end
+
+          if winningBidder
+            tender.bidders.each do |bidder|
+              #if another bidders price was lower than an amended price
+              if bidder.organization_id != tender.winning_org_id
+                if bidder.last_bid_amount > winningBidder.last_bid_amount and bidder.last_bid_amount < tender.contract_value
+                  #risky tender!
+                  corruptionFlag = TenderCorruptionFlag.new
+                  corruptionFlag.tender_id = tender.id
+                  corruptionFlag.corruption_indicator_id = indicator.id
+                  corruptionFlag.value = 1
+                  corruptionFlag.save
+                  self.addRiskIndicatorToTender(tender, indicator.id)
+                  self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
+                  break
+                end
               end
             end
           end
@@ -952,10 +941,10 @@ module ScraperFile
 
   def self.generateCompetitorData()
 
-    puts "begin cpv output"
+    #puts "begin cpv output"
     orgs = {}
-    nodeID = 0
-    edgeID = 0
+    #nodeID = 0
+    #edgeID = 0
     Tender.find_each do |tender|
       ids = []
       winning_org_id = tender.winning_org_id
@@ -987,7 +976,7 @@ module ScraperFile
     end#for all tenders
     
 
-    File.open("nodes.csv", "w+") do |nf|
+=begin    File.open("nodes.csv", "w+") do |nf|
       nf.write("Id,Label\n")
       File.open("edges.csv", "w+") do |ef|
         ef.write("Source,Target,Type,Id,Label,Weight\n")
@@ -1003,6 +992,7 @@ module ScraperFile
       end
     end
     puts "cpv saved"
+=end
   end
 
   def self.findCompetitors
@@ -1114,20 +1104,21 @@ module ScraperFile
   end
 
   def self.generateOrganizationNameTranslation( organization )
-    orgName = organization.name
+=begin    orgName = organization.name
     puts "translating: " + orgName
     translations = TranslationHelper.findStringTranslations(orgName)
     organization.saveTranslations(translations)
-    tenderList = Tenders.where(:procurring_entity_id => organization.id)
+    tenderList = Tender.where(:procurring_entity_id => organization.id)
     tenderList.each do |tender|
       tender.procurer_name += "#"+organization.translation
       tender.save
     end
-    tenderList = Tenders.where(:winning_org_id => organization.id)
+    tenderList = Tender.where(:winning_org_id => organization.id)
     tenderList.each do |tender|
       tender.supplier_name += "#"+organization.translation
       tender.save
     end
+=end
   end
 
 
@@ -1199,24 +1190,24 @@ module ScraperFile
 
     #parse orgs first so that other objects can sort out relationships
     puts "processing Orgs"
-    self.processOrganizations
+    #self.processOrganizations
     puts "processing tenders"  
-    self.processTenders
+    #self.processTenders
     puts "processing bidders"
-    self.processBidders
+    #self.processBidders
     puts "processing agreements"
-    self.processAgreements
+    #self.processAgreements
     puts "processing docs"
-    self.processDocuments
+    #self.processDocuments
     puts "processing sub cpv codes"
-    self.processCPVCodes
+    #self.processCPVCodes
     
     puts "processing white list"
-    self.processWhiteList
+    #self.processWhiteList
     puts "processing black list"
-    self.processBlackList
+    #self.processBlackList
     puts "process complaints"    
-    self.processComplaints
+    #self.processComplaints
 
     @newOrgsTemp.each do |org|
       if org.is_bidder
@@ -1244,7 +1235,7 @@ module ScraperFile
     puts "finding corruption"
     self.generateRiskFactors
 
-    self.buildOrganizationXmlStrings
+    #self.buildOrganizationXmlStrings
   end
 
   def self.generateAlerts
