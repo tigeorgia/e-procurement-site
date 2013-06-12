@@ -1,8 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
 
-
   def new
-    puts "works"
     self.resource = build_resource(nil)
     clean_up_passwords(resource)
     respond_with(resource, serialize_options(resource))
@@ -10,7 +8,6 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    puts "this works"
     self.resource = warden.authenticate!(auth_options)
     set_flash_message(:notice, :signed_in) if is_navigational_format?
     sign_in(resource_name, resource)
@@ -19,7 +16,6 @@ class Users::SessionsController < Devise::SessionsController
 
 # DELETE /resource/sign_out
   def destroy
-    puts "signing out"
     redirect_path = after_sign_out_path_for(resource_name)
     signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
     set_flash_message :notice, :signed_out if signed_out && is_navigational_format?

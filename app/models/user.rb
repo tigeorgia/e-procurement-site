@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
 	# :registerable, :recoverable,
   devise  :registerable, :database_authenticatable,
-         :rememberable, :trackable, :validatable
+         :rememberable, :trackable, :validatable, :recoverable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :id, :email, :password, :password_confirmation, :remember_me, :role

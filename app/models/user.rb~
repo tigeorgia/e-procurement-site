@@ -2,12 +2,14 @@ class User < ActiveRecord::Base
   has_many :watch_tenders
   has_many :searches
   has_many :cpvGroups
+  has_many :procurer_watches
+  has_many :supplier_watches
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
 	# :registerable, :recoverable,
   devise  :registerable, :database_authenticatable,
-         :rememberable, :trackable, :validatable
+         :rememberable, :trackable, :validatable, :recoverables, :confirmable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :id, :email, :password, :password_confirmation, :remember_me, :role
