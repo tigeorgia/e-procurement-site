@@ -45,7 +45,7 @@
         <div class="heading" style="height: 100%">
           <div class="row-fluid" style="height: 100%">
             <div class="span8" style="height: 100%">
-              <h1 class="heading"><%=t("site_title")</h1>
+              <h1 class="heading"><%=t("site_title")%></h1>
             </div>
             <div class="span4" style="height: 100%">
               <%= link_to(image_tag("logo-en.png"), "http://www.transparency.ge", :target => "_blank", :title => t(".ti_link_title"), :class => "banner"	) %>
@@ -62,7 +62,7 @@
             <%= link_to( t("Search Page"), root_path(:locale => I18n.locale),:class=>"nav-item") %>
           </div>
           <div class="span2">
-            <%= link_to( t("Analysis"), {:controller => :analysis, :action => "index"}, :class=>"nav-item") %>
+            <%= link_to( t("Annual Data"), {:controller => :analysis, :action => "index"}, :class=>"nav-item") %>
           </div>
           <div class="span2">
             <%= link_to( t("About"), {:controller => :root, :action => "about"}, :class=>"nav-item") %>

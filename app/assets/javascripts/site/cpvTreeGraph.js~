@@ -63,7 +63,7 @@ function createD3Graphs( root )
 {
   var labelHeight = 50;
   var width = $('#cpvChart').width();
-  var height = 650 - labelHeight;
+  var height = 600 - labelHeight;
   
 
   var formatNumber = d3.format(",d");

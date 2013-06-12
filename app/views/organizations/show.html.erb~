@@ -304,7 +304,6 @@ $(function () {
 });
 </script>
 
-<%- model_class = Supplier -%>
 <div class="page-header">
   <h1><%=t '.title', :default => t("Supplier") %></h1>
 </div>

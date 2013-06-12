@@ -137,7 +137,6 @@ function createD3Graphs( root )
   }
 
   function display(d) {
-    //Math.seedrandom('88');
     grandparent
         .datum(d.parent)
         .on("click", transition)

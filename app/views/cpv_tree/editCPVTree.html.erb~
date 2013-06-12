@@ -6,5 +6,5 @@
   <%= submit_tag( t("Save Category"), :class => "submit-button") %>
 <% end %>
 
-<div id="demo1" class="demo">
+<div id="cpvTree">
 </div>

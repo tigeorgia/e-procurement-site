@@ -6,7 +6,7 @@
 
 <%- model_class = Organization -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => t("Organizations") %></h1>
+  <h1><%=t '.title', :default => t("Suppliers") %></h1>
 </div>
 
 <% if user_signed_in? %>
@@ -32,7 +32,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th class="arrow"><%= sortable(@params, "name", t("Name")) %></th>
+      <th class="arrow header-20"><%= sortable(@params, "name", t("Name")) %></th>
       <th class="arrow"><%= sortable(@params, "code", t("Code")) %></th>
       <th class="arrow"><%= sortable(@params, "org_type", t("Type")) %></th>
       <th class="arrow"><%= sortable(@params, "country", t("Country")) %></th>

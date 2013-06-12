@@ -37,7 +37,13 @@ en:
   საქართველო: Georgia
 
   
+
+  Search Tenders: Search Tenders
+  Search Suppliers: Search Suppliers
+  Search Procurers: Search Procurers
+
   site_title: TENDER MONITOR.GE
+  Annual Data: Annual Data
   Tender Monitor: Tender Monitor
   Save To Profile: Save To Profile
   Remove From Profile: Remove From Profile
@@ -78,7 +84,7 @@ en:
   Major Sectors: Major Sectors
   Major Suppliers: Major Suppliers
   Major Procurers: Major Procurers
-  Additional Search: Addition Search
+  Additional Search: Advanced Search
   Keyword: Keyword
   About: About
   Download CSV: Download CSV
@@ -102,7 +108,7 @@ en:
   Tender Warning Period: Tender Warning Period
   Average Number of Bidders: Average Number of Bidders
   Average Number of Bids: Average Number of Bids
-  Percentage of Bids that had Atleast One Bidder: Percentage of Bids that had Atleast One Bidder
+  Percentage of Bids that had at Least One Bidder: Percentage of Bids that had at Least One Bidder
   Duration of Tender vs Average Bidders: Duration of Tender vs Average Bidders
   Bidding Duration Days: Bidding Duration Days
   Download Data: Download Data
@@ -132,6 +138,36 @@ en:
   Awarded Contract Total: Awarded Contract Total
 
   Number of Tenders: Number of Tenders
+
+  supplier_description: The name of the company responding to the tender.
+  procurer_description: The name of the government agency issuing the tender.
+  status_description: The phase of procurement the tender is currently in.
+  category_description: The type of goods or services being bought. By creating an account on this website, you will be able to create and use your own custom categories.
+  risk_description:  Certain patterns can indicate that a tender has an elevated risk of corruption. For full details on how these indicators are calculated, please visit the About Us page.
+  tender_type_description: There are several different categories of tender, depending on the value of the tender and what is being procured. Please visit the About Us page for a description of the tender types.
+  min_cost_description: Include only tenders whose cost estimate is equal to or greater than this amount.
+  max_cost_description: Include only tenders whose cost estimate is equal to or less than this amount.
+  min_bids_description: Include only tenders which received at least this many bids.
+  max_bids_description: Include only tenders which received at most this many bids.
+  min_bidders_description:  Include only tenders on which at least this many organizations placed at least one bid.
+  max_bidders_description: Include only tenders on which at most this many organizations placed at least one bid.
+  reg_code_description: The unique code assigned to each tender by the Competition and State Procurement Agency
+  announced_after_description:  Include only tenders which were announced after this date.
+  announced_before_description: Include only tenders which were announced before this date.
+  keyword_description: Include only tenders whose “Information” section contains this keyword.
+  cpv_description:  Include only tenders matching this CPV code.
+  supplier_name_description: The name of the company.
+  supplier_code_description: The identification code of the company. For Georgian companies, this is a 9-digit identification code assigned by the Public Registry.
+  supplier_type_description: The corporate form of the company.
+  supplier_email_description: The email listed for this company in the procurement platform’s user database.
+  supplier_address_description: The address listed for this company in the procurement platform’s user database.
+  supplier_city_description: The city listed for this company in the procurement platform’s user database.
+  supplier_phnumber_description: The phone number listed for this company in the procurement platform’s user database.
+  supplier_foreign_description: Limit the search to non-Georgian companies.
+  supplier_bwlist_description: Whether the company is on either the White List or Black List maintained by the Competition and State Procurement Agency.
+  procurer_name_description: The name of the organization issuing the tender (often a government agency).
+  procurer_code_description: The 9-digit corporate identification code assigned by the Public Registry
+  procurer_type_description: The classification of the entity issuing the tender.
   
   app:
     language:

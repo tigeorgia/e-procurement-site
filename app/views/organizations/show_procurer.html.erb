@@ -167,8 +167,6 @@ $(function () {
 });
 </script>
 
-
-<%- model_class = Organization -%>
 <div class="page-header">
   <h1><%= t("Procurer")%></h1>
 </div>
@@ -245,7 +243,7 @@ $(function () {
 <h3><%= t("Tenders Issued")%></h3>
 <br></br>
 <p>
-  <%= button_to "Download CSV",{ :controller => "organization", :action => "download_proc_tenders", :format => "csv", :id => @organization.id}, :class => "submit-button" %>
+  <%= button_to t("Download CSV"),{ :controller => "organization", :action => "download_proc_tenders", :format => "csv", :id => @organization.id}, :class => "submit-button" %>
 </p>
 
   <table class="dataTable" cellpadding="0" cellspacing="0" border="0" width="100%" >

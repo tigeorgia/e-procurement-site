@@ -1,9 +1,3 @@
-<script>
-  $(document).ready( function() {
-    initTree();
-  })
-</script>
-
 <%= button_to "Back to Profile", user_path,:method => :get, :class => "user-button" %>
 <br>
 <%= form_tag( { :controller => :cpv_tree, :action => "save_cpv_group", :isGlobal => @isGlobal, :cpvGroup => @cpvGroup}, {:id => "saveTree"} ) do %>

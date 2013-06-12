@@ -13,7 +13,7 @@
     <% @cpvGroups.each do |cpvGroup| %>
       <tr>
         <td><%= link_to(image_tag("delete-icon.png"), {:controller => "cpv_tree", :action => "deleteCPVTree", :cpvGroup => cpvGroup, :isGlobal => @isGlobal}, :class => "confirm") %></td>
-        <td><%= button_to "Edit", {:controller => "cpv_tree", :action => "editCPVTree", :cpvGroup => cpvGroup, :isGlobal => @isGlobal}, :class => "user-button" %></td>
+        <td><%= button_to t("Edit"), {:controller => "cpv_tree", :action => "editCPVTree", :cpvGroup => cpvGroup, :isGlobal => @isGlobal}, :class => "user-button" %></td>
         <td><%= cpvGroup.name %></td>
         <td><%= cpvGroup.created_at %></td>
       </tr>
