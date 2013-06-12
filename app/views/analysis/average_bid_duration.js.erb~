@@ -14,7 +14,7 @@ $(function () {
        xAxis: {
           categories: [
              <% @info.each do |key,data| %>
-              "<%= type[0] %>",
+              "<%=data[:name]%>",
              <% end %>
           ]
        },
@@ -25,7 +25,7 @@ $(function () {
        },
         series: [{
           name: '<%=t("Average Bidding Duration")%>',
-          data: [<% @info.each do |key,data| %> ["<%=data[:name]%>",<%=data[:tenderInfo].average_bid_duration%>], <% end %>]
+          data: [<% @info.each do |key,data| %> ["<%=t(data[:name])%>",<%=data[:tenderInfo].average_bid_duration%>], <% end %>]
         }]
       });
   });

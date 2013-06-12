@@ -3,7 +3,6 @@ module GraphHelper
   def createTreeGraphStringFromAgreements( agreements )
     cpvTree = []
     done = false
-    #new_logger = Logger.new('log/parents.log')
     while not done
       newNodes = [] 
       agreements.each do |key, agreement|
@@ -34,7 +33,7 @@ module GraphHelper
     jsonString = ""
     if cpvTree.length > 0
       #lets make a tree out of our CPV codes
-      root = { :name => "cpv", :code => "00000000", :children => [] }
+      root = { :name => "", :code => "00000000", :children => [] }
       cpvTree.sort! {|x,y| x[:code] <=> y[:code] }
       root = createTree( root, cpvTree )
       root = createUndefinedCategories( root )

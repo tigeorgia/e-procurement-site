@@ -45,7 +45,7 @@
         <div class="heading" style="height: 100%">
           <div class="row-fluid" style="height: 100%">
             <div class="span8" style="height: 100%">
-              <h1 class="heading"><%=t("site_title")%></h1>
+              <a href=<%=root_path(:locale => I18n.locale)%> style="text-decoration: none"><h1 class="heading"><%=t("site_title")%></h1></a>
             </div>
             <div class="span4" style="height: 100%">
               <%= link_to(image_tag("logo-en.png"), "http://www.transparency.ge", :target => "_blank", :title => t(".ti_link_title"), :class => "banner"	) %>
@@ -61,13 +61,13 @@
           <div class="span2">
             <%= link_to( t("Search Page"), root_path(:locale => I18n.locale),:class=>"nav-item") %>
           </div>
-          <div class="span2">
+          <div class="span3">
             <%= link_to( t("Annual Data"), {:controller => '/analysis', :action => "index"}, :class=>"nav-item") %>
           </div>
           <div class="span2">
             <%= link_to( t("About"), {:controller => '/root', :action => "about"}, :class=>"nav-item") %>
           </div>
-          <div class="span3 offset2">
+          <div class="span3 offset1">
             <% if user_signed_in? %>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle nav-item" data-toggle="dropdown" >

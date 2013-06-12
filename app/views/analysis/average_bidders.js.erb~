@@ -2,9 +2,9 @@ $(function () {
   $("#results").html('<%= escape_javascript( render :partial => "average_bidders" ) %>');
 
   $(document).ready(function() {
-      bidDurationChart = new Highcharts.Chart({
+      averageBiddersChart = new Highcharts.Chart({
        chart: {
-          renderTo: 'averageBidDurationGraph',
+          renderTo: 'averageBiddersGraph',
           type: 'bar',
           backgroundColor: 'rgba(255,255,255,0)'
        },
@@ -14,7 +14,7 @@ $(function () {
        xAxis: {
           categories: [
              <% @info.each do |key,data| %>
-              "<%=data[:name]%>",
+              "<%=t(data[:name])%>",
              <% end %>
           ]
        },
@@ -25,7 +25,6 @@ $(function () {
        },
         series: [{
           name: '<%=t("Average Bidding Duration")%>',
-          data: [<% @info.each do |key,data| %> ["<%=data[:name]%>",<%=data[:tenderInfo].total_bidders.to_f/data[:tenderInfo].count%>], <% end %>]
         }]
       });
   });

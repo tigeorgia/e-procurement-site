@@ -89,17 +89,14 @@ module GraphHelper
   end
 
   def isChild(parent, node)
-    puts "PEOW"
     if parent[:code] == "00000000" 
       return true
     elsif parent[:code] == node[:code]
       return false
     else
       nodeDigits = countZeros(node[:code])
-      puts node
       #6 zeros or more means this is a primary grouping
       if nodeDigits >= 6
-        puts node
         return false
       end
       digits = countZeros(parent[:code])

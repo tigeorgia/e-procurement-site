@@ -8,7 +8,7 @@ BootstrapStarter::Application.routes.draw do
 		match '/admin', :to => 'admin#index', :as => :admin, :via => :get
     match '/user', :to => 'user#index', :as => :user, :via => :get
   
-		devise_for :users, :path_names => { :sign_up => "register" }
+		 devise_for :users, :controllers => { :sessions => "users/sessions", :registrations => "users/registrations" }, :path_names => { :sign_up => "register" }
 
     namespace :admin do
       resources :users

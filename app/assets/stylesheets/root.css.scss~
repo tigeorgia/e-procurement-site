@@ -566,7 +566,7 @@ border: none;
 
 
 tr[role=row]{
-  background: #fff;
+  background: #ececec;
 }
 
 
@@ -710,3 +710,7 @@ div.active-button{
 .jstree-default.jstree-focused { 
   background:transparent!important; 
 }
+
+.account-text {
+  font-size: 17px;
+} 

@@ -15,7 +15,7 @@ $(function () {
        xAxis: {
           categories: [
              <% @info.each do |key,data| %>
-              "<%=data[:name]%>",
+              "<%=t(data[:name])%>",
              <% end %>
           ]
        },
@@ -26,7 +26,7 @@ $(function () {
        },
        series: [{
           name: '<%=t("Days After Announcement")%>',
-          data: [<% @info.each do |key,data| %> ["<%=data[:name]%>",<%=data[:tenderInfo].average_warning_period%>], <% end %>]
+          data: [<% @info.each do |key,data| %> ["<%=t(data[:name])%>",<%=data[:tenderInfo].average_warning_period%>], <% end %>]
         }]
       });
   });

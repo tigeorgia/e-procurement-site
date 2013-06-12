@@ -81,7 +81,7 @@ class RootController < ApplicationController
       groupAggregates.push(item)
     end
     
-    groupAggregates.sort! { |a,b| (a[:total] <=> b[:total]) }
+    groupAggregates.sort! { |a,b| (b[:total] <=> a[:total]) }
     @majorGroups = []
     count = 1
     groupAggregates.each do |group|

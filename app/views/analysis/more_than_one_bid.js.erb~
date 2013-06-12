@@ -1,5 +1,5 @@
 $(function () {
-  $("#results").html('<%= escape_javascript( render :partial => "average_bidders" ) %>');
+  $("#results").html('<%= escape_javascript( render :partial => "more_than_one_bid" ) %>');
 
   $(document).ready(function() {
       moreThan1BidChart = new Highcharts.Chart({
@@ -25,7 +25,7 @@ $(function () {
        },
         series: [{
           name: '<%=t("Percentage")%>',
-          data: [<% @info.each do |key,data| %> ["<%=data[:name]%>",<%=data[:tenderInfo].success_count.to_f/data[:tenderInfo].count%>], <% end %>]
+          data: [<% @info.each do |key,data| %> ["<%=t(data[:name])%>",<%=data[:tenderInfo].success_count.to_f/data[:tenderInfo].count%>], <% end %>]
         }]
       });
   });

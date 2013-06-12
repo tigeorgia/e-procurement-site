@@ -26,7 +26,7 @@ ka:
   Max Number Of Bids: შეთავაზებების მაქსიმალური ოდენობა
   Min Number Of Bidders: პრეტენდენტების მინიმალური რაოდენობა
   Max Number Of Bidders: პრეტენდენტების მაქსიმალური რაოდენობა
-  Search Suppliers:  GEO NEEDED
+  Search Suppliers:  მიმწოდებლები ძიება
   Search Name: სახელის ძიება 
   Name: სახელი
   Total Spent: სულ დახარჯულია
@@ -57,6 +57,8 @@ ka:
   Estimated value of Tender by Type: კატეგორიის მიხედვით ტენდერის სავარაუდო ღირებულება 
   Electronic: ელექტრონული ტენდერი
   Simple Electronic: გამარტივებული ელექტრონული ტენდერი
+  electronic: ელექტრონული ტენდერი
+  simple electronic: გამარტივებული ელექტრონული ტენდერი
   Number Of Tenders By Type: ტენდერების რაოდენობა კატეგორიის მიხედვით
   Average Bidding Duration: სატენდერო შეთავაზებების საშუალო ხანგრძლივობა
   Average Time Between Tender Announcement And Bidding: საშუალო დრო ტენდერის გამოცხადებიდან სატენდერო შეთავაზებამდე
@@ -208,6 +210,7 @@ ka:
   Number of Organizations Found: ნაპოვნი ორგანიზაციების რაოდენობა
   Duration Of Tender VS Average Number Of Bidders: ტენდერის ხანგრძლივობა VS პრეტენდენტების საშუალო რიცხვი 
 
+  site_title: ტენდერების მონიტორი
   Revenue Graph: შემოსავლების გრაფიკი 
   Value of Tenders by Type: ტენდერების ღირებულება კატეგორიების მიხედვით
   Number of Tenders by Type: ტენდერების რაოდენობა კატეგორიების მიხედვით
@@ -215,7 +218,7 @@ ka:
   Tender Warning Period: ტენდერის გაფრთხილების პერიოდი
   Average Number of Bidders: პრეტენდენტების საშუალო რაოდენობა
   Average Number of Bids: შეთავაზებების საშუალო რაოდენობა 
-  Percentage of Bids that had Atleast One Bidder: იმ ტენდერების საშუალო რაოდენობა სადაც ერთი პრეტენდენტი მაინც მონაწილეობდა
+  Percentage of Bids that had at Least One Bidder: იმ ტენდერების საშუალო რაოდენობა სადაც ერთი პრეტენდენტი მაინც მონაწილეობდა
   Duration of Tender vs Average Bidders: ტენდერების ხანგრძლივობა VS პრეტენდენტების საშუალო რაოდენობა  
   Bidding Duration Days: შეთავაზებების ხანგრძლივობა 
   Download Data: მონაცემების ჩამოტვირთვა 
@@ -276,8 +279,7 @@ ka:
   procurer_name_description: იმ ორგანიზაციის დასახელება, რომელიც ტენდერს აცხადებს (ხშირად სამთავრობო ინსტიტუტი).  
   procurer_code_description: საჯარო რეესტრის მიერ განსაზღვრული 9 ნიშნა კოდი.
   procurer_type_description: იმ ორგანიზაციების კლასიფიკაცია, რომლებიც ტენდერს აცხადებენ
-
-  Annual Data: GEO NEEDED
+  Annual Data: წლიური მონაცემები
 
 
   app:

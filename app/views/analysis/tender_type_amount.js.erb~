@@ -1,9 +1,6 @@
 $(function () {
   $("#results").html('<%= escape_javascript( render :partial => "tender_type_amount" ) %>');
 
-
-
-
   $(document).ready(function() {
       tenderTypeAmountChart = new Highcharts.Chart({
         chart: {

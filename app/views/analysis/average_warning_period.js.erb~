@@ -10,23 +10,23 @@ $(function () {
           backgroundColor: 'rgba(255,255,255,0)'
        },
        title: {
-          text: "Average Time Between Tender Announcement And Bidding"
+          text: '<%=t("Average Time Between Tender Announcement And Bidding")%>'
        },
        xAxis: {
           categories: [
              <% @info.each do |key,data| %>
-              "<%=data[:name]%",
+              "<%=data[:name]%>",
              <% end %>
           ]
        },
        yAxis: {
           title: {
-             text: "Days"
+             text: '<%=t("Days")%>'
           }
        },
        series: [{
           name: '<%=t("Days After Announcement")%>',
-          data: [<% @info.each do |key,data| %> ["<%=data[:name]%>",<%=data[:tenderInfo].average_warning_period%>], <% end %>]
+          data: [<% @info.each do |key,data| %> ["<%=t(data[:name])%>",<%=data[:tenderInfo].average_warning_period%>], <% end %>]
         }]
       });
   });

@@ -35,7 +35,7 @@ $(function () {
         series: [{
             type: 'pie',
             name: '<%=t("Estimated Value Of Tenders By Type")%>',
-            data: [<% @info.each do |key,data| %> ["<%=data[:name]%>",<%=data[:tenderInfo].count%>], <% end %>]
+            data: [<% @info.each do |key,data| %> ["<%=t(data[:name])%>",<%=data[:tenderInfo].count%>], <% end %>]
         }]
       });
   });
