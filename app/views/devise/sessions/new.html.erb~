@@ -11,8 +11,6 @@
     <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
   <% end -%>
 
-THIS IS A TEST
-
   <div><%= f.submit "Sign in" %></div>
 <% end %>
 

@@ -115,6 +115,9 @@ class RootController < ApplicationController
   def about
   end
 
+	def about_ka
+	end
+
   def index
     #buildOrganizationXmlStrings
     tenders = Tender.find(:all, :select =>'distinct tender_status')

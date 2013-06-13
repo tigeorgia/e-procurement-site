@@ -1,5 +1,16 @@
 # encoding: utf-8
 en:
+  Sign In: Sign In
+  Sign Up: Sign up
+  Email: Email
+  Password: Password
+  Password_Conf: Password confirmation
+  Remember me: Remember me
+  Forgot_Pass: Forgot your password?
+  Send_Pass_Reset: Send me reset password instructions
+  No_Conf_Recieve: Didn't receive confirmation instructions?
+  Resend_Conf_Instruc: Resend confirmation instructions  
+
   წინადადებების მიღება დაწყებულია: Proposals process started
   გამარჯვებული გამოვლენილია: The Winner revealed
   დასრულებულია უარყოფითი შედეგით: Completed negative result
@@ -36,7 +47,6 @@ en:
   ელექტრონული ტენდერი: Electronic Tender
   საქართველო: Georgia
 
-  
 
   Search Tenders: Search Tenders
   Search Suppliers: Search Suppliers

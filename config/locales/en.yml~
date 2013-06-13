@@ -1,5 +1,16 @@
 # encoding: utf-8
 en:
+  Sign In: Sign In
+  Sign Up: Sign up
+  Email: Email
+  Password: Password
+  Password_Conf: Password confirmation
+  Remember_me: Remember me
+  Forgot_Pass: Forgot your password?
+  Send_Pass_Reset: Send me reset password instructions
+  No_Conf_Recieve: Didn't receive confirmation instructions?
+  Resend_Conf_Instruc: Resend confirmation instructions  
+
   წინადადებების მიღება დაწყებულია: Proposals process started
   გამარჯვებული გამოვლენილია: The Winner revealed
   დასრულებულია უარყოფითი შედეგით: Completed negative result
@@ -36,7 +47,6 @@ en:
   ელექტრონული ტენდერი: Electronic Tender
   საქართველო: Georgia
 
-  
 
   Search Tenders: Search Tenders
   Search Suppliers: Search Suppliers
@@ -68,7 +78,7 @@ en:
   Average Number Of Bidders Per Tender: Average Number Of Bidders Per Tender
   Average Number Of Bids Per Tender: Average Number Of Bids Per Tender
   Bids: Bids
-  Percentage Of Bids That Had At Least One Bidder: Percentage Of Bids That Had At Least One Bidder
+  Percentage of Bids that had at Least One Bidder: Percentage Of Bids That Had At Least One Bidder
   Percentage: Percentage
   Tender Duration: Tender Duration
   Number Of Bidders: Number Of Bidders

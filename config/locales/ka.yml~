@@ -1,5 +1,16 @@
 # encoding: utf-8
 ka:
+  Sign In: GEO NEEDED
+  Sign up: GEO NEEDED
+  Email: GEO NEEDED
+  Password: GEO NEEDED
+  Password_Conf: GEO NEEDED
+  Remember me: GEO NEEDED
+  Forgot_Pass: GEO NEEDED
+  Send_Pass_Reset: GEO NEEDED
+  No_Conf_Recieve: GEO NEEDED
+  Resend_Conf_Instruc: GEO NEEDED
+
   Proposals process started: წინადადებების მიღება დაწყებულია
   The Winner revealed: გამარჯვებული გამოვლენილია
   Completed negative result: დასრულებულია უარყოფითი შედეგით 
@@ -58,7 +69,7 @@ ka:
   Electronic: ელექტრონული ტენდერი
   Simple Electronic: გამარტივებული ელექტრონული ტენდერი
   electronic: ელექტრონული ტენდერი
-  simple Electronic: გამარტივებული ელექტრონული ტენდერი
+  simple electronic: გამარტივებული ელექტრონული ტენდერი
   Number Of Tenders By Type: ტენდერების რაოდენობა კატეგორიის მიხედვით
   Average Bidding Duration: სატენდერო შეთავაზებების საშუალო ხანგრძლივობა
   Average Time Between Tender Announcement And Bidding: საშუალო დრო ტენდერის გამოცხადებიდან სატენდერო შეთავაზებამდე

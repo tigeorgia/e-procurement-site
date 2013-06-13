@@ -16,7 +16,16 @@
     ================================================== --> 
 
 		<% if Rails.env.production? %>
-			<!-- insert google analytics for production site here -->
+			<script>
+				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+				})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+				ga('create', 'UA-41736303-1', 'tendermonitor.ge');
+				ga('send', 'pageview');
+
+			</script>
 		<% elsif Rails.env.staging? %>
 			<!-- insert google analytics for staging site here -->
 		<% end %>
@@ -65,7 +74,11 @@
             <%= link_to( t("Annual Data"), {:controller => '/analysis', :action => "index"}, :class=>"nav-item") %>
           </div>
           <div class="span2">
-            <%= link_to( t("About"), {:controller => '/root', :action => "about"}, :class=>"nav-item") %>
+						<%if I18n.locale == :en %>
+							<%= link_to( t("About"), {:controller => '/root', :action => "about"}, :class=>"nav-item") %>
+						<%else%>
+							<%= link_to( t("About"), {:controller => '/root', :action => "about_ka"}, :class=>"nav-item") %>
+						<%end%>
           </div>
           <div class="span3 offset1">
             <% if user_signed_in? %>
@@ -89,7 +102,7 @@
                 </ul>
               </li>
             <% else %>
-               <%= link_to 'Sign In', new_user_session_path, :class=>"nav-item" %>
+               <%= link_to t("Sign In"), new_user_session_path, :class=>"nav-item" %>
             <% end %>
           </div>
 

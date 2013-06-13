@@ -714,3 +714,33 @@ div.active-button{
 .account-text {
   font-size: 17px;
 } 
+
+.account-text-large {
+  font-size: 20px;
+}
+
+.about-div{
+	margin-left: 50px
+	margin-right: 50px
+}
+
+.intro {
+	font-size: 16px;
+}
+
+.sub-heading {
+	font-size: 18px;
+}
+
+.bold-heading {
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.maintext{
+	font-size: 14px;
+}
+
+li.maintext{
+	margin-left:30px;
+}
