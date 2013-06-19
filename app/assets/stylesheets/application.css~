@@ -11,6 +11,7 @@
  *= require formtastic-bootstrap
  *= require dataTables/src/demo_table_jui
  *= require bootstrap_and_overrides
+ *= require cpvChart
  *= require root
 */
 

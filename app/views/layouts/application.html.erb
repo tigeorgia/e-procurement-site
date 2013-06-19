@@ -5,7 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    
+
+    <!-- CSS CNDs -->
+    <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery.ui.base.css" rel="stylesheet">
     <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!-- JS CNDs -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script> 
+    <script src="//code.highcharts.com/stock/highstock.js"></script>
+    <script src="//code.highcharts.com/stock/highcharts-more.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.1.6/d3.min.js"></script>
+
+
     <%= javascript_include_tag "application" %>
 		<script type="text/javascript">
 			I18n.defaultLocale = "<%= I18n.default_locale %>";
@@ -24,7 +39,6 @@
 
 				ga('create', 'UA-41736303-1', 'tendermonitor.ge');
 				ga('send', 'pageview');
-
 			</script>
 		<% elsif Rails.env.staging? %>
 			<!-- insert google analytics for staging site here -->
@@ -74,11 +88,7 @@
             <%= link_to( t("Annual Data"), {:controller => '/analysis', :action => "index"}, :class=>"nav-item") %>
           </div>
           <div class="span2">
-						<%if I18n.locale == :en %>
-							<%= link_to( t("About"), {:controller => '/root', :action => "about"}, :class=>"nav-item") %>
-						<%else%>
-							<%= link_to( t("About"), {:controller => '/root', :action => "about_ka"}, :class=>"nav-item") %>
-						<%end%>
+						<%= link_to( t("About"), {:controller => '/root', :action => "about"}, :class=>"nav-item") %>
           </div>
           <div class="span3 offset1">
             <% if user_signed_in? %>

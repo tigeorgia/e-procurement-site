@@ -77,7 +77,11 @@ class RootController < ApplicationController
       cpvAggregates.each do |aggregate|
         total += aggregate.total_value
       end
-      item = {:name => cpvGroup.name, :total => total}
+      if I18n.locale == :ka and cpvGroup.translation != nil
+        item = {:name => cpvGroup.translation, :total => total}
+      else
+        item = {:name => cpvGroup.name, :total => total}
+      end
       groupAggregates.push(item)
     end
     

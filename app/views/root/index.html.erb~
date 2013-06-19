@@ -36,7 +36,11 @@ $(document).ready(function() {
 
 <%cpvArray = []%>
 <% @globalCpvGroups.each do |group| %>
-	<% cpvArray.push([group.name, group.id]) %>
+  <%if I18n.locale == :ka and group.translation != nil %>
+    <% cpvArray.push([group.translation, group.id]) %>
+  <%else%>
+	  <% cpvArray.push([group.name, group.id]) %>
+  <%end%>
 <%end%>
 
 <% if @userCpvGroups.count > 0 %>
@@ -219,7 +223,7 @@ $(document).ready(function() {
           <%= check_box_tag(:isForeign) %>
         </div>
         <div class="span3">
-          <%= label_tag(:bw_list, t("Black or White list") ) %>
+          <%= label_tag(:bw_list, t("Black or White List") ) %>
           <a href="#" class="info-tip">&nbsp;<span><%=t("supplier_bwlist_description")%></span></a>
           <%= select_tag(:bw_list, options_for_select([[t("White List"),"W"], [t("Black List"), "B"]]), :include_blank => true )%>
         </div>

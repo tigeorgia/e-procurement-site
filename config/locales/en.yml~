@@ -5,11 +5,13 @@ en:
   Email: Email
   Password: Password
   Password_Conf: Password confirmation
-  Remember_me: Remember me
+  Remember me: Remember me
   Forgot_Pass: Forgot your password?
   Send_Pass_Reset: Send me reset password instructions
   No_Conf_Recieve: Didn't receive confirmation instructions?
-  Resend_Conf_Instruc: Resend confirmation instructions  
+  Resend_Conf_Instruc: Resend confirmation instructions
+
+  English: English
 
   წინადადებების მიღება დაწყებულია: Proposals process started
   გამარჯვებული გამოვლენილია: The Winner revealed

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130612053256) do
+ActiveRecord::Schema.define(:version => 20130618130146) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -152,6 +152,7 @@ ActiveRecord::Schema.define(:version => 20130612053256) do
     t.integer  "user_id"
     t.string   "name"
     t.string   "type"
+    t.string   "translation"
   end
 
   create_table "cpv_groups_tender_cpv_classifiers", :id => false, :force => true do |t|

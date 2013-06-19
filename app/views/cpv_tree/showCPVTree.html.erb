@@ -1,12 +1,26 @@
+<script>
+  $(document).ready( function() { 
+    initTree( "<%="/assets/cpvTree.#{I18n.locale}.json"%>" );
+  })
+</script>
+
 <%= button_to t("Back to Profile"), user_path,:method => :get, :class => "user-button" %>
 <br>
 <%= form_tag( { :controller => :cpv_tree, :action => "save_cpv_group", :isGlobal => @isGlobal, :cpvGroup => @cpvGroup}, {:id => "saveTree"} ) do %>
-  <%= label_tag(:category, t("Category Name")) %>
-  <%= text_field_tag(:category) %>
+  <% if @isGlobal %>
+    <%= label_tag(:category, t("Category Name")+": "+t("English")) %>
+    <%= text_field_tag(:category) %>
+    <%= label_tag(:category_geo, t("Category Name")+": "+t("Georgian")) %>
+    <%= text_field_tag(:category_geo) %>
+  <%else%>
+    <%= label_tag(:category, t("Category Name")) %>
+    <%= text_field_tag(:category) %>
+  <%end%>
+
   <%= hidden_field_tag(:codes, @checkedNodes) %>
+  <br>
   <%= submit_tag( t("Save Category"),:class => "submit-button" ) %>
 <% end %>
-
 
 <div id="cpvTree">
 </div>

@@ -26,6 +26,7 @@ before_filter :authenticate_user!
   def save_cpv_group
     codes = params[:codes].split(",")
     category = params[:category]
+    translation = params[:category_geo]
     isGlobal = params[:isGlobal]
     if (isGlobal and current_user.role == 'admin') or (not isGlobal)
       if params[:cpvGroup]
@@ -39,6 +40,9 @@ before_filter :authenticate_user!
           cpvGroup.user_id = current_user.id
         end
         cpvGroup.name = category
+        if translation
+          cpvGroup.translation = translation
+        end
       end
       
       codes.each do |code|      
@@ -79,7 +83,7 @@ before_filter :authenticate_user!
 
   def outputTree()
     root = { :name => "CPV Codes", :code => "00000000", :children => [] }
-    csv_text = File.read("lib/data/cpv_data.csv")
+    csv_text = File.read("lib/data/cpv_data_geo.csv")
     codes = CSV.parse(csv_text)
     nodes = []
     codes.each do |code|
@@ -103,6 +107,8 @@ before_filter :authenticate_user!
 
     @dataId += 1
     if not root[:code] == "00000000"
+      puts root[:code]
+      puts root[:name]
       codeStr = root[:code]
       treeString +='{ "data" : "'+codeStr+' : '+ root[:name] +'", 
                       "attr" : {

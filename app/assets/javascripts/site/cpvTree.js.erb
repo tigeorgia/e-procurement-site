@@ -1,7 +1,3 @@
-$(document).ready( function() {
-  initTree();
-})
-
 saveData = function(event, data)
 {
   var checked = $("#cpvTree").jstree("get_checked",null,true);
@@ -113,12 +109,12 @@ checkExisting = function()
   }
 }
 
-initTree = function( )
+initTree = function( path )
 {
   var myTree = $("#cpvTree").bind("check_node.jstree uncheck_node.jstree",saveData).jstree({
 	        "json_data" : {
 	            "ajax" : { 
-                "url" : "/assets/cpvTree.json",
+                "url" : path,
                 "data" : function (n) {
 	                return { id : n.attr ? n.attr("id") : 0 };
                  }

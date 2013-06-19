@@ -6,15 +6,10 @@
 //
 //= require i18n
 //= require i18n/translations
-//= require jquery 
 //= require jquery_ujs
-//= require jquery-ui
-//= require dataTables/jquery.dataTables
-//= require twitter/bootstrap
 //= require bootstrap-datepicker
 //= require ./jtree/jquery.jstree
-//= require ./highcharts/js/highcharts.js
-//= require ./highstock/js/highstock.js
+
 //= require_tree ./site
 
 

@@ -1,3 +1,22 @@
+<%cpvArray = []%>
+<% @globalCpvGroups.each do |group| %>
+  <%if I18n.locale == :ka and group.translation != nil %>
+    <% cpvArray.push([group.translation, group.id]) %>
+  <%else%>
+	  <% cpvArray.push([group.name, group.id]) %>
+  <%end%>
+<%end%>
+
+<% if @userCpvGroups.count > 0 %>
+	<% cpvArray.push(["---"+t("Your Categories")+"---", 0,{:disabled => true}])%>
+	<% @userCpvGroups.each do |group| %>
+		<% cpvArray.push([group.name, group.id]) %>
+	<%end%>
+<%end%>
+<% newCPVUrl = url_for(:controller => "cpv_tree", :action => "showCPVTree") %>
+
+<% cpvArray.push(["---"+t("Create Custom Category")+"---", -1, {:onclick => "window.location.replace('"+newCPVUrl+"');"}])%>
+
 <script>
 var chart1; // globally available
 
@@ -33,21 +52,6 @@ $(document).ready(function() {
  });
 
 </script>
-
-<%cpvArray = []%>
-<% @globalCpvGroups.each do |group| %>
-	<% cpvArray.push([group.name, group.id]) %>
-<%end%>
-
-<% if @userCpvGroups.count > 0 %>
-	<% cpvArray.push(["---"+t("Your Categories")+"---", 0,{:disabled => true}])%>
-	<% @userCpvGroups.each do |group| %>
-		<% cpvArray.push([group.name, group.id]) %>
-	<%end%>
-<%end%>
-<% newCPVUrl = url_for(:controller => "cpv_tree", :action => "showCPVTree") %>
-
-<% cpvArray.push(["---"+t("Create Custom Category")+"---", -1, {:onclick => "window.location.replace('"+newCPVUrl+"');"}])%>
 
 <div class="tabs tab-div">
   <ul>
