@@ -76,7 +76,10 @@ class TendersController < ApplicationController
       flags = flags.split("#")
     end
     if flags
-      @totalRisk = TenderCorruptionFlag.where(:corruption_indicator_id => 100,:tender_id => @tender.id ).first.value
+      totalFlag = TenderCorruptionFlag.where(:corruption_indicator_id => 100,:tender_id => @tender.id ).first
+      if totalFlag
+        @totalRisk = totalFlag.value
+      end
       flags.each do |flag|
         indicator = CorruptionIndicator.find( flag.to_s )
         @risks.push(indicator)

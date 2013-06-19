@@ -8,7 +8,6 @@
 //= require i18n/translations
 //= require jquery_ujs
 //= require bootstrap-datepicker
-//= require ./jtree/jquery.jstree
 
 //= require_tree ./site
 

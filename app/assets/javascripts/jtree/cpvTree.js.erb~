@@ -123,8 +123,9 @@ initTree = function( path )
           },
         "themes" : {
           "theme" : "default",
-          "url" : "/"
+          "url" : false
         },
+      
         "plugins" : [ "ui","themes", "json_data", "checkbox"]
   });
 

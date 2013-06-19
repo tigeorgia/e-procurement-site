@@ -1,3 +1,6 @@
+<script src="/assets/jtree/jquery.jstree.js"></script>
+<script src="/assets/jtree/cpvTree.js"></script>
+
 <script>
   $(document).ready( function() { 
     initTree( "<%="/assets/cpvTree.#{I18n.locale}.json"%>" );

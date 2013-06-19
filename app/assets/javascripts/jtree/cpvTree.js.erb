@@ -112,7 +112,7 @@ checkExisting = function()
 initTree = function( path )
 {
   var myTree = $("#cpvTree").bind("check_node.jstree uncheck_node.jstree",saveData).jstree({
-	        "json_data" : {
+      "json_data" : {
 	            "ajax" : { 
                 "url" : path,
                 "data" : function (n) {
@@ -120,9 +120,12 @@ initTree = function( path )
                  }
               },
              "progressive_render" : true
-	        },
-
-      "plugins" : [ "ui","themes", "json_data", "checkbox"]
+          },
+        "themes" : {
+          "theme" : "default"
+        },
+      
+        "plugins" : [ "ui","themes", "json_data", "checkbox"]
   });
 
   $("#cpvTree").bind("loaded.jstree",loadSavedNodes)
