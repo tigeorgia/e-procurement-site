@@ -7,6 +7,7 @@
 //= require i18n
 //= require i18n/translations
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require bootstrap-datepicker
 
 //= require_tree ./site
