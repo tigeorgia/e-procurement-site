@@ -26,7 +26,6 @@ namespace :deploy do
   end
 end
 
-
 set :default_environment, {
   'PATH' => "#{deploy_to}/bin:$PATH",
   'GEM_HOME' => "#{deploy_to}/gems" 
@@ -37,14 +36,6 @@ namespace :gems do
     run "cd #{release_path} && bundle install  --deployment --without development test"
   end
 end
-after "deploy:update_code", "gems:bundle"
-
-namespace :db do
-  task :migrate, :roles => :db do
-    run "cd #{release_path} && rake db:migrate"
-  end
-end  
-after "deploy:update_code", "db:migrate"
 
 namespace :custom do
    task :settings_config, :roles => :app do
@@ -52,13 +43,19 @@ namespace :custom do
     run "cp -f #{shared_path}/config/setup_mail.rb #{release_path}/config/initializers/setup_mail.rb"
   end
 end
-after "deploy:update_code", "custom:settings_config"
 
 namespace :custom do
   task :deploy_static_assets, :roles => :app do
     run "cp -r -f #{release_path}/public/assets/* #{assets_path}"
   end
 end
+
+namespace :db do
+  task :migrate, :roles => :db do
+    run "cd #{release_path} && rake db:migrate"
+  end
+end  
+
+after "deploy:update_code", "gems:bundle"
+after "deploy:update_code", "custom:settings_config"
 after "deploy:update_code", "custom:deploy_static_assets"
-
-
