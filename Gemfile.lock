@@ -71,6 +71,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    commonjs (0.2.6)
     daemon_controller (1.1.4)
     devise (2.0.4)
       bcrypt-ruby (~> 3.0)
@@ -104,6 +105,11 @@ GEM
       jquery-rails
       railties (>= 3.1.0)
     json (1.8.0)
+    less (2.2.2)
+      commonjs (~> 0.2.6)
+    less-rails (2.2.3)
+      actionpack (>= 3.1)
+      less (~> 2.2.0)
     libv8 (3.3.10.4)
     mail (2.3.3)
       i18n (>= 0.4.0)
@@ -217,6 +223,7 @@ DEPENDENCIES
   jquery-rails (>= 2.1)
   jquery-ui-rails
   json
+  less-rails
   mysql2 (~> 0.3.11)
   nested_form (>= 0.1.1)!
   paperclip (>= 3.0.4)
