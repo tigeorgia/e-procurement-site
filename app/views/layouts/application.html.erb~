@@ -8,7 +8,7 @@
     
 
     <!-- CSS CNDs -->
-    <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery.ui.base.css" rel="stylesheet">
+    <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" rel="stylesheet">
     <%= stylesheet_link_tag "application", :media => "all" %>
 
     <!-- JS CNDs -->
@@ -134,7 +134,7 @@
   <div id="footer">
     <div class="container">
       <%= link_to(image_tag("sida_logo.gif", :size => "100x100"), "http://www.sida.se/English/", :target => "_blank"	) %>
-      <%= link_to(image_tag("slovak_aid_logo.gif", :size => "100x100" ), "http://eng.slovakaid.sk/", :target => "_blank"	) %>
+      <%= link_to(image_tag("slovak_aid_logo.gif", :size => "125x100" ), "http://eng.slovakaid.sk/", :target => "_blank"	) %>
     </div>
    </div>
 
