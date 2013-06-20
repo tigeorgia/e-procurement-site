@@ -1,6 +1,6 @@
 <script>
   $(document).ready( function() { 
-    initTree( <%="/assets/cpvTree.#{I18n.locale}.json"%> );
+    initTree( "<%="/assets/cpvTree.#{I18n.locale}.json"%>" );
   })
 </script>
 
