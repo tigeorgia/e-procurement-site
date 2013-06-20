@@ -59,3 +59,4 @@ end
 after "deploy:update_code", "gems:bundle"
 after "deploy:update_code", "custom:settings_config"
 after "deploy:update_code", "custom:deploy_static_assets"
+after "deploy:update_code", "db:migrate"
