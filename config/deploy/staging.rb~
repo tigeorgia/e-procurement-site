@@ -5,4 +5,5 @@ set :rvm_type, :user
 before 'deploy', 'rvm:install_rvm'
 server "192.168.0.241", :app, :web, :db, :primary => true
 set :user, "tigeorgia"
-set :deploy_to, "/var/data/procurement/app"
+set(:deploy_to) {"/var/data/procurement/app"}
+set :use_sudo, false

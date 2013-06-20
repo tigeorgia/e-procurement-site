@@ -8,7 +8,7 @@ source 'https://rubygems.org'
 gem 'bundler', '~>1.2.0'
 gem "rails", "3.1.3"
 gem "mysql2", "~> 0.3.11" # this gem works better with utf-8
-gem "rake", "~> 0.9.2.2" 
+gem "rake"
 
 gem "json"
 gem 'jquery-rails', '>= 2.1'
@@ -30,13 +30,6 @@ gem "exception_notification", ">= 2.5.2" # send an email when exception occurs
 gem "useragent", :git => "https://github.com/jilion/useragent.git" # browser detection
 gem "passenger" # App server gem
 gem "rails3-jquery-autocomplete"
-
-#gem "pdfkit", ">= 0.5.2" # generate pdfs
-#gem "use_tinymce", ">= 0.0.15" # wysiwyg
-#gem "rails_autolink", ">= 1.0.9" # convert string to link if it is url
-#gem 'acts_as_commentable', '>= 2.0.1' #comments
-#gem "paper_trail", ">= 2.6.3" # keep audit log of all transactions
-
 
 
 # Gems used only for assets and not required
