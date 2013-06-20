@@ -440,7 +440,10 @@ table, td, th
   color: #2b5492;
 }
 .beta-text {
-  font-size: 17px;
+  font-size: 15px;
+  vertical-align: top;
+  margin-top: -6px;
+  display: inline-block;
 }
 
 .info-tip {
@@ -741,6 +744,10 @@ div.active-button{
 
 .maintext{
 	font-size: 14px;
+}
+
+ul.maintext{
+  list-style: circle;
 }
 
 li.maintext{

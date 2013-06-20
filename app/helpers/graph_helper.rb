@@ -13,7 +13,6 @@ module GraphHelper
         if parentKey and not agreements[parentKey]
           parent = TenderCpvClassifier.where(:cpv_code => parentKey).first
           name = parent.description_english or 'na'         
-          #new_logger.info("CHILD: "+key+"   PARENT: "+parentKey)
           newNodes.push({ :name => name, :code => parentKey, :children => [] })
         end
       end
