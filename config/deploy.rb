@@ -52,13 +52,13 @@ namespace :custom do
     run "cp -f #{shared_path}/config/setup_mail.rb #{release_path}/config/initializers/setup_mail.rb"
   end
 end
-after "deploy:finalize_update", "custom:settings_config"
+after "deploy:update_code", "custom:settings_config"
 
 namespace :custom do
   task :deploy_static_assets, :roles => :app do
     run "cp -r -f #{release_path}/public/assets/* #{assets_path}"
   end
 end
-after "deploy:finalize_update", "custom:deploy_static_assets"
+after "deploy:update_code", "custom:deploy_static_assets"
 
 
