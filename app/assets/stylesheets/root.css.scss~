@@ -418,7 +418,6 @@ table, td, th
 }
 
 .banner {
-  display: block;
   height: inherit;
   float: right;
 }
@@ -439,6 +438,9 @@ table, td, th
 
 .heading {
   color: #2b5492;
+}
+.beta-text {
+  font-size: 17px;
 }
 
 .info-tip {
@@ -720,8 +722,8 @@ div.active-button{
 }
 
 .about-div{
-	margin-left: 50px
-	margin-right: 50px
+	margin-left: 50px;
+	margin-right: 50px;
 }
 
 .intro {

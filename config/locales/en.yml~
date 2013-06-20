@@ -10,8 +10,11 @@ en:
   Send_Pass_Reset: Send me reset password instructions
   No_Conf_Recieve: Didn't receive confirmation instructions?
   Resend_Conf_Instruc: Resend confirmation instructions
-
   English: English
+  Georgian: Georgian
+  spa_logo_link: http://procurement.gov.ge/index.php?sec_id=1&lang_id=ENG
+  logo_path: 
+  logo_url: http://www.transparency.ge/en
 
   წინადადებების მიღება დაწყებულია: Proposals process started
   გამარჯვებული გამოვლენილია: The Winner revealed

@@ -12,6 +12,10 @@ en:
   Resend_Conf_Instruc: Resend confirmation instructions
   English: English
   Georgian: Georgian
+  spa_logo_link: http://procurement.gov.ge/index.php?sec_id=1&lang_id=ENG
+  logo_path: logo-en.png
+  logo_url: http://www.transparency.ge/en
+
   წინადადებების მიღება დაწყებულია: Proposals process started
   გამარჯვებული გამოვლენილია: The Winner revealed
   დასრულებულია უარყოფითი შედეგით: Completed negative result

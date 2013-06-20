@@ -39,10 +39,11 @@ before_filter :authenticate_user!
         else
           cpvGroup.user_id = current_user.id
         end
-        cpvGroup.name = category
-        if translation
-          cpvGroup.translation = translation
-        end
+      end
+
+      cpvGroup.name = category
+      if translation
+        cpvGroup.translation = translation
       end
       
       codes.each do |code|      
@@ -76,8 +77,7 @@ before_filter :authenticate_user!
     group.tender_cpv_classifiers.each do |cpv|
       @checkedNodes = @checkedNodes +","+ cpv.cpv_code.to_s
     end
-    @cpvGroup = group.id
-    @cpvName = group.name
+    @cpvGroup = group
   end
 
 

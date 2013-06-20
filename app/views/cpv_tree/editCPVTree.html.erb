@@ -1,6 +1,3 @@
-<script src="/assets/jtree/jquery.jstree.js"></script>
-<script src="/assets/jtree/cpvTree.js"></script>
-
 <script>
   $(document).ready( function() { 
     initTree( "<%="/assets/cpvTree.#{I18n.locale}.json"%>" );
@@ -9,8 +6,16 @@
 
 <%= button_to t("Back to Profile"), user_path,:method => :get, :class => "user-button" %>
 <br>
-<%= form_tag( { :controller => :cpv_tree, :action => "save_cpv_group", :isGlobal=> @isGlobal, :cpvGroup => @cpvGroup}, {:id => "saveTree"} ) do %>
-  <%= label_tag(:category, @cpvName) %>
+<%= form_tag( { :controller => :cpv_tree, :action => "save_cpv_group", :isGlobal=> @isGlobal, :cpvGroup => @cpvGroup.id}, {:id => "saveTree"} ) do %>
+  <% if @isGlobal %>
+    <%= label_tag(:category, t("Category Name")+": "+t("English")) %>
+    <%= text_field_tag(:category,@cpvGroup.name) %>
+    <%= label_tag(:category_geo, t("Category Name")+": "+t("Georgian")) %>
+    <%= text_field_tag(:category_geo,@cpvGroup.translation) %>
+  <%else%>
+    <%= label_tag(:category, t("Category Name")) %>
+    <%= text_field_tag(:category,@cpvGroup.name) %>
+  <%end%>
   <%= hidden_field_tag(:codes, @checkedNodes) %>
   <%= submit_tag( t("Save Category"), :class => "submit-button") %>
 <% end %>
