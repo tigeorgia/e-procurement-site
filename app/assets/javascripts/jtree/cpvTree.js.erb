@@ -122,10 +122,10 @@ initTree = function( path )
              "progressive_render" : true
           },
         "themes" : {
-          "theme" : "default"
+            "theme" : "default",
+            "url" : "/assets/treeStyle.css"
         },
-      
-        "plugins" : [ "ui","themes", "json_data", "checkbox"]
+        "plugins" : [ "ui", "themes","json_data", "checkbox"]
   });
 
   $("#cpvTree").bind("loaded.jstree",loadSavedNodes)
