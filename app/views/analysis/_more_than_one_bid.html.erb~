@@ -1,2 +1,5 @@
-<%= button_to("Download Data", {:controller => :analysis, :action => "download_more_than_one_bid_data", :format => "csv", :year => @year},:class => "submit-button") %>
+<%if not Rails.application.config.live_deploy%>
+<%= button_to(t("Download Data"), {:controller => :analysis, :action => "download_more_than_one_bid_data", :format => "csv", :year => @year},:class => "submit-button") %>
+
+<%end%<
 <div id="moreThan1BidGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>

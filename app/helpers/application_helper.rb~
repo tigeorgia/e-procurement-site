@@ -23,7 +23,7 @@ module ApplicationHelper
   def sortable(params, column, title = nil, cssClass = "arrow-link")
     myParams = params.clone
     title ||= column.titleize
-    direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
+    direction = (column == sort_column && sort_direction == "desc") ? "asc" : "desc"
     myParams[:sort] = column
     myParams[:direction] = direction
     link_to title, myParams, :class => cssClass + " "+column
@@ -49,7 +49,8 @@ module ApplicationHelper
   end
 
   def buildTenderCSVString( tenders )
-    csv_string = CSV.generate do |csv|
+    CSV.open("#{RAILS_ROOT}/assets/tenders.csv", "wb") do |csv|
+       csv << BOM
        csv << ["Type","Registration Number","Status", "Announcement Date", "Bidding Start Date", "Bidding End Date", "Estimated Value",
                "Cpv Code","Number of Bids","Number of Bidders","Bid Step","Units Supplied","Supply Period","Guarantee Amount","Guarantee Period"]
        tenders.each do |tender|
@@ -57,8 +58,7 @@ module ApplicationHelper
                 tender.bid_end_date, tender.estimated_value, tender.cpv_code, tender.num_bids, tender.num_bidders, tender.offer_step,
                 tender.units_to_supply,tender.supply_period,tender.guarantee_amount,tender.guarantee_period]
        end
-      end
-    return BOM + csv_string
+    end
   end
 
   def buildCSVString( column_headers, data )

@@ -20,6 +20,8 @@
 <% end %>
 
 <%= t("Number Of Organizations Found")%>: <%= @numResults %>
+
+<%if not Rails.application.config.live_deploy%>
 <p>
   <%= t("Download")%>:
   <% csvParams = @params.clone%>
@@ -28,6 +30,7 @@
   <% csvParams[:action] = "search_procurer" %>
   <%= link_to "CSV",  csvParams %>
 </p>
+<%end%>
 
 <table class="table table-striped">
   <thead>

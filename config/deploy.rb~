@@ -3,7 +3,23 @@ require "bundler/capistrano"
 
 #set :stages, ["staging", "production"]
 #set :default_stage, "staging"
-set :application, "tenderstage"
+
+
+
+
+set :app_path, "/home/tigeorgia/webapps"
+
+### LIVE SITE ####
+set :application,"tenderwatch"
+set :deploy_to, "#{app_path}/#{application}"
+set :assets_path, "#{app_path}/tendermonitor_static"
+
+### STAGING ####
+#set :application, "tenderstage"
+#set :deploy_to, "#{app_path}/#{application}"
+#set :assets_path, "#{deploy_to}_static"
+
+
 set :scm, "git"
 set :branch, "master"
 set :repository, "git://github.com/tigeorgia/e-procurement-site.git"
@@ -12,9 +28,8 @@ set :scm_username, "ChrisTIGeorgia"
 set :user, "tigeorgia"
 set :use_sudo, false
 
-set :app_path, "/home/tigeorgia/webapps"
-set :deploy_to, "#{app_path}/#{application}"
-set :assets_path, "#{deploy_to}_static"
+
+
 role :web, "web331.webfaction.com"
 role :app, "web331.webfaction.com"
 role :db, "web331.webfaction.com", :primary => true
@@ -52,7 +67,7 @@ end
 
 namespace :db do
   task :migrate, :roles => :db do
-    run "cd #{release_path} && rake db:migrate"
+    run "cd #{release_path} && RAILS_ENV=production rake db:migrate"
   end
 end  
 

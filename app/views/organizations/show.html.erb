@@ -381,8 +381,10 @@ $(function () {
 <h3><%= t("Tenders Bid On")%></h3>
 <br></br>
   <p>
-    <%= t("Download")%>:
-    <%= link_to "CSV", :controller => "organization", :action => "download_org_tenders", :format => "csv", :id => @organization.id %>
+    <%if not Rails.application.config.live_deploy%>
+      <%= t("Download")%>:
+      <%= link_to "CSV", :controller => "organization", :action => "download_org_tenders", :format => "csv", :id => @organization.id %>
+    <%end%>
   </p>
   <table class="dataTable" cellpadding="0" cellspacing="0" border="0" width="100%">
   <thead>

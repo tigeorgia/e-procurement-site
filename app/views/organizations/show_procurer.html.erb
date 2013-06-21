@@ -242,10 +242,10 @@ $(function () {
 <br></br>
 <h3><%= t("Tenders Issued")%></h3>
 <br></br>
-<p>
-  <%= button_to t("Download CSV"),{ :controller => "organization", :action => "download_proc_tenders", :format => "csv", :id => @organization.id}, :class => "submit-button" %>
-</p>
 
+<%if not Rails.application.config.live_deploy%>
+  <%= button_to t("Download CSV"),{ :controller => "organization", :action => "download_proc_tenders", :format => "csv", :id => @organization.id}, :class => "submit-button" %>
+<%end%>
   <table class="dataTable" cellpadding="0" cellspacing="0" border="0" width="100%" >
   <thead>
     <tr>

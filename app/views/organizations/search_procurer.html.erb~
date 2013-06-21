@@ -32,7 +32,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th class="arrow"><%= sortable(@params, "name", t("Name")) %></th>
+      <th class="header-20 arrow"><%= sortable(@params, "name", t("Name")) %></th>
       <th class="arrow"><%= sortable(@params, "code", t("Code")) %></th>
       <th class="arrow"><%= sortable(@params, "org_type", t("Type")) %></th>
       <th class="arrow"><%= sortable(@params, "total_offered_contract_value",t("Total Spent")) %></th>

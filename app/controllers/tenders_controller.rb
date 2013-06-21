@@ -5,10 +5,9 @@ class TendersController < ApplicationController
 
   def performSearch( data )
     @params = params
-    query = QueryHelper.buildTenderSearchQuery(data)
-    @fullResult = query
-    @numResults = @fullResult.count
-    @tenders = @fullResult.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
+    fullResult = QueryHelper.buildTenderSearchQuery(data)
+    @numResults = fullResult.count
+    @tenders = fullResult.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
     @results = []
     @tenders.each do |tender|
@@ -26,16 +25,20 @@ class TendersController < ApplicationController
     checkSavedSearch(paramList, @searchType)
   end
 
+
+
   def search
     data = QueryHelper.buildTenderQueryData(params)
     performSearch(data)
   end
 
   def download
-    search()
+    data = QueryHelper.buildTenderQueryData(params)
+    result = QueryHelper.buildTenderSearchQuery(data)
+
     respond_to do |format|
-      format.csv {            
-        send_data buildTenderCSVString(@fullResult)
+      format.csv {   
+        send_data buildTenderCSVString(result)
       }
     end
   end 

@@ -1,2 +1,4 @@
+<%if not Rails.application.config.live_deploy%>
 <%= button_to(t("Download Data"), {:controller => :analysis, :action => "download_average_warning_period_data", :format => "csv", :year => @year},:class => "submit-button") %>
+<%end%>
 <div id="averageWarningPeriodGraph" style="min-width: 400px; height: 400px; margin: 0 auto"></div>

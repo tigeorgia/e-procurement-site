@@ -320,11 +320,11 @@ $(function () {
 <% end %>
 
 <%if @whiteListed%>
-  <h2>WHITE LISTED</h2>
+  <h2><%=t("WHITE LISTED")%></h2>
 <%end%>
 
 <%if @blackListed%>
-  <h2>BLACK LISTED</h2>
+  <h2><%=t("BLACK LISTED")%></h2>
 <%end%>
 
 <div class="row" id="mid-row">
