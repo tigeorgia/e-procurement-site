@@ -11,7 +11,7 @@ production:
 
 development:
   adapter: mysql2
-  database: procurement
+  database: UserDB
   username: root
   password: root
   encoding: utf8

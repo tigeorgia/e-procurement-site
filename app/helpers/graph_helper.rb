@@ -12,8 +12,12 @@ module GraphHelper
         parentKey = getParentCode(key)
         if parentKey and not agreements[parentKey]
           parent = TenderCpvClassifier.where(:cpv_code => parentKey).first
-          name = parent.description_english or 'na'         
-          newNodes.push({ :name => name, :code => parentKey, :children => [] })
+          if parent
+            name = parent.description_english or 'na'         
+            newNodes.push({ :name => name, :code => parentKey, :children => [] })
+          else
+            puts "missing parent: "+parentKey
+          end
         end
       end
       if newNodes.length == 0

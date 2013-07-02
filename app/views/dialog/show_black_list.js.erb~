@@ -1,5 +1,8 @@
 $(function() {
-  $(".modal").html( "<%= escape_javascript(render :partial => "dialog/white_list_info") %>");
-  $(".modal").dialog({ height: 300, width: 600, modal: true});
-  return false;
+      $( ".modal" ).dialog({
+          resizable: false,
+          height:200,
+          modal: true
+    });
+  return true;
 });

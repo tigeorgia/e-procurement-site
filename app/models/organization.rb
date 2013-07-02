@@ -1,4 +1,6 @@
 class Organization < ActiveRecord::Base
+  include Updateable
+
   has_many :bidders, :dependent => :destroy
   has_many :agreements, :dependent => :destroy
   has_many :competitors, :dependent => :destroy
@@ -30,12 +32,12 @@ class Organization < ActiveRecord::Base
   # number of items per page for pagination
 	self.per_page = 20
   
-  def getTranslations()
+  def self.getTranslations()
     translations = self.translation.split("#")
     return translations
   end
 
-  def saveTranslations( wordList )
+  def self.saveTranslations( wordList )
     translationString = ""
     wordList.each do |word|
       translationString += word + "#"

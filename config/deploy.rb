@@ -10,14 +10,14 @@ require "bundler/capistrano"
 set :app_path, "/home/tigeorgia/webapps"
 
 ### LIVE SITE ####
-set :application,"tenderwatch"
-set :deploy_to, "#{app_path}/#{application}"
-set :assets_path, "#{app_path}/tendermonitor_static"
+#set :application,"tenderwatch"
+#set :deploy_to, "#{app_path}/#{application}"
+#set :assets_path, "#{app_path}/tendermonitor_static"
 
 ### STAGING ####
-#set :application, "tenderstage"
-#set :deploy_to, "#{app_path}/#{application}"
-#set :assets_path, "#{deploy_to}_static"
+set :application, "tenderstage"
+set :deploy_to, "#{app_path}/#{application}"
+set :assets_path, "#{deploy_to}_static"
 
 
 set :scm, "git"

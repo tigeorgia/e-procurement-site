@@ -9,40 +9,43 @@ class RootController < ApplicationController
     classifiers = cpvGroup.tender_cpv_classifiers
     cpvAggregates = nil
     sqlString = ''
+    hasItem = false
     classifiers.each do |classifier|
+      hasItem = true
       cvpDropped = dropZeros(classifier.cpv_code.to_s)
       sqlString += "cpv_code LIKE '"+cvpDropped+ "%' OR "
     end
     sqlString = sqlString[0..-4]
-
-    cpvAggregates = dbObject.where(sqlString)
-    cpvAggregates.each do |aggregateItem|
-      aggregateData = organizations[aggregateItem.organization_id]
-      organization = Organization.find(aggregateItem.organization_id)
-      if not aggregateData
-        organizations[aggregateItem.organization_id] = { :total => aggregateItem.total_value, :company => organization }
-      else
-        aggregateData[:total] = aggregateData[:total] + aggregateItem.total_value  
-        organizations[aggregateItem.organization_id] = aggregateData
-      end
-    end
-
-    totalContractValues = []   
-    orgArray = []
-    organizations.each do |index,hash|
-      orgArray.push(hash)
-    end
-    orgArray.sort! { |a,b| (a[:total] > b[:total] ? -1 : 1) }
     results = []
-    count = 1
-    orgArray.each do |org|
-      results.push(org)
-      count = count + 1
-      if count > limit
-        break
+    if hasItem
+      cpvAggregates = dbObject.where(sqlString)
+      cpvAggregates.each do |aggregateItem|
+        aggregateData = organizations[aggregateItem.organization_id]
+        organization = Organization.find(aggregateItem.organization_id)
+        if not aggregateData
+          organizations[aggregateItem.organization_id] = { :total => aggregateItem.total_value, :company => organization }
+        else
+          aggregateData[:total] = aggregateData[:total] + aggregateItem.total_value  
+          organizations[aggregateItem.organization_id] = aggregateData
+        end
+      end
+
+      totalContractValues = []   
+      orgArray = []
+      organizations.each do |index,hash|
+        orgArray.push(hash)
+      end
+      orgArray.sort! { |a,b| (a[:total] > b[:total] ? -1 : 1) }
+      
+      count = 1
+      orgArray.each do |org|
+        results.push(org)
+        count = count + 1
+        if count > limit
+          break
+        end
       end
     end
-   
     return results
   end
 
@@ -67,22 +70,30 @@ class RootController < ApplicationController
       end
       classifiers = cpvGroup.tender_cpv_classifiers
       sqlString = ''
+      hasItem = false
       classifiers.each do |classifier|
-        cvpDropped = dropZeros(classifier.cpv_code.to_s)
-        sqlString += "cpv_code LIKE '"+cvpDropped+ "%' OR "
+        cpvDropped = dropZeros(classifier.cpv_code.to_s)
+        wildCards = ""
+        for i in 1..8-cpvDropped.length
+          wildCards += "_"
+        end
+        sqlString += "cpv_code LIKE '%"+cpvDropped+wildCards+"#%' OR "
+        hasItem = true
       end
-      sqlString = sqlString[0..-4]
-      cpvAggregates = ProcurerCpvRevenue.where(sqlString)
-      total = 0
-      cpvAggregates.each do |aggregate|
-        total += aggregate.total_value
+      if hasItem
+        sqlString = sqlString[0..-4]
+        cpvAggregates = AggregateCpvRevenue.where(sqlString)
+        total = 0
+        cpvAggregates.each do |aggregate|
+          total += aggregate.total_value
+        end
+        if I18n.locale == :ka and cpvGroup.translation != nil
+          item = {:name => cpvGroup.translation, :total => total}
+        else
+          item = {:name => cpvGroup.name, :total => total}
+        end
+        groupAggregates.push(item)
       end
-      if I18n.locale == :ka and group.translation != nil
-        item = {:name => cpvGroup.translation, :total => total}
-      else
-        item = {:name => cpvGroup.name, :total => total}
-      end
-      groupAggregates.push(item)
     end
     
     groupAggregates.sort! { |a,b| (b[:total] <=> a[:total]) }

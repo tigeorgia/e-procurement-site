@@ -1,9 +1,9 @@
 class AlertMailer < ActionMailer::Base
-  default from: "alerts@procwatch.com"
+  default from: "alerts@tendermonitor.ge"
 
-  def search_alert(user, search, tenders)
+  def search_alert(user, search, searchUpdates)
     @search = search
-    @updates = tenders
+    @updates = searchUpdates
     subject = ""
     if search.searchtype == "supplier"
       subject = "New Supplier Search Update"
@@ -19,6 +19,23 @@ class AlertMailer < ActionMailer::Base
     @tender = tender
     @attributes = attributes
     mail(:to => user.email, :subject => "New Tender Updates")
+  end
+
+  def supplier_alert(user, supplier, attributes)
+    @supplier = supplier
+    @attributes = attributes
+    mail(:to => user.email, :subject => "New Supplier Updates")
+  end
+
+  def procurer_alert(user, procurer, attributes)
+    @supplier = procurer
+    @attributes = attributes
+    mail(:to => user.email, :subject => "New Procurer Updates")
+  end
+
+  def send_digest(user, updates)
+    @updates = updates
+    mail(:to => user.email, :subject => "Your TenderMonitor Updates")
   end
 
   def data_process_started()

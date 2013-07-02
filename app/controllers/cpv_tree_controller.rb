@@ -45,7 +45,6 @@ before_filter :authenticate_user!
       if translation
         cpvGroup.translation = translation
       end
-      
       codes.each do |code|      
         cpvs = TenderCpvClassifier.where( :cpv_code => code.to_i )
         cpvs.each do |cpvObject|

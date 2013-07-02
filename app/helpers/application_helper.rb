@@ -51,11 +51,11 @@ module ApplicationHelper
   def buildTenderCSVString( tenders )
     CSV.open("/assets/tenders.csv", "wb") do |csv|
        csv << BOM
-       csv << ["Type","Registration Number","Status", "Announcement Date", "Bidding Start Date", "Bidding End Date", "Estimated Value",
-               "Cpv Code","Number of Bids","Number of Bidders","Bid Step","Units Supplied","Supply Period","Guarantee Amount","Guarantee Period"]
+       csv << [ t("Procurer"),t("Tender Type"),t("Tender Registration Number"),t("Status"), t("Announcement Date"), t("Bid Start Date"), t("Bid End Date"), t("Procurer Estimate"),
+               t("Contract Value"),t("Supplier"),t("CPV Code"),t("Number Of Bids"),t("Number Of Bidders"),t("Bid Step"),t("Units Supplied"),t("Supply Period"),t("Guarantee Amount"),t("Guarantee Period")]
        tenders.each do |tender|
-         csv << [tender.tender_type,tender.tender_registration_number,tender.tender_status,tender.tender_announcement_date,tender.bid_start_date,
-                tender.bid_end_date, tender.estimated_value, tender.cpv_code, tender.num_bids, tender.num_bidders, tender.offer_step,
+         csv << [tender.procurer_name,tender.tender_type,tender.tender_registration_number,tender.tender_status,tender.tender_announcement_date,tender.bid_start_date,
+                tender.bid_end_date, tender.estimated_value,tender.contract_value,tender.supplier_name, tender.cpv_code, tender.num_bids, tender.num_bidders, tender.offer_step,
                 tender.units_to_supply,tender.supply_period,tender.guarantee_amount,tender.guarantee_period]
        end
     end

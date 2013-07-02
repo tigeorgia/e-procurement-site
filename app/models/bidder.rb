@@ -1,4 +1,5 @@
 class Bidder < ActiveRecord::Base
+  include Updateable
   belongs_to :tender
   belongs_to :organization
   

@@ -11,6 +11,7 @@ class TendersController < ApplicationController
 
     @results = []
     @tenders.each do |tender|
+      puts tender.id
       item = { :tender => tender, :procurer => Organization.find(tender.procurring_entity_id).name }
       @results.push(item)
     end
@@ -25,8 +26,6 @@ class TendersController < ApplicationController
     checkSavedSearch(paramList, @searchType)
   end
 
-
-
   def search
     data = QueryHelper.buildTenderQueryData(params)
     performSearch(data)
@@ -35,10 +34,10 @@ class TendersController < ApplicationController
   def download
     data = QueryHelper.buildTenderQueryData(params)
     result = QueryHelper.buildTenderSearchQuery(data)
-    buildTenderCSVString(result)
+
     respond_to do |format|
-      format.csv {         
-        send_file "/assets/tenders.csv"
+      format.csv {   
+        send_data buildTenderCSVString(result)
       }
     end
   end 
@@ -96,7 +95,6 @@ class TendersController < ApplicationController
       @documentation.push( document )
     end
 
-
     @procurer = Organization.find(@tender.procurring_entity_id).name
     agreements = @tender.agreements
     @agreementInfo = []
@@ -118,7 +116,7 @@ class TendersController < ApplicationController
       if org
         infoItem = { :id => org.id, :whiteList => false, :blackList => false, :name => org.name, :won => false, :highBid => bidder.first_bid_amount, :lowBid => bidder.last_bid_amount, :numBids => bidder.number_of_bids}
         agreements.each do |agreement|
-          if agreement.organization_id == org.id
+          if agreement.organization_id == org.id           
             infoItem[:won] = true
             break
           end

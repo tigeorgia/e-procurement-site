@@ -86,12 +86,13 @@
   <dt <%=highlightClass%> ><%=t("Procuring Category")%>:</dt>
   <dd <%=highlightClass%> ><%= @tender.cpv_code %> - <%= @cpv.description_english %></dd>
 
-  <dt <%=highlightClass%> ><%=t("CPV Codes")%>:</dt>
-  <% @minorCPVCategories.each do |code| %>
-    <dd <%=highlightClass%> ><%= code.cpv_code %></dd>
+  <dt><%=t("CPV Codes")%>: </dt>
+  <% codeString = "" %>
+  <% @minorCPVCategories.each do |code| %> 
+    <%codeString+=code.cpv_code.to_s+", "%>
   <% end %>
-  <dd></dd>
-
+  <%codeString.chomp!(", ")%>
+  <dd><%=codeString%></dd>
 </dl>
 
   <br><br>
@@ -103,9 +104,6 @@
       <br>
     <% end %>
   <% end %> 
-
-<div class="modal" style="display:none;">
-</div>
 
 <% if @bidderInfo.length > 0 %>
   <hr>
@@ -184,28 +182,28 @@
   </table>
 <% end %>
 
-<% if @complaints.length > 0 %>
-  <hr>
-  <table class="table table-striped">
-    <thead>
-      <h3><%=t("Complaints")%><h3>
-      <tr>
-        <th><%=t("Status")%></th>
-        <th><%=t("Complainant")%></th>
-      </tr>
-    </thead>
-   <tbody>
-      <% @complaints.each do |complaint| %>
-        <tr>
-        <td><%= link_to( complaint.status, {:controller => "dialog", :action => "show_complaint", :id => complaint.id }, :remote => true ) %></td>
-        <td><%= link_to Organization.find(complaint.organization_id).name, organization_path(complaint.organization_id)%></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
-
 <% if not Rails.application.config.live_deploy %>
+  <% if @complaints.length > 0 %>
+    <hr>
+    <table class="table table-striped">
+      <thead>
+        <h3><%=t("Complaints")%><h3>
+        <tr>
+          <th><%=t("Status")%></th>
+          <th><%=t("Complainant")%></th>
+        </tr>
+      </thead>
+     <tbody>
+        <% @complaints.each do |complaint| %>
+          <tr>
+          <td><%= link_to( complaint.status, {:controller => "dialog", :action => "show_complaint", :id => complaint.id }, :remote => true ) %></td>
+          <td><%= link_to Organization.find(complaint.organization_id).name, organization_path(complaint.organization_id)%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
   <% if @documentation.length > 0 %>
     <hr>
     <table class="table table-striped">
@@ -230,3 +228,6 @@
   <% end %>
 <% end %>
 
+
+<div class="modal" style="display:none;">
+</div>

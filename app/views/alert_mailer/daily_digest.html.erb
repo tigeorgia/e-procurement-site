@@ -1,0 +1,36 @@
+<h1>Your Daily TenderMonitor Digest</h1>
+
+<%if @updates[:searches] %>
+  <h2>Your Searches that have new results</h2>
+  <%@updates[:searches].each do |search|%>
+    <a href= <%= url_for(:controller => "user", :action => "search_via_saved", :search_id => @search.id)%> > <%=@search.name%></a>
+  <%end%>
+<hr>
+<%end>
+  
+<%if @updates[:tenders] %>
+  <h2>Tenders that have been updated</h2>
+  <%@updates[:tenders].each do |watch|%>
+    tender = Tender.where(:url_id => watch.tender_url).first
+    <%= link_to tender.tender_registration_number,  tender_url(:id => tender.id) %>
+  <%end%>
+<hr>
+<%end>
+
+<%if @updates[:suppliers] %>
+  <h2>Suppliers that have new updates</h2>
+  <%@updates[:suppliers].each do |watch|%>
+    supplier = Organization.find(:id => watch.supplier_id)
+    <%= link_to supplier.name,  organization_url(:id => supplier.id) %>
+  <%end%>
+<hr>
+<%end>
+
+<%if @updates[:procurers] %>
+  <h2>Procurers that have new updates</h2>
+  <%@updates[:procurers].each do |watch|%>
+    procurer = Organization.find(:id => watch.procurer_id)
+    <%= link_to procurer.name,  organization_url(:id => procurer.id) %>
+  <%end%>
+<hr>
+<%end>

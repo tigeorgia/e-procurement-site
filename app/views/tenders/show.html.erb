@@ -86,12 +86,13 @@
   <dt <%=highlightClass%> ><%=t("Procuring Category")%>:</dt>
   <dd <%=highlightClass%> ><%= @tender.cpv_code %> - <%= @cpv.description_english %></dd>
 
-  <dt <%=highlightClass%> ><%=t("CPV Codes")%>:</dt>
-  <% @minorCPVCategories.each do |code| %>
-    <dd <%=highlightClass%> ><%= code.cpv_code %></dd>
+  <dt><%=t("CPV Codes")%>: </dt>
+  <% codeString = "" %>
+  <% @minorCPVCategories.each do |code| %> 
+    <%codeString+=code.cpv_code.to_s+", "%>
   <% end %>
-  <dd></dd>
-
+  <%codeString.chomp!(", ")%>
+  <dd><%=codeString%></dd>
 </dl>
 
   <br><br>
@@ -103,9 +104,6 @@
       <br>
     <% end %>
   <% end %> 
-
-<div class="modal" style="display:none;">
-</div>
 
 <% if @bidderInfo.length > 0 %>
   <hr>
@@ -184,7 +182,6 @@
   </table>
 <% end %>
 
-<% if not Rails.application.config.live_deploy %>
   <% if @complaints.length > 0 %>
     <hr>
     <table class="table table-striped">
@@ -228,5 +225,8 @@
       </tbody>
     </table>
   <% end %>
-<% end %>
 
+
+
+<div class="modal" style="display:none;">
+</div>

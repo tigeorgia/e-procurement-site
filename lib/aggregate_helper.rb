@@ -176,24 +176,36 @@ module AggregateHelper
   end
 
   def self.addCpvStats( stats, tender )
-    agreements = Agreement.find_all_by_tender_id(tender.id)
-    #get last agreement
-    lastAgreement = nil
-    agreements.each do |agreement|
-      if not lastAgreement or lastAgreement.amendment_number < agreement.amendment_number
-        lastAgreement = agreement
+    if tender.contract_value and tender.contract_value > 0
+      cpvAgreements = stats[:cpv_agreements]
+      cpvCodes = []
+      if not tender.sub_codes
+        if tender.cpv_code
+          cpvCodes.push(tender.cpv_code)
+        end
+      else
+        cpvCodes = tender.sub_codes.split("#")
+      end
+      
+      if cpvCodes[-1].to_i < 1000
+        cpvCodes.pop
+      end
+      codeCount = cpvCodes.length
+      cpvCodes.each do |cpvCode|
+        if cpvCode.to_i < 1000
+          puts "wtf: "+tender.id.to_s
+          puts "code: "+cpvCode.to_s
+        end
+        value = tender.contract_value.to_f/codeCount
+        if not cpvAgreements[cpvCode]
+          cpvAgreements[cpvCode] = value
+        else
+          old = cpvAgreements[cpvCode]
+          old += value
+          cpvAgreements[cpvCode] = old
+        end
       end
     end
-    if lastAgreement
-      cpvAgreements = stats[:cpv_agreements]
-      if not cpvAgreements[tender.cpv_code]
-        cpvAgreements[tender.cpv_code] = lastAgreement.amount
-      else
-        old = cpvAgreements[tender.cpv_code]
-        old += lastAgreement.amount
-        cpvAgreements[tender.cpv_code] = old
-      end
-    end 
   end
 
   def self.calcAggergateAverages( stats )
@@ -228,7 +240,9 @@ module AggregateHelper
     end   
     count = 0
     Tender.find_each do |tender|
-      count += 1
+      if tender.contract_value
+       count += 1
+      end
       if count%1000 == 0
         puts "Tenders: "+ count.to_s
       end
@@ -241,6 +255,8 @@ module AggregateHelper
       end
       self.addStats(yearStats[:total], tender)       
     end
+    #temp
+    return
 
     puts "calc averages"
     #now we have all stats calc the averages
@@ -251,25 +267,30 @@ module AggregateHelper
     puts "storing into db"
     #alright we have finished gathering info time to store this into the db
     count = 0
-    #remove old stats
+    puts "removing old stats"
     AggregateStatistic.all.each do |statistic|
       statistic.destroy
     end
+    AggregateStatisticType.all.each do |type|
+      type.destroy
+    end
+    puts "creating new stats"
     stats.each do | year, data |
       statistic = AggregateStatistic.new
       statistic.id = year
       statistic.year = year
       statistic.save
-
+      puts "prcoessing: "+year.to_s
       #now create tender stats for the tender types
       types = [ [:total,"total"],[:simple_electronic,"simple electronic"], [:electronic, "electronic"] ]
-      types.each do | pair |
+      types.each do | pair |       
         dbType = AggregateStatisticType.new
         dbType.aggregate_statistic_id = statistic.id
         dbType.name = pair[1]
         dbType.save
 
         type = pair[0]
+        puts "processing: "+ pair[1]
         
         tender_data = data[type][:tenderStats]
         dbTenderStats = AggregateTenderStatistic.new

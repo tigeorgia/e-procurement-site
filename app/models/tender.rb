@@ -1,4 +1,5 @@
  class Tender < ActiveRecord::Base
+  include Updateable
 
   has_many :bidders, :dependent => :destroy
   has_many :agreements, :dependent => :destroy
@@ -33,7 +34,7 @@
   scope :recent, order("tender_announcement_date desc").limit(5)
   
   # number of items per page for pagination
-self.per_page = 20
+  self.per_page = 20
 
 
   def self.to_csv
@@ -44,21 +45,4 @@ self.per_page = 20
       end
     end
   end
-
-  def self.findTenderDifferences(tender)
-    differences = []
-    ignoreAttributes = ["id", "created_at", "updated_at"]
-    tender.attributes.each do |attribute|
-      ignoreAtrributes.each do |ignore|
-        if ignore == attributes[0]
-          next
-        end
-      end
-
-      if attribute[1] != self.attributes[attribute[0]]
-        differences.push(attribute[0])
-      end
-    end
-  end
-
 end

@@ -16,10 +16,6 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script> 
-    <script src="//code.highcharts.com/stock/highstock.js"></script>
-    <script src="//code.highcharts.com/stock/highcharts-more.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.1.6/d3.min.js"></script>
-
 
     <%= javascript_include_tag "application" %>
 		<script type="text/javascript">
@@ -72,7 +68,7 @@
               
             </div>
             <div class="span4" style="height: 100%">
-              <%= link_to(image_tag(t("logo-path")), t("logo-url"), :target => "_blank", :title => t(".ti_link_title"), :class => "banner"	) %>
+              <%= link_to(image_tag(t("logo_path")), t("logo_url"), :target => "_blank", :title => t(".ti_link_title"), :class => "banner"	) %>
             </div>
           </div>
         </div>
@@ -133,15 +129,25 @@
     <div id="push"></div>
   </div>
   <div id="footer">
-    <div class="container">
-      <%= link_to(image_tag("sida_logo.gif", :size => "100x100"), "http://www.sida.se/English/", :target => "_blank"	) %>
+    <div class="container" style="position: relative;">
+      <%= link_to(image_tag("sida_logo.png", :size => "100x100"), "http://www.sida.se/English/", :target => "_blank"	) %>
       <%= link_to(image_tag("slovak_aid_logo.gif", :size => "125x100" ), "http://eng.slovakaid.sk/", :target => "_blank"	) %>
-      <%= link_to(image_tag("spa-logo.jpg", :size => "300x100" ), t("spa_logo_link"), :target => "_blank", :style => "float: right;"	) %>
+      <div class="contact-info">
+        <strong>Contact Us</strong><br>
+        Transparency International Georgia,<br>
+        26 Rustaveli Avenue, 0108 Tbilisi<br>
+        Phone: (+995 32) 292 14 03<br>
+        Email: <%= mail_to "info@tendermonitor.ge"%>
+      </div>
+      <%= link_to(image_tag("spa-logo.jpg", :size => "300x100" ), t("spa_logo_link"), :target => "_blank", :class => "spa-logo") %>
     </div>
    </div>
 
   <div id="dialog-confirm" title="Delete?">
-  <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>This item will be permanently deleted, Are you sure?</p>
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>This item will be permanently deleted, Are you sure?</p>
+  </div>
   </body>
-
+  <script src="//code.highcharts.com/stock/highstock.js"></script>
+  <script src="//code.highcharts.com/stock/highcharts-more.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.1.6/d3.min.js"></script>
 </html>

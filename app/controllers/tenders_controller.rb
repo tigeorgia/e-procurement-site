@@ -25,8 +25,6 @@ class TendersController < ApplicationController
     checkSavedSearch(paramList, @searchType)
   end
 
-
-
   def search
     data = QueryHelper.buildTenderQueryData(params)
     performSearch(data)
@@ -96,7 +94,6 @@ class TendersController < ApplicationController
       @documentation.push( document )
     end
 
-
     @procurer = Organization.find(@tender.procurring_entity_id).name
     agreements = @tender.agreements
     @agreementInfo = []
@@ -118,7 +115,7 @@ class TendersController < ApplicationController
       if org
         infoItem = { :id => org.id, :whiteList => false, :blackList => false, :name => org.name, :won => false, :highBid => bidder.first_bid_amount, :lowBid => bidder.last_bid_amount, :numBids => bidder.number_of_bids}
         agreements.each do |agreement|
-          if agreement.organization_id == org.id
+          if agreement.organization_id == org.id           
             infoItem[:won] = true
             break
           end

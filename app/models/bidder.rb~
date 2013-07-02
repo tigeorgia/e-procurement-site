@@ -1,7 +1,6 @@
 class Bidder < ActiveRecord::Base
   belongs_to :tender
   belongs_to :organization
-  has_many :bids, :dependent => :destroy
   
   attr_accessible :tender_id,
       :organization_url,
@@ -10,7 +9,7 @@ class Bidder < ActiveRecord::Base
       :first_bid_date,
       :last_bid_amount,
       :last_bid_date
-      :bids
+      :number_of_bids
       
   validates :tender_id, :organization_id, :organization_url, :presence => true
   

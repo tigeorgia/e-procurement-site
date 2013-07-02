@@ -23,4 +23,17 @@ namespace :procurement do
     require "test_code"
     TestFile.run
   end
+
+  desc "save user data"
+  task:export_users => :environment do
+    require "user_migrator"
+    UserMigrator.createMigrationFile
+  end
+  
+  desc "import user data"
+  task:import_users => :environment do
+    require "user_migrator"
+    UserMigrator.migrate
+  end
+
 end

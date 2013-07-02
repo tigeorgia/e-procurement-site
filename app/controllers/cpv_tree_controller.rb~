@@ -39,16 +39,18 @@ before_filter :authenticate_user!
         else
           cpvGroup.user_id = current_user.id
         end
-        cpvGroup.name = category
-        if translation
-          cpvGroup.translation = translation
-        end
       end
-      
+
+      cpvGroup.name = category
+      if translation
+        cpvGroup.translation = translation
+      end
+      hasItem = false
       codes.each do |code|      
         cpvs = TenderCpvClassifier.where( :cpv_code => code.to_i )
         cpvs.each do |cpvObject|
           cpvGroup.tender_cpv_classifiers << cpvObject
+          hasItem = true
         end
       end
       cpvGroup.save

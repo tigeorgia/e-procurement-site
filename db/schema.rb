@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130618130146) do
+ActiveRecord::Schema.define(:version => 20130628063110) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -216,7 +216,7 @@ ActiveRecord::Schema.define(:version => 20130618130146) do
   create_table "procurer_watches", :force => true do |t|
     t.integer  "user_id"
     t.string   "procurer_id"
-    t.string   "hash"
+    t.string   "diff_hash"
     t.boolean  "email_alert"
     t.boolean  "has_updated"
     t.datetime "created_at"
@@ -239,7 +239,7 @@ ActiveRecord::Schema.define(:version => 20130618130146) do
   create_table "supplier_watches", :force => true do |t|
     t.integer  "user_id"
     t.string   "supplier_id"
-    t.string   "hash"
+    t.string   "diff_hash"
     t.boolean  "email_alert"
     t.boolean  "has_updated"
     t.datetime "created_at"
@@ -264,11 +264,11 @@ ActiveRecord::Schema.define(:version => 20130618130146) do
 
   create_table "tender_cpv_codes", :force => true do |t|
     t.integer  "tender_id"
-    t.integer  "cpv_code"
     t.string   "description"
     t.string   "english_description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cpv_code"
   end
 
   create_table "tenders", :force => true do |t|
@@ -299,6 +299,7 @@ ActiveRecord::Schema.define(:version => 20130618130146) do
     t.string   "risk_indicators"
     t.string   "procurer_name"
     t.string   "supplier_name"
+    t.string   "sub_codes"
   end
 
   add_index "tenders", ["estimated_value"], :name => "index_tenders_on_estimated_value"
@@ -337,7 +338,7 @@ ActiveRecord::Schema.define(:version => 20130618130146) do
     t.string   "tender_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "hash"
+    t.string   "diff_hash"
     t.boolean  "email_alert"
     t.boolean  "has_updated"
   end

@@ -6,6 +6,10 @@
     $('.year-default').trigger('click');
   });
 
+   $(document).ready(function() {
+    createD3Graphs({"name": "","value": 1050,"code": 00000000,"children": [{"name": "Transport services (excl. Waste transport).","value": 600,"code": 60000000,"children": [{"name": "Road transport services.","value": 600,"code": 60100000,"children": [{"name": "Hire of passenger transport vehicles with driver.","value": 600,"code": 60170000,},]},]},{"name": "Business services: law, marketing, consulting, recruitment, printing and security.","value": 450,"code": 79000000,"children": [{"name": "Printing and related services.","value": 450,"code": 79800000,"children": [{"name": "Services related to printing.","value": 450,"code": 79820000,"children": [{"name": "Printing and delivery services.","value": 450,"code": 79823000,},]},]},]},]});
+  });
+
 </script>
 
 <div class="row-fluid">
@@ -66,7 +70,7 @@
       </li>
       <li>
         <div>
-          <%= link_to( t("Percentage of Bids that Had At Least One Bidder"), {:action => "more_than_one_bid", :year => @selectedYear}, :remote => true) %>
+          <%= link_to( t("Percentage of Bids that had at Least One Bidder"), {:action => "more_than_one_bid", :year => @selectedYear}, :remote => true) %>
         </div>
       </li>    
       <li>

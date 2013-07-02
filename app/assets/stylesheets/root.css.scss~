@@ -753,3 +753,18 @@ ul.maintext{
 li.maintext{
 	margin-left:30px;
 }
+
+.spa-logo{
+  position: absolute; 
+  right: 0; 
+  bottom: 0;
+  padding-bottom: 18px;
+}
+
+.contact-info{
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+  padding-bottom: 18px;
+  font-size: 16px;
+}

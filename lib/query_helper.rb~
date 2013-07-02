@@ -295,7 +295,7 @@ module QueryHelper
           wildCards += "_"
         end
         query = query + conjunction+" sub_codes LIKE ?"
-        paramsList.push("%"+cpvDropped+wildCards+"#%")
+        paramsList.push(cpvDropped+wildCards+"#%")
         count = count + 1
       end
       if count > 1 and queryAddition

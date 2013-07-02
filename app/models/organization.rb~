@@ -3,7 +3,7 @@ class Organization < ActiveRecord::Base
   has_many :agreements, :dependent => :destroy
   has_many :competitors, :dependent => :destroy
 
-  belongs_to :datasets
+  belongs_to :dataset
   
   attr_accessible :id,
       :dataset_id,
@@ -30,12 +30,12 @@ class Organization < ActiveRecord::Base
   # number of items per page for pagination
 	self.per_page = 20
   
-  def getTranslations()
+  def self.getTranslations()
     translations = self.translation.split("#")
     return translations
   end
 
-  def saveTranslations( wordList )
+  def self.saveTranslations( wordList )
     translationString = ""
     wordList.each do |word|
       translationString += word + "#"

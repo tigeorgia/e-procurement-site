@@ -1,15 +1,15 @@
 # encoding: utf-8
 ka:
-  Sign In: GEO NEEDED
-  Sign Up: GEO NEEDED
-  Email: GEO NEEDED
-  Password: GEO NEEDED
-  Password_Conf: GEO NEEDED
-  Remember me: GEO NEEDED
-  Forgot_Pass: GEO NEEDED
-  Send_Pass_Reset: GEO NEEDED
-  No_Conf_Recieve: GEO NEEDED
-  Resend_Conf_Instruc: GEO NEEDED
+  Sign In: შესვლა
+  Sign Up: რეგისტრაცია
+  Email: ელექტრონული ფოსტა
+  Password: პაროლი
+  Password_Conf: პაროლის დადასტურება
+  Remember me: მომხმარებლის დამახსოვრება
+  Forgot_Pass: დაგავიწყდათ პაროლი?
+  Send_Pass_Reset: გამომიგზავნეთ პაროლის შეცვლის ინსტრუქციები
+  No_Conf_Recieve: არ მიმიღია დადასტურების ინსტრუქციები.
+  Resend_Conf_Instruc: დადასტურების ინსტრუქციების კიდევ ერთხელ გამოგზავნა
   English: English
   Georgian: Georgian
   spa_logo_link: http://procurement.gov.ge/index.php?sec_id=1&lang_id=GEO

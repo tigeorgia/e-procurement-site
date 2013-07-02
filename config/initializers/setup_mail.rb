@@ -1,9 +1,9 @@
 ActionMailer::Base.smtp_settings = {
-  :address              => "smtp.gmail.com",
+  :address              => "smtp.webfaction.com",
   :port                 => 587,
-  :domain               => "gmail.com",
-  :user_name            => "procwatch",
-  :password             => "tismp",
-  :authentication       => "plain",
+  :domain               => "tendermonitor.ge",
+  :user_name            => "tendermonitor",
+  :password             => "k~C4S]F!R>onc>g",
+  :authentication	=> "plain",
   :enable_starttls_auto => true
 }
