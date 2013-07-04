@@ -29,8 +29,7 @@ class OrganizationsController < ApplicationController
   def search
     @params = params
 
-    results, searchParams = QueryHelper.buildSupplierSearchQuery(params)
-    
+    results, searchParams = QueryHelper.buildSupplierSearchQuery(params)   
     @numResults = results.count
     @organizations = results.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
@@ -187,6 +186,9 @@ class OrganizationsController < ApplicationController
       totalBidders += tender.num_bidders
     end
 
+    tenderList = Tender.where("procurring_entity_id = "+id.to_s+" AND winning_org_id IS NOT NULL" )
+    createTreeGraph(tenderList)
+
     @successfulTenders = @successfulTenders.sort{|a,b| a[0] <=> b[0]}
     if simpleCount > 0
       @averageTenderDurationSimple = @averageTenderDurationSimple.to_f / simpleCount
@@ -295,20 +297,12 @@ class OrganizationsController < ApplicationController
     end 
     
     tendersWon = {}
-    cpvAgreements = {}
-    #find all tenders we won
     tenderList = Tender.where(:winning_org_id => id)
     tenderList.each do |tender|
       tendersWon[tender.id] = [tender.contract_value,tender]
-      cpvDescription = TenderCpvClassifier.where(:cpv_code => tender.cpv_code).first.description_english
-      if cpvDescription == nil
-        cpvDescription = "NA"
-      end
-      item = { :name => cpvDescription, :value => tender.contract_value, :code => tender.cpv_code, :children => [] }       
-      cpvAgreements[tender.cpv_code] = item
     end
 
-    @jsonString = createTreeGraphStringFromAgreements( cpvAgreements )
+    createTreeGraph(tenderList)
 
     #find all competitors
     @competitors = []
@@ -403,7 +397,27 @@ class OrganizationsController < ApplicationController
     end
   end
 
+
   private
+  def createTreeGraph(tenders)
+    cpvAgreements = {}
+    tenders.each do |tender|      
+      codes = tender.sub_codes.split("#")
+      codes.each do |code|
+        cpvDescription = TenderCpvClassifier.where(:cpv_code => code).first.description_english
+        if cpvDescription == nil
+          cpvDescription = "NA"
+        end
+        item = { :name => cpvDescription, :value => tender.contract_value.to_f/codes.length, :code => code, :children => [] }
+        if cpvAgreements[code]
+          val = cpvAgreements[code][:value]
+          item[:value] += val
+        end
+        cpvAgreements[code] = item
+      end
+    end
+    @jsonString = createTreeGraphStringFromAgreements( cpvAgreements )
+  end
 
   def sort_column
     params[:sort] || "name"

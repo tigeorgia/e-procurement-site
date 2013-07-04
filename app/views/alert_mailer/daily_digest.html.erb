@@ -3,34 +3,38 @@
 <%if @updates[:searches] %>
   <h2>Your Searches that have new results</h2>
   <%@updates[:searches].each do |search|%>
-    <a href= <%= url_for(:controller => "user", :action => "search_via_saved", :search_id => @search.id)%> > <%=@search.name%></a>
+    <%= link_to search[0].name, {:host => "0.0.0.0", :controller => "user", :action => "search_via_saved", :search_id => search[0].id}%>
+    <br>
   <%end%>
 <hr>
-<%end>
+<%end%>
   
-<%if @updates[:tenders] %>
-  <h2>Tenders that have been updated</h2>
-  <%@updates[:tenders].each do |watch|%>
-    tender = Tender.where(:url_id => watch.tender_url).first
+<%if @updates[:tenderWatches] %>
+  <h2>Tenders you are watching that have been updated</h2>
+  <%@updates[:tenderWatches].each do |watch|%>
+    <%tender = Tender.where(:url_id => watch.tender_url).first%>
     <%= link_to tender.tender_registration_number,  tender_url(:id => tender.id) %>
+    <br>
   <%end%>
 <hr>
-<%end>
+<%end%>
 
-<%if @updates[:suppliers] %>
-  <h2>Suppliers that have new updates</h2>
-  <%@updates[:suppliers].each do |watch|%>
-    supplier = Organization.find(:id => watch.supplier_id)
+<%if @updates[:supplierWatches] %>
+  <h2>Suppliers you are watching that have been updated</h2>
+  <%@updates[:supplierWatches].each do |watch|%>
+    <%supplier = Organization.find(:id => watch.supplier_id).first%>
     <%= link_to supplier.name,  organization_url(:id => supplier.id) %>
+    <br>
   <%end%>
 <hr>
-<%end>
+<%end%>
 
-<%if @updates[:procurers] %>
-  <h2>Procurers that have new updates</h2>
-  <%@updates[:procurers].each do |watch|%>
-    procurer = Organization.find(:id => watch.procurer_id)
+<%if @updates[:procurerWatches] %>
+  <h2>Procurers you are watching that have been updated</h2>
+  <%@updates[:procurerWatches].each do |watch|%>
+   <% procurer = Organization.find(:id => watch.procurer_id).first%>
     <%= link_to procurer.name,  organization_url(:id => procurer.id) %>
+    <br>
   <%end%>
 <hr>
-<%end>
+<%end%>

@@ -90,7 +90,7 @@ module ScraperFile
               watch_tenders = WatchTender.where(:tender_url => tender.url_id)
               if watch_tenders.count > 0
                 differences = oldTender.findDifferences(tender)
-                if differences.length > 0
+                #if differences.length > 0
                   #store changed fields in hash
                   hash = ""
                   differences.each do |difference|
@@ -102,7 +102,7 @@ module ScraperFile
                     watch.has_updated = true
                     watch.save
                   end
-                end
+                #end
               end
             end
           end        
@@ -221,7 +221,7 @@ module ScraperFile
             item = JSON.parse(line)
             bidder = Bidder.new       
 
-            tender = Tender.where(url_id => item["tenderID"]).first
+            tender = Tender.where(:url_id => item["tenderID"]).first
             if tender!= nil
               bidder.tender_id = tender.id
               bidder.organization_url = item["OrgUrl"]
@@ -640,9 +640,15 @@ module ScraperFile
     end
   end
 
-  def self.storeTenderContractValues
+  def self.storeTenderContractValues(tenderList)
     count = 0
-    Tender.find_each do |tender|
+    tenders = nil
+    if not tenderList
+      tenders = Tender.all
+    else
+      tenders = tenderList
+    end
+    tenders.each do |tender|
       count = count + 1
       if count%100 == 0
         puts "Contract Store "+count.to_s
@@ -1053,7 +1059,7 @@ module ScraperFile
   end
   
   def self.competitionAssessment(indicator)
-    Tender.find_each(:conditions => "num_bidders = 1") do |tender|
+    Tender.find_each(:conditions => "num_bidders = 1 AND estimated_value >= 25000") do |tender|
       corruptionFlag = TenderCorruptionFlag.new
       corruptionFlag.tender_id = tender.id
       corruptionFlag.corruption_indicator_id = indicator.id
@@ -1072,17 +1078,17 @@ module ScraperFile
         if not lowestBid or lowestBid > bidder.last_bid_amount
           lowestBid = bidder.last_bid_amount
         end
-        if lowestBid                       
-          savingsPercentage = 1 - lowestBid/tender.estimated_value
-          if savingsPercentage <= 0.02
-            #risky tender!
-            corruptionFlag = TenderCorruptionFlag.new
-            corruptionFlag.tender_id = tender.id
-            corruptionFlag.corruption_indicator_id = indicator.id
-            corruptionFlag.value = 1 #could have more for %1 and %0.5 etc
-            corruptionFlag.save
-            self.addToRiskTotal(tender, (corruptionFlag.value*indicator.weight))
-          end
+      end
+      if lowestBid                       
+        savingsPercentage = 1 - lowestBid/tender.estimated_value
+        if savingsPercentage <= 0.02
+          #risky tender!
+          corruptionFlag = TenderCorruptionFlag.new
+          corruptionFlag.tender_id = tender.id
+          corruptionFlag.corruption_indicator_id = indicator.id
+          corruptionFlag.value = 1 #could have more for %1 and %0.5 etc
+          corruptionFlag.save
+          self.addToRiskTotal(tender, (corruptionFlag.value*indicator.weight))
         end
       end
     end
@@ -1105,7 +1111,6 @@ module ScraperFile
         corruptionFlag.corruption_indicator_id = indicator.id
         corruptionFlag.value = 1 #perhaps we could add different values for different codes
         corruptionFlag.save
-        self.addRiskIndicatorToTender(tender, indicator.id)
         self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
       end
     end
@@ -1137,7 +1142,6 @@ module ScraperFile
                   corruptionFlag.corruption_indicator_id = indicator.id
                   corruptionFlag.value = 1
                   corruptionFlag.save
-                  self.addRiskIndicatorToTender(tender, indicator.id)
                   self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
                   break
                 end
@@ -1156,20 +1160,22 @@ module ScraperFile
   end
 
   def self.blacklistSupplierAssessment(indicator)
-    blackListedOrgs = BlackListItem.select(:organization_id)
+    blackList = BlackListItem.select(:organization_id)
+    blackListIds = []
+    blackList.each do |list|
+      blackListIds.push(list.organization_id)
+    end
     Tender.find_each do |tender|
-      if blackListedOrgs.include?(tender.winning_org_id)
+      if blackListIds.include?(tender.winning_org_id)
         #risky tender!
         corruptionFlag = TenderCorruptionFlag.new
         corruptionFlag.corruption_indicator_id = indicator.id
         corruptionFlag.value = 1
         corruptionFlag.save
-        self.addRiskIndicatorToTender(tender, indicator.id)
         self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
       end
     end
   end
-
 
   def self.generateCompetitorData()
 
@@ -1228,7 +1234,7 @@ module ScraperFile
   end
 
   def self.findCompetitors
-    #Competitor.delete_all
+    Competitor.delete_all
     #this is going to take some memory
     companies = {}
     Tender.find_each do |tender|
@@ -1282,30 +1288,35 @@ module ScraperFile
   end
 
   def self.generateAlertDigests
-    Users.all.find_each do |user|
+    #Users.all.find_each do |user|
+      #only for debugging
+      user = User.find(1)
       updates = {}
       searches = self.checkSearchWatches(user, false)
-      tenders = self.checkTenderWatches(user, false)
-      suppliers = self.checkSupplierWatches(user, false)
-      procurers = self.checkProcurersWatches(user, false)
+      tenderWatches = self.checkTenderWatches(user, false)
+      supplierWatches = self.checkSupplierWatches(user, false)
+      procurerWatches = self.checkProcurerWatches(user, false)
 
       if searches.length > 0
+        puts 'new search update'
         updates[:searches] = searches
+        puts updates.length
       end
-      if tenders.length > 0
-        updates[:tenders] = tenders
+      if tenderWatches.length > 0
+        updates[:tenderWatches] = tenderWatches
       end
-      if suppliers.length > 0
-        updates[:suppliers] = suppliers
+      if supplierWatches.length > 0
+        updates[:supplierWatches] = supplierWatches
       end
-      if procurers.length > 0
-        updates[:procurers] = procurers
+      if procurerWatches.length > 0
+        updates[:procurerWatches] = procurerWatches
       end
 
       if updates.length > 0
-        AlertMailer.daily_digest(user, updates)
+        puts "sending digest"
+        AlertMailer.daily_digest(user, updates).deliver
       end
-    end
+    #end
   end
 
 
@@ -1331,7 +1342,7 @@ module ScraperFile
     return updates
   end
 
-  def self.sendProcurerAlertMail(user, deliverAlerts)
+  def self.checkProcurerWatches(user, deliverAlerts)
     watches = ProcurerWatch.where(:user_id => user.id)
     updates = []
     watches.each do |watch|
@@ -1352,7 +1363,7 @@ module ScraperFile
     return updates
   end
 
-  def self.checkSupplierWatches
+  def self.checkSupplierWatches(user, deliverAlerts)
     #go through all saved Tenders and alert user to changes
     watches = SupplierWatch.where(:user_id => user.id)
     updates = []
@@ -1387,7 +1398,7 @@ module ScraperFile
         queryParams = QueryHelper.buildTenderSearchParamsFromString(search.search_string)
         data = QueryHelper.buildTenderQueryData(queryParams)
         results = QueryHelper.buildTenderSearchQuery(data)
-        updateList = @newTenders
+        updateList = @newTenders+@updatedTenders
       elsif search.searchtype == "supplier"
         queryParams = QueryHelper.buildSupplierSearchParamsFromString(search.search_string)
         results = QueryHelper.buildSupplierSearchQuery(queryParams)
@@ -1411,6 +1422,7 @@ module ScraperFile
         if deliverAlerts and search.email_alert
           AlertMailer.search_alert(user, search, searchUpdates).deliver
         end
+        puts "search update found"
         updates.push([search,searchUpdates])
       end
     end
@@ -1556,8 +1568,6 @@ module ScraperFile
   def self.generateMetaData
     puts "setting up users"
     self.createUsers
-    puts "storing tender results"
-    self.storeTenderContractValues
 
     puts "generating aggregate data"
     self.processAggregateData
@@ -1629,19 +1639,26 @@ module ScraperFile
     self.process
     puts "diffing"
     self.diffData
-    self.generateMetaData
+    puts "storing tender results"
+    self.storeTenderContractValues(@updatedTenders+@newTenders)
+    #self.generateMetaData
+    #send email alerts
+    #self.generateAlerts
   end
 
   def self.processIncrementalScrape
     @liveDataset = Dataset.find(1)
-    self.generateMetaData
+    #puts "finding competitors"
+    #self.findCompetitors
+    puts "finding corruption"
+    #self.generateRiskFactors
     #AggregateHelper.generateAndStoreAggregateData
    # @dataset = Dataset.last
     #AlertMailer.data_process_started().deliver
     #self.process
     #AlertMailer.meta_started().deliver
     
-    #self.generateAlerts
+    #
     #AlertMailer.data_process_finished().deliver
   end
 

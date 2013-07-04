@@ -50,9 +50,10 @@ module QueryHelper
     minBidders = data[:min_num_bidders]
     maxBidders = data[:max_num_bidders]
 
-    procurer = "%"+data[:procurer_name]+"%"
-    supplier = "%"+data[:supplier_name]+"%"
-    cpv_code = "%"+data[:cpv_code]+"%"
+    #need to remove %'s coming in from a saved search
+    procurer = "%"+data[:procurer_name].gsub('%','')+"%"
+    supplier = "%"+data[:supplier_name].gsub('%','')+"%"
+    cpv_code = "%"+data[:cpv_code].gsub('%','')+"%"
 
     translated_status =  "%%"
     status = status.gsub('%','')

@@ -7,12 +7,12 @@ include GraphHelper
 layout "full-screen"
 
   def index
-    @years = []
-    AggregateStatistic.all.each do |dbYear|
-      if dbYear.year > 0 
-        @years.push(dbYear.year)
-      end
-    end
+    @years = ["2011","2012","2013"]
+    #AggregateStatistic.all.each do |dbYear|
+      #if dbYear.year > 0 
+        #@years.push(dbYear.year)
+      #end
+   #end
     count = @years.count
     if count > 1
       @selectedYear = @years[-1]

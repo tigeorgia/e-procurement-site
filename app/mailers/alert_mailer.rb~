@@ -12,6 +12,7 @@ class AlertMailer < ActionMailer::Base
     else
       subject = "New Tender Search Update"
     end
+    
     mail(:to => user.email, :subject => "New Search Updates")
   end
 
@@ -33,8 +34,9 @@ class AlertMailer < ActionMailer::Base
     mail(:to => user.email, :subject => "New Procurer Updates")
   end
 
-  def send_digest(user, updates)
+  def daily_digest(user, updates)
     @updates = updates
+    puts "emailing "+user.email
     mail(:to => user.email, :subject => "Your TenderMonitor Updates")
   end
 

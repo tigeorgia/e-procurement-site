@@ -8,11 +8,11 @@ layout "full-screen"
 
   def index
     @years = []
-    AggregateStatistic.all.each do |dbYear|
-      if dbYear.year > 0 
-        @years.push(dbYear.year)
-      end
-    end
+    #AggregateStatistic.all.each do |dbYear|
+      #if dbYear.year > 0 
+        #@years.push(dbYear.year)
+      #end
+   #end
     count = @years.count
     if count > 1
       @selectedYear = @years[-1]
@@ -65,11 +65,14 @@ layout "full-screen"
       end
       classifier = TenderCpvClassifier.where(:cpv_code => code).first
       if classifier
-      name = .description_english
-      if not name
-        name = "Not Specified"
+        name = classifier.description_english
+        if not name
+          name = "Not Specified"
+        end
+        cpvTree[code] = { :name => name, :code => code, :value => cpv.value.to_i, :children => [] }
+      else
+        puts "cant find classifier: "+code
       end
-      cpvTree[code] = { :name => name, :code => code, :value => cpv.value.to_i, :children => [] }
     end
     @cpvTree = createTreeGraphStringFromAgreements( cpvTree )
     respond_to do |format|  

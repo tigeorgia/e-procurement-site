@@ -40,6 +40,7 @@ module ApplicationHelper
         end
         @thisSearchString += field + "#"
       end
+      puts "search string: " + @thisSearchString
       results = Search.where( :user_id => current_user.id, :searchtype => type, :search_string => @thisSearchString )
       if results.count > 0
         @searchIsSaved = true
