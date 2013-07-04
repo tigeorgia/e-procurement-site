@@ -89,7 +89,7 @@
   <dt><%=t("CPV Codes")%>: </dt>
   <% codeString = "" %>
   <% @minorCPVCategories.each do |code| %> 
-    <%codeString+=code.cpv_code.to_s+", "%>
+    <%codeString+=code+", "%>
   <% end %>
   <%codeString.chomp!(", ")%>
   <dd><%=codeString%></dd>

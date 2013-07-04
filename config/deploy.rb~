@@ -1,24 +1,47 @@
 require "bundler/capistrano"
 #require 'capistrano/ext/multistage'
-
 #set :stages, ["staging", "production"]
 #set :default_stage, "staging"
 
+#############################
+####### SERVER SETUP ########
+#############################
 
+### LOCAL TEST SITE ###
+require "rvm/capistrano"
+set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"") # Read from local system
+set :rvm_ruby_string, "ruby-1.9.2-p290"
+set :rvm_type, :user
+before 'deploy', 'rvm:install_rvm'
+server "192.168.0.241", :app, :web, :db, :primary => true
+set :user, "tigeorgia"
+set :deploy_to, "/var/data/procurement/app"
+set :use_sudo, false
 
-
-set :app_path, "/home/tigeorgia/webapps"
 
 ### LIVE SITE ####
-set :application,"tenderwatch"
-set :deploy_to, "#{app_path}/#{application}"
-set :assets_path, "#{app_path}/tendermonitor_static"
+#set :app_path, "/home/tigeorgia/webapps"
+#set :application,"tenderwatch"
+#set :deploy_to, "#{app_path}/#{application}"
+#set :assets_path, "#{app_path}/tendermonitor_static"
+#role :web, "web331.webfaction.com"
+#role :app, "web331.webfaction.com"
+#role :db, "web331.webfaction.com", :primary => true
 
 ### STAGING ####
+#set :app_path, "/home/tigeorgia/webapps"
 #set :application, "tenderstage"
 #set :deploy_to, "#{app_path}/#{application}"
 #set :assets_path, "#{deploy_to}_static"
+#role :web, "web331.webfaction.com"
+#role :app, "web331.webfaction.com"
+#role :db, "web331.webfaction.com", :primary => true
 
+
+
+##########################
+###### DEPLOY CODE #######
+##########################
 
 set :scm, "git"
 set :branch, "master"
@@ -27,12 +50,6 @@ default_run_options[:pty] = true
 set :scm_username, "ChrisTIGeorgia"
 set :user, "tigeorgia"
 set :use_sudo, false
-
-
-
-role :web, "web331.webfaction.com"
-role :app, "web331.webfaction.com"
-role :db, "web331.webfaction.com", :primary => true
 
 namespace :deploy do
   desc "Restart nginx"
@@ -74,4 +91,4 @@ end
 after "deploy:update_code", "gems:bundle"
 after "deploy:update_code", "custom:settings_config"
 after "deploy:update_code", "custom:deploy_static_assets"
-#after "deploy:update_code", "db:migrate"
+after "deploy:update_code", "db:migrate"

@@ -182,7 +182,6 @@
   </table>
 <% end %>
 
-<% if not Rails.application.config.live_deploy %>
   <% if @complaints.length > 0 %>
     <hr>
     <table class="table table-striped">
@@ -226,7 +225,7 @@
       </tbody>
     </table>
   <% end %>
-<% end %>
+
 
 
 <div class="modal" style="display:none;">

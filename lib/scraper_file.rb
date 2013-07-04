@@ -388,7 +388,9 @@ module ScraperFile
               break
             end
             item = JSON.parse(line)
-            urlID =  item["tenderID"    ] 
+            urlID =  item["tenderID"]
+            puts "codes : "+item["cpvCode"]
+            puts "cpv url: "+urlID
             tender = Tender.where(:url_id => urlID, :dataset_id => @newDataset.id).first
             if tender
               if tender.sub_codes
@@ -1641,9 +1643,9 @@ module ScraperFile
     self.diffData
     puts "storing tender results"
     self.storeTenderContractValues(@updatedTenders+@newTenders)
-    self.generateMetaData
+    #self.generateMetaData
     #send email alerts
-    #self.generateAlerts
+    self.generateAlerts
   end
 
   def self.processIncrementalScrape

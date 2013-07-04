@@ -11,7 +11,6 @@ class TendersController < ApplicationController
 
     @results = []
     @tenders.each do |tender|
-      puts tender.id
       item = { :tender => tender, :procurer => Organization.find(tender.procurring_entity_id).name }
       @results.push(item)
     end
@@ -66,7 +65,7 @@ class TendersController < ApplicationController
 
     @complaints = Complaint.where(:tender_id => @tender.id)
     @minorCPVCategories = []
-    cpvCodes = TenderCpvCode.where(:tender_id => @tender.id)
+    cpvCodes = tender.sub_codes.split("#")
     cpvCodes.each do |code|
       @minorCPVCategories.push(code)
     end

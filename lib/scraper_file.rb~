@@ -388,7 +388,9 @@ module ScraperFile
               break
             end
             item = JSON.parse(line)
-            urlID =  item["tenderID"    ] 
+            urlID =  item["tenderID"]
+            puts "codes : "+item["cpvCode"]
+            puts "cpv url: "+urlID
             tender = Tender.where(:url_id => urlID, :dataset_id => @newDataset.id).first
             if tender
               if tender.sub_codes
