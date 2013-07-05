@@ -1645,7 +1645,7 @@ module ScraperFile
     self.storeTenderContractValues(@updatedTenders+@newTenders)
     #self.generateMetaData
     #send email alerts
-    self.generateAlerts
+    #self.generateAlerts
   end
 
   def self.processIncrementalScrape

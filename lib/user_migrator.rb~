@@ -47,10 +47,8 @@ module UserMigrator
           groupID = item[2].to_i
           code = item[3]
           cpvGroup = CpvGroup.find(groupID)
-          puts code.to_s
           classifier = TenderCpvClassifier.where("cpv_code = "+code.to_s).first
           if classifier
-            puts "store cpv group"
             cpvGroup.tender_cpv_classifiers << classifier
           end
           cpvGroup.save

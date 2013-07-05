@@ -1,0 +1,1 @@
+mysqldump -u root -proot procurement --add-drop-table 'cpv_groups' 'procurer_watches' 'searches' 'supplier_watches' 'users' 'watch_tenders' > userDump.sql

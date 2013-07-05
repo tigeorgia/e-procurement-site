@@ -59,6 +59,7 @@ module UserMigrator
           if procurer
             watch.procurer_id = procurer.id
           end
+          watch.save
         elsif type == "SupplierWatch"
           supplierID = item[2].to_i
           watch = SupplierWatch.where(:id => supplierID).first
@@ -66,6 +67,7 @@ module UserMigrator
           if supplier
             watch.supplier_id = supplier.id
           end
+          watch.save
         end
       end
     end
