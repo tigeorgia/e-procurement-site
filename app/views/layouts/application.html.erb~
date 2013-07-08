@@ -40,8 +40,7 @@
 			<!-- insert google analytics for staging site here -->
 		<% end %>
 
-    <title><%= content_for?(:title) ? "#{yield(:title)} > #{t('app.common.app_name')}" :
-				t('app.common.app_name') %></title>
+    <title><%= t('site_title') %></title>
     <%= csrf_meta_tags %>
 
 
@@ -134,8 +133,7 @@
       <%= link_to(image_tag("slovak_aid_logo.gif", :size => "125x100" ), "http://eng.slovakaid.sk/", :target => "_blank"	) %>
       <div class="contact-info">
         <strong>Contact Us</strong><br>
-        Transparency International Georgia,<br>
-        26 Rustaveli Avenue, 0108 Tbilisi<br>
+        Transparency International Georgia, 26 Rustaveli Avenue, 0108 Tbilisi<br>
         Phone: (+995 32) 292 14 03<br>
         Email: <%= mail_to "info@tendermonitor.ge"%>
       </div>

@@ -1449,6 +1449,29 @@ module ScraperFile
 =end
   end
 
+  def self.createLiveTenderList
+    File.open("#{Rails.root}/public/system/stalledTenders", "w+") do |stallFile|
+      File.open("#{Rails.root}/public/system/liveTenders", "w+") do |liveFile|
+        Tender.find_each do |tender|
+          oldVal = tender.inProgress
+          #is of type electronic or simple electronic and not completed negative and not bidding failed and not terminated and not concluded
+          if (tender.tender_type == "ელექტრონული ტენდერი" or tender.tender_type == "ამარტივებული ელექტრონული ტენდერი") and tender.tender_status != "დასრულებულია უარყოფითი შედეგით" and tender.tender_status != "ტენდერი არ შედგა" and tender.tender_status != "ტენდერი შეწყვეტილია" and tender.tender_status != "ხელშეკრულება დადებულია"
+            tender.inProgress = true
+            liveFile.write(tender.url_id.to_s+"\n")
+            #why is this tender still open after 6 months?
+            if (DateTime.now - tender.tender_announcement_date).to_i > 180
+              stallFile.write("https://tenders.procurement.gov.ge/public/?go="+tender.url_id.to_s+"&lang=geo"+"\n")
+            end
+          else
+            tender.inProgress = false
+          end
+          if oldVal != tender.inProgress
+            tender.save
+          end
+        end
+      end
+    end
+  end
 
   def self.outputOrgRevenue
     file_path = "#{Rails.root}/public/system/numbers.txt"
@@ -1646,21 +1669,17 @@ module ScraperFile
     #self.generateMetaData
     #send email alerts
     #self.generateAlerts
+
+    puts "creating list of live tenders"
+    self.createLiveTenderList
   end
 
   def self.processIncrementalScrape
     @liveDataset = Dataset.find(1)
-    #puts "finding competitors"
-    #self.findCompetitors
-    puts "finding corruption"
-    #self.generateRiskFactors
-    #AggregateHelper.generateAndStoreAggregateData
-   # @dataset = Dataset.last
+    self.createLiveTenderList
     #AlertMailer.data_process_started().deliver
     #self.process
     #AlertMailer.meta_started().deliver
-    
-    #
     #AlertMailer.data_process_finished().deliver
   end
 

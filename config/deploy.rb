@@ -20,22 +20,22 @@ require "bundler/capistrano"
 
 
 ### LIVE SITE ####
-#set :app_path, "/home/tigeorgia/webapps"
-#set :application,"tenderwatch"
-#set :deploy_to, "#{app_path}/#{application}"
-#set :assets_path, "#{app_path}/tendermonitor_static"
-#role :web, "web331.webfaction.com"
-#role :app, "web331.webfaction.com"
-#role :db, "web331.webfaction.com", :primary => true
-
-### STAGING ####
 set :app_path, "/home/tigeorgia/webapps"
-set :application, "tenderstage"
+set :application,"tenderwatch"
 set :deploy_to, "#{app_path}/#{application}"
-set :assets_path, "#{deploy_to}_static"
+set :assets_path, "#{app_path}/tendermonitor_static"
 role :web, "web331.webfaction.com"
 role :app, "web331.webfaction.com"
 role :db, "web331.webfaction.com", :primary => true
+
+### STAGING ####
+#set :app_path, "/home/tigeorgia/webapps"
+#set :application, "tenderstage"
+#set :deploy_to, "#{app_path}/#{application}"
+#set :assets_path, "#{deploy_to}_static"
+#role :web, "web331.webfaction.com"
+#role :app, "web331.webfaction.com"
+#role :db, "web331.webfaction.com", :primary => true
 
 ##########################
 ###### DEPLOY CODE #######
@@ -89,4 +89,4 @@ end
 after "deploy:update_code", "gems:bundle"
 after "deploy:update_code", "custom:settings_config"
 after "deploy:update_code", "custom:deploy_static_assets"
-after "deploy:update_code", "db:migrate"
+#after "deploy:update_code", "db:migrate"

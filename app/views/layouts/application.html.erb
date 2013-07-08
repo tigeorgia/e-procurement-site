@@ -40,8 +40,7 @@
 			<!-- insert google analytics for staging site here -->
 		<% end %>
 
-    <title><%= content_for?(:title) ? "#{yield(:title)} > #{t('app.common.app_name')}" :
-				t('app.common.app_name') %></title>
+    <title><%= t('site_title') %></title>
     <%= csrf_meta_tags %>
 
 
