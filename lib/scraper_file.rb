@@ -1450,13 +1450,17 @@ module ScraperFile
   end
 
   def self.createLiveTenderList
-    File.open("#{Rails.root}/public/system/stalledTenders", "w+") do |stallFile|
-      File.open("#{Rails.root}/public/system/liveTenders", "w+") do |liveFile|
+    standardNonActiveList = ["დასრულებულია უარყოფითი შედეგით","ტენდერი არ შედგა","ტენდერი შეწყვეტილია","ხელშეკრულება დადებულია"]
+    consolidatedNonActiveList = standardNonActiveList + ["გამარჯვებული გამოვლენილია"]
+    File.open("#{Rails.root}/public/system/stalledTenders.txt", "w+") do |stallFile|
+      File.open("#{Rails.root}/public/system/liveTenders.txt", "w+") do |liveFile|
         Tender.find_each do |tender|
           oldVal = tender.inProgress
-          #is of type electronic or simple electronic and not completed negative and not bidding failed and not terminated and not concluded
-          if (tender.tender_type == "ელექტრონული ტენდერი" or tender.tender_type == "ამარტივებული ელექტრონული ტენდერი") and tender.tender_status != "დასრულებულია უარყოფითი შედეგით" and tender.tender_status != "ტენდერი არ შედგა" and tender.tender_status != "ტენდერი შეწყვეტილია" and tender.tender_status != "ხელშეკრულება დადებულია"
+          #is of type electronic or simple electronic or procurement procedure and not completed negative and not bidding failed and not terminated and not concluded OR
+          #is of type consolidated and not completed negative and not bidding failed and not terminated and not concluded and not winner revealed
+          if (tender.tender_type != "კონსოლიდირებული ტენდერი" and not standardNonActiveList.include?(tender.tender_status)) or (tender.tender_type == "კონსოლიდირებული ტენდერი" and not consolidatedNonActiveList.include?(tender.tender_status))
             tender.inProgress = true
+            puts tender.url_id.to_s
             liveFile.write(tender.url_id.to_s+"\n")
             #why is this tender still open after 6 months?
             if (DateTime.now - tender.tender_announcement_date).to_i > 180
