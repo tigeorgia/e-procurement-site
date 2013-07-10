@@ -52,29 +52,7 @@ layout "full-screen"
   def cpv_revenue
     @year = params[:year]
     stats = AggregateStatistic.where(:year => @year).first
-    typeData = AggregateStatisticType.where(:aggregate_statistic_id => stats.id, :name => "total").first 
-    cpvData = AggregateCpvStatistic.where(:aggregate_statistic_type_id => typeData.id)
-
-    cpvTree = {}
-    cpvData.each do |cpv|
-      #get cpv name
-      code = cpv.cpv_code.to_s
-      #hax to convert int to string with 0s at the front
-      while code.length < 8
-        code = "0"+code
-      end
-      classifier = TenderCpvClassifier.where(:cpv_code => code).first
-      if classifier
-        name = classifier.description_english
-        if not name
-          name = "Not Specified"
-        end
-        cpvTree[code] = { :name => name, :code => code, :value => cpv.value.to_i, :children => [] }
-      else
-        puts "cant find classifier: "+code
-      end
-    end
-    @cpvTree = createTreeGraphStringFromAgreements( cpvTree )
+    @cpvTree = stats.cpvString
     respond_to do |format|  
       format.js
     end

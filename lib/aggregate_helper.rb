@@ -1,6 +1,6 @@
 # encoding: utf-8 
 module AggregateHelper
-    
+  require "graph_helper"
   class TenderTypeStat
    def initialize(name)
       @name = name
@@ -324,9 +324,37 @@ module AggregateHelper
           bidStat.average_bids = datapoint[1]
           bidStat.tender_count = datapoint[2]
           bidStat.save
-        end   
-      end   
+        end#bids
+        if dbType.name == "total" 
+          self.createCPVTree(dbType, statistic)
+        end
+      end#types        
+    end#years
+  end
+
+  def createCPVTree(cpvData, statisticYear)
+    cpvTree = {}
+    cpvData.each do |cpv|
+      #get cpv name
+      code = cpv.cpv_code.to_s
+      #hax to convert int to string with 0s at the front
+      while code.length < 8
+        code = "0"+code
+      end
+      classifier = TenderCpvClassifier.where(:cpv_code => code).first
+      if classifier
+        name = classifier.description_english
+        if not name
+          name = "Not Specified"
+        end
+        cpvTree[code] = { :name => name, :code => code, :value => cpv.value.to_i, :children => [] }
+      else
+        puts "cant find classifier: "+code
+      end
     end
-  end 
+    cpvString = GraphHelper.createTreeGraphStringFromAgreements(cpvTree)
+    statisticYear.cpvString = cpvString
+    statisticYear.save
+  end
 end
 

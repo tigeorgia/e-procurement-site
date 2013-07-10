@@ -1,9 +1,9 @@
 module Updateable 
 
-  def findDifferences(item, additionIgnores = [])
+  def findDifferences(item, additionalIgnores = [])
     differences = []
     ignoreAttributes = ["id", "created_at", "updated_at"]
-    additionIgnores.each do |ignore|
+    additionalIgnores.each do |ignore|
       ignoreAttributes.push(ignore)
     end
 
@@ -21,9 +21,9 @@ module Updateable
     return differences
   end
 
-  def copyItem(item, additionIgnores = [])
+  def copyItem(item, additionalIgnores = [])
     ignoreAttributes = ["id"]
-    additionIgnores.each do |ignore|
+    additionalIgnores.each do |ignore|
       ignoreAttributes.push(ignore)
     end
     item.attributes.each do |attribute|
@@ -32,7 +32,11 @@ module Updateable
           next
         end
       end
-      self.attributes[attribute[0]] = attribute[1] 
+      #puts attribute[0].to_s
+      #puts "OLD: "+ self.attributes[attribute[0]].to_s
+      #puts "NEW: "+attribute[1].to_s
+      write_attribute(attribute[0], attribute[1])
+      #puts "AFTERSAVE: "+ self.attributes[attribute[0]].to_s
     end
     self.save
    end

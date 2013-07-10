@@ -1,4 +1,5 @@
- class Tender < ActiveRecord::Base
+ class Tender < Updateable
+  #include Updateable
 
   has_many :bidders, :dependent => :destroy
   has_many :agreements, :dependent => :destroy

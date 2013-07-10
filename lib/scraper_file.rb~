@@ -36,9 +36,7 @@ module ScraperFile
     end
   end	
 
-
   def self.processTenders
-
     tender_file_path = "#{Rails.root}/public/system/#{FILE_TENDER}"
     File.open(tender_file_path, "r") do |infile|
       count = 0
@@ -1452,8 +1450,8 @@ module ScraperFile
   def self.createLiveTenderList
     standardNonActiveList = ["დასრულებულია უარყოფითი შედეგით","ტენდერი არ შედგა","ტენდერი შეწყვეტილია","ხელშეკრულება დადებულია"]
     consolidatedNonActiveList = standardNonActiveList + ["გამარჯვებული გამოვლენილია"]
-    File.open("#{Rails.root}/public/system/stalledTenders", "w+") do |stallFile|
-      File.open("#{Rails.root}/public/system/liveTenders", "w+") do |liveFile|
+    File.open("#{Rails.root}/public/system/stalledTenders.txt", "w+") do |stallFile|
+      File.open("#{Rails.root}/public/system/liveTenders.txt", "w+") do |liveFile|
         Tender.find_each do |tender|
           oldVal = tender.inProgress
           #is of type electronic or simple electronic or procurement procedure and not completed negative and not bidding failed and not terminated and not concluded OR

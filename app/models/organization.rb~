@@ -1,4 +1,6 @@
-class Organization < ActiveRecord::Base
+class Organization < Updateable
+  #include Updateable
+
   has_many :bidders, :dependent => :destroy
   has_many :agreements, :dependent => :destroy
   has_many :competitors, :dependent => :destroy

@@ -1,0 +1,8 @@
+class ChangeTenderSubCodesToText < ActiveRecord::Migration
+  def up
+    change_column :tenders, :sub_codes, :text
+  end
+
+    change_column :tenders, :sub_codes, :string
+  end
+end

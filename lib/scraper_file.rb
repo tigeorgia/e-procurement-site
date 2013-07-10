@@ -36,9 +36,7 @@ module ScraperFile
     end
   end	
 
-
   def self.processTenders
-
     tender_file_path = "#{Rails.root}/public/system/#{FILE_TENDER}"
     File.open(tender_file_path, "r") do |infile|
       count = 0
@@ -472,21 +470,23 @@ module ScraperFile
             item = JSON.parse(line)                 
             document = Document.new     
             tender = Tender.where("url_id = ? AND dataset_id = ?",item["tenderID"],@newDataset.id).first
-            document.tender_id = tender.id
-            document.document_url = item["documentUrl"]
-            document.title = item["title"]
-            document.author = item["author"]
-            document.date = Date.parse(item["date"])          
+            if tender
+              document.tender_id = tender.id
+              document.document_url = item["documentUrl"]
+              document.title = item["title"]
+              document.author = item["author"]
+              document.date = Date.parse(item["date"])          
 
-            #if this an update to an old doc
-            #remove old doc
-            oldDoc = Document.where(:document_url => document.document_url).first
-            if oldDoc
-              oldDoc.destroy
+              #if this an update to an old doc
+              #remove old doc
+              oldDoc = Document.where(:document_url => document.document_url).first
+              if oldDoc
+                oldDoc.destroy
+              end
+              document.save
+              count = count + 1
+              batch_count = batch_count +1
             end
-            document.save
-            count = count + 1
-            batch_count = batch_count +1
           end#while
           puts "document: #{count}"
         end#transaction

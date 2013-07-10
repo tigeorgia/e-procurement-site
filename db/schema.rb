@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708053731) do
+ActiveRecord::Schema.define(:version => 20130709104856) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20130708053731) do
     t.integer  "year"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "cpvString",  :limit => 16777215
   end
 
   create_table "aggregate_tender_statistics", :force => true do |t|
@@ -299,7 +300,7 @@ ActiveRecord::Schema.define(:version => 20130708053731) do
     t.string   "risk_indicators"
     t.string   "procurer_name"
     t.string   "supplier_name"
-    t.string   "sub_codes"
+    t.text     "sub_codes"
     t.boolean  "inProgress"
   end
 
