@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709104856) do
+ActiveRecord::Schema.define(:version => 20130710130353) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(:version => 20130709104856) do
     t.datetime "updated_at"
     t.integer  "amendment_number"
     t.string   "currency"
+    t.boolean  "updated"
+    t.boolean  "is_new"
   end
 
   add_index "agreements", ["tender_id", "organization_id"], :name => "index_agreements_on_tender_id_and_organization_id"
@@ -102,6 +104,8 @@ ActiveRecord::Schema.define(:version => 20130709104856) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "result"
+    t.boolean  "updated"
+    t.boolean  "is_new"
   end
 
   add_index "bidders", ["tender_id", "organization_id"], :name => "index_bidders_on_tender_id_and_organization_id"
@@ -175,6 +179,8 @@ ActiveRecord::Schema.define(:version => 20130709104856) do
     t.string   "title"
     t.string   "author"
     t.datetime "date"
+    t.boolean  "updated"
+    t.boolean  "is_new"
   end
 
   create_table "organizations", :force => true do |t|
@@ -202,6 +208,8 @@ ActiveRecord::Schema.define(:version => 20130709104856) do
     t.integer  "total_offered_tenders"
     t.integer  "total_success_tenders"
     t.string   "bw_list_flag"
+    t.boolean  "updated"
+    t.boolean  "is_new"
   end
 
   add_index "organizations", ["organization_url", "name"], :name => "index_organizations_on_organization_url_and_name"
@@ -302,6 +310,8 @@ ActiveRecord::Schema.define(:version => 20130709104856) do
     t.string   "supplier_name"
     t.text     "sub_codes"
     t.boolean  "inProgress"
+    t.boolean  "updated"
+    t.boolean  "is_new"
   end
 
   add_index "tenders", ["estimated_value"], :name => "index_tenders_on_estimated_value"

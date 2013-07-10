@@ -18,7 +18,65 @@ module ScraperFile
   require "query_helper"
   require "translation_helper"
   require "aggregate_helper"
-  
+
+  def self.cleanOldData(mode)
+    if mode == 0
+      puts "cleaning tender data"
+      oldTenders = Tender.where(:dataset_id => @newDataset)
+      oldTenders.find_each do |tender|
+        tender.dataset_id = @liveDataset
+        tender.save
+      end
+      puts "cleaning org data"
+      oldOrgs = Organization.where(:dataset_id => @newDataset)
+      oldOrgs.find_each do |org|
+        org.dataset_id = @liveDataset
+        org.save
+      end
+    elsif mode == 1
+      puts "removing incomplete tender data"
+      Tender.where(:dataset_id => @newDataset).destroy_all
+      puts "removing incomplete org data"
+      Organization.where(:dataset_id => @newDataset).destroy_all
+    end
+
+    puts "removing update flags"
+    #remove updated/new flags
+    tenders = Tender.where("updated = true OR is_new = true")
+    tenders.each do |tender|
+      tender.updated = false
+      tender.is_new = false
+      tender.save
+    end
+
+    orgs = Organization.where("updated = true OR is_new = true")
+    orgs.each do |org|
+      org.updated = false
+      org.is_new = false
+      org.save
+    end
+
+    bidders = Bidder.where("updated = true OR is_new = true")
+    bidders.each do |bidder|
+      bidder.updated = false
+      bidder.is_new = false
+      bidder.save
+    end
+
+    documents = Document.where("updated = true OR is_new = true")
+    documents.each do |doc|
+      doc.updated = false
+      doc.is_new = false
+      doc.save
+    end
+    
+    agreements = Agreement.where("updated = true OR is_new = true")
+    agreements.each do |agreement|
+      agreement.updated = false
+      agreement.is_new = false
+      agreement.save
+    end
+  end
 
   # if we have an oldData set and a newDataset we can generate some info about the differences before merging the sets
   def self.diffData
@@ -110,17 +168,17 @@ module ScraperFile
             puts "updating tender: " + oldTender.id.to_s
             #set this as new item so bidders and agreements can be matched
             oldTender.dataset_id = @newDataset.id
-            oldTender.save
-            @updatedTenders.push(oldTender)
+            oldTender.updated = true
+            oldTender.save       
           else
+            tender.is_new = true
             tender.save
             procurerWatches = ProcurerWatch.where(:procurer_id => organization.id)
             procurerWatches.each do |watch|
               watch.diff_hash += "#tender="+tender.id.to_s
               watch.has_updated = true
               watch.save
-            end
-            @newTenders.push(tender)
+            end          
           end
         end #while
       end#transaction
@@ -186,11 +244,12 @@ module ScraperFile
             if oldOrganization
               puts "updating org: " + oldOrganization.id.to_s
               oldOrganization.copyItem(organization)
-              @updatedOrgs.push(oldOrganization)
-            else                   
+              oldOrganization.updated = true
+              oldOrganization.save
+            else     
+              organization.is_new = true              
               organization.save
               puts "saving org: " + organization.id.to_s  
-              @newOrgs.push(organization)
               #now we know everything is sorted we can run a name translation
               self.generateOrganizationNameTranslation( organization ) 
             end  
@@ -253,9 +312,11 @@ module ScraperFile
                   tender.num_bids = tender.num_bids - oldBidder.number_of_bids
                   tender.num_bidders = tender.num_bidders - 1
                   oldBidder.copyItem(bidder)
+                  oldBidder.updated = true
                   oldBidder.save
                 else
                   #this is a new bidder
+                  bidder.is_new = true
                   bidder.save
                   #see if anyone is watching this supplier
                   supplierWatches = SupplierWatch.where(:supplier_id => organization.id)
@@ -351,7 +412,8 @@ module ScraperFile
                   #wtf where is the org?
                 else
                   agreement.organization_id = organization.id
-                end         
+                end
+                agreement.is_new = true       
                 agreement.save
               end
             else
@@ -482,7 +544,9 @@ module ScraperFile
               oldDoc = Document.where(:document_url => document.document_url).first
               if oldDoc
                 oldDoc.destroy
+                document.updated = true
               end
+              document.is_new = true
               document.save
               count = count + 1
               batch_count = batch_count +1
@@ -704,53 +768,6 @@ module ScraperFile
     end
   end
 
-##OLD
-=begin def self.processAggregateData
-    #for each CPV code calculate the revenue generated for each company and store these entries in the database
-    #this way when aggregate data is requested instead of running this expensive process everytime we can just look up the pre-calculated entries in the db.
-    AggregateCpvRevenue.delete_all
-    ProcurerCpvRevenue.delete_all
-    classifiers = TenderCpvClassifier.find(:all)
-    classifiers.each do |classifier|
-      puts classifier.cpv_code
-      Tender.find_each(:conditions => "cpv_code = " + classifier.cpv_code) do |tender|
-        if tender.contract_value and tender.contract_value > 0
-          tenderValue = tender.contract_value
-          company = Organization.find(tender.winning_org_id)
-          if company
-            aggregateData = AggregateCpvRevenue.where(:cpv_code => classifier.cpv_code, :organization_id => company.id).first
-            if not aggregateData
-              aggregateData = AggregateCpvRevenue.new
-              aggregateData.organization_id = company.id
-              aggregateData.cpv_code = classifier.cpv_code
-              aggregateData.total_value = tenderValue
-            else
-              aggregateData.total_value = aggregateData.total_value + tenderValue
-            end
-            aggregateData.save
-          end
-
-          procurer = Organization.find(tender.procurring_entity_id)
-          if procurer
-            aggregateData = ProcurerCpvRevenue.where(:cpv_code => classifier.cpv_code, :organization_id => procurer.id).first
-            if not aggregateData
-              aggregateData = ProcurerCpvRevenue.new
-              aggregateData.organization_id = procurer.id
-              aggregateData.cpv_code = classifier.cpv_code
-              aggregateData.total_value = tenderValue
-            else
-              aggregateData.total_value = aggregateData.total_value + tenderValue
-            end
-            aggregateData.save
-          end
-        end
-      end
-    end
-    
-    #store data for yearly stats
-    AggregateHelper.generateAndStoreAggregateData
-  end#process aggregate data
-=end
    #DEPRECATED
 =begin  def self.processAggregateData
     #for each CPV code calculate the revenue generated for each company and store these entries in the database
@@ -1400,15 +1417,15 @@ module ScraperFile
         queryParams = QueryHelper.buildTenderSearchParamsFromString(search.search_string)
         data = QueryHelper.buildTenderQueryData(queryParams)
         results = QueryHelper.buildTenderSearchQuery(data)
-        updateList = @newTenders+@updatedTenders
+        updateList = Tender.where(:is_new => true)
       elsif search.searchtype == "supplier"
         queryParams = QueryHelper.buildSupplierSearchParamsFromString(search.search_string)
         results = QueryHelper.buildSupplierSearchQuery(queryParams)
-        updateList = @newSuppliers
+        updateList = Organization.where(:is_new => true, :is_bidder => true)
       else
         queryParams = QueryHelper.buildProcurerSearchParamsFromString(search.search_string)
         results = QueryHelper.buildProcurerSearchQuery(queryParams)
-        updateList = @newProcurers
+        updateList = Organization.where(:is_new => true, :is_procurer => true)
       end
 
       searchUpdates = []
@@ -1543,17 +1560,6 @@ module ScraperFile
   def self.process
     start = Time.now
     I18n.locale = :en # do this so formating of floats and dates is correct when reading in json
-    @updatedTenders = []
-    @updatedOrgs = []
-    @updatedSuppliers = []
-    @updatedProcurers = []
-    
-    @newTenders = []
-    @newOrgs = []
-    @newSuppliers = []
-    @newProcurers = []
-    
-
     #parse orgs first so that other objects can sort out relationships
     puts "processing Orgs"
     self.processOrganizations
@@ -1574,24 +1580,6 @@ module ScraperFile
     self.processBlackList
     puts "process complaints"    
     self.processComplaints
-
-    @newOrgs.each do |org|
-      if org.is_bidder
-        @newSuppliers.push(org)
-      end
-      if org.is_procurer
-        @newProcurers.push(org)
-      end
-    end
-
-    @updatedOrgs.each do |org|
-      if org.is_bidder
-        @updatedSuppliers.push(org)
-      end
-      if org.is_procurer
-        @updatedProcurers.push(org)
-      end
-    end
   end
 
   def self.generateMetaData
@@ -1642,35 +1630,16 @@ module ScraperFile
 
     #destroy any left over data from last process
     #anything left with a dataset_id the same as newDataset mustn't have been processed fully
-
-    dataValid = 1
-    if dataValid == 0
-      puts "cleaning tender data"
-      oldTenders = Tender.where(:dataset_id => @newDataset)
-      oldTenders.find_each do |tender|
-        tender.dataset_id = @liveDataset
-        tender.save
-      end
-      puts "cleaning org data"
-      oldOrgs = Organization.where(:dataset_id => @newDataset)
-      oldOrgs.find_each do |org|
-        org.dataset_id = @liveDataset
-        org.save
-      end
-    elsif dataValid == 1
-      puts "removing incomplete tender data"
-      Tender.where(:dataset_id => @newDataset).destroy_all
-      puts "removing incomplete org data"
-      Organization.where(:dataset_id => @newDataset).destroy_all
-    end
+    self.cleanOldData(1)
 
     puts "processing json"
     self.process
     puts "diffing"
     self.diffData
     puts "storing tender results"
-    self.storeTenderContractValues(@updatedTenders+@newTenders)
-    #self.generateMetaData
+    tenderList = Tender.where("updated = true OR is_new = true")
+    self.storeTenderContractValues(tenderList)
+    self.generateMetaData
     #send email alerts
     #self.generateAlerts
 

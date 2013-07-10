@@ -332,8 +332,9 @@ module AggregateHelper
     end#years
   end
 
-  def createCPVTree(cpvData, statisticYear)
+  def createCPVTree(dbType, statisticYear)
     cpvTree = {}
+    cpvData = AggregateCpvStatistic.where(:aggregate_statistic_type_id => dbType.id)
     cpvData.each do |cpv|
       #get cpv name
       code = cpv.cpv_code.to_s
