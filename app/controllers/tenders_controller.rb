@@ -65,9 +65,11 @@ class TendersController < ApplicationController
 
     @complaints = Complaint.where(:tender_id => @tender.id)
     @minorCPVCategories = []
-    cpvCodes = @tender.sub_codes.split("#")
-    cpvCodes.each do |code|
-      @minorCPVCategories.push(code)
+    if @tender.sub_codes
+      cpvCodes = @tender.sub_codes.split("#")
+      cpvCodes.each do |code|
+        @minorCPVCategories.push(code)
+      end
     end
 
     @risks = []
