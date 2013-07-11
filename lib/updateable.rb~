@@ -2,7 +2,7 @@ module Updateable
 
   def findDifferences(item, additionalIgnores = [])
     differences = []
-    ignoreAttributes = ["id", "created_at", "updated_at"]
+    ignoreAttributes = ["id", "created_at", "updated_at","dataset_id"]
     additionalIgnores.each do |ignore|
       ignoreAttributes.push(ignore)
     end
@@ -25,10 +25,8 @@ module Updateable
     end
     item.attributes.each do |attribute|
       if ignoreAttributes.include?(attribute[0])
-        puts "ignoring #{attribute[0]}"
         next
       end
-      puts "writing #{attribute[0]}"
       write_attribute(attribute[0], attribute[1])
     end
     self.save

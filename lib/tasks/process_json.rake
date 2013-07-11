@@ -1,15 +1,22 @@
 namespace :procurement do
-  desc "Processes Json data retrived from a full web scrape and inputs results into a database"
+  desc "Processes Json data retrived from a web scrape and inputs results into a database"
   task:full_scrape => :environment do
     require "scraper_file"
-    ScraperFile.processFullScrape
+    ScraperFile.processScrape
   end
   
-  desc "Processes Json data retrived from a partial web scrape and inputs results into a database"
+  desc "Use for testing scraper functions"
   task:incremental_scrape => :environment do
     require "scraper_file"
-    ScraperFile.processIncrementalScrape
+    ScraperFile.testProcess
   end
+
+  desc "called on remote server to send email alerts"
+  task:generate_alerts => :environment do
+    require "scraper_file"
+    ScraperFile.generateAlertDigests
+  end
+
 
   desc "Process meta data and store results in db"
   task:buildMetaData=> :environment do

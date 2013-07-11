@@ -145,7 +145,10 @@ module ScraperFile
             if oldTender
               watch_tenders = WatchTender.where(:tender_url => tender.url_id)
               if watch_tenders.count > 0
-                differences = oldTender.findDifferences(tender)
+                #ignore all meta data when comparing
+                ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
+                          "risk_indicators","procurer_name","supplier_name","sub_codes"]
+                differences = oldTender.findDifferences(tender,ignores)
                 #if differences.length > 0
                   #store changed fields in hash
                   hash = ""
@@ -225,7 +228,11 @@ module ScraperFile
                 procurerWatches = ProcurerWatch.where(:procurer_id => oldOrganization.id)
                 watches = suppliersWatches + procurerWatches
                 if watches.count > 0
-                  differences = oldOrganization.findDifferences(organization, ["is_procurer", "is_bidder"])
+                  #ignore all meta data when comparing
+                  ignores = ["is_procurer", "is_bidder","translation","total_won_contract_value",
+                             "total_bid_tenders","total_won_tenders","total_offered_contract_value",
+                             "total_offered_tenders","total_success_tenders","bw_list"]
+                  differences = oldOrganization.findDifferences(organization, ignores)
                   if differences.length > 0
                     #store changed fields in hash
                     hash = ""
@@ -450,7 +457,6 @@ module ScraperFile
             item = JSON.parse(line)
             urlID =  item["tenderID"]
             puts "codes : "+item["cpvCode"]
-            puts "cpv url: "+urlID
             tender = Tender.where(:url_id => urlID, :dataset_id => @newDataset.id).first
             if tender
               if tender.sub_codes
@@ -1306,6 +1312,7 @@ module ScraperFile
     end
   end
 
+  #run on live server which contains user data
   def self.generateAlertDigests
     #Users.all.find_each do |user|
       #only for debugging
@@ -1599,11 +1606,7 @@ module ScraperFile
     #self.buildOrganizationXmlStrings
   end
 
-  def self.generateAlerts
-    self.generateAlertDigests
-  end
-
-  def self.processFullScrape   
+  def self.processScrape   
     @numDatasets = Dataset.find(:all).count
     @liveDataset = nil
     @newDataset = nil
@@ -1640,28 +1643,20 @@ module ScraperFile
     tenderList = Tender.where("updated = true OR is_new = true")
     self.storeTenderContractValues(tenderList)
     self.generateMetaData
-    #send email alerts
-    #self.generateAlerts
 
     puts "creating list of live tenders"
     self.createLiveTenderList
   end
 
-  def self.processIncrementalScrape
+  #function hooked up to the rake task testProcess
+  #fill this with function to test
+  def self.testProcess
     @liveDataset = Dataset.find(1)
     self.createLiveTenderList
     #AlertMailer.data_process_started().deliver
     #self.process
     #AlertMailer.meta_started().deliver
     #AlertMailer.data_process_finished().deliver
-  end
-
-  def self.buildUserDataOnly
-    self.generateCompetitorData
-  end
-
-  def self.rebuildWatchesAndGroups
-    
   end
 
 end
