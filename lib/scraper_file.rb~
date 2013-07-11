@@ -165,12 +165,11 @@ module ScraperFile
                      
           if oldTender
             oldTender.copyItem(tender)
-            puts "updating tender: " + oldTender.id.to_s
+            puts "updating tender: " + oldTender.url_id.to_s
             #set this as new item so bidders and agreements can be matched
             oldTender.dataset_id = @newDataset.id
             oldTender.updated = true
             oldTender.save
-            puts "saved url: #{oldTender.url_id} dataset #{oldTender.data}"
           else
             tender.is_new = true
             tender.save
@@ -242,9 +241,9 @@ module ScraperFile
                 end
               end
             end 
-            if oldOrganization
-              puts "updating org: " + oldOrganization.id.to_s
+            if oldOrganization         
               oldOrganization.copyItem(organization)
+               puts "updating org url: " + oldOrganization.organization_url.to_s
               oldOrganization.updated = true
               oldOrganization.save
             else     
