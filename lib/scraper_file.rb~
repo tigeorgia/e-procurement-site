@@ -169,7 +169,8 @@ module ScraperFile
             #set this as new item so bidders and agreements can be matched
             oldTender.dataset_id = @newDataset.id
             oldTender.updated = true
-            oldTender.save       
+            oldTender.save
+            puts "saved url: #{oldTender.url_id} dataset #{oldTender.data}"
           else
             tender.is_new = true
             tender.save

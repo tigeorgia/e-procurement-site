@@ -239,13 +239,11 @@ module AggregateHelper
       stats[year] = self.createYearStat()
     end   
     count = 0
-    Tender.find_each do |tender|
-      if tender.contract_value
-       count += 1
-      end
+    Tender.find_each do |tender|   
       if count%1000 == 0
         puts "Tenders: "+ count.to_s
       end
+      count += 1
       year = tender.tender_announcement_date.year
       yearStats = stats[year]
       if tender.tender_type.strip() == "ელექტრონული ტენდერი"
@@ -255,8 +253,6 @@ module AggregateHelper
       end
       self.addStats(yearStats[:total], tender)       
     end
-    #temp
-    return
 
     puts "calc averages"
     #now we have all stats calc the averages

@@ -8,12 +8,9 @@ module Updateable
     end
 
     item.attributes.each do |attribute|
-      ignoreAttributes.each do |ignore|
-        if ignore == attribute[0]
-          next
-        end
+      if ignoreAttributes.include?(attribute[0])
+        next
       end
-
       if attribute[1] != self.attributes[attribute[0]]
         differences.push(attribute[0])
       end
@@ -22,22 +19,16 @@ module Updateable
   end
 
   def copyItem(item, additionalIgnores = [])
-    ignoreAttributes = ["id"]
+    ignoreAttributes = ["id","created_at"]
     additionalIgnores.each do |ignore|
       ignoreAttributes.push(ignore)
     end
     item.attributes.each do |attribute|
-      ignoreAttributes.each do |ignore|
-        if ignore == attribute[0]
-          next
-        end
+      if ignoreAttributes.include?(attribute[0])
+        next
       end
-      #puts attribute[0].to_s
-      #puts "OLD: "+ self.attributes[attribute[0]].to_s
-      #puts "NEW: "+attribute[1].to_s
       write_attribute(attribute[0], attribute[1])
-      #puts "AFTERSAVE: "+ self.attributes[attribute[0]].to_s
     end
     self.save
-   end
+  end
 end
