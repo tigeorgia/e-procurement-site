@@ -664,8 +664,7 @@ module ScraperFile
           if org
             blackListItem.organization_id = org.id
             org.bw_list_flag = "B"
-            org.saveVia:1.0 ti-g.ge:3128 (squid)
-
+            org.save
           end
           blackListItem.organization_name = self.cleanString(item["orgName"])
           blackListItem.issue_date = self.georgianToDate(item["issueDate"])
