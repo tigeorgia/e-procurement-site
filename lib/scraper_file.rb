@@ -664,7 +664,8 @@ module ScraperFile
           if org
             blackListItem.organization_id = org.id
             org.bw_list_flag = "B"
-            org.save
+            org.saveVia:1.0 ti-g.ge:3128 (squid)
+
           end
           blackListItem.organization_name = self.cleanString(item["orgName"])
           blackListItem.issue_date = self.georgianToDate(item["issueDate"])
@@ -1652,11 +1653,9 @@ module ScraperFile
   #fill this with function to test
   def self.testProcess
     @liveDataset = Dataset.find(1)
+    self.generateMetaData
+    puts "creating list of live tenders"
     self.createLiveTenderList
-    #AlertMailer.data_process_started().deliver
-    #self.process
-    #AlertMailer.meta_started().deliver
-    #AlertMailer.data_process_finished().deliver
   end
 
 end
