@@ -178,7 +178,12 @@ module ScraperFile
             tender.save
             procurerWatches = ProcurerWatch.where(:procurer_id => organization.id)
             procurerWatches.each do |watch|
-              watch.diff_hash += "#tender="+tender.id.to_s
+              newTenderStr = "#tender="+tender.id.to_s
+              if watch.diff_hash
+                watch.diff_hash += newTenderStr
+              else
+                watch.diff_hash = newTenderStr
+              end
               watch.has_updated = true
               watch.save
             end          
@@ -233,18 +238,19 @@ module ScraperFile
                              "total_bid_tenders","total_won_tenders","total_offered_contract_value",
                              "total_offered_tenders","total_success_tenders","bw_list"]
                   differences = oldOrganization.findDifferences(organization, ignores)
-                  if differences.length > 0
-                    #store changed fields in hash
-                    hash = ""
-                    differences.each do |difference|
-                      hash += difference + "#"
-                    end
-                    watches.each do |watch|
-                      watch.diff_hash = hash
-                      watch.has_updated = true
-                      watch.save
-                    end
-                  end
+                  watches.each do |watch|
+                    #set hash to empty so the orgs get cleaned out everytime before processing 
+                    hash = ""         
+                    if differences.length > 0
+                      #store changed fields in hash                   
+                      differences.each do |difference|
+                        hash += difference + "#"
+                      end
+                      watch.has_updated = true             
+                    end   
+                    watch.diff_hash = hash                
+                    watch.save
+                  end                 
                 end
               end
             end 
@@ -328,7 +334,12 @@ module ScraperFile
                   #see if anyone is watching this supplier
                   supplierWatches = SupplierWatch.where(:supplier_id => organization.id)
                   supplierWatches.each do |watch|
-                    watch.diff_hash += "#bid="+tender.id.to_s
+                    bidString = "#bid="+tender.id.to_s
+                    if watch.diff_hash
+                      watch.diff_hash += bidString 
+                    else
+                      watch.diff_hash = bidString
+                    end
                     watch.has_updated = true
                     watch.save
                   end
