@@ -1663,9 +1663,7 @@ module ScraperFile
   #fill this with function to test
   def self.testProcess
     @liveDataset = Dataset.find(1)
-    self.generateMetaData
-    puts "creating list of live tenders"
-    self.createLiveTenderList
+    AggregateHelper.test
   end
 
 end

@@ -328,7 +328,7 @@ module AggregateHelper
     end#years
   end
 
-  def createCPVTree(dbType, statisticYear)
+  def self.createCPVTree(dbType, statisticYear)
     cpvTree = {}
     cpvData = AggregateCpvStatistic.where(:aggregate_statistic_type_id => dbType.id)
     cpvData.each do |cpv|
@@ -352,6 +352,10 @@ module AggregateHelper
     cpvString = GraphHelper.createTreeGraphStringFromAgreements(cpvTree)
     statisticYear.cpvString = cpvString
     statisticYear.save
+  end
+
+  def self.test
+    GraphHelper.createTreeGraphStringFromAgreements(nil)
   end
 end
 
