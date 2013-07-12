@@ -56,10 +56,10 @@
           <% end %>
           <tr>
             <td <%=highlightClass%>><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
-            <td <%=highlightClass%>><%= link_to tender.procurer_name.split("#")[0], :controller => "organizations", :action => "show_procurer", :id => tender.procurring_entity_id %></td>
+            <td <%=highlightClass%>><%= link_to tender.procurer_name, :controller => "organizations", :action => "show_procurer", :id => tender.procurring_entity_id %></td>
 
             <% if tender.supplier_name %>
-              <td <%=highlightClass%>><%= link_to tender.supplier_name.split("#")[0], :controller => "organizations", :action => "show", :id => tender.winning_org_id %></td>
+              <td <%=highlightClass%>><%= link_to tender.supplier_name, :controller => "organizations", :action => "show", :id => tender.winning_org_id %></td>
             <% else %>
               <td <%=highlightClass%>>N/A</td>
             <% end %>

@@ -138,7 +138,6 @@ class OrganizationsController < ApplicationController
       @Cpvs.push( value )
     end
     @successfulTenders = {}
-    cpvAgreements = {}
     #lets get some aggregate tender stats
     @averageTenderDurationSimple = 0
     simpleCount = 0
@@ -171,15 +170,6 @@ class OrganizationsController < ApplicationController
             @successfulTenders[date] = [tender, value]
           end
         end
-
-        item = { :name => tender.cpvDescription, :value => value, :code => tender.cpv_code, :children => [] }
-        if not cpvAgreements[tender.cpv_code]
-          cpvAgreements[tender.cpv_code] = item
-        else
-          old = cpvAgreements[tender.cpv_code]
-          old[:value] += item[:value]
-          cpvAgreements[tender.cpv_code] = old
-        end
       end
 
       totalBids += tender.num_bids
@@ -201,7 +191,6 @@ class OrganizationsController < ApplicationController
       @averageTenderDurationElectronic = -1
     end
 
-    @jsonString = createTreeGraphStringFromAgreements( cpvAgreements )
     #time for tasty averages
     @averageBids = totalBids.to_f/@numTenders
     @averageBidders = totalBidders.to_f/@numTenders

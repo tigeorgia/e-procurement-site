@@ -405,7 +405,7 @@ class OrganizationsController < ApplicationController
         cpvAgreements[code] = item
       end
     end
-    @jsonString = createTreeGraphStringFromAgreements( cpvAgreements )
+    @jsonString = GraphHelper.createTreeGraphStringFromAgreements( cpvAgreements )
   end
 
   def sort_column
