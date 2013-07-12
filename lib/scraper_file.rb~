@@ -1663,7 +1663,7 @@ module ScraperFile
   #fill this with function to test
   def self.testProcess
     @liveDataset = Dataset.find(1)
-    AggregateHelper.test
+    AggregateHelper.generateAndStoreAggregateData
   end
 
 end
