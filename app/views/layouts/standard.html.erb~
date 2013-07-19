@@ -1,3 +1,4 @@
+
 <% content_for :content do %>
   <div class="main-content container">
     <div class="content">
@@ -9,7 +10,8 @@
 					    <%= msg %>
 				    </div>
 			    <% end %>
-
+          <h2>Last Update</h2>
+          <h2>Next Update</h2>
           <%= yield %>
         </div><!--/span-->
       </div><!--/row-->

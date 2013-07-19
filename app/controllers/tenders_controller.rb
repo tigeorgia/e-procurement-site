@@ -9,11 +9,6 @@ class TendersController < ApplicationController
     @numResults = fullResult.count
     @tenders = fullResult.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
-    @results = []
-    @tenders.each do |tender|
-      item = { :tender => tender, :procurer => Organization.find(tender.procurring_entity_id).name }
-      @results.push(item)
-    end
     @sort = params[:sort]
     @direction = params[:direction]
 
@@ -34,12 +29,15 @@ class TendersController < ApplicationController
     data = QueryHelper.buildTenderQueryData(params)
     result = QueryHelper.buildTenderSearchQuery(data)
 
+
+    filePath = "tenders.csv"
     respond_to do |format|
-      format.csv {   
-        send_data buildTenderCSVString(result)
+      format.csv {
+        buildTenderInfoCSVStringFromTenderList(result,["addition_info", "units_to_supply", "supply_period"],filePath)
+        send_file filePath 
       }
     end
-  end 
+  end
    
   def show
     @tender = Tender.find(params[:id])

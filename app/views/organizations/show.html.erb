@@ -48,7 +48,7 @@ $(function () {
             series: [{
                 type: 'pie',
                 name: '<%=t("Tenders Won/Lost")%>',
-                data: [ ['<%=t("Tenders Won")%>', <%= @numTendersWon %>],['<%=t("Tenders Lost")%>', <%= @numTenders-@numTendersWon %>] ]
+                data: [ ['<%=t("Tenders Won")%>', <%= @numTendersWon %>],['<%=t("Tenders Lost")%>', <%= @numTendersLost %>],['<%=t("In Progress")%>', <%= @numTendersInProgress %>]]
             }]
         });
 
@@ -390,7 +390,7 @@ $(function () {
   <thead>
     <tr>
       <th><%=t("Tender")%></th>
-      <th><%=t("Success?")%></th>
+      <th><%=t("Status")%></th>
       <th><%=t("Number Of Bidders")%></th>
       <th><%=t("Procurer")%></th>
       <th><%=t("Announcement Date")%></th>
@@ -406,10 +406,12 @@ $(function () {
     <% @tenderInfo.each do |tender| %>
       <tr>
         <td><%= link_to tender[:tenderCode], tender_path(tender[:id]) %></td> 
-        <% if tender[:won] %>
-          <td><font color="green"><strong><%=t("yes_caps")%></strong></font></td>
+        <% if tender[:status] == "won" %>
+          <td><font color="green"><strong><%=t("Won")%></strong></font></td>
+        <% elsif tender[:status] == "lost" %>
+          <td><font color="red"><%=t("Lost")%></font></td>
         <% else %>
-          <td><font color="red"><%=t("no_caps")%></font></td>
+          <td><font color="orange"><%=t("In Progress")%></font></td>
         <% end %>
         <td><%= tender[:numBidders]%></td>
         <td><%= link_to tender[:procurerName], :controller => "organizations", :action => "show_procurer", :id => tender[:procurerID] %></td>

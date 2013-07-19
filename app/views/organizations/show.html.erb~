@@ -48,7 +48,7 @@ $(function () {
             series: [{
                 type: 'pie',
                 name: '<%=t("Tenders Won/Lost")%>',
-                data: [ ['<%=t("Tenders Won")%>', <%= @numTendersWon %>],['<%=t("Tenders Lost")%>', <%= @numTenders-@numTendersWon %>] ]
+                data: [ ['<%=t("Tenders Won")%>', <%= @numTendersWon %>],['<%=t("Tenders Lost")%>', <%= @numTendersLost %>],['<%=t("In Progress")%>', <%= @numTendersInProgress %>]]
             }]
         });
 
@@ -381,14 +381,16 @@ $(function () {
 <h3><%= t("Tenders Bid On")%></h3>
 <br></br>
   <p>
-    <%= t("Download")%>:
-    <%= link_to "CSV", :controller => "organization", :action => "download_org_tenders", :format => "csv", :id => @organization.id %>
+    <%if not Rails.application.config.live_deploy%>
+      <%= t("Download")%>:
+      <%= link_to "CSV", :controller => "organization", :action => "download_org_tenders", :format => "csv", :id => @organization.id %>
+    <%end%>
   </p>
   <table class="dataTable" cellpadding="0" cellspacing="0" border="0" width="100%">
   <thead>
     <tr>
       <th><%=t("Tender")%></th>
-      <th><%=t("Success?")%></th>
+      <th><%=t("Status")%></th>
       <th><%=t("Number Of Bidders")%></th>
       <th><%=t("Procurer")%></th>
       <th><%=t("Announcement Date")%></th>
@@ -404,10 +406,12 @@ $(function () {
     <% @tenderInfo.each do |tender| %>
       <tr>
         <td><%= link_to tender[:tenderCode], tender_path(tender[:id]) %></td> 
-        <% if tender[:won] %>
-          <td><font color="green"><strong><%=t("yes_caps")%></strong></font></td>
+        <% if tender[:status] == "won" %>
+          <td><font color="green"><strong><%=t("Won")%></strong></font></td>
+        <% elsif tender[:status] == "lost" %>
+          <td><font color="red"><%=t("Lost")%></font></td>
         <% else %>
-          <td><font color="red"><%=t("no_caps")%></font></td>
+          <td><font color="orange"><%=t("In Progress")%></font></td>
         <% end %>
         <td><%= tender[:numBidders]%></td>
         <td><%= link_to tender[:procurerName], :controller => "organizations", :action => "show_procurer", :id => tender[:procurerID] %></td>

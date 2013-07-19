@@ -28,6 +28,9 @@ BootstrapStarter::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+ # Specifies the header that your server uses for sending files
+  #config.action_dispatch.x_sendfile_header = "X-Sendfile" 
+
 
 	# devise requires
   config.action_mailer.delivery_method = :smtp

@@ -107,9 +107,11 @@ class OrganizationsController < ApplicationController
     totalBids = 0
     totalBidders = 0
     @numAgreements = 0
+    @numActiveTenders = 0
+    @numFailedAgreements = 0
     @averageTenderDurationSimple = 0;
     @averageTenderDurationElectronic = 0;
-
+    failedStatuses = ["დასრულებულია უარყოფითი შედეგით","ტენდერი არ შედგა","ტენდერი შეწყვეტილია"]
     tendersPerCpv = {}
     @tendersOffered = []
     tenders.each do |tender|
@@ -118,10 +120,12 @@ class OrganizationsController < ApplicationController
         cpvDescription = "NA"
      end
       tender[:cpvDescription] = cpvDescription
-      tender[:success] = false
-      value = tender.contract_value  
-      if value and value > 0
-        tender[:success] = true
+      if tender.inProgress
+       tender[:status] = "active"
+      elsif failedStatuses.include?(tender.tender_status)    
+       tender[:status] = "failed"
+      else
+        tender[:status] = "success"
       end
       @tendersOffered.push(tender)
 
@@ -145,8 +149,11 @@ class OrganizationsController < ApplicationController
     electronicCount = 0
 
     @tendersOffered.each do |tender|
-      if tender[:success] == true
-        value = tender.contract_value
+      if tender[:status] == "success"
+        value = 0
+        if tender.contract_value
+          value = tender.contract_value
+        end
         @actualCost += value
         @totalEstimate += tender.estimated_value
         @numAgreements += 1
@@ -170,6 +177,10 @@ class OrganizationsController < ApplicationController
             @successfulTenders[date] = [tender, value]
           end
         end
+      elsif tender[:status] == "active"
+        @numActiveTenders += 1
+      else
+        @numFailedAgreements+= 1
       end
 
       totalBids += tender.num_bids
@@ -194,7 +205,6 @@ class OrganizationsController < ApplicationController
     #time for tasty averages
     @averageBids = totalBids.to_f/@numTenders
     @averageBidders = totalBidders.to_f/@numTenders
-    @numNoAgreements = @numTenders - @numAgreements
     costString = "N/A"
     if @totalEstimate > 0
       costString = "%.1f" % ((1-@actualCost/@totalEstimate)*100)
@@ -305,6 +315,8 @@ class OrganizationsController < ApplicationController
 
     @numTenders = allTenders.count
     @numTendersWon = tendersWon.size
+    @numTendersLost = 0
+    @numTendersInProgress = 0
     @WLR = @numTendersWon.to_f()/@numTenders.to_f()
     @totalValueOfAllContracts = 0
     @totalEstimatedValueOfContractsWon = 0
@@ -347,7 +359,14 @@ class OrganizationsController < ApplicationController
       infoItem = { :id => tender.id, :tenderCode => tender.tender_registration_number, :numBidders => tender.bidders.count, :bidDuration => tenderDuration, :highest_bid => nil, :lowest_bid => nil, :numBids => nil, :start_amount => tender.estimated_value, :won => false, :procurerName => nil, :procurerID => tender.procurring_entity_id, :tenderAnnouncementDate => tender.tender_announcement_date, :contract_value => tender.contract_value}
       infoItem[:procurerName] = Organization.find(tender.procurring_entity_id).name
       if tendersWon[tender.id]
-        infoItem[:won] = true
+        infoItem[:status] = "won"
+      elsif tender.inProgress
+        infoItem[:status] = "in progress"
+            
+    @numTendersInProgress += 1
+      else
+        infoItem[:status] = "lost"
+        @numTendersLost += 1
       end
 
       allBids.each do |bid|
@@ -360,7 +379,7 @@ class OrganizationsController < ApplicationController
       end
       @tenderInfo.push(infoItem)
     end
-    @tenderInfo.sort! { |a,b| (a[:won] ? -1 : 1) }
+    @tenderInfo.sort! { |a,b| (a[:status] == "won" ? -1 : 1) }
     tendersWon = tendersWon.sort { |a,b| a[1][1].tender_announcement_date <=> b[1][1].tender_announcement_date }
 
     @simpleTenderStats = {}
@@ -405,7 +424,7 @@ class OrganizationsController < ApplicationController
         cpvAgreements[code] = item
       end
     end
-    @jsonString = createTreeGraphStringFromAgreements( cpvAgreements )
+    @jsonString = GraphHelper.createTreeGraphStringFromAgreements( cpvAgreements )
   end
 
   def sort_column

@@ -1,5 +1,3 @@
-Code,Description
-,
 03000000,"Agricultural, farming, fishing, forestry and related products."
 03100000,Agricultural and horticultural products.
 03110000,"Crops, products of market gardening and horticulture."
@@ -466,6 +464,7 @@ Code,Description
 14812000,Abrasive powder or grain.
 14813000,Artificial corundum.
 14814000,Artificial graphite.
+14820000,Glass.
 14900000,Recovered secondary raw materials.
 14910000,Recovered secondary metal raw materials.
 14920000,Recovered secondary non-metal raw materials.

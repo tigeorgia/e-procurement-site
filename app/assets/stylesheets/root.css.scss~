@@ -400,7 +400,7 @@ div.dataTables_paginate {
 }
  
 table {
-    margin: 3em 0;
+    margin: 1em 0;
     clear: both;
     text-align: center;
     font-size: 15px;
@@ -705,11 +705,11 @@ div.active-button{
 .ui-state-active a{ cursor: pointer!important; }
 
 .ui-tabs-vertical { width: 100%; background: transparent; border: none; }
-  .ui-tabs-vertical .ui-tabs-nav { float: left; width: 12em; }
+  .ui-tabs-vertical .ui-tabs-nav { float: left; width: 20%; }
   .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; }
   .ui-tabs-vertical .ui-tabs-nav li a { display:block; float:none; }
   .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { }
-  .ui-tabs-vertical .ui-tabs-panel {float: right; width: 80%;}
+  .ui-tabs-vertical .ui-tabs-panel {float: right; width: 75%;}
 
 
 .jstree-default.jstree-focused { 
@@ -766,5 +766,14 @@ li.maintext{
   text-align: center;
   width: 50%;
   padding-bottom: 18px;
-  font-size: 16px;
+  font-size: 15px;
+}
+
+.updateBox{
+  padding: 5px;
+  margin: 2px;
+  color: #ffffff;
+  background: #335884;
+  font-size: 10px;
+  float: right;
 }

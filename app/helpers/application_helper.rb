@@ -50,7 +50,7 @@ module ApplicationHelper
   end
 
   def buildTenderCSVString( tenders )
-    CSV.open("/assets/tenders.csv", "wb") do |csv|
+    CSV.open("/assets/tenders.csv", "w") do |csv|
        csv << BOM
        csv << [ t("Procurer"),t("Tender Type"),t("Tender Registration Number"),t("Status"), t("Announcement Date"), t("Bid Start Date"), t("Bid End Date"), t("Procurer Estimate"),
                t("Contract Value"),t("Supplier"),t("CPV Code"),t("Number Of Bids"),t("Number Of Bidders"),t("Bid Step"),t("Units Supplied"),t("Supply Period"),t("Guarantee Amount"),t("Guarantee Period")]
@@ -72,6 +72,78 @@ module ApplicationHelper
     return BOM + csv_string
   end
 
+  #takes a list of model instances and creates a csv string
+  def buildCSVStringFromObjectList( objects, ignores )
+    csv_string = CSV.generate do |csv|
+      #use the first object to get the column names
+      object = objects[0]
+      column_header = []
+      object.attributes.each do |attribute|
+        if not ignores.include?(attribute[0])
+          column_header.push(attribute[0])
+        end
+      end
+      csv << column_header
+      #now go through each object and print out the column values
+      objects.find_each do |item|
+        values = []
+        item.attributes.each do |attribute|
+          if not ignores.include?(attribute[0])
+            values.push(attribute[1])
+          end
+        end
+        csv << values
+      end
+    end
+    return BOM + csv_string
+  end
+
+  #this is a expensive process that will combine all information avaiable able a tender including bidders and agreements and store each tender on a single csv row
+  def buildTenderInfoCSVStringFromTenderList( tenders, ignores, filePath )
+    csv_string = CSV.open(filePath,'w') do |csv|
+      #use the first object to get the column names
+      object = tenders[0]
+      column_header = []
+      maxBidders = Tender.order("num_bidders DESC").first.num_bidders      
+      object.attributes.each do |attribute|
+        if not ignores.include?(attribute[0])
+          column_header.push(attribute[0])
+        end
+      end
+      
+      for num in 0..maxBidders do
+        column_header.push("bidder_"+num.to_s+"_name")
+        column_header.push("bidder_"+num.to_s+"_id")
+        column_header.push("bidder_"+num.to_s+"_lowest_bid")
+        column_header.push("bidder_"+num.to_s+"_black_or_white")
+      end
+      
+      csv << column_header
+      #now go through each object and print out the column values
+      tenders.find_each do |tender|
+        values = []
+        tender.attributes.each do |attribute|
+          if not ignores.include?(attribute[0])
+            values.push(attribute[1])
+          end
+        end
+        
+        bidders = Bidder.where(:tender_id => tender.id)
+        bidders.each do |bidder|
+          org = Organization.where(:id => bidder.organization_id).first
+          values.push(org.name)
+          values.push(org.code)
+          values.push(bidder.last_bid_amount)
+          values.push(org.bw_list_flag)
+        end
+       
+        csv << values
+      end
+    end
+  end
+
+
+      
   def title(page_title)
     content_for(:title) { page_title }
   end

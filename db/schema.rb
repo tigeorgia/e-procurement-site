@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711082720) do
+ActiveRecord::Schema.define(:version => 20130719111122) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -169,6 +169,8 @@ ActiveRecord::Schema.define(:version => 20130711082720) do
     t.boolean  "is_live"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "data_valid_from"
+    t.datetime "next_update"
   end
 
   create_table "documents", :force => true do |t|
