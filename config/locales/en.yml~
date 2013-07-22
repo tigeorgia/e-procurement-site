@@ -1,5 +1,14 @@
 # encoding: utf-8
 en:
+
+
+  Bid Step: Bid Step
+  Units Supplied: Units Supplied
+  Supply Period: Supply Period
+  Guarantee Amount: Guarantee Amount
+  Guarantee Period: Guarantee Period
+
+
   Sign In: Sign In
   Sign Up: Sign up
   Email: Email
@@ -183,6 +192,7 @@ en:
   procurer_name_description: The name of the organization issuing the tender (often a government agency).
   procurer_code_description: The 9-digit corporate identification code assigned by the Public Registry
   procurer_type_description: The classification of the entity issuing the tender.
+  data_update_description: The data on this website was last updated on this Date and Time 
   
   app:
     language:

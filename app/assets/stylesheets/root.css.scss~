@@ -769,11 +769,62 @@ li.maintext{
   font-size: 15px;
 }
 
-.updateBox{
-  padding: 5px;
-  margin: 2px;
-  color: #ffffff;
-  background: #335884;
-  font-size: 10px;
+
+.updateDiv{
   float: right;
+  padding: 6px 2px 0px 0px;
+}
+
+.update-icon{
+  height: 25px;
+  width: 25px;
+  display: inline-block;
+  vertical-align: bottom;
+  z-index: 999;
+  position: relative;
+}
+
+.update-icon:hover {
+    cursor: help;
+    position: relative
+}
+.update-icon span {
+    display: none
+}
+.update-icon:hover span {
+    border: #c0c0c0 1px dotted;
+    padding: 5px 20px 5px 5px;
+    display: block;
+    z-index: 100;
+    background: #f0f0f0 no-repeat 100% 5%;
+    left: 0px;
+    margin: 10px;
+    width: 250px;
+    position: absolute;
+    top: 10px;
+    text-decoration: none
+    color: #348BE8;
+}
+
+.next-icon{
+ height: 16px;
+ width: 16px;
+ background: transparent url("next-update.png") no-repeat scroll 0px 0px;
+}
+
+.currentUpdateBox{
+  padding: 0px 0px 4px 0px;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.inline-div{
+  display: inline-block;
+}
+.nextUpdateBox{
+  padding: 3px 0px 3px 3px;
+  color: #ffffff;
+  font-size: 10px;
+  background: #335884;
+  display: inline-block;
 }

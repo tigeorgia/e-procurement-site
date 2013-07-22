@@ -21,7 +21,6 @@
 <script>
 var chart1; // globally available
 updateUTC = new Date(<%=@updateTime.year%>,<%=@updateTime.month%>,<%=@updateTime.day%>,<%=@updateTime.hour%>,<%=@updateTime.min%>)
-nextUTC = new Date(<%=@nextUpdate.year%>,<%=@nextUpdate.month%>,<%=@nextUpdate.day%>,<%=@nextUpdate.hour%>,<%=@nextUpdate.min%>)
 
 $(document).ready(function() {
     groupChart = new Highcharts.Chart({
@@ -51,12 +50,14 @@ $(document).ready(function() {
                },  
       ]   
     });
-    $("div.updateBox").html(updateUTC.toLocaleString("",{hour12: false})+"<br>"+nextUTC.toLocaleString({hour12: false}))
+    $("div.currentUpdateBox").html(updateUTC.toLocaleString())
  });
 
 </script>
 
-<div class="updateBox">
+<div class="updateDiv">
+   <div class="update-icon"><img src="assets/last-update.png"/><span><%=t("update_description")%></span></div>
+   <div class="currentUpdateBox"></div>
 </div>
 
 <div class="tabs tab-div">

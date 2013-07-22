@@ -112,6 +112,7 @@ module ApplicationHelper
         end
       end
       
+      column_header.push("procurer_code")
       column_header.push("winner_code")
       for num in 0..maxBidders do
         column_header.push("bidder_"+num.to_s+"_name")
@@ -131,7 +132,13 @@ module ApplicationHelper
         end
         
         tempBidders = []
-        winningCode = ""
+        winningCode = nil
+        procurerCode = nil
+        procurer = Organization.where(:id => tender.procurring_entity_id).first
+        if procurer
+          procurerCode = procurer.code
+        end
+        values.push(procurerCode
 
         bidders = Bidder.where(:tender_id => tender.id)
         bidders.each do |bidder|

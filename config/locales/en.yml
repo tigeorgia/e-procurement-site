@@ -192,6 +192,7 @@ en:
   procurer_name_description: The name of the organization issuing the tender (often a government agency).
   procurer_code_description: The 9-digit corporate identification code assigned by the Public Registry
   procurer_type_description: The classification of the entity issuing the tender.
+  data_update_description: The data on this website was last updated at this date and time 
   
   app:
     language:
