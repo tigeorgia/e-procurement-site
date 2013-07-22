@@ -131,7 +131,7 @@ module ApplicationHelper
         end
         
         tempBidders = []
-        winningCode = ""
+        winningCode = nil
 
         bidders = Bidder.where(:tender_id => tender.id)
         bidders.each do |bidder|
@@ -147,7 +147,7 @@ module ApplicationHelper
 
         values.push(winningCode)
         tempBidders.each do |data|
-          value.push(data)
+          values.push(data)
         end
         csv << values
       end

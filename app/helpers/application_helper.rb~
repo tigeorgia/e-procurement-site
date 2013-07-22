@@ -146,7 +146,9 @@ module ApplicationHelper
         end
 
         values.push(winningCode)
-       
+        tempBidders.each do |data|
+          values.push(data)
+        end
         csv << values
       end
     end
