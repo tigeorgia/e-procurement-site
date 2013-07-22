@@ -101,6 +101,7 @@ module ApplicationHelper
   #this is a expensive process that will combine all information avaiable able a tender including bidders and agreements and store each tender on a single csv row
   def buildTenderInfoCSVStringFromTenderList( tenders, ignores, filePath )
     csv_string = CSV.open(filePath,'w') do |csv|
+      csv << [BOM]
       #use the first object to get the column names
       object = tenders[0]
       column_header = []
@@ -111,6 +112,7 @@ module ApplicationHelper
         end
       end
       
+      column_header.push("winner_code")
       for num in 0..maxBidders do
         column_header.push("bidder_"+num.to_s+"_name")
         column_header.push("bidder_"+num.to_s+"_id")
@@ -128,14 +130,22 @@ module ApplicationHelper
           end
         end
         
+        tempBidders = []
+        winningCode = ""
+
         bidders = Bidder.where(:tender_id => tender.id)
         bidders.each do |bidder|
           org = Organization.where(:id => bidder.organization_id).first
-          values.push(org.name)
-          values.push(org.code)
-          values.push(bidder.last_bid_amount)
-          values.push(org.bw_list_flag)
+          if org.id == tender.winning_org_id
+            winningCode = org.code
+          end
+          tempBidders.push(org.name)
+          tempBidders.push(org.code)
+          tempBidders.push(bidder.last_bid_amount)
+          tempBidders.push(org.bw_list_flag)
         end
+
+        values.push(winningCode)
        
         csv << values
       end
