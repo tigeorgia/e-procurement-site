@@ -7,26 +7,26 @@ require "bundler/capistrano"
 ####### SERVER SETUP ########
 #############################
 
-### LOCAL TEST SITE ###
-#require "rvm/capistrano"
-#set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"") # Read from local system
-#set :rvm_ruby_string, "ruby-1.9.2-p290"
-#set :rvm_type, :user
-#before 'deploy', 'rvm:install_rvm'
-#server "192.168.0.241", :app, :web, :db, :primary => true
-#set :user, "tigeorgia"
-#set :deploy_to, "/var/data/procurement/app"
-#set :use_sudo, false
+### LOCAL PROCESSING SITE ###
+set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"") # Read from local system
+set :rvm_ruby_string, "ruby-1.9.2-p290"
+set :rvm_type, :user
+require "rvm/capistrano"
+before 'deploy', 'rvm:install_rvm'
+server "192.168.0.241", :app, :web, :db, :primary => true
+set :user, "tigeorgia"
+set :deploy_to, "/var/data/procurement/app"
+set :use_sudo, false
 
 
 ### LIVE SITE ####
-set :app_path, "/home/tigeorgia/webapps"
-set :application,"tenderwatch"
-set :deploy_to, "#{app_path}/#{application}"
-set :assets_path, "#{app_path}/tendermonitor_static"
-role :web, "web331.webfaction.com"
-role :app, "web331.webfaction.com"
-role :db, "web331.webfaction.com", :primary => true
+#set :app_path, "/home/tigeorgia/webapps"
+#set :application,"tenderwatch"
+#set :deploy_to, "#{app_path}/#{application}"
+#set :assets_path, "#{app_path}/tendermonitor_static"
+#role :web, "web331.webfaction.com"
+#role :app, "web331.webfaction.com"
+#role :db, "web331.webfaction.com", :primary => true
 
 ### STAGING ####
 #set :app_path, "/home/tigeorgia/webapps"
@@ -88,5 +88,5 @@ end
 
 after "deploy:update_code", "gems:bundle"
 after "deploy:update_code", "custom:settings_config"
-after "deploy:update_code", "custom:deploy_static_assets"
+#after "deploy:update_code", "custom:deploy_static_assets"
 #after "deploy:update_code", "db:migrate"

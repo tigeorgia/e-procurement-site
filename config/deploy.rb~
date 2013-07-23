@@ -7,11 +7,12 @@ require "bundler/capistrano"
 ####### SERVER SETUP ########
 #############################
 
-### LOCAL TEST SITE ###
-require "rvm/capistrano"
+### LOCAL PROCESSING SITE ###
+
 set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"") # Read from local system
 set :rvm_ruby_string, "ruby-1.9.2-p290"
 set :rvm_type, :user
+require "rvm/capistrano"
 before 'deploy', 'rvm:install_rvm'
 server "192.168.0.241", :app, :web, :db, :primary => true
 set :user, "tigeorgia"
@@ -36,8 +37,6 @@ set :use_sudo, false
 #role :web, "web331.webfaction.com"
 #role :app, "web331.webfaction.com"
 #role :db, "web331.webfaction.com", :primary => true
-
-
 
 ##########################
 ###### DEPLOY CODE #######
@@ -90,5 +89,5 @@ end
 
 after "deploy:update_code", "gems:bundle"
 after "deploy:update_code", "custom:settings_config"
-after "deploy:update_code", "custom:deploy_static_assets"
-after "deploy:update_code", "db:migrate"
+#after "deploy:update_code", "custom:deploy_static_assets"
+#after "deploy:update_code", "db:migrate"

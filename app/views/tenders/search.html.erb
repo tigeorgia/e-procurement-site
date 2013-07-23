@@ -26,7 +26,7 @@
   <% csvParams[:action] = "download" %>
 
   <%= t("Number of Tenders")%> : <%= @numResults %>
-  <%if Rails.application.config.live_deploy%>
+  <%if not Rails.application.config.live_deploy%>
     <%= button_to t("Download CSV"),  csvParams, :class => "submit-button" %>
   <%end%>
     <hr>
