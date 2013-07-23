@@ -43,6 +43,7 @@ class TendersController < ApplicationController
     @tender = Tender.find(params[:id])
     @cpv = TenderCpvClassifier.where(:cpv_code => @tender.cpv_code).first
     @tenderUrl = @tender.url_id
+    @officalUrl = "http://tenders.procurement.gov.ge/public/?go="+@tender.url_id.to_s+"&lang="+t("spa_locale")
     @isWatched = false
     @highlights = ""
     if params[:highlights]

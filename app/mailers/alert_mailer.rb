@@ -1,5 +1,5 @@
 class AlertMailer < ActionMailer::Base
-  default from: "alerts@tendermonitor.ge"
+  default from: "TenderAlerts@tendermonitor.ge"
 
   def search_alert(user, search, searchUpdates)
     @search = search
@@ -36,7 +36,7 @@ class AlertMailer < ActionMailer::Base
   def daily_digest(user, updates)
     @updates = updates
     puts "emailing "+user.email
-    mail(:to => user.email, :subject => "Your TenderMonitor Updates")
+    mail(:to => user.email, :subject => t("digest_subject"))
   end
 
   def data_process_started()

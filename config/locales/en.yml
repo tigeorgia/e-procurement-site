@@ -192,8 +192,17 @@ en:
   procurer_name_description: The name of the organization issuing the tender (often a government agency).
   procurer_code_description: The 9-digit corporate identification code assigned by the Public Registry
   procurer_type_description: The classification of the entity issuing the tender.
-  data_update_description: The data on this website was last updated at this date and time 
-  
+  data_update_description: The data on this website was last updated at this date and time   
+  digest_subject: Your TenderMonitor Updates   
+  digest_header: Your TenderMonitor Update Digest
+  digest_search_header: Searches that you are subscribed to that have new results
+  digest_tender_header: Tenders that you are subscribed to that have been updated
+  digest_supplier_header: Suppliers that you are subscribed to that have been updated
+  digest_procurer_header: Procurers that you are subscribed to that have been updated
+  spa_locale: en
+  Link to Official Tender: Link to Official Tender
+  receive_email_alerts: Receive Email Alerts
+
   app:
     language:
       en: English

@@ -107,7 +107,9 @@ dt {
 
 dt, dd{
   display: table;
+  position: relative;
   background: #ececec;
-  padding: 0px 0px 5px 5px;
+  padding: 5px 0px 5px 5px;
   height: 30px;
+  margin-top: 10px;
 }

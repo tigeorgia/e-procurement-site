@@ -1,39 +1,39 @@
-<h1>Your Daily TenderMonitor Digest</h1>
+<h1><%=t("digest_header")%></h1>
 
 <%if @updates[:searches] %>
-  <h2>Your Searches that have new results</h2>
+  <h2><%=t("digest_search_header")%></h2>
   <%@updates[:searches].each do |search|%>
-    <%= link_to search[0].name, {:host => "0.0.0.0", :controller => "user", :action => "search_via_saved", :search_id => search[0].id}%>
+    <%= link_to search[0].name, {:host => "tendermonitor.ge",  :port =>"",:controller => "user", :action => "search_via_saved", :search_id => search[0].id}%>
     <br>
   <%end%>
 <hr>
 <%end%>
   
 <%if @updates[:tenderWatches] %>
-  <h2>Tenders you are watching that have been updated</h2>
+  <h2><%=t("digest_tender_header")%></h2>
   <%@updates[:tenderWatches].each do |watch|%>
     <%tender = Tender.where(:url_id => watch.tender_url).first%>
-    <%= link_to tender.tender_registration_number,  tender_url(:id => tender.id) %>
+    <%= link_to tender.tender_registration_number,  {:host => "tendermonitor.ge", :controller => "tender", :action => "show", :id => tender.id} %>
     <br>
   <%end%>
 <hr>
 <%end%>
 
 <%if @updates[:supplierWatches] %>
-  <h2>Suppliers you are watching that have been updated</h2>
+  <h2><%=t("digest_supplier_header")%></h2>
   <%@updates[:supplierWatches].each do |watch|%>
-    <%supplier = Organization.find(:id => watch.supplier_id).first%>
-    <%= link_to supplier.name,  organization_url(:id => supplier.id) %>
+    <%supplier = Organization.where(:id => watch.supplier_id).first%>
+  <%= link_to supplier.name,  {:host => "tendermonitor.ge", :controller => "organization", :action => "show", :id => supplier.id} %>
     <br>
   <%end%>
 <hr>
 <%end%>
 
 <%if @updates[:procurerWatches] %>
-  <h2>Procurers you are watching that have been updated</h2>
+  <h2><%=t("digest_procurer_header")%></h2>
   <%@updates[:procurerWatches].each do |watch|%>
-   <% procurer = Organization.find(:id => watch.procurer_id.first%>
-    <%= link_to procurer.name,  organization_url(:id => procurer.id) %>
+   <% procurer = Organization.where(:id => watch.procurer_id).first%>
+    <%= link_to procurer.name,  {:host => "tendermonitor.ge", :controller => "organization", :action => "show_procurer", :id => procurer.id} %>
     <br>
   <%end%>
 <hr>

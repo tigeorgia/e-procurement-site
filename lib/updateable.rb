@@ -12,6 +12,8 @@ module Updateable
         next
       end
       if attribute[1] != self.attributes[attribute[0]]
+        puts "old #{self.attributes[attribute[0]]}" 
+        puts "new #{attribute[1]}"
         differences.push(attribute[0])
       end
     end
@@ -19,7 +21,7 @@ module Updateable
   end
 
   def copyItem(item, additionalIgnores = [])
-    ignoreAttributes = ["id","created_at"]
+    ignoreAttributes = ["id","created_at","dataset_id"]
     additionalIgnores.each do |ignore|
       ignoreAttributes.push(ignore)
     end

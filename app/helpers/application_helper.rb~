@@ -44,7 +44,8 @@ module ApplicationHelper
       results = Search.where( :user_id => current_user.id, :searchtype => type, :search_string => @thisSearchString )
       if results.count > 0
         @searchIsSaved = true
-        @savedName = results.first.name
+        @search = results.first
+        @savedName = @search.name
       end
     end
   end
@@ -138,7 +139,7 @@ module ApplicationHelper
         if procurer
           procurerCode = procurer.code
         end
-        values.push(procurerCode
+        values.push(procurerCode)
 
         bidders = Bidder.where(:tender_id => tender.id)
         bidders.each do |bidder|

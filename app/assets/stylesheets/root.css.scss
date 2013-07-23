@@ -828,3 +828,26 @@ li.maintext{
   background: #335884;
   display: inline-block;
 }
+.leftCenter{
+  display: inline-block;
+  position: absolute;
+  margin-top: 10px;
+}
+.rightCenter{
+  display: inline-block;
+  position: absolute;
+  margin-left: 33%;
+}
+
+a.parentSize{
+  display: block;
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  position: absolute;
+}
+
+.inline{
+  display: inline;
+}

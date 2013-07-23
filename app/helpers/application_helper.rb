@@ -44,7 +44,9 @@ module ApplicationHelper
       results = Search.where( :user_id => current_user.id, :searchtype => type, :search_string => @thisSearchString )
       if results.count > 0
         @searchIsSaved = true
-        @savedName = results.first.name
+        @search = results.first
+        puts "testss"
+        @savedName = @search.name
       end
     end
   end

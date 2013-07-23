@@ -1,5 +1,18 @@
 # encoding: utf-8
 ka:
+
+
+  Bid Step: GEO NEEDED
+  Units Supplied: GEO NEEDED
+  Supply Period: GEO NEEDED
+  Guarantee Amount: GEO NEEDED
+  Guarantee Period: GEO NEEDED
+
+
+
+
+
+
   Sign In: შესვლა
   Sign Up: რეგისტრაცია
   Email: ელექტრონული ფოსტა
@@ -296,7 +309,16 @@ ka:
   procurer_code_description: საჯარო რეესტრის მიერ განსაზღვრული 9 ნიშნა კოდი.
   procurer_type_description: იმ ორგანიზაციების კლასიფიკაცია, რომლებიც ტენდერს აცხადებენ
   Annual Data: წლიური მონაცემები
-
+  data_update_description: ვებსაიტზე ინფორმაცია ბოლოს განახლდა მითითებულ დროს
+  digest_subject: სიახლეები ტენდერის მონიტორინგთან დაკავშირებით  
+  digest_header: ტენდერის მონიტორინგის სიახლეების მოკლე მიმოხილვა
+  digest_search_header: წყარო საიდანაც იღებთ  ახალ ინფორმაციას
+  digest_tender_header: სიახლეები იმ ტენდერებთან დაკავშირებით, რომელბზეც გაქვთ წდომა
+  digest_supplier_header: სიახლეები იმ მომწოდებლებთან დაკავშირებით, რომლებზეც გაქვთ წდომა
+  digest_procurer_header: სიახლეები იმ შემსყიდველებთან დაკავშირებით, რომლებზეც გაქვთ წვდომა
+  spa_locale: ka
+  Link to Official Tender: იგივე ოფიციალური ტენდერი
+  receive_email_alerts: receive_email_alerts
 
   app:
     language:

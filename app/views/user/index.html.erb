@@ -1,23 +1,58 @@
 <% title t("Account Page") %>
 
-
 <h1><%=t("Account Page")%></h1>
-
 <div class="vertical-tabs">
   <ul>
-    <li><a href="#tabs-1"><%=t("Tenders")%></a></li>
-    <li><a href="#tabs-2"><%=t("Suppliers")%></a></li>
-    <li><a href="#tabs-3"><%=t("Procurers")%></a></li>
-    <li><a href="#tabs-4"><%=t("Searches")%></a></li>
-    <li><a href="#tabs-5"><%=t("Custom CPV Categories")%></a></li>
+    <li><a href="#tabs-1"><%=t("Custom CPV Categories")%></a></li>
+    <li><a href="#tabs-2"><%=t("Searches")%></a></li>
+    <li><a href="#tabs-3"><%=t("Tenders")%></a></li>
+    <li><a href="#tabs-4"><%=t("Suppliers")%></a></li>
+    <li><a href="#tabs-5"><%=t("Procurers")%></a></li>
+    <li><a href="#tabs-6"><%=t("Preferences")%></a></li>
   </ul>
+
   <div id="tabs-1">
+    <h3><%=t("Your CPV Groups")%></h3>
+<%= render :partial => "user/cpvGroups", :locals => {:cpvGroups => @cpvGroups, :referrer => "user"} %>
+  </div>  
+
+  <div id="tabs-2">
+    <h3><%=t("Your Saved Searches")%></h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="header-5"></th>
+          <th><%=t("Name")%></th>
+          <th><%=t("Type")%></th>
+          <th><%=t("Date Saved")%></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% count = 0 %>
+        <% @savedSearches.each do |search| %>
+          <% count = count + 1 %>
+          <% buttonID = "search_button_"+count.to_s %>
+          <% highlightClass = "" %>
+           <% if search.has_updated %>
+            <% highlightClass = 'class="bidwinner"'.html_safe %>
+          <% end %>
+          <tr>
+            <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_search_from_account", :search_id => search.id}, :class => "confirm") %></td>        
+            <td <%=highlightClass%>><%= link_to search.name, :controller => "user", :action => "search_via_saved", :search_id => search.id %></td>
+            <td <%=highlightClass%>><%= search.searchtype %></td>
+            <td <%=highlightClass%>><%= search.created_at %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="tabs-3">
     <h3><%=t("Tenders You Are Watching")%></h3>
     <table class="table table-striped">
       <thead>
         <tr>
           <th class="header-5"></th>
-          <th class="header-15"></th>
           <th><%=t("Name")%></th>
           <th><%=t("Type")%></th>
           <th><%=t("Status")%></th>
@@ -41,11 +76,6 @@
           <% end %>
           <tr>
             <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_tender_watch_from_account", :tender_url => tender.url_id}, :class => "confirm") %></td>
-            <% if watch_tender.email_alert %>  
-            <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Unsubscribe"), {:action => "unsubscribe_tender", :tender_watch_id => watch_tender.id, :buttonID => buttonID}, :remote => true, :class => "user-button"%></div></td>
-            <% else %>
-              <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Subscribe"), {:action => "subscribe_tender", :tender_watch_id => watch_tender.id, :buttonID => buttonID}, :remote => true, :class => "user-button" %></div></td>
-            <% end %>
             <td <%=highlightClass%>><%= link_to tender.tender_registration_number, tender_path(:id => tender.id, :highlights => highlights) %></td>
             <td <%=highlightClass%>><%= t(tender.tender_type.strip) %></td>
             <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
@@ -57,13 +87,12 @@
       </tbody>
     </table>
   </div>
-  <div id="tabs-2">
+  <div id="tabs-4">
     <h3><%=t("Suppliers You Are Watching")%></h3>
     <table class="table table-striped">
       <thead>
         <tr>
           <th class="header-5"></th>
-          <th class="header-15"></th>
           <th><%=t("Name")%></th>
           <th><%=t("Date Saved")%></th>
         </tr>
@@ -79,11 +108,6 @@
           <% end %>
           <tr>        
             <td <%=highlightClass%> ><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_supplier_watch_from_account", :supplier_watch_id => watch_supplier.id}, :class => "confirm") %></td>
-            <% if watch_supplier.email_alert %>
-              <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Unsubscribe"), {:action => "unsubscribe_supplier", :supplier_watch_id => watch_supplier.id, :buttonID => buttonID}, :remote => true, :class => "user-button" %></div></td>
-            <% else %>
-              <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Subscribe"), {:action => "subscribe_supplier", :supplier_watch_id => watch_supplier.id, :buttonID => buttonID}, :remote => true, :class => "user-button" %></div></td>
-            <% end %>
 
             <% supplier = Organization.find(watch_supplier.supplier_id )%>
             <% highlights = nil %>
@@ -97,13 +121,12 @@
       </tbody>
     </table>
   </div>
-  <div id="tabs-3">
+  <div id="tabs-5">
     <h3><%=t("Procurers You Are Watching")%></h3>
     <table class="table table-striped">
       <thead>
         <tr>
           <th class="header-5"></th>
-          <th class="header-15"></th>
           <th><%=t("Name")%></th>
           <th><%=t("Date Saved")%></th>
         </tr>
@@ -119,12 +142,6 @@
           <% end %>
           <tr>
             <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_procurer_watch_from_account", :procurer_watch_id => watch_procurer.id}, :class => "confirm") %></td>
-            <% if watch_procurer.email_alert %>
-              <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Unsubscribe"), {:action => "unsubscribe_procurer", :procurer_watch_id => watch_procurer.id, :buttonID => buttonID}, :remote => true, :class => "user-button" %></div></td>
-            <% else %>
-              <td <%=highlightClass%>><div <%= "id = "+buttonID %> ><%= button_to t("Subscribe"), {:action => "subscribe_procurer", :procurer_watch_id => watch_procurer.id, :buttonID => buttonID}, :remote => true, :class => "user-button" %></div></td>
-            <% end %>
-
             <% procurer = Organization.find(watch_procurer.procurer_id )%>
             <% highlights = nil %>
             <% if watch_procurer.has_updated %>
@@ -137,48 +154,17 @@
       </tbody>
     </table>
   </div>
-  <div id="tabs-4">
-    <h3><%=t("Your Saved Searches")%></h3>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th class="header-5"></th>
-          <th class="header-15"></th>
-          <th><%=t("Name")%></th>
-          <th><%=t("Type")%></th>
-          <th><%=t("Date Saved")%></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @savedSearches.each do |search| %>
-          <% count = count + 1 %>
-          <% buttonID = "tender_watch_button_"+count.to_s %>
-          <% highlightClass = "" %>
-           <% if search.has_updated %>
-            <% highlightClass = 'class="bidwinner"'.html_safe %>
-          <% end %>
-          <tr>
-            <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_search_from_account", :search_id => search.id}, :class => "confirm") %></td>
-          
-            <% if search.email_alert %>
-              <td <%=highlightClass%>><div id="<%= buttonID %>"> <%= button_to t("Unsubscribe"), {:action => "unsubscribe_search", :search_id => search.id, :buttonID => buttonID}, :remote => true, :class => "user-button" %></div></td>
-            <% else %>
-              <td <%=highlightClass%>><div id="<%= buttonID %>"> <%= button_to t("Subscribe"), {:action => "subscribe_search", :search_id => search.id, :buttonID => buttonID}, :remote => true, :class => "user-button" %></div></td>
-            <% end %>
-            <td <%=highlightClass%>><%= link_to search.name, :controller => "user", :action => "search_via_saved", :search_id => search.id %></td>
-            <td <%=highlightClass%>><%= search.searchtype %></td>
-            <td <%=highlightClass%>><%= search.created_at %></td>
-
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <div id="tabs-6">
+    <h3><%=t("Preferences")%></h3>
+    <br>
+    <%= form_tag({:controller => "user", :action => "save_profile"}, :method => "post") do %>
+      <label for="receive_email_alerts" class="inline"><%=t("receive_email_alerts")%></label>
+      <%= check_box_tag(:email_alerts,true,@user.email_alerts,:class=>"inline") %>
+      <br>
+      <br>
+      <%= submit_tag( t('app.buttons.save'), :class => "submit-button") %>
+    <% end %> 
   </div>
-  <div id="tabs-5">
-    <h3><%=t("Your CPV Groups")%></h3>
-<%= render :partial => "user/cpvGroups", :locals => {:cpvGroups => @cpvGroups, :referrer => "user"} %>
-  </div>
-</div>
 
 </div>
 

@@ -411,7 +411,13 @@ class OrganizationsController < ApplicationController
     tenders.each do |tender|      
       codes = tender.sub_codes.split("#")
       codes.each do |code|
-        cpvDescription = TenderCpvClassifier.where(:cpv_code => code).first.description_english
+        cpvCode = TenderCpvClassifier.where(:cpv_code => code).first
+        if not cpvCode
+          puts "code not found: #{code}"
+          cpvDescription = nil
+        else
+          cpvDescription = cpvCode.description_english
+        end
         if cpvDescription == nil
           cpvDescription = "NA"
         end

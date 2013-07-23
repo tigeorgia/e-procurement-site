@@ -22,12 +22,14 @@
 <br>
 
 <dl class="info-horizontal">
+
   <% highlightClass = "" %>
-  <% if @highlights.include?('procurring_entity_id') %>
+  <% if @highlights.include?('tender_registration_number') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
-  <dt <%=highlightClass%> > <%=t("Procuring Entity")%>:</dt>
-  <dd <%=highlightClass%> ><%= link_to @procurer, :controller => "organizations", :action => "show_procurer", :id => @tender.procurring_entity_id %></td>
+  <dt <%=highlightClass%> ><%=t("Link to Official Tender")%>:</dt>
+  <dd <%=highlightClass%> ><div class="leftCenter"><%=@tender.tender_registration_number %></div><%=image_tag("spa-logo.jpg", :size => "165x50",:class=>"rightCenter")%> <%= link_to("",@officalUrl, :class => "parentSize") %></dd>
+
 
   <% highlightClass = "" %>
   <% if @highlights.include?('tender_type') %>
@@ -37,18 +39,18 @@
   <dd <%=highlightClass%> ><%= t(@tender.tender_type.strip()) %></dd>
 
   <% highlightClass = "" %>
-  <% if @highlights.include?('tender_registration_number') %>
-    <% highlightClass = 'class="bidwinner"'.html_safe %>
-  <% end %>
-  <dt <%=highlightClass%> ><%=t("Tender Registration Number")%>:</dt>
-  <dd <%=highlightClass%> ><%= @tender.tender_registration_number %></dd>
-
-  <% highlightClass = "" %>
   <% if @highlights.include?('tender_announcement_date') %>
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
   <dt <%=highlightClass%> ><%=t("Tender Announcement Date")%>:</dt>
   <dd <%=highlightClass%> ><%= @tender.tender_announcement_date %></dd>
+
+  <% highlightClass = "" %>
+  <% if @highlights.include?('procurring_entity_id') %>
+    <% highlightClass = 'class="bidwinner"'.html_safe %>
+  <% end %>
+  <dt <%=highlightClass%> > <%=t("Procuring Entity")%>:</dt>
+  <dd <%=highlightClass%> ><%= link_to @procurer, :controller => "organizations", :action => "show_procurer", :id => @tender.procurring_entity_id %></td>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('bid_start_date') %>

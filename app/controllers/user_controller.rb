@@ -9,6 +9,7 @@ class UserController < ApplicationController
     @savedSearches = current_user.searches
     @cpvGroups = current_user.cpvGroups
     @userID = current_user.id
+    @user = current_user
   end
 
   def save_search
@@ -226,5 +227,17 @@ class UserController < ApplicationController
     group.user_id = user.id
     group.name = params[:name]
     group.save
+  end
+
+  def save_profile
+    old = current_user.email_alerts
+    current_user.email_alerts = false
+    if params[:email_alerts]
+      current_user.email_alerts = params[:email_alerts]
+    end
+    if old != current_user.email_alerts
+      current_user.save
+    end
+    redirect_to :back
   end
 end
