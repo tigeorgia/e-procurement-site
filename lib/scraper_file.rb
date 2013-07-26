@@ -142,35 +142,40 @@ module ScraperFile
           if @numDatasets > 1
             #look at previous scraped data and see if we have the same tender
             oldTender = Tender.where(:url_id => tender.url_id,:dataset_id => @liveDataset.id).first
-            if oldTender
-              watch_tenders = WatchTender.where(:tender_url => tender.url_id)
-              if watch_tenders.count > 0
-                #ignore all meta data when comparing
-                ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
-                          "risk_indicators","procurer_name","supplier_name","sub_codes"]
-                differences = oldTender.findDifferences(tender,ignores)
-                if differences.length > 0
-                  #store changed fields in hash
-                  hash = ""
-                  differences.each do |difference|
-                    hash += difference + "#"
-                  end
-                  puts "found diff"
-                  puts hash
-                  watch_tenders.each do | watch | 
-                    watch.diff_hash = hash
-                    watch.has_updated = true
-                    watch.save
-                  end
-                end
-              end
-            end
           end        
                      
           if oldTender
+            #check for tender watches
+            if tender.url_id == 88646
+              puts 'checking'
+            end
+            watch_tenders = WatchTender.where(:tender_url => tender.url_id)
+            if watch_tenders.count > 0
+              #ignore all meta data when comparing
+              ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
+                        "risk_indicators","procurer_name","supplier_name","sub_codes"]
+              differences = oldTender.findDifferences(tender,ignores)
+              if tender.url_id == 88646
+                puts differences
+              end
+              if differences.length > 0
+                #store changed fields in hash
+                hash = ""
+                differences.each do |difference|
+                  hash += "#"+difference[:field]+"/"+difference[:old]
+                end
+                puts "found diff"
+                puts hash
+                watch_tenders.each do | watch | 
+                  watch.diff_hash = hash
+                  watch.has_updated = true
+                  watch.save
+                end
+              end
+            end
+
             oldTender.copyItem(tender)
             puts "updating tender: " + oldTender.url_id.to_s
-            #set this as new item so bidders and agreements can be matched
             oldTender.updated = true
             oldTender.save
           else
@@ -179,7 +184,8 @@ module ScraperFile
             tender.save
             procurerWatches = ProcurerWatch.where(:procurer_id => organization.id)
             procurerWatches.each do |watch|
-              newTenderStr = "#tender="+tender.id.to_s
+              newTenderStr = "#tender"+tender.id.to_s
+              puts "storing hash" + newTenderStr
               if watch.diff_hash
                 watch.diff_hash += newTenderStr
               else
@@ -335,7 +341,7 @@ module ScraperFile
                   #see if anyone is watching this supplier
                   supplierWatches = SupplierWatch.where(:supplier_id => organization.id)
                   supplierWatches.each do |watch|
-                    bidString = "#bid="+tender.id.to_s
+                    bidString = "#bid"+bidder.id.to_s
                     if watch.diff_hash
                       watch.diff_hash += bidString 
                     else
@@ -388,9 +394,11 @@ module ScraperFile
               agreement.amendment_number = item["AmendmentNumber"]
               agreement.documentation_url = item["documentUrl"]
               
+              
               if agreement.documentation_url == "disqualifed" or agreement.documentation_url == "bidder refused agreement"
-                #puts "disqualifed agreement"
-                organization = Organization.where(:name => item["OrgUrl"].gsub("&amp;","&")).first
+                #puts "disqualifed agreement"        
+                #org is stored as a name not an id in this case
+                organization = Organization.where(:name => item["OrgUrl"].gsub("&amp;","&")).first      
                 if organization
                   agreement.organization_url = organization.organization_url
                   agreement.organization_id = organization.id
@@ -404,8 +412,10 @@ module ScraperFile
                   agreement.expiry_date = "NULL"
                 end
               else
-                #puts "normal agreement"
+                puts "processing new standard org"        
+                #"normal agreement"
                 agreement.organization_url = item["OrgUrl"]
+                organization = Organization.where(:organization_url => item["OrgUrl"]).first
                 string_arr = item["Amount"].gsub(/\s+/m, ' ').strip.split(" ")
                 agreement.amount = string_arr[0]
                 currency = "NONE"
@@ -426,22 +436,36 @@ module ScraperFile
 
                 #The organisation that won this contract should have bid so it should have already been created
                 #so lets check the organisation database and cross-reference the org-url to get the org-id
-                organization = Organization.where(:organization_url => item["OrgUrl"]).first
                 if !organization
                   #wtf where is the org?
+                  puts "NO ORG: #{item['OrgUrl']}"
                 else
+                  puts "has org"
                   agreement.organization_id = organization.id
                   #if we have zero value we need to grab the real value from the last bid this org made
                   #since the procurer must have forgot to update the contract field
-                  if agreement.amount == 0
+                  if agreement.amendment_number == 0 and agreement.amount == 0
                     bidObject = Bidder.where(:organization_id => organization.id, :tender_id => tender.id).first
                     if bidObject
                       agreement.amount = bidObject.last_bid_amount
                     end
                   end
                 end
-                agreement.is_new = true       
-                agreement.save
+              end
+
+              agreement.is_new = true       
+              agreement.save
+              #see if anyone is watching this supplier
+              supplierWatches = SupplierWatch.where(:supplier_id => agreement.organization_id)
+              supplierWatches.each do |watch|
+                agreementString = "#agreement"+agreement.id.to_s
+                if watch.diff_hash
+                  watch.diff_hash += agreementString 
+                else
+                  watch.diff_hash = agreementString
+                end
+                watch.has_updated = true
+                watch.save
               end
             else
               #tender not found when it should have been
@@ -749,7 +773,8 @@ module ScraperFile
       #get last agreement
       lastAgreement = nil
       agreements.each do |agreement|
-        if not lastAgreement or lastAgreement.amendment_number < agreement.amendment_number
+        #hack for now if it there is a rejected condition make it the 
+        if (lastAgreement and lastAgreement.amendment_number) and (not lastAgreement) or (agreement.amendment_number and lastAgreement.amendment_number < agreement.amendment_number)
           lastAgreement = agreement
         end
       end
@@ -1376,9 +1401,9 @@ module ScraperFile
     updates = []
     tenders.each do |watch_tender|
       #check to see if there are any updates
-      #if watch_tender.has_updated
+      if watch_tender.has_updated
         updates.push(watch_tender)
-      #end
+      end
     end
 
     if deliverAlerts
@@ -1397,9 +1422,9 @@ module ScraperFile
     updates = []
     watches.each do |watch|
       #check to see if there are any updates
-      #if watch.has_updated
+      if watch.has_updated
         updates.push(watch)
-      #end
+      end
     end
 
     if deliverAlerts
@@ -1419,9 +1444,9 @@ module ScraperFile
     updates = []
     watches.each do |watch|
       #check to see if there are any updates
-      #if watch.has_updated
+      if watch.has_updated
         updates.push(watch)
-      #end
+      end
     end
 
     if deliverAlerts
@@ -1459,27 +1484,20 @@ module ScraperFile
         results = QueryHelper.buildProcurerSearchQuery(queryParams)
         updateList = @newProcurerList
       end
-
-      searchUpdates = []
-      results.each do |result|
-        if updateList.include?(result)
-          searchUpdates.push(result)
+    
+      updated = false
+      updateList.each do |newItem|
+        if results.include?(newItem)
+          updated = true
+          break
         end
       end
-      if searchUpdates.length > 0
+      if updated
         user = User.find(search.user_id)
         search.has_updated = true
-        search.new_ids = ""
-        searchUpdates.each do |update|
-          search.new_ids += update.id.to_s + "#"
-        end
         search.save
-        if deliverAlerts and search.email_alert
-          AlertMailer.search_alert(user, search, searchUpdates).deliver
-        end
         puts "search update found"
-        updates.push([search,searchUpdates])
-        break
+        updates.push(search)
       end
     end
     return updates
@@ -1611,24 +1629,24 @@ module ScraperFile
     I18n.locale = :en # do this so formating of floats and dates is correct when reading in json
     #parse orgs first so that other objects can sort out relationships
     puts "processing Orgs"
-    self.processOrganizations
+    #self.processOrganizations
     puts "processing tenders"  
-    self.processTenders
+    #self.processTenders
     puts "processing bidders"
-    self.processBidders
+    #self.processBidders
     puts "processing agreements"
     self.processAgreements
     puts "processing docs"
-    self.processDocuments
+    #self.processDocuments
     puts "processing sub cpv codes"
-    self.addSubCPVCodes
+    #self.addSubCPVCodes
     
     puts "processing white list"
-    self.processWhiteList
+    #self.processWhiteList
     puts "processing black list"
-    self.processBlackList
+    #self.processBlackList
     puts "process complaints"    
-    self.processComplaints
+    #self.processComplaints
   end
 
   #Some SPA contract agreement data is incorrect because the final bid value was never transfered to the inital contract value
@@ -1705,12 +1723,12 @@ module ScraperFile
     self.diffData
     puts "storing tender results"
     tenderList = Tender.where("updated = true OR is_new = true")
-    #self.storeTenderContractValues(tenderList)
-    #self.fixAgreements
-    #self.generateMetaData
+    self.storeTenderContractValues(tenderList)
+    self.fixAgreements
+    self.generateMetaData
 
     puts "creating list of live tenders"
-    #self.createLiveTenderList
+    self.createLiveTenderList
 
     puts "storing update time"
     self.storeUpdateTime
@@ -1720,12 +1738,16 @@ module ScraperFile
   #fill this with function to test
   def self.testProcess
     @liveDataset = Dataset.find(1)
-    #self.fixAgreements
-    #tenderList = Tender.where("updated = true OR is_new = true")
-   # self.storeTenderContractValues(tenderList)
-    #self.generateMetaData
-    #puts "creating list of live tenders"
-    #self.createLiveTenderList
+    @newDataset = Dataset.find(2)
+    @numDatasets = Dataset.find(:all).count
+    #self.cleanOldData(1)
+    puts "processing json"
+    self.process
+    puts "diffing"
+    #self.diffData
+    puts "storing tender results"
+    tenderList = Tender.where("updated = true OR is_new = true")
+    self.storeTenderContractValues(tenderList)
     self.generateAlertDigests
   end
 

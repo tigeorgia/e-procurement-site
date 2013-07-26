@@ -1,40 +1,81 @@
 <h1><%=t("digest_header")%></h1>
 
-<%if @updates[:searches] %>
+<%if @searchUpdates.count > 0 %>
   <h2><%=t("digest_search_header")%></h2>
-  <%@updates[:searches].each do |search|%>
-    <%= link_to search[0].name, {:host => "tendermonitor.ge",:port =>"",:controller => "user", :action => "search_via_saved", :search_id => search[0].id}%>
+
+  <%@searchUpdates.each do |search|%>
+    <%= link_to search.name, {:host => "tendermonitor.ge",:port =>"",:controller => "user", :action => "search_via_saved", :search_id => search.id}%>
     <br>
   <%end%>
 <hr>
 <%end%>
   
-<%if @updates[:tenderWatches] %>
+<%if @tenderUpdates.count > 0 %>
   <h2><%=t("digest_tender_header")%></h2>
-  <%@updates[:tenderWatches].each do |watch|%>
-    <%tender = Tender.where(:url_id => watch.tender_url).first%>
-    <%= link_to tender.tender_registration_number,  {:host => "tendermonitor.ge",:port =>"", :controller => "tender", :action => "show", :id => tender.id} %>
+  <%@tenderUpdates.each do |tenderUpdate|%>
+    <%= link_to tenderUpdate[:spa],  {:host => "tendermonitor.ge",:port =>"", :controller => "tenders", :action => "show", :id => tenderUpdate[:id]} %>
+    <%if tenderUpdate[:changes].count > 0%>
+      <br>
+      <%=t("The following values have changed")%>
+      <ul>
+      <%tenderUpdate[:changes].each do |change|%>
+        <li><%=t(change[:field])%>
+          <ul>
+            <li><%=t("Old Value")%>: <%=change[:old]%></li>
+            <li><%=t("New Value")%>: <%=change[:new]%></li>
+          </ul>
+        </li>
+      <%end%>
+      </ul>
+    <%end%>
     <br>
   <%end%>
 <hr>
 <%end%>
 
-<%if @updates[:supplierWatches] %>
+<%if @supplierUpdates.count > 0 %>
   <h2><%=t("digest_supplier_header")%></h2>
-  <%@updates[:supplierWatches].each do |watch|%>
-    <%supplier = Organization.where(:id => watch.supplier_id).first%>
-  <%= link_to supplier.name,  {:host => "tendermonitor.ge", :controller => "organization",:port =>"", :action => "show", :id => supplier.id} %>
+  <%@supplierUpdates.each do |supplierUpdate|%>
+    <%= link_to supplierUpdate[:name],  {:host => "tendermonitor.ge", :controller => "organization",:port =>"", :action => "show", :id => supplierUpdate[:id]} %>
+    <%if supplierUpdate[:bids].count > 0%>
+      <br>
+      <%=t("New bids")%>
+      <ul>
+        <%supplierUpdate[:bids].each do |bid|%>
+          <li><%=t("Bid")%> <%=bid[:value].to_s%> <%=t("on tender")%> <%= link_to bid[:spa],  {:host => "tendermonitor.ge", :controller => "tenders",:port =>"", :action => "show", :id => bid[:id]} %></li>
+        <%end%>
+      </ul>
+    <%end%>
+    <%if supplierUpdate[:agreements].count >0%>
+      <br>
+      <%=t("New Agreements")%>
+      <ul>
+        <%supplierUpdate[:agreements].each do |agreement|%>
+          <li><%=t("Made agreement for")%> <%=agreement[:value].to_s%> <%=t("on tender")%> <%= link_to agreement[:spa],  {:host => "tendermonitor.ge", :controller => "tenders",:port =>"", :action => "show", :id => agreement[:id]}%></li>
+        <%end%>
+      </ul>
+    <%end%>
     <br>
   <%end%>
 <hr>
 <%end%>
 
-<%if @updates[:procurerWatches] %>
+<%if @procurerUpdates.count > 0 %>
   <h2><%=t("digest_procurer_header")%></h2>
-  <%@updates[:procurerWatches].each do |watch|%>
-   <% procurer = Organization.where(:id => watch.procurer_id).first%>
-    <%= link_to procurer.name,  {:host => "tendermonitor.ge", :controller => "organization",:port =>"", :action => "show_procurer", :id => procurer.id} %>
+  <%@procurerUpdates.each do |procurerUpdate|%>
+    <%= link_to procurerUpdate[:name],  {:host => "tendermonitor.ge", :controller => "organizations",:port =>"", :action => "show_procurer", :id => procurerUpdate[:id]} %>
+    <%if procurerUpdate[:tenders].count > 0%>
+      <br>
+      <%=t("New Tenders Issued")%>
+      <ul>
+        <%procurerUpdate[:tenders].each do |tender|%>
+          <li><%= link_to tender[:spa],  {:host => "tendermonitor.ge", :controller => "tenders",:port =>"", :action => "show", :id => tender[:id]} %> - <%=t("Estimated Value") + ": "+tender[:value].to_s%></li>      
+        <%end%>
+      </ul>
+    <%end%>
     <br>
   <%end%>
-<hr>
 <%end%>
+
+
+To stop recieving these email updates click <%= link_to "here",  {:host => "tendermonitor.ge", :controller => "user",:port =>"", :action => "unsubscribe"} %>

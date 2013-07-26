@@ -1,3 +1,5 @@
+#!/bin/env ruby
+# encoding: utf-8
 class UserController < ApplicationController
   before_filter :authenticate_user!
   include QueryHelper
@@ -10,6 +12,10 @@ class UserController < ApplicationController
     @cpvGroups = current_user.cpvGroups
     @userID = current_user.id
     @user = current_user
+    @language = "English"
+    if current_user.language
+      @language = current_user.language
+    end
   end
 
   def save_search
@@ -235,9 +241,18 @@ class UserController < ApplicationController
     if params[:email_alerts]
       current_user.email_alerts = params[:email_alerts]
     end
-    if old != current_user.email_alerts
-      current_user.save
-    end
+    current_user.language = params[:language]
+    current_user.save
     redirect_to :back
+  end
+
+  #unsubscribe from email alerts (used in an email)
+  def unsubscribe
+    @alreadyUnSubscribed = true
+    if current_user.email_alerts == true
+      current_user.email_alerts = false
+      current_user.save
+      @alreadyUnSubscribed = false
+    end
   end
 end

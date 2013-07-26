@@ -1,3 +1,5 @@
+#!/bin/env ruby
+# encoding: utf-8
 class Users::SessionsController < Devise::SessionsController
 
   def new
@@ -11,6 +13,12 @@ class Users::SessionsController < Devise::SessionsController
     self.resource = warden.authenticate!(auth_options)
     set_flash_message(:notice, :signed_in) if is_navigational_format?
     sign_in(resource_name, resource)
+    puts current_user
+    if current_user.language == "ქართული"
+      I18n.locale = 'ka'
+    else
+      I18n.locale = 'en'
+    end
     respond_with resource, :location => after_sign_in_path_for(resource)
   end
 

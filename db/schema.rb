@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130723160223) do
+ActiveRecord::Schema.define(:version => 20130724084520) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -227,7 +227,7 @@ ActiveRecord::Schema.define(:version => 20130723160223) do
   create_table "procurer_watches", :force => true do |t|
     t.integer  "user_id"
     t.string   "procurer_id"
-    t.string   "diff_hash"
+    t.text     "diff_hash"
     t.boolean  "email_alert"
     t.boolean  "has_updated"
     t.datetime "created_at"
@@ -251,7 +251,7 @@ ActiveRecord::Schema.define(:version => 20130723160223) do
   create_table "supplier_watches", :force => true do |t|
     t.integer  "user_id"
     t.string   "supplier_id"
-    t.string   "diff_hash"
+    t.text     "diff_hash"
     t.boolean  "email_alert"
     t.boolean  "has_updated"
     t.datetime "created_at"
@@ -342,6 +342,7 @@ ActiveRecord::Schema.define(:version => 20130723160223) do
     t.string   "unconfirmed_email"
     t.string   "authentication_token"
     t.boolean  "email_alerts"
+    t.string   "language"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
@@ -354,7 +355,7 @@ ActiveRecord::Schema.define(:version => 20130723160223) do
     t.string   "tender_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "diff_hash"
+    t.text     "diff_hash"
     t.boolean  "email_alert"
     t.boolean  "has_updated"
   end

@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 class RootController < ApplicationController
   require 'scraper_file'
   include ApplicationHelper
@@ -134,8 +137,16 @@ class RootController < ApplicationController
 	end
 
   def index
+    if current_user
+      if current_user.language == "ქართული"
+        I18n.locale = 'ka'
+      else
+        I18n.locale = 'en'
+      end
+    end
+
     dataset = Dataset.find(1)
-    @updateTime = DateTime.now #dataset.data_valid_from
+    @updateTime = dataset.data_valid_from
     @nextUpdate = dataset.next_update
     #buildOrganizationXmlStrings
     tenders = Tender.find(:all, :select =>'distinct tender_status')

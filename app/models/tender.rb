@@ -7,6 +7,10 @@
   has_many :tender_corruption_flags, :dependent => :destroy
   belongs_to :dataset
 
+
+
+
+
   attr_accessible :id,
       :url_id,
       :dataset_id,
@@ -36,7 +40,19 @@
   # number of items per page for pagination
   self.per_page = 20
 
-
+  HUMANREADABLE = {
+    "procurer_name" => "Procurer",
+    "tender_type" => "Tender Type",
+    "tender_registration_number" => "Procurement Code",
+    "tender_status" => "Tender Status",
+    "tender_announcement_date" => "Announcement Date",
+    "bid_start_date" => "Bidding Start Date",
+    "bid_end_date" => "Bidding End Date",
+    "estimated_value" => "Estimated Cost",
+    "cpv_code" => "CPV Code",
+    "addition_info" => "Additional Information"
+  }
+  
   def self.to_csv
     CSV.generate do |csv|
       csv << column_names

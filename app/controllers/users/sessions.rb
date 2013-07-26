@@ -24,7 +24,6 @@ class Users::SessionsController < Devise::SessionsController
 
   def new
     @user = User.new
-    puts "NEW"
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }

@@ -14,7 +14,8 @@ module Updateable
       if attribute[1] != self.attributes[attribute[0]]
         puts "old #{self.attributes[attribute[0]]}" 
         puts "new #{attribute[1]}"
-        differences.push(attribute[0])
+        change = {:field => attribute[0],:old => self.attributes[attribute[0]]}
+        differences.push(change)
       end
     end
     return differences
@@ -32,5 +33,12 @@ module Updateable
       write_attribute(attribute[0], attribute[1])
     end
     self.save
+  end
+
+  def getHumanReadableAttributeName( attribute )
+    if self.class.const_defined?("HUMANREADABLE")
+        return self.class::HUMANREABLE[attribute]
+    end
+    return nil
   end
 end

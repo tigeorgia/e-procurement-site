@@ -162,6 +162,9 @@
       <%= check_box_tag(:email_alerts,true,@user.email_alerts,:class=>"inline") %>
       <br>
       <br>
+      <label for="language"><%=t("Language")%></label>
+      <%= select_tag(:language, options_for_select(["English","ქართული"],@language))%>
+      <br>
       <%= submit_tag( t('app.buttons.save'), :class => "submit-button") %>
     <% end %> 
   </div>

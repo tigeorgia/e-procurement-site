@@ -310,15 +310,17 @@ ka:
   procurer_type_description: იმ ორგანიზაციების კლასიფიკაცია, რომლებიც ტენდერს აცხადებენ
   Annual Data: წლიური მონაცემები
   data_update_description: ვებსაიტზე ინფორმაცია ბოლოს განახლდა მითითებულ დროს
-  digest_subject: სიახლეები ტენდერის მონიტორინგთან დაკავშირებით  
+  digest_subject: სიახლეები ტენდერის მონიტორინგთან დაკავშირებით
   digest_header: ტენდერის მონიტორინგის სიახლეების მოკლე მიმოხილვა
   digest_search_header: წყარო საიდანაც იღებთ  ახალ ინფორმაციას
-  digest_tender_header: სიახლეები იმ ტენდერებთან დაკავშირებით, რომელბზეც გაქვთ წდომა
-  digest_supplier_header: სიახლეები იმ მომწოდებლებთან დაკავშირებით, რომლებზეც გაქვთ წდომა
-  digest_procurer_header: სიახლეები იმ შემსყიდველებთან დაკავშირებით, რომლებზეც გაქვთ წვდომა
+  digest_tender_header: სიახლეები იმ ტენდერებთან დაკავშირებით, რომლებიც გამოწერილი გაქვთ
+  digest_supplier_header: სიახლეები იმ მომწოდებლებთან დაკავშირებით, რომლებიც გამოწერილი გაქვთ
+  digest_procurer_header: სიახლეები იმ შემსყიდველებთან დაკავშირებით, რომლებიც გამოწერილი გაქვთ
   spa_locale: ka
-  Link to Official Tender: იგივე ოფიციალური ტენდერი
-  receive_email_alerts: receive_email_alerts
+  Link to Official Tender: ლინკი ოფიციალურ ტენდერზე
+  receive_email_alerts: განახლებების მეილით მიღება
+  Preferences: პარამეტრები
+  language: ენა
 
   app:
     language:

@@ -1,4 +1,4 @@
-class UsersController < Devise::SessionsController
+class Users::SessionsController < Devise::SessionsController
   before_filter :authenticate_user!
   before_filter do |controller_instance|
   end
