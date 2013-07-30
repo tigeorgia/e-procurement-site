@@ -73,7 +73,7 @@ class AlertMailer < ActionMailer::Base
                   end
                 end
               elsif agreementIndex
-                agreementIndex = item.index('x') + 1
+                agreementIndex = item.index('t') + 1
                 agreementID = item[agreementIndex..-1]
                 agreementObject = Agreement.where(:id => agreementID).first
                 if agreementObject
@@ -126,7 +126,7 @@ class AlertMailer < ActionMailer::Base
                 info = item.split("/")
                 new = tender.attributes[info[0]]
                 field = tender.getHumanReadableAttributeName(info[0])
-                change = {:field => info[0], :old => info[1], :new => new}
+                change = {:field => field, :old => info[1], :new => new}
                 tenderObject[:changes].push(change)
               end
             end

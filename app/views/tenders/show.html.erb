@@ -14,8 +14,10 @@
 <% end %>
 
   <% highlightClass = "" %>
+  <%puts "HIGHLIGHT"%>
+  <%puts @highlights%>
   <% if @highlights.include?('tender_status') %>
-    <% highlightClass = 'class="bidwinner"'.html_safe %>
+    <% highlightClass = 'class="highlight"'.html_safe %>
   <% end %>
 <h3 <%=highlightClass%> ><%= t(@tender.tender_status) %></h3>
 <br>

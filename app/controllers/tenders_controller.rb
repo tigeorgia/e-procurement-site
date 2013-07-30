@@ -45,20 +45,19 @@ class TendersController < ApplicationController
     @tenderUrl = @tender.url_id
     @officalUrl = "http://tenders.procurement.gov.ge/public/?go="+@tender.url_id.to_s+"&lang="+t("spa_locale")
     @isWatched = false
-    @highlights = ""
-    if params[:highlights]
-     @highlights = params[:highlights].split("#")
-    end
+    @highlights = []
     if current_user
-      watched_tenders = current_user.watch_tenders
+      watched_tenders = WatchTender.where(:user_id => current_user.id, :tender_url => @tender.url_id)
       watched_tenders.each do |watched|
-        if watched.tender_url.to_i == @tender.url_id.to_i
-          @isWatched = true
-          #reset the update flag to false since this tender has now been viewed
-          watched.has_updated = false
-          watched.save
-          break
+        @isWatched = true
+        if params[:highlights] and watched.has_updated
+          watched.diff_hash.split("#").each do |highlight|
+            @highlights.push(highlight.split("/")[0].gsub("#",""))
+          end
         end
+        #reset the update flag to false since this tender has now been viewed
+        watched.has_updated = false
+        watched.save
       end
     end
 

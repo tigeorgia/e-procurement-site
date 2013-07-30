@@ -24,7 +24,7 @@
           <th class="header-5"></th>
           <th><%=t("Name")%></th>
           <th><%=t("Type")%></th>
-          <th><%=t("Date Saved")%></th>
+          <th><%=t("Last Update")%></th>
         </tr>
       </thead>
       <tbody>
@@ -40,7 +40,11 @@
             <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_search_from_account", :search_id => search.id}, :class => "confirm") %></td>        
             <td <%=highlightClass%>><%= link_to search.name, :controller => "user", :action => "search_via_saved", :search_id => search.id %></td>
             <td <%=highlightClass%>><%= search.searchtype %></td>
-            <td <%=highlightClass%>><%= search.created_at %></td>
+            <%if search.last_data_update%>
+              <td <%=highlightClass%>><%= search.last_data_update %></td>
+            <%else%>
+              <td <%=highlightClass%>><%= search.created_at %></td>
+            <%end%>
           </tr>
         <% end %>
       </tbody>
@@ -57,7 +61,7 @@
           <th><%=t("Type")%></th>
           <th><%=t("Status")%></th>
           <th><%=t("Estimated Value")%></th>
-          <th><%=t("Date Saved")%></th>
+          <th><%=t("Last Update")%></th>
         </tr>
       </thead>
       <tbody>
@@ -75,13 +79,16 @@
             <% highlightClass = 'class="bidwinner"'.html_safe %>
           <% end %>
           <tr>
-            <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_tender_watch_from_account", :tender_url => tender.url_id}, :class => "confirm") %></td>
-            <td <%=highlightClass%>><%= link_to tender.tender_registration_number, tender_path(:id => tender.id, :highlights => highlights) %></td>
+            <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_tender_watch_from_account", :tender_url => tender.url_id }, :class => "confirm") %></td>
+            <td <%=highlightClass%>><%= link_to tender.tender_registration_number, tender_path(:id => tender.id, :highlights => true) %></td>
             <td <%=highlightClass%>><%= t(tender.tender_type.strip) %></td>
             <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
             <td <%=highlightClass%>><%= number_to_currency(tender.estimated_value, :unit => "GEL ") %></td>
-            <td <%=highlightClass%>><%= watch_tender.created_at %></td>
-           
+            <%if watch_tender.last_data_update%>
+              <td <%=highlightClass%>><%= watch_tender.last_data_update %></td>
+            <%else%>
+              <td <%=highlightClass%>><%= watch_tender.created_at %></td>
+            <%end%>
           </tr>
         <% end %>
       </tbody>
@@ -94,7 +101,7 @@
         <tr>
           <th class="header-5"></th>
           <th><%=t("Name")%></th>
-          <th><%=t("Date Saved")%></th>
+          <th><%=t("Last Update")%></th>
         </tr>
       </thead>
       <tbody>
@@ -114,8 +121,12 @@
             <% if watch_supplier.has_updated %>
               <% highlights = watch_supplier.hash %>
             <% end %>
-            <td <%=highlightClass%>><%= link_to supplier.name, organization_path(:id => supplier.id, :highlights => highlights) %></td>
-            <td <%=highlightClass%>><%= watch_supplier.created_at %></td>
+            <td <%=highlightClass%>><%= link_to supplier.name, organization_path(:id => supplier.id, :highlights => true) %></td>
+            <%if watch_supplier.last_data_update%>
+              <td <%=highlightClass%>><%= watch_supplier.last_data_update %></td>
+            <%else%>
+              <td <%=highlightClass%>><%= watch_supplier.created_at %></td>
+            <%end%>
           </tr>
         <%end%>
       </tbody>
@@ -128,7 +139,7 @@
         <tr>
           <th class="header-5"></th>
           <th><%=t("Name")%></th>
-          <th><%=t("Date Saved")%></th>
+          <th><%=t("Last Update")%></th>
         </tr>
       </thead>
       <tbody>
@@ -147,8 +158,12 @@
             <% if watch_procurer.has_updated %>
               <% highlights = watch_procurer.hash %>
             <%end%>
-            <td <%=highlightClass%>><%= link_to procurer.name, {:controller => "organizations", :action => "show_procurer", :id => procurer.id, :highlights => highlights} %></td>
-            <td <%=highlightClass%>><%= watch_procurer.created_at %></td>
+            <td <%=highlightClass%>><%= link_to procurer.name, {:controller => "organizations", :action => "show_procurer", :id => procurer.id, :highlights => true} %></td>
+            <%if watch_procurer.last_data_update%>
+              <td <%=highlightClass%>><%= watch_procurer.last_data_update %></td>
+            <%else%>
+              <td <%=highlightClass%>><%= watch_procurer.created_at %></td>
+            <%end%>
           </tr>
         <% end %>
       </tbody>

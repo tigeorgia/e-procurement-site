@@ -286,7 +286,12 @@ footer, footer ul li, footer div#right ul li {
 
 .bidwinner
 {
-    background-color: #12E254!important;
+  background-color: #12E254!important;
+}
+
+.highlight
+{
+  background-color: #12E254!important;
 }
 
 #top-row {
@@ -560,7 +565,7 @@ tr.odd td.sorting_1 {
 }
 
 tr.even td.sorting_1 {
-  background: #ececec;
+  background: transparent;
 }
 
 .top, .bottom {

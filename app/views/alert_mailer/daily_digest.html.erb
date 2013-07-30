@@ -3,8 +3,34 @@
 <%if @searchUpdates.count > 0 %>
   <h2><%=t("digest_search_header")%></h2>
 
-  <%@searchUpdates.each do |search|%>
+  <%@searchUpdates.each do |searchItem|%>
+    <%search = searchItem[:search]%>
     <%= link_to search.name, {:host => "tendermonitor.ge",:port =>"",:controller => "user", :action => "search_via_saved", :search_id => search.id}%>
+    <%=t("Number of new results")%>: <%=searchItem[:newResults].count%>
+    <ul>
+      <%max = 10%>
+      <%count = 0%>
+      <%searchItem[:newResults].each do |newResult|%>
+        <%count += 1%>
+        <%if count > max%>
+          <%break%>
+        <%end%>
+        <%if searchItem[:search].searchtype == "tender"%>
+          <%tender = Tender.where(:id => newResult).first%>
+          <li><%= link_to tender.tender_registration_number, {:host => "tendermonitor.ge",:port =>"",:controller => "tenders", :action => "show", :id => tender.id}%></li>
+        <%else%>
+          <%action = "show"%>
+          <%if searchItem[:search].searchtype == "procurer"%>
+            <%action = "show_procurer"%>
+          <%end%>
+          <%org = Organization.where(:id => newResult).first%>
+          <li><%= link_to org.name, {:host => "tendermonitor.ge",:port =>"",:controller => "organizations", :action => action, :id => org.id}%></li>
+        <%end%>
+      <%end%>
+      <%if count > max%>
+        <%=t("And")%> <%=searchItem[:newResults].count - max%> <%=t("more")%>
+      <%end%>
+    </ul>
     <br>
   <%end%>
 <hr>
@@ -77,5 +103,5 @@
   <%end%>
 <%end%>
 
-
+<hr>
 To stop recieving these email updates click <%= link_to "here",  {:host => "tendermonitor.ge", :controller => "user",:port =>"", :action => "unsubscribe"} %>

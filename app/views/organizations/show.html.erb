@@ -334,7 +334,7 @@ $(function () {
       <dd><%= @organization.name %></dd>
 
       <dt><strong><%= t("Identification Code")%>:</strong></dt>
-      <dd><%= @organization.code %></dd>
+      <dd><%= @organization.code %> <%=link_to(t("Search for ownership information"),@corpsearchurl)%></dd>
 
       <dt><strong><%= t("Type")%>:</strong></dt>
       <dd><%= t(@organization.org_type) %></dd>
@@ -404,7 +404,11 @@ $(function () {
   </thead>
   <tbody>      
     <% @tenderInfo.each do |tender| %>
-      <tr>
+      <%if tender[:highlight]%>
+        <tr class="highlight">
+      <%else%>
+        <tr>
+      <%end%>
         <td><%= link_to tender[:tenderCode], tender_path(tender[:id]) %></td> 
         <% if tender[:status] == "won" %>
           <td><font color="green"><strong><%=t("Won")%></strong></font></td>

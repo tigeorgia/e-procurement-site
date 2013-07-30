@@ -260,7 +260,11 @@ $(function () {
   </thead>
   <tbody>      
     <% @tendersOffered.each do |tender| %>
-      <tr>
+      <%if tender[:highlight]%>
+        <tr class="highlight">
+      <%else%>
+        <tr>
+      <%end%>
         <td><%= link_to tender.tender_registration_number, tender_path(tender[:id]) %></td>
         <% if tender[:status] == "success" %>
           <td><font color="green"><strong><%= t("success")%></strong></font></td>

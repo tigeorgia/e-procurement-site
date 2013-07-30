@@ -73,13 +73,13 @@ class AlertMailer < ActionMailer::Base
                   end
                 end
               elsif agreementIndex
-                agreementIndex = item.index('x') + 1
+                agreementIndex = item.index('t') + 1
                 agreementID = item[agreementIndex..-1]
                 agreementObject = Agreement.where(:id => agreementID).first
                 if agreementObject
                   tender = Tender.where(:id => agreementObject.tender_id).first
                   if tender
-                    supplierObject[:agreements].push( {:id => tender.id, :spa => tender.tender_registration_number, :value => agreementObject.value} )
+                    supplierObject[:agreements].push( {:id => tender.id, :spa => tender.tender_registration_number, :value => agreementObject.amount} )
                   end
                 end
               end

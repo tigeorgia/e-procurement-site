@@ -50,7 +50,7 @@
         <%= page_navigation_links @tenders %>
         <% @tenders.each do |tender| %>
           <% highlightClass = 'class="no-overflow"'.html_safe %>
-          <% if @search %>
+          <% if @search and @search.last_viewed < tender.updated_at %>
             <% highlightClass = 'class="no-overflow bidwinner"'.html_safe %>
           <% end %>
           <tr>

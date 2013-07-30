@@ -82,21 +82,25 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find(id)
 
     @isWatched = false
-    @highlights = ""
-    if params[:highlights]
-     @highlights = params[:highlights].split("#")
-    end
+    tendersToHighlight = []
     if current_user
       watched_procurers = current_user.procurer_watches
-      watched_procurers.each do |watched|
-        if watched.procurer_id.to_i == @organization.id.to_i
-          @isWatched = true
-          @procurer_watch_id = watched.id
-          #reset the update flag to false since this procurer has now been viewed
-          watched.has_updated = false
-          watched.save
-          break
+      watches = ProcurerWatch.where(:user_id => current_user.id, :procurer_id => id)
+      watches.each do |watched|
+        @isWatched = true
+        @procurer_watch_id = watched.id
+        if params[:highlights] and watched.has_updated
+          changes = watched.diff_hash.split("#")
+          changes.each do |change|
+            index = change.index("tender")
+            if index
+              tendersToHighlight.push(change[0..index-1])
+            end
+          end
         end
+        #reset the update flag to false since this procurer has now been viewed
+        watched.has_updated = false
+        watched.save
       end
     end
 
@@ -134,6 +138,10 @@ class OrganizationsController < ApplicationController
       else
         tendersPerCpv[tender.cpv_code] = [cpvDescription, 1 ]
       end
+
+      if tendersToHighlight.include?(tender.id.to_s)
+        tender[:highlight] = true
+      end  
     end
 
     tendersPerCpv = tendersPerCpv.sort { |a,b| b[1][1] <=> a[1][1]}
@@ -240,23 +248,34 @@ class OrganizationsController < ApplicationController
   def show
     id = params[:id]
     @organization = Organization.find(id)
-
     @isWatched = false
-    @highlights = ""
-    if params[:highlights]
-     @highlights = params[:highlights].split("#")
-    end
+    tendersToHighlight = []
+
     if current_user
       watched_suppliers = current_user.supplier_watches
-      watched_suppliers.each do |watched|
-        if watched.supplier_id.to_i == @organization.id.to_i
-          @isWatched = true
-          @supplier_watch_id = watched.id
-          #reset the update flag to false since this tender has now been viewed
-          watched.has_updated = false
-          watched.save
-          break
+      watches = SupplierWatch.where(:user_id => current_user.id, :supplier_id => id)
+      watches.each do |watched|
+        @isWatched = true
+        @supplier_watch_id = watched.id
+        if params[:highlights] and watched.has_updated
+          changes = watched.diff_hash.split("#")
+          changes.each do |change|
+            #maybe extend this functionality later to deal with bids and agreements differently
+            index = change.index("bid")
+            if index
+              tendersToHighlight.push(change[0..index-1])
+            else
+              index = change.index("agreement")
+              if index
+                tendersToHighlight.push(change[0..index-1])
+              end
+            end
+          end
         end
+
+        #reset the update flag to false since this procurer has now been viewed
+        watched.has_updated = false
+        watched.save
       end
     end
 
@@ -268,6 +287,13 @@ class OrganizationsController < ApplicationController
     if BlackListItem.where("organization_id = ?",id).count > 0
       @blackListed = true
     end
+
+    localeStr = "ka"
+    if I18n.locale == :en
+      localeStr = "en"
+    end
+
+    @corpsearchurl = "http://corpsearch.tigeorgia.webfactional.com/"+I18n.locale+"/corporations/search/?id_code="+@organization.code.to_s
 
     allBids = Bidder.find_all_by_organization_id(id)
     allTenders = []
@@ -356,7 +382,7 @@ class OrganizationsController < ApplicationController
     #create a hash with tasty info
     allTenders.each do |tender|
       tenderDuration = (tender.bid_end_date - tender.bid_start_date).to_i
-      infoItem = { :id => tender.id, :tenderCode => tender.tender_registration_number, :numBidders => tender.bidders.count, :bidDuration => tenderDuration, :highest_bid => nil, :lowest_bid => nil, :numBids => nil, :start_amount => tender.estimated_value, :won => false, :procurerName => nil, :procurerID => tender.procurring_entity_id, :tenderAnnouncementDate => tender.tender_announcement_date, :contract_value => tender.contract_value}
+      infoItem = { :id => tender.id, :tenderCode => tender.tender_registration_number, :numBidders => tender.bidders.count, :bidDuration => tenderDuration, :highest_bid => nil, :lowest_bid => nil, :numBids => nil, :start_amount => tender.estimated_value, :won => false, :procurerName => nil, :procurerID => tender.procurring_entity_id, :tenderAnnouncementDate => tender.tender_announcement_date, :contract_value => tender.contract_value, :highlight => false}
       infoItem[:procurerName] = Organization.find(tender.procurring_entity_id).name
       if tendersWon[tender.id]
         infoItem[:status] = "won"
@@ -366,6 +392,10 @@ class OrganizationsController < ApplicationController
       else
         infoItem[:status] = "lost"
         @numTendersLost += 1
+      end
+
+      if tendersToHighlight.include?(tender.id.to_s)
+        infoItem[:highlight] = true
       end
 
       allBids.each do |bid|

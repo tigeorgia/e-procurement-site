@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130724084520) do
+ActiveRecord::Schema.define(:version => 20130729125212) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -227,11 +227,12 @@ ActiveRecord::Schema.define(:version => 20130724084520) do
   create_table "procurer_watches", :force => true do |t|
     t.integer  "user_id"
     t.string   "procurer_id"
-    t.text     "diff_hash"
+    t.string   "diff_hash"
     t.boolean  "email_alert"
     t.boolean  "has_updated"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_data_update"
   end
 
   create_table "searches", :force => true do |t|
@@ -246,16 +247,18 @@ ActiveRecord::Schema.define(:version => 20130724084520) do
     t.boolean  "has_updated"
     t.datetime "last_viewed"
     t.text     "new_ids"
+    t.datetime "last_data_update"
   end
 
   create_table "supplier_watches", :force => true do |t|
     t.integer  "user_id"
     t.string   "supplier_id"
-    t.text     "diff_hash"
+    t.string   "diff_hash"
     t.boolean  "email_alert"
     t.boolean  "has_updated"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_data_update"
   end
 
   create_table "tender_corruption_flags", :force => true do |t|
@@ -355,9 +358,10 @@ ActiveRecord::Schema.define(:version => 20130724084520) do
     t.string   "tender_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "diff_hash"
+    t.string   "diff_hash"
     t.boolean  "email_alert"
     t.boolean  "has_updated"
+    t.datetime "last_data_update"
   end
 
   create_table "white_list_items", :force => true do |t|
