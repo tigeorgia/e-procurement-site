@@ -14,9 +14,8 @@
 		<% cpvArray.push([group.name, group.id]) %>
 	<%end%>
 <%end%>
-<% newCPVUrl = url_for(:controller => "cpv_tree", :action => "showCPVTree") %>
 
-<% cpvArray.push(["---"+t("Create Custom Category")+"---", -1, {:onclick => "window.location.replace('"+newCPVUrl+"');"}])%>
+<% cpvArray.push(["---"+t("Create Custom Category")+"---", -1, {:onselect => "checkCPVGroupOption();"}])%>
 
 <script>
 var chart1; // globally available
@@ -53,10 +52,20 @@ $(document).ready(function() {
     $("div.currentUpdateBox").html(updateUTC.toLocaleString())
  });
 
+
+<% newCPVUrl = url_for(:controller => "cpv_tree", :action => "showCPVTree") %>
+  //check for the last index being select
+  //this index holds the create your own button which when selected takes the user to the CPV tree
+  var checkCPVGroupOption = function(item){
+    if( item.selectedIndex == item.length - 1){
+      window.location.replace(
+    }
+  }
+
 </script>
 
 <div class="updateDiv">
-   <div class="update-icon"><img src="assets/last-update.png"/><span><%=t("data_update_description")%></span></div>
+   <div class="update-icon"><img src="/assets/last-update.png"/><span><%=t("data_update_description")%></span></div>
    <div class="currentUpdateBox"></div>
 </div>
 
@@ -94,7 +103,7 @@ $(document).ready(function() {
         <div class="span3">        
           <label for="cpvGroup" class="search"><%= t("Category")%></label>
          <a href="#" class="info-tip">&nbsp;<span><%=t("category_description")%></span></a>
-          <%= select_tag(:cpvGroup, options_for_select(cpvArray)) %>
+          <%= select_tag(:cpvGroup, options_for_select(cpvArray), {:onchange => "checkCPVGroupOption(this);"}) %>
         </div>
         <div class="span3">
           <label for="risk_indicator" class="search"><%=t("Risk Indicator")%> </label>

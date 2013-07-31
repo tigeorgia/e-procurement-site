@@ -462,6 +462,7 @@ module ScraperFile
                   watch.diff_hash = agreementString
                 end
                 watch.has_updated = true
+                watch.last_data_update = @liveDataset.data_valid_from
                 watch.save
               end
             else
@@ -1307,35 +1308,31 @@ module ScraperFile
 
   #run on live server which contains user data
   def self.generateAlertDigests
+    User.find_each do |user|
+      updates = {}
+      searches = self.checkSearchWatches(user)
+      tenderWatches = self.checkTenderWatches(user)
+      supplierWatches = self.checkSupplierWatches(user)
+      procurerWatches = self.checkProcurerWatches(user)
 
-    #User.find_each do |user|
-      user = User.find(1)
-      if user.email_alerts
-        updates = {}
-        searches = self.checkSearchWatches(user)
-        tenderWatches = self.checkTenderWatches(user)
-        supplierWatches = self.checkSupplierWatches(user)
-        procurerWatches = self.checkProcurerWatches(user)
-
-        if searches.length > 0
-          updates[:searches] = searches
-        end
-        if tenderWatches.length > 0
-          updates[:tenderWatches] = tenderWatches
-        end
-        if supplierWatches.length > 0
-          updates[:supplierWatches] = supplierWatches
-        end
-        if procurerWatches.length > 0
-          updates[:procurerWatches] = procurerWatches
-        end
-
-        if updates.length > 0
-          puts "sending digest"
-          AlertMailer.daily_digest(user, updates).deliver
-        end
+      if searches.length > 0
+        updates[:searches] = searches
       end
-    #end
+      if tenderWatches.length > 0
+        updates[:tenderWatches] = tenderWatches
+      end
+      if supplierWatches.length > 0
+        updates[:supplierWatches] = supplierWatches
+      end
+      if procurerWatches.length > 0
+        updates[:procurerWatches] = procurerWatches
+      end
+
+      if user.email_alerts and updates.length > 0
+        puts "sending digest"
+        AlertMailer.daily_digest(user, updates).deliver
+      end
+    end
   end
 
 
@@ -1408,7 +1405,6 @@ module ScraperFile
       end
       
       #something has been changed lets load the saved search data for this search and check the ids
-      puts "#{search.name} old #{oldCount} new #{results.count}"
       if results.count != oldCount
         puts "checking search"
         data = nil

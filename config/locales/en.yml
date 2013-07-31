@@ -204,7 +204,25 @@ en:
   receive_email_alerts: Receive Email Alerts
   Preferences: Preferences
   Language: Language
-
+  To stop receiving these email updates click: To stop receiving these emails updates click
+  here: here
+  Made agreement for: Made agreement for
+  New Agreements: New Agreements
+  New bids: New bids
+  Bid: Bid
+  agreement_on_tender: on tender
+  bid_on_tender: on tender
+  Old Value: Old Value
+  New Value: New Value
+  The following values have changed: The following values have changed
+  And: And
+  more: more
+  Number of new results: Number of new results
+  Last Update: Last Update
+  ad: 
+  geo-it: 
+  
+  
   app:
     language:
       en: English

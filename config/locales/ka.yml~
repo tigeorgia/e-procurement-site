@@ -320,7 +320,25 @@ ka:
   Link to Official Tender: ლინკი ოფიციალურ ტენდერზე
   receive_email_alerts: განახლებების მეილით მიღება
   Preferences: პარამეტრები
-  language: ენა
+  Language: ენა
+  To stop receiving these email updates click: რომ შეწყვიტოთ ამ იმეილების მიღება დააქლიქეთ
+  here: აქ
+  Made agreement for: გაკეთდა შეთანხმება
+  New Agreements: ახალი შეთანხმებები
+  New bids: ახალი შეთავაზებები
+  Bid: შეთავაზება
+  on tender: ტენდერზე
+  Old Value: ძველი ფასი
+  New Value: ახალი ფასი
+  The following values have changed: ქვემოთ ჩამოთვლილი ფასები შეიცვალა
+  And: და
+  more: ით მეტი
+  Number of new results: ახალი შედეგების რაოდენობა
+  Last Update: ბოლო განახლება
+  ad: ად
+  geo-it: ით
+  agreement_on_tender: on tender
+  bid_on_tender: on tender
 
   app:
     language:
