@@ -27,7 +27,7 @@
 
   <%= t("Number of Tenders")%> : <%= @numResults %>
   <%if not Rails.application.config.live_deploy%>
-    <%= button_to t("Download CSV"),  csvParams, :class => "submit-button" %>
+    <%= button_to t("DownloadCSV"),  csvParams, :class => "submit-button" %>
   <%end%>
     <hr>
     <table class="table table-striped">
@@ -51,7 +51,7 @@
         <% @tenders.each do |tender| %>
           <% highlightClass = 'class="no-overflow"'.html_safe %>
           <% if @search and @search.last_viewed < tender.updated_at %>
-            <% highlightClass = 'class="no-overflow bidwinner"'.html_safe %>
+            <% highlightClass = 'class="no-overflow highlight"'.html_safe %>
           <% end %>
           <tr>
             <td <%=highlightClass%>><%= link_to tender.tender_registration_number, tender_path(tender) %></td>

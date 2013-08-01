@@ -69,6 +69,8 @@ $(document).ready(function() {
    <div class="currentUpdateBox"></div>
 </div>
 
+<%= button_to "Download Bulk Tender Data", {:controller => "tender", :action => "download_all"}, :class => "submit-button" %>
+
 <div class="tabs tab-div">
   <ul>
     <li><a href="#tabs-1"><%=t("Search Tenders")%></a></li>
@@ -310,7 +312,7 @@ $(document).ready(function() {
     <div class="row-fluid">
       <div class="span8 offset4">
         <h4><%=t("Sector")%></<h4><br>
-        <%= select_tag(:cpvGroup, options_for_select(cpvArray),:class=>"auto-submit",:data => {:remote => true, :url => url_for(:controller => "root", :action => "cpvVsProcurer")} )  %>     
+        <%= select_tag(:cpvGroup, options_for_select(cpvArray),:onchange => "checkCPVGroupOption(this);",:class=>"auto-submit",:data => {:remote => true, :url => url_for(:controller => "root", :action => "cpvVsProcurer")} )  %>     
       </div>
     </div>
 

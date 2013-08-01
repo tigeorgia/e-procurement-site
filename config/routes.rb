@@ -26,6 +26,7 @@ BootstrapStarter::Application.routes.draw do
     match '/tender/search' => 'tenders#search'
     match '/tender/search_via_saved' => 'tenders#search_via_saved'
     match '/tender/download' => 'tenders#download'
+    match '/tender/download_all' => 'tenders#download_all'
     match '/organization/download_proc_tenders' => 'organizations#download_proc_tenders'
     match '/organization/download_org_tenders' => 'organizations#download_org_tenders'
     match '/tenders/index' => 'tenders#index'

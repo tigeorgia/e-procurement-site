@@ -25,15 +25,10 @@ class TendersController < ApplicationController
     performSearch(data)
   end
 
-  def download
-    data = QueryHelper.buildTenderQueryData(params)
-    result = QueryHelper.buildTenderSearchQuery(data)
-
-
-    filePath = "tenders.csv"
+  def download_all
+    filePath = "AllTenders.csv"
     respond_to do |format|
       format.csv {
-        buildTenderInfoCSVStringFromTenderList(result,["addition_info", "units_to_supply", "supply_period"],filePath)
         send_file filePath 
       }
     end

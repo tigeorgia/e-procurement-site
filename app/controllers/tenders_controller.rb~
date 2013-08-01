@@ -25,15 +25,10 @@ class TendersController < ApplicationController
     performSearch(data)
   end
 
-  def download
-    data = QueryHelper.buildTenderQueryData(params)
-    result = QueryHelper.buildTenderSearchQuery(data)
-
-
-    filePath = "tenders.csv"
+  def download_all
+    filePath = "allTenders.csv"
     respond_to do |format|
       format.csv {
-        buildTenderInfoCSVStringFromTenderList(result,["addition_info", "units_to_supply", "supply_period"],filePath)
         send_file filePath 
       }
     end
@@ -47,7 +42,6 @@ class TendersController < ApplicationController
     @isWatched = false
     @highlights = []
     if current_user
-      watched_tenders = WatchTender.where(:user_id => current_user.id, :tender_url => @tender.url_id)
       watched_tenders.each do |watched|
         @isWatched = true
         if params[:highlights] and watched.has_updated
