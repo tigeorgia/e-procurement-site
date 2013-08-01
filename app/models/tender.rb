@@ -38,7 +38,7 @@
   scope :recent, order("tender_announcement_date desc").limit(5)
   
   # number of items per page for pagination
-  self.per_page = 20
+  self.per_page = 100
 
   HUMANREADABLE = {
     "procurer_name" => "Procurer",

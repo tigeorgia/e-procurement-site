@@ -26,9 +26,9 @@ class TendersController < ApplicationController
   end
 
   def download_all
-    filePath = "allTenders.csv"
+    filePath = "AllTenders.zip"
     respond_to do |format|
-      format.csv {
+      format.zip {
         send_file filePath 
       }
     end

@@ -1814,6 +1814,10 @@ module ScraperFile
     self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
   end
 
+  def self.generateBulkTenderData
+    self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
+  end
+
   def self.checkForDups
     Tender.find_each do |tender|
       count = Tender.where(:url_id => tender.url_id).count
