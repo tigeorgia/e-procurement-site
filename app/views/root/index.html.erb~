@@ -69,8 +69,9 @@ $(document).ready(function() {
    <div class="currentUpdateBox"></div>
 </div>
 
-<%= button_to "Download Bulk Tender Data", {:controller => "tender", :action => "download_all"}, :class => "submit-button" %>
-
+<% if user_signed_in? %>
+  <%= button_to "Download Bulk Tender Data", {:controller => "tender", :action => "download_all", :format => "csv"}, :class => "submit-button" %>
+<%end%>
 <div class="tabs tab-div">
   <ul>
     <li><a href="#tabs-1"><%=t("Search Tenders")%></a></li>

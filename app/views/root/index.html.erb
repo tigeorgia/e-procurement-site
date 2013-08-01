@@ -70,7 +70,7 @@ $(document).ready(function() {
 </div>
 
 <% if user_signed_in? %>
-  <%= button_to "Download Bulk Tender Data", {:controller => "tender", :action => "download_all"}, :class => "submit-button" %>
+  <%= button_to "Download Bulk Tender Data", {:controller => "tender", :action => "download_all", :format => "csv"}, :class => "submit-button" %>
 <%end%>
 <div class="tabs tab-div">
   <ul>
