@@ -292,8 +292,11 @@ class OrganizationsController < ApplicationController
     if I18n.locale == :en
       localeStr = "en"
     end
-
-    @corpsearchurl = "http://corpsearch.tigeorgia.webfactional.com/"+I18n.locale+"/corporations/search/?id_code="+@organization.code.to_s
+    if @organization.county == "საქართველო"
+      @corpsearchurl = "http://corpsearch.tigeorgia.webfactional.com/"+localeStr+"/corporations/search/?id_code="+@organization.code.to_s
+    else
+      @corpsearchurl = "http://opencorporates.com/companies?utf8=%E2%9C%93&q="+@organization.code.to_s+"&commit=Go"
+    end
 
     allBids = Bidder.find_all_by_organization_id(id)
     allTenders = []
