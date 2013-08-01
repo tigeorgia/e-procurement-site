@@ -214,6 +214,7 @@ function createD3Graphs( root )
 
     svgText.attr("x", function(d) { return x(d.x) + 6; })
         .attr("y", function(d) { return y(d.y) + 6; })
+        .attr("fill", function(d) { return "#FFF"; })
         .attr("font-size", function(d) { 
         var width = x(d.x + d.dx) - x(d.x);
         var height = y(d.y + d.dy) - y(d.y);

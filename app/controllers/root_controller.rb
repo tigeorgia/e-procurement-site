@@ -112,19 +112,26 @@ class RootController < ApplicationController
   end
 
   def cpvVsProcurer
-    @topTenProcurers = generateOrganizationAggregates( ProcurerCpvRevenue, 10 )      
+    cpvGroup = params[:cpvGroup]
+    if cpvGroup == "-1"
+      render nothing: true
+    else
+      @topTenProcurers = generateOrganizationAggregates( ProcurerCpvRevenue, 10 )    
+    end  
   end
 
   def cpvVsCompany
-    cpvGroup = CpvGroup.find(params[:cpvGroup])
+    cpvGroup = params[:cpvGroup]
     sqlString = ''
     #cpv group 1 is a special 'all' category since this is a huge calculation we cheat and just look at total revenue
-    if cpvGroup.id == 1
+    if cpvGroup == "1"
       top10 = Organization.order("total_won_contract_value DESC").limit(10)
       @TopTen = []
       top10.each do |company|
         @TopTen.push( {:company => company, :total => company.total_won_contract_value} )
       end
+    elsif cpvGroup == "-1"
+      render nothing: true
     else
       @TopTen = generateOrganizationAggregates( AggregateCpvRevenue, 10 )   
     end
