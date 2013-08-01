@@ -59,8 +59,23 @@ function formatGEL(num, useFractions) {
 }
 
 
+
+
 function createD3Graphs( root )
 {
+
+  /*$("#cpvChart").bind("contextmenu", function(event) {
+    event.preventDefault();
+    $(".custom-menu").remove();
+    $("<div class='custom-menu'><div>Back to Parent</div><div>Search for CPV</div></div>")
+        .appendTo("body")
+        .css({top: event.pageY + "px", left: event.pageX + "px"});
+  });
+
+  $("#cpvChart").bind("click", function(event) {
+    $("div.custom-menu").hide();
+  });*/
+
   var labelHeight = 50;
   var width = $('#cpvChart').width();
   var height = 600 - labelHeight;

@@ -45,6 +45,7 @@ module ApplicationHelper
       if results.count > 0
         @searchIsSaved = true
         @search = results.first
+        puts "testss"
         @savedName = @search.name
       end
     end
@@ -74,7 +75,7 @@ module ApplicationHelper
   end
 
   #takes a list of model instances and creates a csv string
-  def buildCSVStringFromObjectList( objects, ignores )
+  def buildCSVStringFromObjectList( objects, ignores, filename )
     csv_string = CSV.generate do |csv|
       #use the first object to get the column names
       object = objects[0]
@@ -98,70 +99,6 @@ module ApplicationHelper
     end
     return BOM + csv_string
   end
-
-  #this is a expensive process that will combine all information avaiable able a tender including bidders and agreements and store each tender on a single csv row
-  def buildTenderInfoCSVStringFromTenderList( tenders, ignores, filePath )
-    csv_string = CSV.open(filePath,'w') do |csv|
-      csv << [BOM]
-      #use the first object to get the column names
-      object = tenders[0]
-      column_header = []
-      maxBidders = Tender.order("num_bidders DESC").first.num_bidders      
-      object.attributes.each do |attribute|
-        if not ignores.include?(attribute[0])
-          column_header.push(attribute[0])
-        end
-      end
-      
-      column_header.push("procurer_code")
-      column_header.push("winner_code")
-      for num in 0..maxBidders do
-        column_header.push("bidder_"+num.to_s+"_name")
-        column_header.push("bidder_"+num.to_s+"_id")
-        column_header.push("bidder_"+num.to_s+"_lowest_bid")
-        column_header.push("bidder_"+num.to_s+"_black_or_white")
-      end
-      
-      csv << column_header
-      #now go through each object and print out the column values
-      tenders.find_each do |tender|
-        values = []
-        tender.attributes.each do |attribute|
-          if not ignores.include?(attribute[0])
-            values.push(attribute[1])
-          end
-        end
-        
-        tempBidders = []
-        winningCode = nil
-        procurerCode = nil
-        procurer = Organization.where(:id => tender.procurring_entity_id).first
-        if procurer
-          procurerCode = procurer.code
-        end
-        values.push(procurerCode)
-
-        bidders = Bidder.where(:tender_id => tender.id)
-        bidders.each do |bidder|
-          org = Organization.where(:id => bidder.organization_id).first
-          if org.id == tender.winning_org_id
-            winningCode = org.code
-          end
-          tempBidders.push(org.name)
-          tempBidders.push(org.code)
-          tempBidders.push(bidder.last_bid_amount)
-          tempBidders.push(org.bw_list_flag)
-        end
-
-        values.push(winningCode)
-        tempBidders.each do |data|
-          values.push(data)
-        end
-        csv << values
-      end
-    end
-  end
-
 
       
   def title(page_title)

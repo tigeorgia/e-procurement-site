@@ -131,6 +131,7 @@ class RootController < ApplicationController
         @TopTen.push( {:company => company, :total => company.total_won_contract_value} )
       end
     elsif cpvGroup == "-1"
+      render nothing: true
     else
       @TopTen = generateOrganizationAggregates( AggregateCpvRevenue, 10 )   
     end

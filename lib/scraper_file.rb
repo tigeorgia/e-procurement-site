@@ -12,6 +12,7 @@ module ScraperFile
   FILE_WHITE_LIST = "whiteList.json"
   FILE_BLACK_LIST = "blackList.json"
   FILE_COMPLAINTS = "complaints.json"
+  BOM = "\uFEFF" #Byte Order Mark
 
   require 'csv'
   require 'json'
@@ -326,8 +327,6 @@ module ScraperFile
                 oldBidder = Bidder.where(:tender_id => tender.id, :organization_id => organization.id).first
                 if oldBidder
                   #this is a bidder update
-                  tender.num_bids = tender.num_bids - oldBidder.number_of_bids
-                  tender.num_bidders = tender.num_bidders - 1
                   oldBidder.copyItem(bidder)
                   oldBidder.updated = true
                   oldBidder.save
@@ -349,8 +348,6 @@ module ScraperFile
                     watch.save
                   end
                 end
-                tender.num_bids = tender.num_bids + bidder.number_of_bids
-                tender.num_bidders = tender.num_bidders + 1
                 tender.save
               end#if org
             else
@@ -437,7 +434,6 @@ module ScraperFile
                   #wtf where is the org?
                   puts "NO ORG: #{item['OrgUrl']}"
                 else
-                  puts "has org"
                   agreement.organization_id = organization.id
                   #if we have zero value we need to grab the real value from the last bid this org made
                   #since the procurer must have forgot to update the contract field
@@ -782,6 +778,21 @@ module ScraperFile
         tender.supplier_name = Organization.find(tender.winning_org_id).name
         tender.save
       end
+    end
+  end
+
+  def self.storeTenderMeta
+    Tender.find_each do |tender|
+      #get all bidders
+      numBidders = 0
+      numBids = 0
+      tender.bidders.each do |bidder|
+        numBids += bidder.number_of_bids
+        numBidders += 1
+      end
+      tender.num_bids = numBids
+      tender.num_bidders = numBidders
+      tender.save
     end
   end
 
@@ -1656,10 +1667,75 @@ module ScraperFile
     self.storeTenderContractValues(tendersToUpdate)
   end
 
+    #this is a expensive process that will combine all information avaiable able a tender including bidders and agreements and store each tender on a single csv row
+  def self.buildTenderInfoCSVString(ignores, filePath )
+    csv_string = CSV.open(filePath,'w') do |csv|
+      csv << [BOM]
+      #use the first object to get the column names
+      column_header = []
+      maxBidderObject = Tender.order("num_bidders DESC").first  
+      maxBidders = maxBidderObject.num_bidders   
+      maxBidderObject.attributes.each do |attribute|
+        if not ignores.include?(attribute[0])
+          column_header.push(attribute[0])
+        end
+      end
+      
+      column_header.push("procurer_code")
+      column_header.push("winner_code")
+      for num in 0..maxBidders do
+        column_header.push("bidder_"+num.to_s+"_name")
+        column_header.push("bidder_"+num.to_s+"_id")
+        column_header.push("bidder_"+num.to_s+"_lowest_bid")
+        column_header.push("bidder_"+num.to_s+"_black_or_white")
+      end
+      
+      csv << column_header
+      #now go through each object and print out the column values
+      Tender.find_each do |tender|
+        values = []
+        tender.attributes.each do |attribute|
+          if not ignores.include?(attribute[0])
+            values.push(attribute[1])
+          end
+        end
+        
+        tempBidders = []
+        winningCode = nil
+        procurerCode = nil
+        procurer = Organization.where(:id => tender.procurring_entity_id).first
+        if procurer
+          procurerCode = procurer.code
+        end
+        values.push(procurerCode)
+
+        bidders = Bidder.where(:tender_id => tender.id)
+        bidders.each do |bidder|
+          org = Organization.where(:id => bidder.organization_id).first
+          if org.id == tender.winning_org_id
+            winningCode = org.code
+          end
+          tempBidders.push(org.name)
+          tempBidders.push(org.code)
+          tempBidders.push(bidder.last_bid_amount)
+          tempBidders.push(org.bw_list_flag)
+        end
+
+        values.push(winningCode)
+        tempBidders.each do |data|
+          values.push(data)
+        end
+        csv << values
+      end
+    end
+  end
+
+
   def self.generateMetaData
     puts "setting up users"
     self.createUsers
 
+    self.storeTenderMeta
     puts "generating aggregate data"
     self.processAggregateData
     puts "storing org meta"
@@ -1670,6 +1746,7 @@ module ScraperFile
     puts "finding corruption"
     self.generateRiskFactors
 
+    self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
     #self.buildOrganizationXmlStrings
   end
 
@@ -1727,14 +1804,14 @@ module ScraperFile
     @numDatasets = Dataset.find(:all).count
     #self.storePreScrapeSearchResultsToFile
     #self.cleanOldData(1)
-    puts "processing json"
+    #puts "processing json"
     #self.process
-    puts "diffing"
+    #puts "diffing"
     #self.diffData
-    puts "storing tender results"
+    #puts "storing tender results"
     #tenderList = Tender.where("updated = true OR is_new = true")
     #self.storeTenderContractValues(tenderList)
-    self.generateAlertDigests
+    self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
   end
 
   def self.checkForDups

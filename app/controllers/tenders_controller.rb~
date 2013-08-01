@@ -51,9 +51,7 @@ class TendersController < ApplicationController
       watched_tenders.each do |watched|
         @isWatched = true
         if params[:highlights] and watched.has_updated
-         puts "SHOW HIGHLIGHT"
           watched.diff_hash.split("#").each do |highlight|
-            puts highlight
             @highlights.push(highlight.split("/")[0].gsub("#",""))
           end
         end
