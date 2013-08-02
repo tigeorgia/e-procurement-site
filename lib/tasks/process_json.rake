@@ -46,13 +46,13 @@ namespace :procurement do
   desc "store search results to file for scrape for comparison purposes"
   task:pre_store_search_results => :environment do
     require "scraper_file"
-    ScrapeFile.storePreScrapeSearchResultsToFile
+    ScraperFile.storePreScrapeSearchResultsToFile
   end
 
   desc "build bulk tender csv"
   task:generate_tender_bulk_data => :environment do
     require "scraper_file"
-    ScrapeFile.generateBulkTenderData
+    ScraperFile.generateBulkTenderData
   end
 
 end

@@ -24,4 +24,4 @@
 /config/initializers/setup_mail.rb
 
 #ignore any generated local data
-/pre-scrape-data/*
+/pre-scrape-data/*.txt
