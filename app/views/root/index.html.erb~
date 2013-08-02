@@ -67,10 +67,10 @@ $(document).ready(function() {
 <div class="updateDiv">
    <div class="update-icon"><img src="/assets/last-update.png"/><span><%=t("data_update_description")%></span></div>
    <div class="currentUpdateBox"></div>
-   <%= button_to "Download Bulk Tender Data", {:controller => "tender", :action => "download_all", :format => "csv"}, :class => "submit-button" %>
 </div>
 
 
+<%= button_to "Download All Tender Data", {:controller => "tender", :action => "download_all"}, :class => "submit-button" %>
 
 <div class="tabs tab-div">
   <ul>
