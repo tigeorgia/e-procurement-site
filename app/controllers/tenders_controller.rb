@@ -42,6 +42,7 @@ class TendersController < ApplicationController
     @isWatched = false
     @highlights = []
     if current_user
+      watched_tenders = WatchTender.where(:user_id => current_user.id, :tender_url => @tender.url_id)
       watched_tenders.each do |watched|
         @isWatched = true
         if params[:highlights] and watched.has_updated
