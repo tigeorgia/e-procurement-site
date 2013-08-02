@@ -1467,6 +1467,7 @@ module ScraperFile
             ids = []
             results = nil
             writeFile = nil
+            puts search.id
             if search.searchtype == "tender"
               queryParams = QueryHelper.buildTenderSearchParamsFromString(search.search_string)
               data = QueryHelper.buildTenderQueryData(queryParams)
@@ -1815,7 +1816,7 @@ module ScraperFile
   end
 
   def self.generateBulkTenderData
-        self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
+    self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
   end
 
   def self.checkForDups

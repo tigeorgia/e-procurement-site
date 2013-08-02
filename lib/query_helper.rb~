@@ -52,7 +52,7 @@ module QueryHelper
 
     #need to remove %'s coming in from a saved search
     procurer = "%"+data[:procurer_name].gsub('%','')+"%"
-    supplier = "%"+data[:supplier_name.gsub('%','')]+"%"
+    supplier = "%"+data[:supplier_name].gsub('%','')+"%"
     cpv_code = "%"+data[:cpv_code].gsub('%','')+"%"
 
     translated_status =  "%%"
@@ -96,7 +96,9 @@ module QueryHelper
       :bw_list => fields[8]
     }
     params.each do |key,param|
-      if param.length == 1
+      if not param
+        params[key] = ""
+      elsif param.length == 1
         params[key] = param.gsub("_","")
       end
     end
@@ -164,7 +166,9 @@ module QueryHelper
      :org_type => fields[2]
     }
     params.each do |key,param|
-      if param.length == 1
+      if not param
+        params[key] = ""
+      elsif param.length == 1
         params[key] = param.gsub("_","")
       end
     end
@@ -236,7 +240,9 @@ module QueryHelper
       :cpv_code => fields[16]
     }
     params.each do |key,param|
-      if param.length == 1
+      if not param
+        params[key] = ""
+      elsif param.length == 1
         params[key] = param.gsub("_","")
       end
     end
