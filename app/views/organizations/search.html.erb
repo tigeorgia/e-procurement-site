@@ -46,16 +46,24 @@
   </thead>
   <tbody>
     <% @organizations.each do |organization| %>
+      <% highlightClass = '' %>
+      <% if @search and organization.is_new %>
+        <% highlightClass = 'class="highlight"'.html_safe %>
+      <% end %>
       <tr>
-        <td><%= link_to organization.name, organization_path(organization) %></td>
-        <td><%= organization.code %></td>
-        <td><%= t(organization.org_type) %></td>
-        <td><%= t(organization.country) %></td>
-        <td><%= t(organization.total_won_contract_value) %></td>
-        <td><%= t(organization.total_bid_tenders) %></td>
-        <td><%= t(organization.total_won_tenders) %></td>
+        <td <%=highlightClass%>><%= link_to organization.name, organization_path(organization) %></td>
+        <td <%=highlightClass%>><%= organization.code %></td>
+        <td <%=highlightClass%>><%= t(organization.org_type) %></td>
+        <td <%=highlightClass%>><%= t(organization.country) %></td>
+        <td <%=highlightClass%>><%= t(organization.total_won_contract_value) %></td>
+        <td <%=highlightClass%>><%= t(organization.total_bid_tenders) %></td>
+        <td <%=highlightClass%>><%= t(organization.total_won_tenders) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <%= page_navigation_links @organizations %>
+<% if @search %>
+  <% @search.last_viewed = DateTime.now %>
+  <% @search.save %>
+<% end %>

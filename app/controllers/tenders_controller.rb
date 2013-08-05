@@ -2,6 +2,7 @@ class TendersController < ApplicationController
   helper_method :sort_column, :sort_direction
   include ApplicationHelper
   include QueryHelper
+  protect_from_forgery except: :download_all
 
   def performSearch( data )
     @params = params

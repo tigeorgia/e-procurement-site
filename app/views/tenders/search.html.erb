@@ -50,7 +50,7 @@
         <%= page_navigation_links @tenders %>
         <% @tenders.each do |tender| %>
           <% highlightClass = 'class="no-overflow"'.html_safe %>
-          <% if @search and @search.last_viewed < tender.updated_at %>
+          <% if @search and @search.new_ids and @search.new_ids.index(tender.id.to_s) != nil %>
             <% highlightClass = 'class="no-overflow highlight"'.html_safe %>
           <% end %>
           <tr>
@@ -73,4 +73,4 @@
         <% end %>
       </tbody>
     </table>
-    <%= page_navigation_links @tenders %>
+  <%= page_navigation_links @tenders %>

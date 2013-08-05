@@ -184,7 +184,7 @@ class UserController < ApplicationController
   def search_via_saved
     search = Search.find(params[:search_id])
     rebuild_search( search.searchtype, search.search_string )
-    @search = search
+    @search = search 
     @search.last_viewed = DateTime.now
     @search.has_updated = false
     @search.save
@@ -248,7 +248,6 @@ class UserController < ApplicationController
 
   #unsubscribe from email alerts (used in an email)
   def unsubscribe
-
     @alreadyUnSubscribed = true
     if current_user.email_alerts == true
       current_user.email_alerts = false

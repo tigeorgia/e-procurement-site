@@ -146,21 +146,20 @@ module ScraperFile
           end        
                      
           if oldTender
-            #check for tender watches
-            watch_tenders = WatchTender.where(:tender_url => tender.url_id)
-            if watch_tenders.count > 0
-              #ignore all meta data when comparing
-              ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
+            #ignore all meta data when comparing
+            ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
                         "risk_indicators","procurer_name","supplier_name","sub_codes"]
-              differences = oldTender.findDifferences(tender,ignores)
-              if differences.length > 0
+
+            differences = oldTender.findDifferences(tender,ignores)
+            if differences.length > 0
+              #check for tender watches
+              watch_tenders = WatchTender.where(:tender_url => tender.url_id)
+              if watch_tenders.count > 0                    
                 #store changed fields in hash
                 hash = ""
                 differences.each do |difference|
                   hash += difference[:field]+"/"+difference[:old]+"#"
                 end
-                puts "found diff"
-                puts hash
                 watch_tenders.each do | watch | 
                   watch.diff_hash = hash
                   watch.has_updated = true
@@ -168,12 +167,13 @@ module ScraperFile
                   watch.save
                 end
               end
+              oldTender.copyItem(tender)
+              puts "updating tender: " + oldTender.url_id.to_s
+              oldTender.updated = true
+              oldTender.save
+            else
+              puts "no changes to tender: " + oldTender.url_id.to_s
             end
-
-            oldTender.copyItem(tender)
-            puts "updating tender: " + oldTender.url_id.to_s
-            oldTender.updated = true
-            oldTender.save
           else
             tender.is_new = true
             puts "saving new tender: " + tender.url_id.to_s
@@ -1438,7 +1438,7 @@ module ScraperFile
             end
           end
         else
-          #this search must have been creating during the scrape process so no need to update it
+          #this search must have been created while the scrape was running so no need to update it
         end
       
         if newItems.length > 0        
@@ -1451,7 +1451,11 @@ module ScraperFile
           search.save
           updateList.push({:search => search,:newResults => newItems})
         end
-      end#if result count is different
+      else
+        #no changes this scrape set new ids to empty
+        search.new_ids = ""
+        search.save
+      end
     end
     return updateList
   end
@@ -1539,7 +1543,9 @@ module ScraperFile
           oldVal = tender.inProgress
           #is of type electronic or simple electronic or procurement procedure and not completed negative and not bidding failed and not terminated and not concluded OR
           #is of type consolidated and not completed negative and not bidding failed and not terminated and not concluded and not winner revealed
-          if (tender.tender_type != "კონსოლიდირებული ტენდერი" and not standardNonActiveList.include?(tender.tender_status)) or (tender.tender_type == "კონსოლიდირებული ტენდერი" and not consolidatedNonActiveList.include?(tender.tender_status))
+
+          #if sub_codes not stored rescrape
+          if (tender.sub_codes == nil) or (tender.tender_type != "კონსოლიდირებული ტენდერი" and not standardNonActiveList.include?(tender.tender_status)) or (tender.tender_type == "კონსოლიდირებული ტენდერი" and not consolidatedNonActiveList.include?(tender.tender_status))
             tender.inProgress = true
             liveFile.write(tender.url_id.to_s+"\n")
             #why is this tender still open after 6 months?
@@ -1633,15 +1639,15 @@ module ScraperFile
     puts "processing agreements"
     self.processAgreements
     puts "processing docs"
-    #self.processDocuments
+    self.processDocuments
     puts "processing sub cpv codes"
-    #self.addSubCPVCodes
+    self.addSubCPVCodes
     
     puts "processing white list"
     self.processWhiteList
-    #puts "processing black list"
+    puts "processing black list"
     self.processBlackList
-    #puts "process complaints"    
+    puts "process complaints"    
     self.processComplaints
   end
 

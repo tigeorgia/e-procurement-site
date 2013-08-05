@@ -2,6 +2,7 @@ class TendersController < ApplicationController
   helper_method :sort_column, :sort_direction
   include ApplicationHelper
   include QueryHelper
+  protect_from_forgery except: :index
 
   def performSearch( data )
     @params = params
@@ -27,11 +28,7 @@ class TendersController < ApplicationController
 
   def download_all
     filePath = "AllTenders.zip"
-    respond_to do |format|
-      format.csv {
-        send_file filePath 
-      }
-    end
+    send_file filePath
   end
    
   def show

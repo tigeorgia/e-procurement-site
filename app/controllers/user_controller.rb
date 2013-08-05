@@ -184,8 +184,7 @@ class UserController < ApplicationController
   def search_via_saved
     search = Search.find(params[:search_id])
     rebuild_search( search.searchtype, search.search_string )
-    @search = search
-    @search.last_viewed = DateTime.now
+    @search = search 
     @search.has_updated = false
     @search.save
   end

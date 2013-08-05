@@ -20,6 +20,8 @@
 <% end %>
 
 <%= t("Number Of Organizations Found")%>: <%= @numResults %>
+
+<%if not Rails.application.config.live_deploy%>
 <p>
   <%= t("Download")%>:
   <% csvParams = @params.clone%>
@@ -28,6 +30,7 @@
   <% csvParams[:action] = "search_procurer" %>
   <%= link_to "CSV",  csvParams %>
 </p>
+<%end%>
 
 <table class="table table-striped">
   <thead>
@@ -42,16 +45,23 @@
   </thead>
   <tbody>
     <% @organizations.each do |organization| %>
+      <% highlightClass = '' %>
+      <% if @search and ((DateTime.now.end_of_day) - (organization.updated_at.to_datetime.end_of_day)).to_i == 0 %>
+        <% highlightClass = 'class="highlight"'.html_safe %>
+      <% end %>
       <tr>
-        <td><%= link_to organization.name, :controller => "organizations", :action => "show_procurer", :id => organization %></td>
-        <td><%= organization.code %></td>
-        <td><%= t(organization.org_type) %></td>
-        <td><%= t(organization.total_offered_contract_value) %></td>
-        <td><%= t(organization.total_offered_tenders) %></td>
-        <td><%= t(organization.total_success_tenders) %></td>
+        <td <%=highlightClass%>><%= link_to organization.name, :controller => "organizations", :action => "show_procurer", :id => organization %></td>
+        <td <%=highlightClass%>><%= organization.code %></td>
+        <td <%=highlightClass%>><%= t(organization.org_type) %></td>
+        <td <%=highlightClass%>><%= t(organization.total_offered_contract_value) %></td>
+        <td <%=highlightClass%>><%= t(organization.total_offered_tenders) %></td>
+        <td <%=highlightClass%>><%= t(organization.total_success_tenders) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <%= page_navigation_links @organizations %>
-
+<% if @search %>
+  <% @search.last_viewed = DateTime.now %>
+  <% @search.save %>
+<% end %>
