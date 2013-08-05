@@ -441,25 +441,27 @@ class OrganizationsController < ApplicationController
   private
   def createTreeGraph(tenders)
     cpvAgreements = {}
-    tenders.each do |tender|      
-      codes = tender.sub_codes.split("#")
-      codes.each do |code|
-        cpvCode = TenderCpvClassifier.where(:cpv_code => code).first
-        if not cpvCode
-          puts "code not found: #{code}"
-          cpvDescription = nil
-        else
-          cpvDescription = cpvCode.description_english
+    tenders.each do |tender|
+      if tender.sub_codes   
+        codes = tender.sub_codes.split("#")
+        codes.each do |code|
+          cpvCode = TenderCpvClassifier.where(:cpv_code => code).first
+          if not cpvCode
+            puts "code not found: #{code}"
+            cpvDescription = nil
+          else
+            cpvDescription = cpvCode.description_english
+          end
+          if cpvDescription == nil
+            cpvDescription = "NA"
+          end
+          item = { :name => cpvDescription, :value => tender.contract_value.to_f/codes.length, :code => code, :children => [] }
+          if cpvAgreements[code]
+            val = cpvAgreements[code][:value]
+            item[:value] += val
+          end
+          cpvAgreements[code] = item
         end
-        if cpvDescription == nil
-          cpvDescription = "NA"
-        end
-        item = { :name => cpvDescription, :value => tender.contract_value.to_f/codes.length, :code => code, :children => [] }
-        if cpvAgreements[code]
-          val = cpvAgreements[code][:value]
-          item[:value] += val
-        end
-        cpvAgreements[code] = item
       end
     end
     @jsonString = GraphHelper.createTreeGraphStringFromAgreements( cpvAgreements )
