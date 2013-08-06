@@ -21,10 +21,28 @@ $(document).ready(function() {
              text: '<%=t("Lari")%>'
           }
        },
+        plotOptions: {
+        series: {
+            cursor: 'pointer',
+            point: {
+                events: {
+                    click: function() {
+                        parent.location=this.url;
+                    }
+                }
+            }
+        }
+      },
        series: [        
                {
                 name: "<%=t("Awarded Contract Total")%>",
-                data: [ <% @TopTen.each do |info| %> <%= info[:total] %>, <% end %>]
+                data: [ <% @TopTen.each do |info| %>
+                    {
+                      y: <%= info[:total] %>,
+                      url: '<%= url_for(:controller => "organizations", :action => "show", :id => info[:company].id)%>'
+                    },
+                  <% end %>
+                ]
                },  
       ]   
     });

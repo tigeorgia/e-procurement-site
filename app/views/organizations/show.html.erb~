@@ -7,50 +7,50 @@ $(function () {
     var competitorGraph;
     var tendersValueGraph;
  
-    $(document).ready(function() {
-
-          winlossChart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'winLossChart',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                // Edit chart spacing
-                spacingBottom: 0,
-                spacingTop: 0,
-                spacingLeft: 5,
-                spacingRight: 5,
-                marginLeft: 5,
-                marginRight: 5,
-                backgroundColor: 'rgba(255,255,255,0)'
-            },
-            title: {
-                text: '<%=t("Tenders Won Vs Tenders Lost")%>'
-            },
-            tooltip: {
-        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
-            	percentageDecimals: 1
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
-                        formatter: function() {
-                            return '<b>'+ this.point.name +'</b>:' +this.y;
-                        }
-                    }
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: '<%=t("Tenders Won/Lost")%>',
-                data: [ ['<%=t("Tenders Won")%>', <%= @numTendersWon %>],['<%=t("Tenders Lost")%>', <%= @numTendersLost %>],['<%=t("In Progress")%>', <%= @numTendersInProgress %>]]
-            }]
-        });
+  $(document).ready(function() {
+    winlossChart = new Highcharts.Chart({
+      chart: {
+          renderTo: 'winLossChart',
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          // Edit chart spacing
+          spacingBottom: 0,
+          spacingTop: 0,
+          spacingLeft: 5,
+          spacingRight: 5,
+          marginLeft: 5,
+          marginRight: 5,
+          backgroundColor: 'rgba(255,255,255,0)'
+      },
+      title: {
+          text: '<%=t("Tenders Won Vs Tenders Lost")%>'
+      },
+      tooltip: {
+          formatter: function() {
+            return this.point.name + ": <b>"+Math.round(this.point.percentage)+"%</b>";
+          }
+      },
+      plotOptions: {
+          pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                  enabled: true,
+                  color: '#000000',
+                  connectorColor: '#000000',
+                  formatter: function() {
+                      return '<b>'+ this.point.name +'</b>:' +this.y;
+                  }
+              }
+          }
+      },
+      series: [{
+          type: 'pie',
+          name: '<%=t("Tenders Won/Lost")%>',
+          data: [ ['<%=t("Tenders Won")%>', <%= @numTendersWon %>],['<%=t("Tenders Lost")%>', <%= @numTendersLost %>],['<%=t("In Progress")%>', <%= @numTendersInProgress %>]]
+      }]
+    });
 
         cpvCodeChart = new Highcharts.Chart({
             chart: {
@@ -64,8 +64,9 @@ $(function () {
                 text: '<%=t("Tender CPV Code Distribution")%>'
             },
             tooltip: {
-        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
-            	percentageDecimals: 1
+                formatter: function() {
+                  return this.point.name + ": <b>"+Math.round(this.point.percentage)+"%</b>";
+                }
             },
             plotOptions: {
                 pie: {
@@ -102,8 +103,9 @@ $(function () {
                 text: '<%=t("Procurers")%>'
             },
             tooltip: {
-        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
-            	percentageDecimals: 1
+                formatter: function() {
+                  return this.point.name + ": <b>"+Math.round(this.point.percentage*100)/100+"%</b>";
+                }
             },
             plotOptions: {
                 pie: {
@@ -114,17 +116,25 @@ $(function () {
                         color: '#000000',
                         connectorColor: '#000000',
                         formatter: function() {
-                            return '<b>'+ this.point.name +'</b>:' +this.y;
+                            return '<b>'+ this.point.name +'</b>:' + this.y;
                         }
-                    }
+                    },
+                    point: {
+                      events: {
+                          click: function() {
+                              location.href = this.options.url;
+                          }
+                      }
+                  }
                 }
             },
             series: [{
                 type: 'pie',
                 name: '<%=t("Procurers that this company has won contracts with")%>',
                 data: [ <% @topTenProcuringEntities.each do |procurer| %> 
-                          <% item = [ link_to(procurer[0].name,  :controller => "organizations", :action => "show_procurer", :id => procurer[0]), procurer[1] ] %>
-                          <%= raw item %>, 
+                          { name: '<%=procurer[0].name%>',
+                           y: <%=procurer[1]%>,
+                           url: '<%=url_for(:controller =>"organizations", :action =>"show_procurer", :id => procurer[0].id)%>' },
                         <% end %>]
             }]
         });
@@ -141,8 +151,7 @@ $(function () {
            xAxis: {     
               categories: [
                  <% @competitors.each do |competitor| %> 
-                    <% item = [link_to(competitor[0].name, organization_path(competitor[0].id))] %>
-                    <%= raw item %>, 
+                    '<%=competitor[0].name%>',
                  <% end %>
               ]
            },
@@ -152,17 +161,27 @@ $(function () {
                  text: '<%="Tenders Competited In"%>'
               }
            },
-            plotOptions: {
-            },
-            series: [{
-                name: '<%=t("Tenders")%>',
-                data: [ 
-                        <% @competitors.each do |competitor| %> 
-                          <% item = [ link_to(competitor[0].name, organization_path(competitor[0].id)), competitor[1] ] %>
-                          <%= raw item %>, 
-                        <% end %>
-                        ]
-            }]
+        
+          plotOptions: {
+              series: {
+                  cursor: 'pointer',
+                  point: {
+                      events: {
+                          click: function() {
+                              location.href = this.options.url;
+                          }
+                      }
+                  }
+               }
+           },       
+          series: [{
+              name: '<%=t("Tenders")%>',
+              data: [ 
+                    <% @competitors.each do |competitor| %> 
+                      { y: <%=competitor[1]%>, url: '<%=organization_path(competitor[0].id)%>' }, 
+                    <% end %>
+                    ]
+          }]
         });
 
 

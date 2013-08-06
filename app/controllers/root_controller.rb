@@ -116,7 +116,7 @@ class RootController < ApplicationController
     if cpvGroup == "-1"
       render nothing: true
     else
-      @topTenProcurers = generateOrganizationAggregates( ProcurerCpvRevenue, 30 )    
+      @topTenProcurers = generateOrganizationAggregates( ProcurerCpvRevenue, 10 )    
     end  
   end
 
@@ -133,7 +133,7 @@ class RootController < ApplicationController
     elsif cpvGroup == "-1"
       render nothing: true
     else
-      @TopTen = generateOrganizationAggregates( AggregateCpvRevenue, 30 )   
+      @TopTen = generateOrganizationAggregates( AggregateCpvRevenue, 10 )   
     end
   end
 

@@ -19,7 +19,7 @@
 
 <script>
 var chart1; // globally available
-updateUTC = new Date(<%=@updateTime.year%>,<%=@updateTime.month%>,<%=@updateTime.day%>,<%=@updateTime.hour%>,<%=@updateTime.min%>)
+updateUTC = new Date(<%=@updateTime.year%>,<%=@updateTime.month - 1%>,<%=@updateTime.day%>,<%=@updateTime.hour%>,<%=@updateTime.min%>)
 
 $(document).ready(function() {
     groupChart = new Highcharts.Chart({
@@ -69,8 +69,9 @@ $(document).ready(function() {
    <div class="currentUpdateBox"></div>
 </div>
 
+<%if false%>
 <%= button_to "Download All Tender Data", {:controller => "tender", :action => "download_all"}, :class => "submit-button" %>
-
+<% end %>
 <div class="tabs tab-div">
   <ul>
     <li><a href="#tabs-1"><%=t("Search Tenders")%></a></li>

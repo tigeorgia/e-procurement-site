@@ -1752,7 +1752,7 @@ module ScraperFile
     puts "finding corruption"
     self.generateRiskFactors
 
-    self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
+    #self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
     #self.buildOrganizationXmlStrings
   end
 

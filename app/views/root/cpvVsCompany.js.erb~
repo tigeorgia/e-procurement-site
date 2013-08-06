@@ -18,13 +18,19 @@ $(document).ready(function() {
        },
        yAxis: {
           title: {
-             text: 'Lari'
+             text: '<%=t("Lari")%>'
           }
        },
        series: [        
                {
                 name: "<%=t("Awarded Contract Total")%>",
-                data: [ <% @TopTen.each do |info| %> <%= info[:total] %>, <% end %>]
+                data: [ <% @TopTen.each do |info| %>
+                    {
+                      y: <%= info[:total] %>,
+                      url: '<%= url_for(:controller => "organizations", :action => "show", :id => info[:company].id)%>'
+                    },
+                  <% end %>
+                ]
                },  
       ]   
     });

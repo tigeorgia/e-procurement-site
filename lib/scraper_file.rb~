@@ -1452,6 +1452,7 @@ module ScraperFile
           updateList.push({:search => search,:newResults => newItems})
         end
       else
+        #no changes this scrape set new ids to empty
         search.new_ids = ""
         search.save
       end

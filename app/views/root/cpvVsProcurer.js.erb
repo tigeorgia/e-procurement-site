@@ -10,8 +10,7 @@ $(document).ready(function() {
        xAxis: {
           categories: [
              <% @topTenProcurers.each do |info| %>
-              <% item = link_to( raw(info[:company].name),  :controller => "organizations", :action => "show_procurer", :id => info[:company].id)%>
-              '<%= item%>',
+              '<%=info[:company].name%>',
              <% end %>
           ]
        },
@@ -20,10 +19,28 @@ $(document).ready(function() {
              text: '<%=t("Lari")%>'
           }
        },
+      plotOptions: {
+        series: {
+            cursor: 'pointer',
+            point: {
+                events: {
+                    click: function() {
+                        parent.location=this.url;
+                    }
+                }
+            }
+        }
+      },
        series: [        
                {
                 name: "<%=t("Awarded Contract Total")%>",
-                data: [ <% @topTenProcurers.each do |info| %> <%= info[:total] %>, <% end %>]
+                data: [ <% @topTenProcurers.each do |info| %>
+                          {
+                            y: <%= info[:total] %>,
+                            url: '<%= url_for(:controller => "organizations", :action => "show_procurer", :id => info[:company].id)%>'
+                          },
+                        <% end %>
+                      ]
                },  
       ]   
     });

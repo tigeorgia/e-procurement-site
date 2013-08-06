@@ -27,7 +27,7 @@ class TendersController < ApplicationController
   end
 
   def download_all
-    filePath = "AllTenders.zip"
+    filePath = "./public/AllTenders.zip"
     send_file filePath
   end
    
