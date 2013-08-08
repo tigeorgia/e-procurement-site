@@ -7,12 +7,12 @@ include GraphHelper
 layout "full-screen"
 
   def index
-    @years = ["2011","2012","2013"]
-    #AggregateStatistic.all.each do |dbYear|
-      #if dbYear.year > 0 
-        #@years.push(dbYear.year)
-      #end
-   #end
+    @years = []
+    AggregateStatistic.all.each do |dbYear|
+      if dbYear.year > 0 
+        @years.push(dbYear.year)
+      end
+    end
     count = @years.count
     if count > 1
       @selectedYear = @years[-1]
@@ -52,32 +52,10 @@ layout "full-screen"
   def cpv_revenue
     @year = params[:year]
     stats = AggregateStatistic.where(:year => @year).first
-    @cpvTree = stats.cpvString
-    if not @cpvTree
-      typeData = AggregateStatisticType.where(:aggregate_statistic_id => stats.id, :name => "total").first 
-      cpvData = AggregateCpvStatistic.where(:aggregate_statistic_type_id => typeData.id)
-      cpvTree = {}
-      cpvData.each do |cpv|
-        #get cpv name
-        code = cpv.cpv_code.to_s
-        #hax to convert int to string with 0s at the front
-        while code.length < 8
-          code = "0"+code
-        end
-        classifier = TenderCpvClassifier.where(:cpv_code => code).first
-        if classifier
-          name = classifier.description_english
-          if not name
-            name = "Not Specified"
-          end
-          cpvTree[code] = { :name => name, :code => code, :value => cpv.value.to_i, :children => [] }
-        else
-          puts "cant find classifier: "+code
-        end
-      end
-      @cpvTree = createTreeGraphStringFromAgreements( cpvTree )
-      stats.cpvString = @cpvTree
-      stats.save
+    if I18n.locale == :ka
+            @cpvTree = stats.cpvString
+    else
+      @cpvTree = stats.cpvString
     end
     respond_to do |format|  
       format.js

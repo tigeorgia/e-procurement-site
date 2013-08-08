@@ -28,7 +28,7 @@
         <%end%>
       <%end%>
       <%if count > max%>
-        <%=t("And")%> <%=searchItem[:newResults].count - max%><%=t("geo-it") <%=t("more")%>
+        <%=t("And")%> <%=searchItem[:newResults].count - max%><%=t("geo-it")%> <%=t("more")%>
       <%end%>
     </ul>
     <br>

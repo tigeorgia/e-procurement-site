@@ -328,8 +328,19 @@ module AggregateHelper
     end#years
   end
 
+
+  def self.regenCPVTree
+    AggregateStatistic.all.each do |statistic|
+       dbtype = AggregateStatisticType.where(:aggregate_statistic_id => statistic.id, :name => "total").first
+       if dbtype
+        self.createCPVTree(dbtype, statistic)
+       end
+    end
+  end
+
   def self.createCPVTree(dbType, statisticYear)
     cpvTree = {}
+    cpvTreeGEO = {}
     cpvData = AggregateCpvStatistic.where(:aggregate_statistic_type_id => dbType.id)
     cpvData.each do |cpv|
       #get cpv name
@@ -345,12 +356,21 @@ module AggregateHelper
           name = "Not Specified"
         end
         cpvTree[code] = { :name => name, :code => code, :value => cpv.value.to_i, :children => [] }
+
+        #now geo
+        geoName = classifier.description
+        if not geoName
+          geoName = name
+        end
+        cpvTreeGEO[code] = { :name => geoName, :code => code, :value => cpv.value.to_i, :children => [] }
       else
         puts "cant find classifier: "+code
       end
     end
-    cpvString = GraphHelper.createTreeGraphStringFromAgreements(cpvTree)
+    cpvString = GraphHelper.createTreeGraphStringFromAgreements(cpvTree, "en")
+    cpvStringGeo = GraphHelper.createTreeGraphStringFromAgreements(cpvTreeGEO, "ka")
     statisticYear.cpvString = cpvString
+    statisticYear.cpvStringGEO = cpvStringGeo
     statisticYear.save
   end
 end

@@ -14,6 +14,7 @@ class OrganizationsController < ApplicationController
       @suppliers = Organization.where("is_bidder = true AND name LIKE ?", "%#{params[:term]}%")
     end
  
+    puts "WTTF"
     render :json => @suppliers.map(&:name)
   end
 
@@ -23,6 +24,7 @@ class OrganizationsController < ApplicationController
       @procurers = Organization.where("is_procurer = true AND name LIKE ?", "%#{params[:term]}%")
     end
 
+    puts "WWTF"
     render :json => @procurers.map(&:name)
   end
 

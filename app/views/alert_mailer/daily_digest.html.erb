@@ -8,7 +8,7 @@
     <%= link_to search.name, {:host => "tendermonitor.ge",:port =>"",:controller => "user", :action => "search_via_saved", :search_id => search.id, :highlight => true}%>
     <%=t("Number of new results")%>: <%=searchItem[:newResults].count%>
     <ul>
-      <%max = 10%>
+      <%max = 20%>
       <%count = 0%>
       <%searchItem[:newResults].each do |newResult|%>
         <%count += 1%>

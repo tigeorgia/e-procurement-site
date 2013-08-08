@@ -23,6 +23,7 @@ class OrganizationsController < ApplicationController
       @procurers = Organization.where("is_procurer = true AND name LIKE ?", "%#{params[:term]}%")
     end
 
+    puts "WWTF"
     render :json => @procurers.map(&:name)
   end
 

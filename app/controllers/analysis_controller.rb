@@ -7,12 +7,12 @@ include GraphHelper
 layout "full-screen"
 
   def index
-    @years = ["2011","2012","2013"]
-    #AggregateStatistic.all.each do |dbYear|
-      #if dbYear.year > 0 
-        #@years.push(dbYear.year)
-      #end
-   #end
+    @years = []
+    AggregateStatistic.all.each do |dbYear|
+      if dbYear.year > 0 
+        @years.push(dbYear.year)
+      end
+    end
     count = @years.count
     if count > 1
       @selectedYear = @years[-1]
@@ -52,7 +52,11 @@ layout "full-screen"
   def cpv_revenue
     @year = params[:year]
     stats = AggregateStatistic.where(:year => @year).first
-    @cpvTree = stats.cpvString
+    if I18n.locale == :ka
+      @cpvTree = stats.cpvStringGEO
+    else
+      @cpvTree = stats.cpvString
+    end
     respond_to do |format|  
       format.js
     end

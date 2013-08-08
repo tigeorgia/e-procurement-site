@@ -1,7 +1,26 @@
 module GraphHelper
   
-  def self.createTreeGraphStringFromAgreements( agreements )
+
+  def self.createTreeGraphStringFromCpvNodes( nodes )
     cpvTree = []
+    nodes.each do |key, node|
+      cpvTree.push( node )
+    end
+    jsonString = ""
+    if cpvTree.length > 0
+      #lets make a tree out of our CPV codes
+      root = { :name => "", :code => "00000000", :children => [] }
+      cpvTree.sort! {|x,y| x[:code] <=> y[:code] }
+      root = self.createTree( root, cpvTree )
+      root = self.createUndefinedCategories( root )
+      self.calcParentVal( root )
+      jsonString = self.createJsonString( root, jsonString )
+      jsonString.chop!
+    end
+    return jsonString
+  end
+
+  def self.createTreeGraphStringFromAgreements( agreements, forcedLocale )
     done = false
     while not done
       newNodes = [] 
@@ -13,7 +32,14 @@ module GraphHelper
         if parentKey and not agreements[parentKey]
           parent = TenderCpvClassifier.where(:cpv_code => parentKey).first
           if parent
-            name = parent.description_english or 'na'         
+            if (forcedLocale and forcedLocale == "en") or (not forcedLocale and I18n.locale == :en)
+              name = parent.description_english
+            else 
+              name = parent.description
+            end
+            if not name
+              name = 'na'
+            end
             newNodes.push({ :name => name, :code => parentKey, :children => [] })
           else
             puts "missing parent: "+parentKey
@@ -28,23 +54,8 @@ module GraphHelper
         end
       end
     end
-    
-    agreements.each do |key, agreement|
-      cpvTree.push( agreement )
-    end
 
-    jsonString = ""
-    if cpvTree.length > 0
-      #lets make a tree out of our CPV codes
-      root = { :name => "", :code => "00000000", :children => [] }
-      cpvTree.sort! {|x,y| x[:code] <=> y[:code] }
-      root = self.createTree( root, cpvTree )
-      root = self.createUndefinedCategories( root )
-      self.calcParentVal( root )
-      jsonString = self.createJsonString( root, jsonString )
-      jsonString.chop!
-    end
-    return jsonString
+    return self.createTreeGraphStringFromCpvNodes(agreements)
   end
 
   def self.getParentCode( code )

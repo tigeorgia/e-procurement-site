@@ -321,7 +321,7 @@ ka:
   receive_email_alerts: განახლებების მეილით მიღება
   Preferences: პარამეტრები
   Language: ენა
-  To stop receiving these email updates click: რომ შეწყვიტოთ ამ იმეილების მიღება დააქლიქეთ
+  To stop receiving these email updates click: თუ თქვენ არ გსურთ ახალ ტენდერებზე შეტყობინებების მიღება დააკლიკეთ
   here: აქ
   Made agreement for: გაკეთდა შეთანხმება
   New Agreements: ახალი შეთანხმებები
@@ -337,8 +337,8 @@ ka:
   Last Update: ბოლო განახლება
   ad: ად
   geo-it: ით
-  agreement_on_tender: on tender
-  bid_on_tender: on tender
+  agreement_on_tender: ტენდერ
+  bid_on_tender: ტენდერზე
 
   app:
     language:
