@@ -14,6 +14,7 @@ class OrganizationsController < ApplicationController
       @suppliers = Organization.where("is_bidder = true AND name LIKE ?", "%#{params[:term]}%")
     end
  
+    puts "WTTF"
     render :json => @suppliers.map(&:name)
   end
 
@@ -451,7 +452,10 @@ class OrganizationsController < ApplicationController
             puts "code not found: #{code}"
             cpvDescription = nil
           else
-            cpvDescription = cpvCode.description_english
+            if I18n.locale == :en
+              cpvDescription = cpvCode.description_english
+            else
+            end
           end
           if cpvDescription == nil
             cpvDescription = "NA"

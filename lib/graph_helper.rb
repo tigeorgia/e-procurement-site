@@ -1,7 +1,7 @@
 module GraphHelper
   
 
-  def self.createTreeGraphStringFromCpvNodes( nodes )
+  def self.createTreeGraphStringFromCpvNodes( nodes, forcedLocale )
     cpvTree = []
     nodes.each do |key, node|
       cpvTree.push( node )
@@ -12,7 +12,7 @@ module GraphHelper
       root = { :name => "", :code => "00000000", :children => [] }
       cpvTree.sort! {|x,y| x[:code] <=> y[:code] }
       root = self.createTree( root, cpvTree )
-      root = self.createUndefinedCategories( root )
+      root = self.createUndefinedCategories( root, forcedLocale )
       self.calcParentVal( root )
       jsonString = self.createJsonString( root, jsonString )
       jsonString.chop!
@@ -20,7 +20,7 @@ module GraphHelper
     return jsonString
   end
 
-  def self.createTreeGraphStringFromAgreements( agreements, forcedLocale )
+  def self.createTreeGraphStringFromAgreements( agreements, forcedLocale = false )
     done = false
     while not done
       newNodes = [] 
@@ -55,7 +55,7 @@ module GraphHelper
       end
     end
 
-    return self.createTreeGraphStringFromCpvNodes(agreements)
+    return self.createTreeGraphStringFromCpvNodes(agreements, forcedLocale)
   end
 
   def self.getParentCode( code )
@@ -135,7 +135,17 @@ module GraphHelper
   end
 
   #pass parent category values down into new uncategorised childs
-  def self.createUndefinedCategories( root )
+  def self.createUndefinedCategories( root, forcedLocale = false )
+
+    if forcedLocale
+      if forcedLocale = "en"      
+        name = I18n.translate('Miscellaneous', {:locale => :en})
+      else
+        name = I18n.translate('Miscellaneous', {:locale => :ka})
+      end
+    else
+      name = I18n.translate('Miscellaneous')
+    end
     if not root[:value]
       root[:value] = 0
     end
@@ -143,11 +153,11 @@ module GraphHelper
     if root[:children].length > 0
       uncategorised = root[:value]
       if uncategorised > 0
-        root[:children].push( { :name => "Miscellaneous", :value => uncategorised, :code => root[:code], :children => [] } )
+        root[:children].push( { :name => name, :value => uncategorised, :code => root[:code], :children => [] } )
       end
       root[:value] = 0
       root[:children].each do |child|
-        self.createUndefinedCategories(child)
+        self.createUndefinedCategories(child, forcedLocale)
       end
     end
     return root

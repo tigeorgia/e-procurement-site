@@ -452,7 +452,11 @@ class OrganizationsController < ApplicationController
             puts "code not found: #{code}"
             cpvDescription = nil
           else
-            cpvDescription = cpvCode.description_english
+            if I18n.locale == :en
+              cpvDescription = cpvCode.description_english
+            else
+              cpvDescription = cpvCode.description
+            end
           end
           if cpvDescription == nil
             cpvDescription = "NA"

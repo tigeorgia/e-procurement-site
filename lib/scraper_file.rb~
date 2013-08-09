@@ -12,6 +12,7 @@ module ScraperFile
   FILE_WHITE_LIST = "whiteList.json"
   FILE_BLACK_LIST = "blackList.json"
   FILE_COMPLAINTS = "complaints.json"
+  FILE_SCRAPE_INFO = "scrapeInfo.txt"
   BOM = "\uFEFF" #Byte Order Mark
 
   require 'csv'
@@ -146,31 +147,36 @@ module ScraperFile
           end        
                      
           if oldTender
-            #ignore all meta data when comparing
-            ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
-                        "risk_indicators","procurer_name","supplier_name","sub_codes"]
+            #see if we should update this tender at all
+            if oldTender.updated_at < self.scrapeTime
+              #ignore all meta data when comparing
+              ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
+                          "risk_indicators","procurer_name","supplier_name","sub_codes"]
 
-            differences = oldTender.findDifferences(tender,ignores)
-            if differences.length > 0
-              #check for tender watches
-              watch_tenders = WatchTender.where(:tender_url => tender.url_id)
-              if watch_tenders.count > 0                    
-                #store changed fields in hash
-                hash = ""
-                differences.each do |difference|
-                  hash += difference[:field]+"/"+difference[:old]+"#"
+              differences = oldTender.findDifferences(tender,ignores)
+              if differences.length > 0
+                #check for tender watches
+                watch_tenders = WatchTender.where(:tender_url => tender.url_id)
+                if watch_tenders.count > 0                    
+                  #store changed fields in hash
+                  hash = ""
+                  differences.each do |difference|
+                    hash += difference[:field]+"/"+difference[:old]+"#"
+                  end
+                  watch_tenders.each do | watch | 
+                    watch.diff_hash = hash
+                    watch.has_updated = true
+                    watch.last_data_update = @liveDataset.data_valid_from
+                    watch.save
+                  end
                 end
-                watch_tenders.each do | watch | 
-                  watch.diff_hash = hash
-                  watch.has_updated = true
-                  watch.last_data_update = @liveDataset.data_valid_from
-                  watch.save
-                end
+                oldTender.copyItem(tender)
+                puts "updating tender: " + oldTender.url_id.to_s
+                oldTender.updated = true
+                oldTender.save
+              else
+                puts "tender updated after this scrape will NOT update #{oldTender.url_id.to_s}"
               end
-              oldTender.copyItem(tender)
-              puts "updating tender: " + oldTender.url_id.to_s
-              oldTender.updated = true
-              oldTender.save
             else
               puts "no changes to tender: " + oldTender.url_id.to_s
             end
@@ -259,11 +265,13 @@ module ScraperFile
                 end
               end
             end 
-            if oldOrganization         
-              oldOrganization.copyItem(organization)
-              puts "updating org url: " + oldOrganization.organization_url.to_s
-              oldOrganization.updated = true
-              oldOrganization.save
+            if oldOrganization
+              if oldOrganization.updated_at < self.scrapeTime         
+                oldOrganization.copyItem(organization)
+                puts "updating org url: " + oldOrganization.organization_url.to_s
+                oldOrganization.updated = true
+                oldOrganization.save
+              end
             else     
               organization.is_new = true              
               organization.save
@@ -326,10 +334,12 @@ module ScraperFile
                 #see if there is already a bidding object from the same org on the tender
                 oldBidder = Bidder.where(:tender_id => tender.id, :organization_id => organization.id).first
                 if oldBidder
-                  #this is a bidder update
-                  oldBidder.copyItem(bidder)
-                  oldBidder.updated = true
-                  oldBidder.save
+                  if oldBidder.updated_at < self.scrapeTime
+                    #this is a bidder update
+                    oldBidder.copyItem(bidder)
+                    oldBidder.updated = true
+                    oldBidder.save
+                  end
                 else
                   #this is a new bidder
                   bidder.is_new = true
@@ -385,82 +395,84 @@ module ScraperFile
             agreement = Agreement.new        
             tender = Tender.where(:url_id => item["tenderID"]).first
             if tender
-              agreement.tender_id = tender.id
-              agreement.amendment_number = item["AmendmentNumber"]
-              agreement.documentation_url = item["documentUrl"]
-              
-              
-              if agreement.documentation_url == "disqualifed" or agreement.documentation_url == "bidder refused agreement"
-                #puts "disqualifed agreement"        
-                #org is stored as a name not an id in this case
-                organization = Organization.where(:name => item["OrgUrl"].gsub("&amp;","&")).first      
-                if organization
-                  agreement.organization_url = organization.organization_url
-                  agreement.organization_id = organization.id
-                  agreement.amount = -1
-                  agreement.currency ="NULL"
+              oldAgreements = Agreement.where(:tender_id => tender.id, :documentation_url => item["documentUrl"])
+              if oldAgreements.count == 0
+                agreement.tender_id = tender.id
+                agreement.amendment_number = item["AmendmentNumber"]
+                agreement.documentation_url = item["documentUrl"]
+                           
+                if agreement.documentation_url == "disqualifed" or agreement.documentation_url == "bidder refused agreement"
+                  #puts "disqualifed agreement"        
+                  #org is stored as a name not an id in this case
+                  organization = Organization.where(:name => item["OrgUrl"].gsub("&amp;","&")).first      
+                  if organization
+                    agreement.organization_url = organization.organization_url
+                    agreement.organization_id = organization.id
+                    agreement.amount = -1
+                    agreement.currency ="NULL"
+                    begin
+                      agreement.start_date = Date.parse(item["StartDate"])
+                    rescue
+                      agreement.start_date = "NULL"
+                    end
+                    agreement.expiry_date = "NULL"
+                  end
+                else
+                  #"normal agreement"
+                  agreement.organization_url = item["OrgUrl"]
+                  organization = Organization.where(:organization_url => item["OrgUrl"]).first
+                  string_arr = item["Amount"].gsub(/\s+/m, ' ').strip.split(" ")
+                  agreement.amount = string_arr[0]
+                  currency = "NONE"
+                  if string_arr[1]
+                    currency = string_arr[1]
+                  end
+                  agreement.currency = currency
                   begin
                     agreement.start_date = Date.parse(item["StartDate"])
                   rescue
                     agreement.start_date = "NULL"
                   end
-                  agreement.expiry_date = "NULL"
-                end
-              else
-                #"normal agreement"
-                agreement.organization_url = item["OrgUrl"]
-                organization = Organization.where(:organization_url => item["OrgUrl"]).first
-                string_arr = item["Amount"].gsub(/\s+/m, ' ').strip.split(" ")
-                agreement.amount = string_arr[0]
-                currency = "NONE"
-                if string_arr[1]
-                  currency = string_arr[1]
-                end
-                agreement.currency = currency
-                begin
-                  agreement.start_date = Date.parse(item["StartDate"])
-                rescue
-                  agreement.start_date = "NULL"
-                end
-                begin
-                  agreement.expiry_date = Date.parse(item["ExpiryDate"])
-                rescue
-                  agreement.expiry_date = "NULL"
-                end
+                  begin
+                    agreement.expiry_date = Date.parse(item["ExpiryDate"])
+                  rescue
+                    agreement.expiry_date = "NULL"
+                  end
 
-                #The organisation that won this contract should have bid so it should have already been created
-                #so lets check the organisation database and cross-reference the org-url to get the org-id
-                if !organization
-                  #wtf where is the org?
-                  puts "NO ORG: #{item['OrgUrl']}"
-                else
-                  agreement.organization_id = organization.id
-                  #if we have zero value we need to grab the real value from the last bid this org made
-                  #since the procurer must have forgot to update the contract field
-                  if agreement.amendment_number == 0 and agreement.amount == 0
-                    bidObject = Bidder.where(:organization_id => organization.id, :tender_id => tender.id).first
-                    if bidObject
-                      agreement.amount = bidObject.last_bid_amount
+                  #The organisation that won this contract should have bid so it should have already been created
+                  #so lets check the organisation database and cross-reference the org-url to get the org-id
+                  if !organization
+                    #wtf where is the org?
+                    puts "NO ORG: #{item['OrgUrl']}"
+                  else
+                    agreement.organization_id = organization.id
+                    #if we have zero value we need to grab the real value from the last bid this org made
+                    #since the procurer must have forgot to update the contract field
+                    if agreement.amendment_number == 0 and agreement.amount == 0
+                      bidObject = Bidder.where(:organization_id => organization.id, :tender_id => tender.id).first
+                      if bidObject
+                        agreement.amount = bidObject.last_bid_amount
+                      end
                     end
                   end
-                end
-              end
+                end    
 
-              agreement.is_new = true       
-              agreement.save
-              #see if anyone is watching this supplier
-              supplierWatches = SupplierWatch.where(:supplier_id => agreement.organization_id)
-              supplierWatches.each do |watch|
-                agreementString = agreement.id.to_s+"agreement#"
-                if watch.diff_hash
-                  watch.diff_hash += agreementString 
-                else
-                  watch.diff_hash = agreementString
+                agreement.is_new = true       
+                agreement.save
+                #see if anyone is watching this supplier
+                supplierWatches = SupplierWatch.where(:supplier_id => agreement.organization_id)
+                supplierWatches.each do |watch|
+                  agreementString = agreement.id.to_s+"agreement#"
+                  if watch.diff_hash
+                    watch.diff_hash += agreementString 
+                  else
+                    watch.diff_hash = agreementString
+                  end
+                  watch.has_updated = true
+                  watch.last_data_update = @liveDataset.data_valid_from
+                  watch.save
                 end
-                watch.has_updated = true
-                watch.last_data_update = @liveDataset.data_valid_from
-                watch.save
-              end
+              end#if this agreement is actually new
             else
               #tender not found when it should have been
               agreement.tender_id = item["tenderID"]
@@ -496,18 +508,23 @@ module ScraperFile
             urlID =  item["tenderID"]
             puts "codes : "+item["cpvCode"]
             tender = Tender.where(:url_id => urlID).first
-            if tender
-              if tender.sub_codes
-                tender.sub_codes = tender.sub_codes+item["cpvCode"]+"#"
+            #only update if this tender needed to be updated
+            if tender 
+              if tender.updated_at < self.scrapeTime
+                if tender.sub_codes
+                  tender.sub_codes = tender.sub_codes+item["cpvCode"]+"#"
+                else
+                  tender.sub_codes = item["cpvCode"]+"#"
+                end
+                if count%100 == 0
+                  puts "cpvCode: #{count}"
+                end        
+                tender.save
+                count = count + 1
+                batch_count = batch_count +1
               else
-                tender.sub_codes = item["cpvCode"]+"#"
+                puts "tender has been recently updated by another scrape so don't store cpv codes"
               end
-              if count%100 == 0
-                puts "cpvCode: #{count}"
-              end        
-              tender.save
-              count = count + 1
-              batch_count = batch_count +1
             else
               puts "tender for subcpv not found urlID: #{urlID}"
             end
@@ -558,7 +575,6 @@ module ScraperFile
 
   def self.processDocuments
     document_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_DOCUMENTS}"
-    #destroy all documentation objects from updated tenders since we are going to add new ones and we don't want to double up
 
     File.open(document_file_path, "r") do |infile|
       count = 0
@@ -586,12 +602,15 @@ module ScraperFile
               #if this an update to an old doc
               #remove old doc
               oldDoc = Document.where(:document_url => document.document_url).first
-              if oldDoc
-                oldDoc.destroy
-                document.updated = true
+              if (not oldDoc) or (oldDoc and oldDoc.updated_at < self.scrapeTime)
+                if oldDoc
+                  oldDoc.destroy
+                  document.updated = true
+                else
+                  document.is_new = true
+                end
+                document.save
               end
-              document.is_new = true
-              document.save
               count = count + 1
               batch_count = batch_count +1
             end
@@ -1525,10 +1544,10 @@ module ScraperFile
     File.open("#{Rails.root}/public/system/scrapeInfo.txt", "r") do |info|
       #time should be on first line
       scrapeStartTime = info.gets
-      scrapeTime = DateTime.parse(scrapeStartTime)
+      self.scrapeTime = DateTime.parse(scrapeStartTime)
       #while the information is valid from when the scrape started the update time will be now when the data process is ending (sometimes up to 8 hours later) so to inform the user when they will next receive an update we need to take the time as of now and add a day
       nextEstimatedTime = DateTime.now.next_day
-      @liveDataset.data_valid_from = scrapeTime
+      @liveDataset.data_valid_from = self.scrapeTime
       @liveDataset.next_update = nextEstimatedTime
       @liveDataset.save
     end
@@ -1629,6 +1648,16 @@ module ScraperFile
   def self.process
     start = Time.now
     I18n.locale = :en # do this so formating of floats and dates is correct when reading in json
+
+    info_file_path = "#{Rails.root}/public/system/#{FILE_SCRAPE_INFO}"
+    File.open(info_file_path, "r") do |infile|
+      while(line = infile.gets)
+        if line.index("StartTime: ")
+          index = line.index(":") + 2
+          self.scrapeTime = line[index..-1].to_datetime
+        end
+      end
+    end
     #parse orgs first so that other objects can sort out relationships
     puts "processing Orgs"
     self.processOrganizations
@@ -1785,6 +1814,9 @@ module ScraperFile
     #anything left with a dataset_id the same as newDataset mustn't have been processed fully
     self.cleanOldData(1)
 
+    puts "storing update time"
+    self.storeUpdateTime
+
     puts "processing json"
     self.process
     puts "diffing"
@@ -1797,9 +1829,6 @@ module ScraperFile
 
     puts "creating list of live tenders"
     self.createLiveTenderList
-
-    puts "storing update time"
-    self.storeUpdateTime
   end
 
   #function hooked up to the rake task testProcess
@@ -1817,7 +1846,7 @@ module ScraperFile
     #puts "storing tender results"
     #tenderList = Tender.where("updated = true OR is_new = true")
     #self.storeTenderContractValues(tenderList)
-    self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
+    AggregateHelper.regenCPVTree
   end
 
   def self.generateBulkTenderData
