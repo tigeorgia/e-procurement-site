@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130808113454) do
+ActiveRecord::Schema.define(:version => 20130812114022) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -29,10 +29,11 @@ ActiveRecord::Schema.define(:version => 20130808113454) do
 
   create_table "aggregate_cpv_revenues", :force => true do |t|
     t.integer  "organization_id"
-    t.decimal  "total_value",     :precision => 11, :scale => 2
+    t.decimal  "total_value",            :precision => 11, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "cpv_code"
+    t.integer  "aggregate_statistic_id"
   end
 
   create_table "aggregate_cpv_statistics", :force => true do |t|
@@ -220,9 +221,10 @@ ActiveRecord::Schema.define(:version => 20130808113454) do
   create_table "procurer_cpv_revenues", :force => true do |t|
     t.integer  "organization_id"
     t.string   "cpv_code"
-    t.decimal  "total_value",     :precision => 11, :scale => 2
+    t.decimal  "total_value",            :precision => 11, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "aggregate_statistic_id"
   end
 
   create_table "procurer_watches", :force => true do |t|

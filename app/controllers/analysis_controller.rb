@@ -8,17 +8,14 @@ layout "full-screen"
 
   def index
     @years = []
+
     AggregateStatistic.all.each do |dbYear|
       if dbYear.year > 0 
         @years.push(dbYear.year)
       end
     end
     count = @years.count
-    if count > 1
-      @selectedYear = @years[-1]
-    else
-      @selectedYear = @years[-1]
-    end
+    @selectedYear = @years[-1]
     @defaultAction = "cpv_revenue"
   end
 

@@ -148,7 +148,7 @@ module ScraperFile
                      
           if oldTender
             #see if we should update this tender at all
-            if oldTender.updated_at < self.scrapeTime
+            if oldTender.updated_at < @scrapeTime
               #ignore all meta data when comparing
               ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
                           "risk_indicators","procurer_name","supplier_name","sub_codes"]
@@ -266,7 +266,7 @@ module ScraperFile
               end
             end 
             if oldOrganization
-              if oldOrganization.updated_at < self.scrapeTime         
+              if oldOrganization.updated_at < @scrapeTime         
                 oldOrganization.copyItem(organization)
                 puts "updating org url: " + oldOrganization.organization_url.to_s
                 oldOrganization.updated = true
@@ -334,7 +334,7 @@ module ScraperFile
                 #see if there is already a bidding object from the same org on the tender
                 oldBidder = Bidder.where(:tender_id => tender.id, :organization_id => organization.id).first
                 if oldBidder
-                  if oldBidder.updated_at < self.scrapeTime
+                  if oldBidder.updated_at < @scrapeTime
                     #this is a bidder update
                     oldBidder.copyItem(bidder)
                     oldBidder.updated = true
@@ -510,7 +510,7 @@ module ScraperFile
             tender = Tender.where(:url_id => urlID).first
             #only update if this tender needed to be updated
             if tender 
-              if tender.updated_at < self.scrapeTime
+              if tender.updated_at < @scrapeTime
                 if tender.sub_codes
                   tender.sub_codes = tender.sub_codes+item["cpvCode"]+"#"
                 else
@@ -602,7 +602,7 @@ module ScraperFile
               #if this an update to an old doc
               #remove old doc
               oldDoc = Document.where(:document_url => document.document_url).first
-              if (not oldDoc) or (oldDoc and oldDoc.updated_at < self.scrapeTime)
+              if (not oldDoc) or (oldDoc and oldDoc.updated_at < @scrapeTime)
                 if oldDoc
                   oldDoc.destroy
                   document.updated = true
@@ -848,54 +848,6 @@ module ScraperFile
   end
 
   def self.processAggregateData
-    #for each CPV code calculate the revenue generated for each company and store these entries in the database
-    #this way when aggregate data is requested instead of running this expensive process everytime we can just look up the pre-calculated entries in the db.
-    AggregateCpvRevenue.delete_all
-    ProcurerCpvRevenue.delete_all
-    Tender.find_each do |tender|
-      if tender.contract_value and tender.contract_value > 0
-        cpv_codes = []
-        if not tender.sub_codes
-          puts "No sub_code: #{tender.id}"
-          if tender.cpv_code
-            cpv_codes.push(tender.cpv_code)
-          end
-        else
-          cpv_codes = tender.sub_codes.split("#")
-        end
-        numCodes = cpv_codes.size
-        valuePerCode = tender.contract_value.to_f/numCodes
-        company = Organization.where(:id => tender.winning_org_id).first
-        procurer = Organization.where(:id => tender.procurring_entity_id).first
-        cpv_codes.each do |code|
-          if company
-            aggregateData = AggregateCpvRevenue.where(:cpv_code => code, :organization_id => company.id).first
-            if not aggregateData
-              aggregateData = AggregateCpvRevenue.new
-              aggregateData.organization_id = company.id
-              aggregateData.cpv_code = code
-              aggregateData.total_value = valuePerCode
-            else
-              aggregateData.total_value = aggregateData.total_value + valuePerCode
-            end
-            aggregateData.save
-          end
-      
-          if procurer
-            aggregateData = ProcurerCpvRevenue.where(:cpv_code => code, :organization_id => procurer.id).first
-            if not aggregateData
-              aggregateData = ProcurerCpvRevenue.new
-              aggregateData.organization_id = procurer.id
-              aggregateData.cpv_code = code
-              aggregateData.total_value = valuePerCode
-            else
-              aggregateData.total_value = aggregateData.total_value + valuePerCode
-            end
-            aggregateData.save
-          end
-        end 
-      end
-    end  
     #store data for yearly stats
     AggregateHelper.generateAndStoreAggregateData
   end#process aggregate data
@@ -1544,10 +1496,10 @@ module ScraperFile
     File.open("#{Rails.root}/public/system/scrapeInfo.txt", "r") do |info|
       #time should be on first line
       scrapeStartTime = info.gets
-      self.scrapeTime = DateTime.parse(scrapeStartTime)
+      @scrapeTime = DateTime.parse(scrapeStartTime)
       #while the information is valid from when the scrape started the update time will be now when the data process is ending (sometimes up to 8 hours later) so to inform the user when they will next receive an update we need to take the time as of now and add a day
       nextEstimatedTime = DateTime.now.next_day
-      @liveDataset.data_valid_from = self.scrapeTime
+      @liveDataset.data_valid_from = @scrapeTime
       @liveDataset.next_update = nextEstimatedTime
       @liveDataset.save
     end
@@ -1654,7 +1606,7 @@ module ScraperFile
       while(line = infile.gets)
         if line.index("StartTime: ")
           index = line.index(":") + 2
-          self.scrapeTime = line[index..-1].to_datetime
+          @scrapeTime = line[index..-1].to_datetime
         end
       end
     end

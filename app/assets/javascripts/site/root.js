@@ -70,7 +70,6 @@ $(document).ready(function() {
       }
    });
 
-
     $( "#dialog-confirm" ).dialog({
           autoOpen: false,
           resizable: false,
@@ -94,4 +93,29 @@ $(document).ready(function() {
         $( "#dialog-confirm" ).dialog("open");
     });
   
+
+    $(".cpv-aggregate-year").click( function(){ 
+      var options = $('.cpv-aggregate-group');
+      for(var i = 0; i < options.length; i++){
+        option = $(options[i]);
+        var dataUrl = option.attr('data-url');
+        index = dataUrl.indexOf("year=");
+        endIndex = dataUrl.indexOf("=",index);
+        url = dataUrl.substring(0,endIndex+1)+$(this).val();
+        option.attr('data-url', url);
+      }
+    });
+
+
+    $(".cpv-aggregate-group").click( function(){ 
+      var options = $('.cpv-aggregate-year');
+      for(var i = 0; i < options.length; i++){
+        option = $(options[i]);
+        var dataUrl = option.attr('data-url');
+        index = dataUrl.indexOf("cpvGroup=");
+        endIndex = dataUrl.indexOf("=",index);
+        url = dataUrl.substring(0,endIndex+1)+$(this).val();
+        option.attr('data-url', url);
+      }
+    }); 
 });

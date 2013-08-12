@@ -848,54 +848,6 @@ module ScraperFile
   end
 
   def self.processAggregateData
-    #for each CPV code calculate the revenue generated for each company and store these entries in the database
-    #this way when aggregate data is requested instead of running this expensive process everytime we can just look up the pre-calculated entries in the db.
-    AggregateCpvRevenue.delete_all
-    ProcurerCpvRevenue.delete_all
-    Tender.find_each do |tender|
-      if tender.contract_value and tender.contract_value > 0
-        cpv_codes = []
-        if not tender.sub_codes
-          puts "No sub_code: #{tender.id}"
-          if tender.cpv_code
-            cpv_codes.push(tender.cpv_code)
-          end
-        else
-          cpv_codes = tender.sub_codes.split("#")
-        end
-        numCodes = cpv_codes.size
-        valuePerCode = tender.contract_value.to_f/numCodes
-        company = Organization.where(:id => tender.winning_org_id).first
-        procurer = Organization.where(:id => tender.procurring_entity_id).first
-        cpv_codes.each do |code|
-          if company
-            aggregateData = AggregateCpvRevenue.where(:cpv_code => code, :organization_id => company.id).first
-            if not aggregateData
-              aggregateData = AggregateCpvRevenue.new
-              aggregateData.organization_id = company.id
-              aggregateData.cpv_code = code
-              aggregateData.total_value = valuePerCode
-            else
-              aggregateData.total_value = aggregateData.total_value + valuePerCode
-            end
-            aggregateData.save
-          end
-      
-          if procurer
-            aggregateData = ProcurerCpvRevenue.where(:cpv_code => code, :organization_id => procurer.id).first
-            if not aggregateData
-              aggregateData = ProcurerCpvRevenue.new
-              aggregateData.organization_id = procurer.id
-              aggregateData.cpv_code = code
-              aggregateData.total_value = valuePerCode
-            else
-              aggregateData.total_value = aggregateData.total_value + valuePerCode
-            end
-            aggregateData.save
-          end
-        end 
-      end
-    end  
     #store data for yearly stats
     AggregateHelper.generateAndStoreAggregateData
   end#process aggregate data
@@ -1846,7 +1798,7 @@ module ScraperFile
     #puts "storing tender results"
     #tenderList = Tender.where("updated = true OR is_new = true")
     #self.storeTenderContractValues(tenderList)
-    AggregateHelper.regenCPVTree
+    AggregateHelper.calculateAnnualCpvRevenues
   end
 
   def self.generateBulkTenderData

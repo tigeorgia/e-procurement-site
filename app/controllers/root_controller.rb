@@ -113,15 +113,17 @@ class RootController < ApplicationController
 
   def cpvVsProcurer
     cpvGroup = params[:cpvGroup]
+    year = params[:year]
     if cpvGroup == "-1"
       render nothing: true
     else
       @topTenProcurers = generateOrganizationAggregates( ProcurerCpvRevenue, 10 )    
-    end  
+    end
   end
 
   def cpvVsCompany
     cpvGroup = params[:cpvGroup]
+    year = params[:year]
     sqlString = ''
     #cpv group 1 is a special 'all' category since this is a huge calculation we cheat and just look at total revenue
     if cpvGroup == "1"
@@ -201,6 +203,16 @@ class RootController < ApplicationController
     end
 
 
+    if not @selectedCpvGroup
+      @selectedCpvGroup = 1
+      @years = []
+      AggregateStatistic.all.each do |dbYear|
+        if dbYear.year > 0 
+          @years.push(dbYear.year)
+        end
+      end
+      @selectedYear = @years[-1]
+    end
     majorGroups()
   end
 

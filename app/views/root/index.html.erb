@@ -298,9 +298,13 @@ $(document).ready(function() {
 
   <div id="tabs-2" class="tab-inner">
     <div class="row-fluid">
-      <div class="span8 offset4">
+      <div class="span4">
+        <h4><%=t("Year")%></<h4><br>
+        <%= select_tag(:year, options_for_select(@years, @selectedYear), :class=>"auto-submit cpv-aggregate-year", :data => { :remote => true, :url => url_for(:controller => "root", :action => "cpvVsCompany", :cpvGroup=>@selectedCpvGroup)} )  %> 
+      </div>
+      <div class="span8">
         <h4><%=t("Sector")%></<h4><br>
-        <%= select_tag(:cpvGroup, options_for_select(cpvArray),:onchange => "checkCPVGroupOption(this);", :class=>"auto-submit", :data => { :remote => true, :url => url_for(:controller => "root", :action => "cpvVsCompany")} )  %>     
+        <%= select_tag(:cpvGroup, options_for_select(cpvArray),:onchange => "checkCPVGroupOption(this);", :class=>"auto-submit cpv-aggregate-group", :data => { :remote => true, :url => url_for(:controller => "root", :action => "cpvVsCompany", :year=>@selectedYear)} )  %>     
       </div>
     </div>
     <div class="row-fluid">
@@ -312,7 +316,7 @@ $(document).ready(function() {
     <div class="row-fluid">
       <div class="span8 offset4">
         <h4><%=t("Sector")%></<h4><br>
-        <%= select_tag(:cpvGroup, options_for_select(cpvArray),:onchange => "checkCPVGroupOption(this);",:class=>"auto-submit",:data => {:remote => true, :url => url_for(:controller => "root", :action => "cpvVsProcurer")} )  %>     
+        <%= select_tag(:cpvGroup, options_for_select(cpvArray),:onchange => "checkCPVGroupOption(this);",:class=>"auto-submit",:data => {:remote => true,:url => url_for(:controller => "root", :action => "cpvVsProcurer", :year=>@selectedYear)} )  %>     
       </div>
     </div>
 

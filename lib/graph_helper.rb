@@ -138,7 +138,7 @@ module GraphHelper
   def self.createUndefinedCategories( root, forcedLocale = false )
 
     if forcedLocale
-      if forcedLocale = "en"      
+      if forcedLocale == "en"      
         name = I18n.translate('Miscellaneous', {:locale => :en})
       else
         name = I18n.translate('Miscellaneous', {:locale => :ka})

@@ -55,7 +55,7 @@ module GraphHelper
       end
     end
 
-    return self.createTreeGraphStringFromCpvNodes(agreements)
+    return self.createTreeGraphStringFromCpvNodes(agreements, forcedLocale)
   end
 
   def self.getParentCode( code )
@@ -138,7 +138,7 @@ module GraphHelper
   def self.createUndefinedCategories( root, forcedLocale = false )
 
     if forcedLocale
-      if forcedLocale = "en"      
+      if forcedLocale == "en"      
         name = I18n.translate('Miscellaneous', {:locale => :en})
       else
         name = I18n.translate('Miscellaneous', {:locale => :ka})
