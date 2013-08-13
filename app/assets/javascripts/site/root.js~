@@ -94,7 +94,7 @@ $(document).ready(function() {
     });
   
 
-    $(".cpv-aggregate-year").click( function(){ 
+    /*$(".cpv-aggregate-year").click( function(){ 
       var options = $('.cpv-aggregate-group');
       for(var i = 0; i < options.length; i++){
         option = $(options[i]);
@@ -112,10 +112,16 @@ $(document).ready(function() {
       for(var i = 0; i < options.length; i++){
         option = $(options[i]);
         var dataUrl = option.attr('data-url');
-        index = dataUrl.indexOf("year=");
+        index = dataUrl.indexOf("cpvGroup=");
         endIndex = dataUrl.indexOf("=",index);
         url = dataUrl.substring(0,endIndex+1)+$(this).val();
         option.attr('data-url', url);
       }
-    }); 
+    });*/
+
+    $(".cpv_select").click( function() {
+        $.ajax({url: "<%= url_for :action => 'cpvVsCompany'%>",
+        data: "year="+$(".cpv-aggregate-year")[0].value+"&cpvGroup="+$(".cpv-aggregate-group")[0].value,
+        dataType: "script"})
+    });
 });

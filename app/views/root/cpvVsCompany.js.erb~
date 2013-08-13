@@ -2,6 +2,7 @@ var chart1; // globally available
 $(document).ready(function() {
     chart1 = new Highcharts.Chart({
        chart: {
+          height: 500,
           renderTo: 'graph',
           type: 'bar'
        },
@@ -21,6 +22,18 @@ $(document).ready(function() {
              text: '<%=t("Lari")%>'
           }
        },
+        plotOptions: {
+        series: {
+            cursor: 'pointer',
+            point: {
+                events: {
+                    click: function() {
+                        parent.location=this.url;
+                    }
+                }
+            }
+        }
+      },
        series: [        
                {
                 name: "<%=t("Awarded Contract Total")%>",

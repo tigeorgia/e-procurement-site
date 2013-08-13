@@ -1798,7 +1798,7 @@ module ScraperFile
     #puts "storing tender results"
     #tenderList = Tender.where("updated = true OR is_new = true")
     #self.storeTenderContractValues(tenderList)
-    AggregateHelper.regenCPVTree
+    AggregateHelper.calculateAnnualCpvRevenues
   end
 
   def self.generateBulkTenderData

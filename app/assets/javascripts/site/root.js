@@ -94,7 +94,7 @@ $(document).ready(function() {
     });
   
 
-    $(".cpv-aggregate-year").click( function(){ 
+    /*$(".cpv-aggregate-year").click( function(){ 
       var options = $('.cpv-aggregate-group');
       for(var i = 0; i < options.length; i++){
         option = $(options[i]);
@@ -117,5 +117,5 @@ $(document).ready(function() {
         url = dataUrl.substring(0,endIndex+1)+$(this).val();
         option.attr('data-url', url);
       }
-    }); 
+    });*/
 });

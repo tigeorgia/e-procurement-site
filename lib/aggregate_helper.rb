@@ -382,7 +382,79 @@ module AggregateHelper
               end
               aggregateData.save
             end
-          end 
+          end
+
+          #add to all cpv stats
+          code = "all"
+          if company
+            aggregateData = AggregateCpvRevenue.where(:aggregate_statistic_id => aggregateYearSet.id, :cpv_code => code, :organization_id => company.id).first
+            if not aggregateData
+              aggregateData = AggregateCpvRevenue.new
+              aggregateData.organization_id = company.id
+              aggregateData.cpv_code = code
+              aggregateData.total_value = tender.contract_value
+              aggregateData.aggregate_statistic_id = aggregateYearSet.id
+            else
+              aggregateData.total_value = aggregateData.total_value + tender.contract_value
+            end
+          end
+          if procurer
+            aggregateData = ProcurerCpvRevenue.where(:aggregate_statistic_id => aggregateYearSet.id, :cpv_code => code, :organization_id => procurer.id).first
+            if not aggregateData
+              aggregateData = ProcurerCpvRevenue.new
+              aggregateData.organization_id = procurer.id
+              aggregateData.cpv_code = code
+              aggregateData.total_value = tender.contract_value
+              aggregateData.aggregate_statistic_id = aggregateYearSet.id
+            else
+              aggregateData.total_value = aggregateData.total_value + tender.contract_value
+            end
+          end
+        end
+      end
+    end
+  end
+
+
+  #only for testing real function added above
+  #be careful doesn't delete old data
+  def self.addAllCPVStats
+    Tender.find_each do |tender|
+      if tender.contract_value and tender.contract_value > 0
+        puts tender.id
+        year = tender.tender_announcement_date.year.to_i
+        aggregateYearSet = AggregateStatistic.where(:year => year).first
+        if aggregateYearSet
+          company = Organization.where(:id => tender.winning_org_id).first
+          procurer = Organization.where(:id => tender.procurring_entity_id).first
+          #add to all cpv stat
+          code = "all"
+          if company
+            aggregateData = AggregateCpvRevenue.where(:aggregate_statistic_id => aggregateYearSet.id, :cpv_code => code, :organization_id => company.id).first
+            if not aggregateData
+              aggregateData = AggregateCpvRevenue.new
+              aggregateData.organization_id = company.id
+              aggregateData.cpv_code = code
+              aggregateData.total_value = tender.contract_value
+              aggregateData.aggregate_statistic_id = aggregateYearSet.id
+            else
+              aggregateData.total_value = aggregateData.total_value + tender.contract_value
+            end
+            aggregateData.save
+          end
+          if procurer
+            aggregateData = ProcurerCpvRevenue.where(:aggregate_statistic_id => aggregateYearSet.id, :cpv_code => code, :organization_id => procurer.id).first
+            if not aggregateData
+              aggregateData = ProcurerCpvRevenue.new
+              aggregateData.organization_id = procurer.id
+              aggregateData.cpv_code = code
+              aggregateData.total_value = tender.contract_value
+              aggregateData.aggregate_statistic_id = aggregateYearSet.id
+            else
+              aggregateData.total_value = aggregateData.total_value + tender.contract_value
+            end
+            aggregateData.save
+          end
         end
       end
     end

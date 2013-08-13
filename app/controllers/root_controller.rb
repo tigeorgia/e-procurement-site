@@ -8,17 +8,31 @@ class RootController < ApplicationController
 
   def generateOrganizationAggregates( dbObject, limit )
     organizations = {}
-    cpvGroup = CpvGroup.find(params[:cpvGroup])
-    classifiers = cpvGroup.tender_cpv_classifiers
+
+    year = params[:year]
+    yearStat = AggregateStatistic.where(:year => year).first
+
     cpvAggregates = nil
     sqlString = ''
     hasItem = false
-    classifiers.each do |classifier|
-      hasItem = true
-      cvpDropped = dropZeros(classifier.cpv_code.to_s)
-      sqlString += "cpv_code LIKE '"+cvpDropped+ "%' OR "
+    if yearStat
+      sqlString += "aggregate_statistic_id = #{yearStat.id} AND ("
     end
-    sqlString = sqlString[0..-4]
+
+    if params[:cpvGroup] == "1"
+      sqlString += "cpv_code LIKE 'all'"
+      hasItem = true
+    else
+      cpvGroup = CpvGroup.find(params[:cpvGroup])
+      classifiers = cpvGroup.tender_cpv_classifiers
+      classifiers.each do |classifier|
+        hasItem = true
+        cvpDropped = dropZeros(classifier.cpv_code.to_s)
+        sqlString += "cpv_code LIKE '"+cvpDropped+ "%' OR "
+      end
+      sqlString = sqlString[0..-4]
+    end
+    sqlString += ")"
     results = []
     if hasItem
       cpvAggregates = dbObject.where(sqlString)
@@ -66,7 +80,12 @@ class RootController < ApplicationController
         end
 		  end
     end
-
+    if params[:year]
+      year = params[:year]
+    else
+      year = @selectedYear
+    end
+    yearStat = AggregateStatistic.where(:year => year).first
     cpvGroups.each do |cpvGroup|
       if cpvGroup.id == 1
         next
@@ -85,6 +104,9 @@ class RootController < ApplicationController
       end
       if hasItem
         sqlString = sqlString[0..-4]
+        if yearStat
+          sqlString = "aggregate_statistic_id = #{yearStat.id} AND (" + sqlString + ")"
+        end
         cpvAggregates = AggregateCpvRevenue.where(sqlString)
         total = 0
         cpvAggregates.each do |aggregate|
@@ -113,29 +135,19 @@ class RootController < ApplicationController
 
   def cpvVsProcurer
     cpvGroup = params[:cpvGroup]
-    year = params[:year]
     if cpvGroup == "-1"
       render nothing: true
     else
-      @topTenProcurers = generateOrganizationAggregates( ProcurerCpvRevenue, 10 )    
+      @topTenProcurers = generateOrganizationAggregates( ProcurerCpvRevenue, 15 )    
     end
   end
 
   def cpvVsCompany
     cpvGroup = params[:cpvGroup]
-    year = params[:year]
-    sqlString = ''
-    #cpv group 1 is a special 'all' category since this is a huge calculation we cheat and just look at total revenue
-    if cpvGroup == "1"
-      top10 = Organization.order("total_won_contract_value DESC").limit(10)
-      @TopTen = []
-      top10.each do |company|
-        @TopTen.push( {:company => company, :total => company.total_won_contract_value} )
-      end
-    elsif cpvGroup == "-1"
+    if cpvGroup == "-1"
       render nothing: true
     else
-      @TopTen = generateOrganizationAggregates( AggregateCpvRevenue, 10 )   
+      @TopTen = generateOrganizationAggregates( AggregateCpvRevenue, 15 )   
     end
   end
 
@@ -213,7 +225,6 @@ class RootController < ApplicationController
       end
       @selectedYear = @years[-1]
     end
-    majorGroups()
   end
 
   def buildOrganizationXmlStrings

@@ -1,6 +1,7 @@
 $(document).ready(function() {
     procChart = new Highcharts.Chart({
        chart: {
+          height: 500,
           renderTo: 'procGraph',
           type: 'bar'
        },
@@ -36,7 +37,7 @@ $(document).ready(function() {
                 name: "<%=t("Awarded Contract Total")%>",
                 data: [ <% @topTenProcurers.each do |info| %>
                           {
-                            x: <%= info[:total] %>,
+                            y: <%= info[:total] %>,
                             url: '<%= url_for(:controller => "organizations", :action => "show_procurer", :id => info[:company].id)%>'
                           },
                         <% end %>
