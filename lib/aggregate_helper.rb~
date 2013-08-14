@@ -383,6 +383,7 @@ module AggregateHelper
               aggregateData.save
             end
           end
+
           #add to all cpv stats
           code = "all"
           if company

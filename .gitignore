@@ -20,6 +20,8 @@
 #ignore db config
 /config/database.yml
 
+/config/rubber/*
+
 #ignore mail setup
 /config/initializers/setup_mail.rb
 

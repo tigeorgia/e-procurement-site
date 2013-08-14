@@ -397,6 +397,7 @@ module AggregateHelper
             else
               aggregateData.total_value = aggregateData.total_value + tender.contract_value
             end
+            aggregateData.save
           end
           if procurer
             aggregateData = ProcurerCpvRevenue.where(:aggregate_statistic_id => aggregateYearSet.id, :cpv_code => code, :organization_id => procurer.id).first
@@ -409,6 +410,7 @@ module AggregateHelper
             else
               aggregateData.total_value = aggregateData.total_value + tender.contract_value
             end
+            aggregateData.save
           end
         end
       end

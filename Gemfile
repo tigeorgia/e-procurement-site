@@ -3,7 +3,7 @@ if RUBY_VERSION =~ /1.9/
   Encoding.default_internal = Encoding::UTF_8
 end
 
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'bundler', '~>1.2.0'
 gem "rails", "3.1.3"
@@ -40,3 +40,8 @@ gem "uglifier", ">= 1.0.3"
 gem "twitter-bootstrap-rails", "~> 2.1.0"
 gem "bootstrap-datepicker-rails"
 gem "jquery-datatables-rails", github: 'rweng/jquery-datatables-rails'
+gem 'rubber'
+gem 'open4'
+gem 'gelf'
+gem 'graylog2_exceptions', :git => 'git://github.com/wr0ngway/graylog2_exceptions.git'
+gem 'graylog2-resque'

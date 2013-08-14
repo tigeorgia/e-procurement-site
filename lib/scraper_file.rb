@@ -510,21 +510,17 @@ module ScraperFile
             tender = Tender.where(:url_id => urlID).first
             #only update if this tender needed to be updated
             if tender 
-              if tender.updated_at < @scrapeTime
-                if tender.sub_codes
-                  tender.sub_codes = tender.sub_codes+item["cpvCode"]+"#"
-                else
-                  tender.sub_codes = item["cpvCode"]+"#"
-                end
-                if count%100 == 0
-                  puts "cpvCode: #{count}"
-                end        
-                tender.save
-                count = count + 1
-                batch_count = batch_count +1
+              if tender.sub_codes
+                tender.sub_codes = tender.sub_codes+item["cpvCode"]+"#"
               else
-                puts "tender has been recently updated by another scrape so don't store cpv codes"
+                tender.sub_codes = item["cpvCode"]+"#"
               end
+              if count%100 == 0
+                puts "cpvCode: #{count}"
+              end        
+              tender.save
+              count = count + 1
+              batch_count = batch_count +1
             else
               puts "tender for subcpv not found urlID: #{urlID}"
             end
