@@ -21,6 +21,8 @@
 /config/database.yml
 
 /config/rubber/*
+/config/initializers/graylog.rb
+
 
 #ignore mail setup
 /config/initializers/setup_mail.rb
