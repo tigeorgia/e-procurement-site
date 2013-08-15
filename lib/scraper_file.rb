@@ -1650,7 +1650,7 @@ module ScraperFile
     self.storeTenderContractValues(tendersToUpdate)
   end
 
-    #this is a expensive process that will combine all information avaiable able a tender including bidders and agreements and store each tender on a single csv row
+    #this is a expensive process that will combine all tender information including bidders and agreements and store each tender on a single csv row
   def self.buildTenderInfoCSVString(ignores, filePath )
     csv_string = CSV.open(filePath,'w') do |csv|
       csv << [BOM]

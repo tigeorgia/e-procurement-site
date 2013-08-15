@@ -39,7 +39,7 @@
           <tr>
             <td <%=highlightClass%>><%= link_to(image_tag("delete-icon.png", :size => "30x30"), {:action => "remove_search_from_account", :search_id => search.id}, :class => "confirm") %></td>        
             <td <%=highlightClass%>><%= link_to search.name, :controller => "user", :action => "search_via_saved", :search_id => search.id %></td>
-            <td <%=highlightClass%>><%= search.searchtype %></td>
+            <td <%=highlightClass%>><%= t(search.searchtype) %></td>
             <%if search.last_data_update%>
               <td <%=highlightClass%>><%= search.last_data_update %></td>
             <%else%>

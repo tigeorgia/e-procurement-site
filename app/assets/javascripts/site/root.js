@@ -33,7 +33,28 @@ $(document).ready(function() {
         "sDom": '<"top"flp><"bottom"irt><"clear">',
         "sPaginationType": "full_numbers"
     } );
-    $( ".tabs" ).tabs();
+
+    $("#search-tabs").tabs({
+      activate: function( event, ui ) {
+          $.cookie("search_tabs_selected", $("#search-tabs").tabs("option","active"));
+      },
+      active: $("#search-tabs").tabs({ active: $.cookie("search_tabs_selected") })
+    });
+
+    $("#stats-tabs").tabs({
+      activate: function( event, ui ) {
+          $.cookie("stats_tabs_selected", $("#stats-tabs").tabs("option","active"));
+      },
+      active: $("#stats-tabs").tabs({ active: $.cookie("stats_tabs_selected") })
+    });
+
+    $("#account-tabs").tabs({
+      activate: function( event, ui ) {
+          $.cookie("account_tabs_selected", $("#account-tabs").tabs("option","active"));
+      },
+      active: $("#account-tabs").tabs({ active: $.cookie("account_tabs_selected") })
+    });
+  
     $(".vertical-tabs").tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     $(".vertical-tabs li").removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
     
