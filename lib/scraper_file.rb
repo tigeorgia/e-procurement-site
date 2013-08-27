@@ -254,7 +254,7 @@ module ScraperFile
                     if differences.length > 0
                       #store changed fields in hash                   
                       differences.each do |difference|
-                        hash += difference + "#"
+                        hash += difference[:field]+"/"+difference[:old]+"#"
                       end
                       watch.has_updated = true             
                     end   
@@ -885,6 +885,7 @@ module ScraperFile
     string = string.gsub(",,","")
     string = string.gsub("„","")
     string = string.gsub("”","")
+    string = string.gsub("'","")
     string = string.gsub('"',"")
     string = string.gsub("“",'')
     string = string.gsub("&amp;","&")
@@ -1163,7 +1164,7 @@ module ScraperFile
       blackListIds.push(list.organization_id)
     end
     Tender.find_each do |tender|
-      if blackListIds.include?(tender.winning_org_id)
+      if tender.winning_org_id and blackListIds.include?(tender.winning_org_id)
         #risky tender!
         corruptionFlag = TenderCorruptionFlag.new
         corruptionFlag.corruption_indicator_id = indicator.id
@@ -1175,11 +1176,7 @@ module ScraperFile
   end
 
   def self.generateCompetitorData()
-
-    #puts "begin cpv output"
     orgs = {}
-    #nodeID = 0
-    #edgeID = 0
     Tender.find_each do |tender|
       ids = []
       winning_org_id = tender.winning_org_id
@@ -1187,7 +1184,6 @@ module ScraperFile
         tender.bidders.each do |bidder|
           ids.push(bidder.organization_id)
         end
-        puts "Processing tender: " + tender.id.to_s
         if not orgs[winning_org_id]
           nodeID+=1
           newOrg = Organization.find(winning_org_id)
@@ -1209,25 +1205,6 @@ module ScraperFile
         end#for all orgs
       end
     end#for all tenders
-    
-
-=begin    File.open("nodes.csv", "w+") do |nf|
-      nf.write("Id,Label\n")
-      File.open("edges.csv", "w+") do |ef|
-        ef.write("Source,Target,Type,Id,Label,Weight\n")
-        orgs.each do |id,data|
-          name = data[0].name
-          id = data[1]
-          nf.write(id.to_s+","+name+"\n")
-          data[2].each do |competitorID, value|
-            edgeID+=1
-            ef.write( competitorID.to_s+","+id.to_s+",Undirected,"+edgeID.to_s+","+","+value.to_s+"\n")
-          end
-        end
-      end
-    end
-    puts "cpv saved"
-=end
   end
 
   def self.findCompetitors
@@ -1713,6 +1690,16 @@ module ScraperFile
     end
   end
 
+  def self.cleanOrgNames
+    Organization.all.each do |org|
+      rawName = org.name
+      org.name = self.cleanString(rawName)
+      if rawName != org.name
+        org.save
+      end
+    end
+  end
+
 
   def self.generateMetaData
     puts "setting up users"
@@ -1794,7 +1781,7 @@ module ScraperFile
     #puts "storing tender results"
     #tenderList = Tender.where("updated = true OR is_new = true")
     #self.storeTenderContractValues(tenderList)
-    AggregateHelper.addAllCPVStats
+    self.cleanOrgNames
   end
 
   def self.generateBulkTenderData
