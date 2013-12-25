@@ -1375,10 +1375,13 @@ module ScraperFile
         
         newItems = []
         if data
-          results.each do |result|
-            if not data["items"].include?(result.id)
-              #new item lets store it!
-              newItems.push(result.id)
+          s = (data["items"]).to_set
+          results.find_in_batches do |resultbatch|
+            resultbatch.each do |result|
+               if not s.include?(result.id)
+                 #new item lets store it!
+                 newItems.push(result.id)
+               end
             end
           end
         else
