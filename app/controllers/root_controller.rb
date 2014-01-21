@@ -218,7 +218,11 @@ class RootController < ApplicationController
     if not @selectedCpvGroup
       @selectedCpvGroup = 1
       @years = []
-      AggregateStatistic.all.each do |dbYear|
+      #AggregateStatistic.all.each do |dbYear|
+      # The non-availaibility of information regarding the year 2014 makes the graph not working.
+      # We're displaying information until 2013
+      stats= AggregateStatistic.where("year <= 2013")
+      stats.each do |dbYear|
         if dbYear.year > 0 
           @years.push(dbYear.year)
         end

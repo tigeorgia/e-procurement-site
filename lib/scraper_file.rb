@@ -23,26 +23,26 @@ module ScraperFile
 
   def self.cleanOldData(mode)
     if mode == 0
-      puts "cleaning tender data"
+      Rails.logger.info "cleaning tender data"
       oldTenders = Tender.where(:dataset_id => @newDataset)
       oldTenders.find_each do |tender|
         tender.dataset_id = @liveDataset
         tender.save
       end
-      puts "cleaning org data"
+      Rails.logger.info "cleaning org data"
       oldOrgs = Organization.where(:dataset_id => @newDataset)
       oldOrgs.find_each do |org|
         org.dataset_id = @liveDataset
         org.save
       end
     elsif mode == 1
-      puts "removing incomplete tender data"
+      Rails.logger.warn "removing incomplete tender data"
       Tender.where(:dataset_id => @newDataset).destroy_all
-      puts "removing incomplete org data"
+      Rails.logger.warn "removing incomplete org data"
       Organization.where(:dataset_id => @newDataset).destroy_all
     end
 
-    puts "removing update flags"
+    Rails.logger.info "removing update flags"
     #remove updated/new flags
     tenders = Tender.where("updated = true OR is_new = true")
     tenders.each do |tender|
@@ -984,20 +984,20 @@ module ScraperFile
     
     #puts "holiday"
     self.identifyHolidayPeriodTenders(holidayIndicator)   
-    puts "competition"
+    Rails.logger.info "competition"
     self.competitionAssessment(compeitionIndicator)
-    puts "bidding"
+    Rails.logger.info "bidding"
     self.biddingWarAssessment(biddingIndicator)
-    puts "risky codes"
+    Rails.logger.info "risky codes"
     self.identifyRiskyCPVCodes(cpvRiskIndicator)
     #puts "Major players"
     #self.majorPlayerCompetitionAssessment(majorPlayerIndicator)
-    puts "amendment"
+    Rails.logger.info "amendment"
     self.contractAmendmentAssessment(contractAmendmentIndicator)
-    puts "black list"
+    Rails.logger.info "black list"
     self.blacklistSupplierAssessment(blackListedSupplierIndicatior)
 
-    puts "storing risk indicators on tenders"
+    Rails.logger.info "storing risk indicators on tenders"
     self.addRiskIndicatorsToTenders
   end
 
@@ -1433,8 +1433,10 @@ module ScraperFile
               writeFile = procurers
             end
             
-            results.each do |result|
-              ids.push(result.id)
+            results.find_in_batches do |resultbatch|
+              resultbatch.each do |result|
+                ids.push(result.id)
+              end
             end
           
             searchJson = {"id" => search.id, "items" => ids}
@@ -1587,24 +1589,24 @@ module ScraperFile
       end
     end
     #parse orgs first so that other objects can sort out relationships
-    puts "processing Orgs"
+    Rails.logger.info "processing Orgs"
     self.processOrganizations
-    puts "processing tenders"  
+    Rails.logger.info "processing tenders"  
     self.processTenders
-    puts "processing bidders"
+    Rails.logger.info "processing bidders"
     self.processBidders
-    puts "processing agreements"
+    Rails.logger.info "processing agreements"
     self.processAgreements
-    puts "processing docs"
+    Rails.logger.info "processing docs"
     self.processDocuments
-    puts "processing sub cpv codes"
+    Rails.logger.info "processing sub cpv codes"
     self.addSubCPVCodes
     
-    puts "processing white list"
+    Rails.logger.info "processing white list"
     self.processWhiteList
-    puts "processing black list"
+    Rails.logger.info "processing black list"
     self.processBlackList
-    puts "process complaints"    
+    Rails.logger.info "process complaints"    
     self.processComplaints
   end
 
@@ -1616,7 +1618,7 @@ module ScraperFile
     agreements.each do |agreement|
       bidObject = Bidder.where(:organization_id => agreement.organization_id, :tender_id => agreement.tender_id).first
       if bidObject
-        puts "fixing #{agreement.tender_id}"
+        Rails.logger.info "fixing #{agreement.tender_id}"
         agreement.amount = bidObject.last_bid_amount
         agreement.save
       end
@@ -1705,18 +1707,18 @@ module ScraperFile
 
 
   def self.generateMetaData
-    puts "setting up users"
+    Rails.logger.info "setting up users"
     self.createUsers
 
     self.storeTenderMeta
-    puts "generating aggregate data"
+    Rails.logger.info "generating aggregate data"
     self.processAggregateData
-    puts "storing org meta"
+    Rails.logger.info "storing org meta"
     self.storeOrgMeta
 
-    puts "finding competitors"
+    Rails.logger.info "finding competitors"
     self.findCompetitors
-    puts "finding corruption"
+    Rails.logger.info "finding corruption"
     self.generateRiskFactors
 
     #self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
@@ -1752,21 +1754,24 @@ module ScraperFile
     #anything left with a dataset_id the same as newDataset mustn't have been processed fully
     self.cleanOldData(1)
 
-    puts "storing update time"
+    Rails.logger.info "storing update time"
     self.storeUpdateTime
 
-    puts "processing json"
+    Rails.logger.info "processing json"
     self.process
-    puts "diffing"
+    Rails.logger.info "diffing"
     self.diffData
-    puts "storing tender results"
+    Rails.logger.info "storing tender results"
     tenderList = Tender.where("updated = true OR is_new = true")
     self.storeTenderContractValues(tenderList)
     self.fixAgreements
     self.generateMetaData
 
-    puts "creating list of live tenders"
+    Rails.logger.info "creating list of live tenders"
     self.createLiveTenderList
+    
+    Rails.logger.info "processScrape - Done."
+    
   end
 
   #function hooked up to the rake task testProcess

@@ -45,7 +45,7 @@ set :scm, "git"
 set :branch, "master"
 set :repository, "git://github.com/tigeorgia/e-procurement-site.git"
 default_run_options[:pty] = true
-set :scm_username, "ChrisTIGeorgia"
+set :scm_username, "EtienneBaque"
 set :user, "tigeorgia"
 set :use_sudo, false
 
