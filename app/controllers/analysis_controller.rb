@@ -9,18 +9,13 @@ layout "full-screen"
   def index
     @years = []
 
-    #stats = AggregateStatistic.all.each
-    # The non-availaibility of information regarding the year 2014 makes the graph not working.
-    # We're displaying information until 2013
-    stats= AggregateStatistic.where("year <= 2013")
-    stats.each do |dbYear|
+    AggregateStatistic.all.each do |dbYear|
       if dbYear.year > 0 
         @years.push(dbYear.year)
       end
     end
     count = @years.count
     @selectedYear = @years[-1]
-    #@selectedYear = 2013
     @defaultAction = "cpv_revenue"
   end
 
