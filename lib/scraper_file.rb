@@ -1659,9 +1659,28 @@ module ScraperFile
       #now go through each object and print out the column values
       Tender.find_each do |tender|
         values = []
+
+        additionalInfo = Agreement.select("organization_id, amount").where(:tender_id => tender.id, :amendment_number => 0 ).first
+        if additionalInfo && additionalInfo[:organization_id]
+          thisOrg = Organization.select("name").where(:id => additionalInfo[:organization_id]).first
+          additionalInfo[:supplier_name] = thisOrg.name
+        end
+
         tender.attributes.each do |attribute|
           if not ignores.include?(attribute[0])
-            values.push(attribute[1])
+            if additionalInfo
+              if (attribute[0] == "contract_value")
+                values.push(additionalInfo[:amount].to_i)
+              elsif (attribute[0] == "winning_org_id")
+                values.push(additionalInfo[:organization_id])
+              elsif (attribute[0] == "supplier_name")
+                values.push(additionalInfo[:supplier_name])
+              else
+                values.push(attribute[1])
+              end
+            else
+              values.push(attribute[1])
+            end
           end
         end
         
