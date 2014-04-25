@@ -13,7 +13,7 @@ class TendersController < ApplicationController
     @tendersInfo = {}
     @tenders.each do |tender|
       agreementInfo = { :tenderActualValue => nil, :winningOrgName => nil, :winningOrgId => 0 }
-      if tender.agreements
+      if tender.agreements && tender.agreements.length > 0
         agreementInfo[:tenderActualValue] = tender.agreements.first.amount
         winningOrgId = tender.agreements.first.organization_id
         if winningOrgId

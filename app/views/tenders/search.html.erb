@@ -57,7 +57,7 @@
             <td <%=highlightClass%>><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
             <td <%=highlightClass%>><%= link_to tender.procurer_name, :controller => "organizations", :action => "show_procurer", :id => tender.procurring_entity_id %></td>
 
-            <% if @tendersInfo[tender.id][:winningOrgName] %>
+            <% if @tendersInfo[tender.id] && @tendersInfo[tender.id][:winningOrgName] %>
               <td <%=highlightClass%>><%= link_to @tendersInfo[tender.id][:winningOrgName], :controller => "organizations", :action => "show", :id => @tendersInfo[tender.id][:winningOrgId] %></td>
             <% else %>
               <td <%=highlightClass%>>N/A</td>
@@ -67,7 +67,7 @@
             <td <%=highlightClass%>><%= t(tender.tender_type.strip()) %></td>
             <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
             <td <%=highlightClass%>><%= tender.estimated_value %></td>
-            <td <%=highlightClass%>><% if @tendersInfo[tender.id][:tenderActualValue] %><%= @tendersInfo[tender.id][:tenderActualValue] %><%else%>N/A<%end%></td>
+            <td <%=highlightClass%>><% if @tendersInfo[tender.id] && @tendersInfo[tender.id][:tenderActualValue] %><%= @tendersInfo[tender.id][:tenderActualValue] %><%else%>N/A<%end%></td>
             <td <%=highlightClass%>><%= tender.num_bidders %></td>
           </tr>
         <% end %>
