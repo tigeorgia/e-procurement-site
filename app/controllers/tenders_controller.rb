@@ -10,6 +10,21 @@ class TendersController < ApplicationController
     @numResults = fullResult.count
     @tenders = fullResult.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
+    @tendersInfo = {}
+    @tenders.each do |tender|
+      agreementInfo = { :tenderActualValue => nil, :winningOrgName => nil, :winningOrgId => 0 }
+      if tender.agreements
+        agreementInfo[:tenderActualValue] = tender.agreements.first.amount
+        winningOrgId = tender.agreements.first.organization_id
+        if winningOrgId
+          winningOrgNameObj = Organization.select("name").where(:id => winningOrgId).first
+          agreementInfo[:winningOrgName] = winningOrgNameObj[:name]
+          agreementInfo[:winningOrgId] = winningOrgId
+        end
+        @tendersInfo[tender.id] = agreementInfo
+      end
+    end
+
     @sort = params[:sort]
     @direction = params[:direction]
 
