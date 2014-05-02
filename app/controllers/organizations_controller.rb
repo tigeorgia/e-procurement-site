@@ -14,7 +14,6 @@ class OrganizationsController < ApplicationController
       @suppliers = Organization.where("is_bidder = true AND name LIKE ?", "%#{params[:term]}%")
     end
  
-    puts "WTTF"
     render :json => @suppliers.map(&:name)
   end
 
@@ -24,7 +23,6 @@ class OrganizationsController < ApplicationController
       @procurers = Organization.where("is_procurer = true AND name LIKE ?", "%#{params[:term]}%")
     end
 
-    puts "WWTF"
     render :json => @procurers.map(&:name)
   end
 
@@ -295,7 +293,7 @@ class OrganizationsController < ApplicationController
       localeStr = "en"
     end
     if @organization.country == "საქართველო"
-      @corpsearchurl = "http://corpsearch.tigeorgia.webfactional.com/"+localeStr+"/corporations/search/?id_code="+@organization.code.to_s
+      @corpsearchurl = "http://www.companyinfo.ge/"+localeStr+"/corporations/"+@organization.code.to_s
     else
       @corpsearchurl = "http://opencorporates.com/companies?utf8=%E2%9C%93&q="+@organization.code.to_s+"&commit=Go"
     end
@@ -328,9 +326,16 @@ class OrganizationsController < ApplicationController
     
     tendersWon = {}
     tenderList = Tender.where(:winning_org_id => id)
+
     tenderList.each do |tender|
       tendersWon[tender.id] = [tender.contract_value,tender]
     end
+
+    #tenderList = Agreement.select(:tender_id :amount).where(:organization_id => id, :amendment_number => 0 )
+
+    # tenderList.each do |tender|
+      # tendersWon[tender.tender_id] = [tender.amount,tender.tender_id]
+    # end
 
     createTreeGraph(tenderList)
 
