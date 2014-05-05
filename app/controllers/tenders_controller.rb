@@ -68,7 +68,7 @@ class TendersController < ApplicationController
       end
     end
 
-    @complaints = Complaint.where(:tender_id => @tender.id)
+    @complaints = Complaint.where(:tender_id => @tender.id, :organization_id => !nil)
     @minorCPVCategories = []
     if @tender.sub_codes
       cpvCodes = @tender.sub_codes.split("#")
