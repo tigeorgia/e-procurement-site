@@ -1,9 +1,10 @@
 GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
-  revision: 494f752b8eb8350f33841c822a67d014c869219f
+  revision: 477e49a649c8d862988298bc96a93e030d023e0e
   specs:
-    jquery-datatables-rails (1.11.2)
+    jquery-datatables-rails (1.12.2)
       jquery-rails
+      sass-rails
 
 GIT
   remote: git://github.com/wr0ngway/graylog2_exceptions.git
@@ -14,13 +15,13 @@ GIT
 
 GIT
   remote: https://github.com/davidray/nested_form.git
-  revision: c97d280b75af661eb36279c04e420fb8098ad60d
+  revision: bdafaba93f2d4d101011acfc39edef2b25afe448
   specs:
-    nested_form (0.1.1)
+    nested_form (0.3.2)
 
 GIT
   remote: https://github.com/jilion/useragent.git
-  revision: 9fd0f887527850994c543caa7cf5327bd635dc02
+  revision: 742f29d8643f378773a933b3c0a37ce1bc52a7aa
   specs:
     useragent (0.2.3)
 
@@ -55,22 +56,27 @@ GEM
       activesupport (= 3.1.3)
     activesupport (3.1.3)
       multi_json (~> 1.0)
+    amazon-ec2 (0.9.17)
+      xml-simple (>= 1.0.12)
     arel (2.2.3)
-    bcrypt-ruby (3.0.1)
-    bootstrap-datepicker-rails (1.1.0.1)
+    aws-s3 (0.6.3)
+      builder
+      mime-types
+      xml-simple
+    bcrypt (3.1.7)
+    bcrypt-ruby (3.1.5)
+      bcrypt (>= 3.1.3)
+    bootstrap-datepicker-rails (1.3.0.2)
       railties (>= 3.0)
     builder (3.0.4)
     cancan (1.6.10)
-    capistrano (2.15.4)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
-    clamp (0.6.1)
+    capistrano (3.2.1)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (~> 1.3)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.1)
+    cocaine (0.5.4)
       climate_control (>= 0.0.3, < 1.0)
     coffee-rails (3.1.1)
       coffee-script (>= 2.2.0)
@@ -78,9 +84,9 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.2)
-    commonjs (0.2.6)
-    daemon_controller (1.1.4)
+    coffee-script-source (1.7.0)
+    commonjs (0.2.7)
+    daemon_controller (1.2.0)
     devise (2.0.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -88,26 +94,14 @@ GEM
       warden (~> 1.1.1)
     dynamic_form (1.1.4)
     erubis (2.7.0)
-    exception_notification (3.0.1)
+    exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
-    excon (0.25.3)
-    execjs (1.4.0)
-      multi_json (~> 1.0)
-    fog (1.14.0)
-      builder
-      excon (~> 0.25.0)
-      formatador (~> 0.2.0)
-      mime-types
-      multi_json (~> 1.0)
-      net-scp (~> 1.1)
-      net-ssh (>= 2.1.3)
-      nokogiri (~> 1.5)
-      ruby-hmac
-    formatador (0.2.4)
+      activesupport (>= 3.0.4)
+    execjs (2.0.2)
     formtastic (2.2.1)
       actionpack (>= 3.0)
-    formtastic-bootstrap (2.1.3)
-      formtastic (~> 2.2)
+    formtastic-bootstrap (3.0.0)
+      formtastic (>= 2.2)
     gelf (1.4.0)
       json
     globalize3 (0.2.0)
@@ -118,66 +112,61 @@ GEM
       gelf
       resque
     has_permalink (0.1.6)
-    highline (1.6.19)
     hike (1.2.3)
-    i18n (0.6.4)
+    httpclient (2.3.4.1)
+    i18n (0.6.9)
     i18n-js (2.1.2)
       i18n
-    jquery-rails (3.0.1)
+    jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (4.0.3)
-      jquery-rails
+    jquery-ui-rails (4.1.2)
       railties (>= 3.1.0)
-    json (1.8.0)
-    less (2.2.2)
-      commonjs (~> 0.2.6)
-    less-rails (2.2.3)
+    json (1.8.1)
+    less (2.5.0)
+      commonjs (~> 0.2.7)
+    less-rails (2.5.0)
       actionpack (>= 3.1)
-      less (~> 2.2.0)
-    libv8 (3.3.10.4)
+      less (~> 2.5.0)
+    libv8 (3.16.14.3)
     mail (2.3.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.23)
-    mini_portile (0.5.1)
+    mime-types (1.25.1)
     mono_logger (1.1.0)
-    multi_json (1.7.7)
-    mysql2 (0.3.15)
-    net-scp (1.1.1)
+    multi_json (1.10.0)
+    mumboe-soap4r (1.5.8.7)
+      httpclient (>= 2.1.1)
+    mysql2 (0.3.16)
+    net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-sftp (2.1.2)
-      net-ssh (>= 2.6.5)
-    net-ssh (2.6.7)
-    net-ssh-gateway (1.2.0)
-      net-ssh (>= 2.6.5)
-    nokogiri (1.6.0)
-      mini_portile (~> 0.5.0)
-    open4 (1.3.0)
+    net-ssh (2.9.1)
+    nettica (0.4.0)
+      mumboe-soap4r
+    open4 (1.3.4)
     orm_adapter (0.0.7)
     paper_trail (2.7.2)
       activerecord (~> 3.0)
       railties (~> 3.0)
-    paperclip (3.4.2)
+    paperclip (4.1.1)
       activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
-      cocaine (~> 0.5.0)
+      cocaine (~> 0.5.3)
       mime-types
-    passenger (4.0.5)
-      daemon_controller (>= 1.1.0)
+    passenger (4.0.42)
+      daemon_controller (>= 1.2.0)
       rack
       rake (>= 0.8.1)
-    polyglot (0.3.3)
+    polyglot (0.3.4)
     rack (1.3.10)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
-    rack-protection (1.5.0)
+    rack-protection (1.5.3)
       rack
-    rack-ssl (1.3.3)
+    rack-ssl (1.3.4)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -189,8 +178,8 @@ GEM
       activesupport (= 3.1.3)
       bundler (~> 1.0)
       railties (= 3.1.3)
-    rails3-jquery-autocomplete (1.0.11)
-      rails (~> 3.0)
+    rails3-jquery-autocomplete (1.0.14)
+      rails (>= 3.0)
     railties (3.1.3)
       actionpack (= 3.1.3)
       activesupport (= 3.1.3)
@@ -201,27 +190,24 @@ GEM
     rake (10.2.2)
     rdoc (3.12.2)
       json (~> 1.4)
-    redis (3.0.4)
-    redis-namespace (1.3.1)
-      redis (~> 3.0.0)
-    resque (1.24.1)
+    redis (3.0.7)
+    redis-namespace (1.4.1)
+      redis (~> 3.0.4)
+    ref (1.0.5)
+    resque (1.25.2)
       mono_logger (~> 1.0)
       multi_json (~> 1.0)
-      redis-namespace (~> 1.2)
+      redis-namespace (~> 1.3)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
-    rubber (2.5.3)
-      capistrano (~> 2.12)
-      clamp
-      fog (~> 1.6)
-      json
-      net-ssh (~> 2.6)
-      open4
-      thor
-    ruby-hmac (0.4.0)
-    rvm-capistrano (1.3.1)
-      capistrano (>= 2.0.0)
-    sass (3.2.9)
+    rubber (1.15.0)
+      amazon-ec2 (>= 0.9.17)
+      aws-s3
+      capistrano (>= 2.4.0)
+      nettica
+    rvm-capistrano (1.5.0)
+      capistrano (>= 2.15.4)
+    sass (3.3.7)
     sass-rails (3.1.4)
       actionpack (~> 3.1.0)
       railties (~> 3.1.0)
@@ -236,26 +222,35 @@ GEM
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    therubyracer (0.10.2)
-      libv8 (~> 3.3.10)
+    sshkit (1.4.0)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
+      term-ansicolor
+    term-ansicolor (1.3.0)
+      tins (~> 1.0)
+    therubyracer (0.12.1)
+      libv8 (~> 3.16.14.0)
+      ref
     thor (0.14.6)
     tilt (1.3.7)
-    treetop (1.4.14)
+    tins (1.3.0)
+    treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
     twitter-bootstrap-rails (2.1.9)
       actionpack (>= 3.1)
       execjs
       railties (>= 3.1)
-    tzinfo (0.3.37)
-    uglifier (2.1.1)
+    tzinfo (0.3.39)
+    uglifier (2.5.0)
       execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
+      json (>= 1.8.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.1.1)
       rack (>= 1.0)
-    will_paginate (3.0.4)
+    will_paginate (3.0.5)
+    xml-simple (1.1.3)
 
 PLATFORMS
   ruby
