@@ -8,7 +8,7 @@ source 'http://rubygems.org'
 gem 'bundler', '~>1.3.5'
 gem "rails", "3.1.3"
 gem "mysql2"
-gem "rake", "10.2.2"
+gem "rake", "10.1.0"
 
 gem "json"
 gem 'jquery-rails', '>= 2.1'
