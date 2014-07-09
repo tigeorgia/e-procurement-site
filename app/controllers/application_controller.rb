@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 	require 'will_paginate/array'
   protect_from_forgery
 
-	before_filter :set_locale
+	before_filter :set_locale, :getLastUpdateDate
 	before_filter :is_browser_supported?
 
 	unless Rails.application.config.consider_all_requests_local
@@ -33,6 +33,13 @@ class ApplicationController < ActionController::Base
 
   layout "standard"
 
+  def getLastUpdateDate
+    # Last update date, to be displayed in the nav bar.
+    dataset = Dataset.find(1)
+    fullUpdateTime = dataset.data_valid_from
+    @updateTimeText = fullUpdateTime.strftime("Last update: %m/%d/%Y")
+  end
+
 	def is_browser_supported?
 		user_agent = UserAgent.parse(request.user_agent)
 logger.debug "////////////////////////// BROWSER = #{user_agent}"
@@ -46,6 +53,9 @@ logger.debug "////////////////////////// BROWSER NOT SUPPORTED"
 logger.debug "////////////////////////// BROWSER TEST NOT REQUIRED"
 	end
 
+  def maintenance_mode
+    redirect_to '/maintenance'
+  end
 
 	def set_locale
     if params[:locale] and I18n.available_locales.include?(params[:locale].to_sym)

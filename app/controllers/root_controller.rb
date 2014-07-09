@@ -159,7 +159,6 @@ class RootController < ApplicationController
 
   def index
     dataset = Dataset.find(1)
-    @updateTime = dataset.data_valid_from
     @nextUpdate = dataset.next_update
     #buildOrganizationXmlStrings
     tenders = Tender.find(:all, :select =>'distinct tender_status')

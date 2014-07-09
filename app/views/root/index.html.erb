@@ -19,14 +19,11 @@
 
 <script>
 var chart1; // globally available
-updateUTC = new Date(<%=@updateTime.year%>,<%=@updateTime.month - 1%>,<%=@updateTime.day%>,<%=@updateTime.hour%>,<%=@updateTime.min%>)
 
 $(document).ready(function() {
      $.ajax({url: "<%= url_for :action => 'cpvVsProcurer'%>",
       data: "year="+$(".cpv-procurer-year")[0].value+"&cpvGroup="+$(".cpv-procurer-group")[0].value,
       dataType: "script"})
-
-    $("div.currentUpdateBox").html(updateUTC.toLocaleString())
 
     $(".cpv-company-revenue").change( function() {
       $.ajax({url: "<%= url_for :action => 'cpvVsCompany'%>",
@@ -53,11 +50,6 @@ $(document).ready(function() {
 
 
 </script>
-
-<div class="updateDiv">
-   <div class="update-icon"><img src="/assets/last-update.png"/><span><%=t("data_update_description")%></span></div>
-   <div class="currentUpdateBox"></div>
-</div>
 
 <%= button_to "Download All Tender Data", {:controller => "tender", :action => "download_all"}, :class => "submit-button" %>
 

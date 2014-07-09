@@ -537,15 +537,27 @@ div.up {
   text-color: white!important;
 }
 
+.medium-textfield{
+  width: 200px;
+}
+
 .large-textfield{
   width: 300px;
 }
 
 .nav-item {
-  font-size: 21px;
+  font-size: 20px;
   display: inline-block;
   *display: inline;
   *zoom: 1;
+}
+
+.span2-nav {
+  width: 165px !important;
+}
+
+.span3-nav {
+  width: 188px !important;
 }
 
 .right-align {
@@ -781,6 +793,35 @@ li.maintext{
   padding: 6px 2px 0px 0px;
 }
 
+.updateDivNav{
+  float: left;
+  height: 50px;
+  vertical-align: middle;
+}
+
+.update-icon-nav{
+  height: 25px;
+  width: 25px;
+  float: left;
+  padding: 6px 2px;
+}
+
+.nav-item-update {
+  font-size: 16px;
+  display: inline-block;
+  *display: inline;
+}
+
+.span3-nav a:hover {
+  text-decoration: none;
+}
+
+.currentUpdateBoxNav{
+  padding: 0px 0px 4px 0px;
+  font-size: 16px;
+  float: left;
+}
+
 .update-icon{
   height: 25px;
   width: 25px;
@@ -789,6 +830,8 @@ li.maintext{
   z-index: 999;
   position: relative;
 }
+
+
 
 .update-icon:hover {
     cursor: help;

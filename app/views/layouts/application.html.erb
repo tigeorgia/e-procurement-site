@@ -79,16 +79,16 @@
     <div class="navigation-menu">
       <div class="container">
         <div class="row-fluid parent-block"> 
-          <div class="span2">
+          <div class="span2-nav span2">
             <%= link_to( t("Search Page"), root_path(:locale => I18n.locale),:class=>"nav-item") %>
           </div>
-          <div class="span3">
+          <div class="span2 span2-nav">
             <%= link_to( t("Annual Data"), {:controller => '/analysis', :action => "index"}, :class=>"nav-item") %>
           </div>
-          <div class="span2">
+          <div class="span2 span2-nav">
 						<%= link_to( t("About"), {:controller => '/root', :action => "about"}, :class=>"nav-item") %>
           </div>
-          <div class="span3 offset1">
+          <div class="span2 span2-nav">
             <% if user_signed_in? %>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle nav-item" data-toggle="dropdown" >
@@ -114,13 +114,21 @@
             <% end %>
           </div>
 
-          <div class="span1">
+          <div class="span2 span2-nav">
 	          <% I18n.available_locales.each do |locale| %>
 		          <% if locale != I18n.locale %>
 			          <%= link_to t("app.language.#{locale}"), params.merge(:locale => locale) %>
 		          <% end %>
 	          <% end %>
           </div>
+
+          <div class="span3 span3-nav">
+            <a class="nav-item-update">
+              <div class="update-icon-nav"><img src="/assets/last-update.png"/><span><%=t("data_update_description")%></span></div><%= @updateTimeText %>
+            </a>
+          </div>
+
+
         </div>
       </div>
     </div>
