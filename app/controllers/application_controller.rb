@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
     # Last update date, to be displayed in the nav bar.
     dataset = Dataset.find(1)
     fullUpdateTime = dataset.data_valid_from
-    @updateTimeText = fullUpdateTime.strftime("Last update: %d/%m/%Y")
+    @updateTimeText = fullUpdateTime.strftime("%d/%m/%Y")
   end
 
 	def is_browser_supported?
