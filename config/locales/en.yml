@@ -68,6 +68,7 @@ en:
 
   site_title: TENDER MONITOR
   Annual Data: Annual Data
+  Last update: Last update
   Tender Monitor: Tender Monitor
   Save To Profile: Save To Profile
   Remove From Profile: Remove From Profile
@@ -114,6 +115,7 @@ en:
   Download CSV: Download CSV
   Tender: Tender
   Supplier: Supplier
+  Supplier ID: Supplier ID
   Date: Date
   CPV: CPV
   Est Value: Est. Value
@@ -164,7 +166,9 @@ en:
   Number of Tenders: Number of Tenders
 
   supplier_description: The name of the company responding to the tender.
+  supplier_id_description: The ID of the company responding to the tender.
   procurer_description: The name of the government agency issuing the tender.
+  procurer_id_description: The ID of the government agency issuing the tender.
   status_description: The phase of procurement the tender is currently in.
   category_description: The type of goods or services being bought. By creating an account on this website, you will be able to create and use your own custom categories.
   risk_description:  Certain patterns can indicate that a tender has an elevated risk of corruption. For full details on how these indicators are calculated, please visit the About Us page.
