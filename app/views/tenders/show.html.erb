@@ -52,7 +52,7 @@
     <% highlightClass = 'class="bidwinner"'.html_safe %>
   <% end %>
   <dt <%=highlightClass%> > <%=t("Procuring Entity")%>:</dt>
-  <dd <%=highlightClass%> ><%= link_to @procurer, :controller => "organizations", :action => "show_procurer", :id => @tender.procurring_entity_id %></td>
+  <dd <%=highlightClass%> ><%= link_to @procurer, :controller => "organizations", :action => "show_procurer", :id => @tender.procurring_entity_id %></dd>
 
   <% highlightClass = "" %>
   <% if @highlights.include?('bid_start_date') %>
@@ -190,7 +190,7 @@
     <hr>
     <table class="table table-striped">
       <thead>
-        <h3><%=t("Complaints")%><h3>
+        <h3><%=t("Complaints")%></h3>
         <tr>
           <th><%=t("Status")%></th>
           <th><%=t("Complainant")%></th>
@@ -211,7 +211,7 @@
     <hr>
     <table class="table table-striped">
       <thead>
-        <h3><%=t("Documentation")%><h3>
+        <h3><%=t("Documentation")%></h3>
         <tr>
           <th><%=t("Title")%></th>
           <th><%=t("Author")%></th>

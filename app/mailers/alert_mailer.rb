@@ -134,20 +134,21 @@ class AlertMailer < ActionMailer::Base
           @tenderUpdates.push(tenderObject)
         end
       end
+
     end
-       
+
     mail(:to => user.email, :subject => t("digest_subject"))
   end
 
   def data_process_started()
-    mail(:to => "Chris@transparency.ge", :subject => "data process started")
+    mail(:to => "etienne.baque@transparency.ge", :subject => "data process started")
   end
 
   def data_process_finished()
-    mail(:to => "Chris@transparency.ge", :subject => "data process finished")
+    mail(:to => "etienne.baque@transparency.ge", :subject => "data process finished")
   end
 
   def meta_started()
-    mail(:to => "Chris@transparency.ge", :subject => "meta started")
+    mail(:to => "etienne.baque@transparency.ge", :subject => "meta started")
   end
 end
