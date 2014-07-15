@@ -1,6 +1,7 @@
 <% title t("Account Page") %>
 
 <h1><%=t("Account Page")%></h1>
+<h3><%= current_user.email %></h3>
 <div class="vertical-tabs" id="account-tabs">
   <ul>
     <li><a href="#tabs-1"><%=t("Custom CPV Categories")%></a></li>

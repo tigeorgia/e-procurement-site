@@ -722,7 +722,7 @@ div.active-button{
 
 .ui-state-active a{ cursor: pointer!important; }
 
-.ui-tabs-vertical { width: 100%; background: transparent; border: none; }
+.ui-tabs-vertical { width: 100%; background: transparent; border: none; padding-top: 10px;}
   .ui-tabs-vertical .ui-tabs-nav { float: left; width: 20%; }
   .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; }
   .ui-tabs-vertical .ui-tabs-nav li a { display:block; float:none; }
