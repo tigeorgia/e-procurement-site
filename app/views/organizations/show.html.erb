@@ -429,12 +429,12 @@ $(function () {
         <tr>
       <%end%>
         <td><%= link_to tender[:tenderCode], tender_path(tender[:id]) %></td> 
-        <% if tender[:status] == "won" %>
-          <td><font color="green"><strong><%=t("Won")%></strong></font></td>
-        <% elsif tender[:status] == "lost" %>
-          <td><font color="red"><%=t("Lost")%></font></td>
+        <% if tender[:status] == "Won" || tender[:status] == "Signed" %>
+          <td><font color="green"><strong><%=t(tender[:status])%></strong></font></td>
+        <% elsif tender[:status] == "No winner" || tender[:status] == "Fail" %>
+          <td><font color="red"><%=t(tender[:status])%></font></td>
         <% else %>
-          <td><font color="orange"><%=t("In Progress")%></font></td>
+          <td><font color="blue"><%=t(tender[:status])%></font></td>
         <% end %>
         <td><%= tender[:numBidders]%></td>
         <td><%= link_to tender[:procurerName], :controller => "organizations", :action => "show_procurer", :id => tender[:procurerID] %></td>

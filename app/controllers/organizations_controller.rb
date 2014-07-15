@@ -323,12 +323,21 @@ class OrganizationsController < ApplicationController
       description = TenderCpvClassifier.where(:cpv_code => key).first.description_english
       @topFiveCpvs.push( [description,value] )
     end 
-    
+
+    # We define here which tenders have been won by this organization
     tendersWon = {}
-    tenderList = Tender.where(:winning_org_id => id)
+    #tenderList = Tender.where(:winning_org_id => id)
+    org_agreements = Agreement.select([:tender_id, :amount]).where(:organization_id => id)
+    org_agreements_tender_id = []
+    agreement_amount_hash = {}
+    org_agreements.each do |agreement|
+      org_agreements_tender_id << agreement["tender_id"]
+      agreement_amount_hash[agreement["tender_id"]] = agreement["amount"]
+    end
+    tenderList = Tender.find(org_agreements_tender_id)
 
     tenderList.each do |tender|
-      tendersWon[tender.id] = [tender.contract_value,tender]
+      tendersWon[tender.id] = [agreement_amount_hash[tender.id],tender]
     end
 
     #tenderList = Agreement.select(:tender_id :amount).where(:organization_id => id, :amendment_number => 0 )
@@ -392,16 +401,29 @@ class OrganizationsController < ApplicationController
     #create a hash with tasty info
     allTenders.each do |tender|
       tenderDuration = (tender.bid_end_date - tender.bid_start_date).to_i
-      infoItem = { :id => tender.id, :tenderCode => tender.tender_registration_number, :numBidders => tender.bidders.count, :bidDuration => tenderDuration, :highest_bid => nil, :lowest_bid => nil, :numBids => nil, :start_amount => tender.estimated_value, :won => false, :procurerName => nil, :procurerID => tender.procurring_entity_id, :tenderAnnouncementDate => tender.tender_announcement_date, :contract_value => tender.contract_value, :highlight => false}
+      infoItem = { :id => tender.id, :tenderCode => tender.tender_registration_number, :numBidders => tender.bidders.count,
+                   :bidDuration => tenderDuration, :highest_bid => nil, :lowest_bid => nil, :numBids => nil, :start_amount => tender.estimated_value,
+                   :won => false, :procurerName => nil, :procurerID => tender.procurring_entity_id, :tenderAnnouncementDate => tender.tender_announcement_date,
+                   :contract_value => tender.contract_value, :highlight => false}
       infoItem[:procurerName] = Organization.find(tender.procurring_entity_id).name
+
+      tender_status_hash = {
+          "გამარჯვებული გამოვლენილია" => "Won",
+          "დასრულებულია უარყოფითი შედეგით" => "No winner",
+          "მიმდინარეობს ხელშეკრულების მომზადება" => "Prep contract",
+          "ტენდერი არ შედგა" => "Fail",
+          "ტენდერი გამოცხადებულია" => "Announced",
+          "ტენდერი შეწყვეტილია" => "Terminated",
+          "შერჩევა/შეფასება" => "Selection",
+          "წინადადებების მიღება დასრულებულია" => "Prop completed",
+          "წინადადებების მიღება დაწყებულია" => "Prop started",
+          "ხელშეკრულება დადებულია" => "Signed"
+      }
+
       if tendersWon[tender.id]
-        infoItem[:status] = "won"
-      elsif tender.inProgress
-        infoItem[:status] = "in progress"   
-        @numTendersInProgress += 1
+        infoItem[:status] = "Won"
       else
-        infoItem[:status] = "lost"
-        @numTendersLost += 1
+        infoItem[:status] = tender_status_hash[tender.tender_status]
       end
 
       if tendersToHighlight.include?(tender.id.to_s)
