@@ -14,6 +14,7 @@ $(function () {
           plotBackgroundColor: null,
           plotBorderWidth: null,
           plotShadow: false,
+          height: 250,
           // Edit chart spacing
           spacingBottom: 0,
           spacingTop: 0,
@@ -24,7 +25,7 @@ $(function () {
           backgroundColor: 'rgba(255,255,255,0)'
       },
       title: {
-          text: '<%=t("Tenders Won Vs Tenders Lost")%>'
+          text: '<%=t("Tenders won, lost, failed, and in progress")%>'
       },
       tooltip: {
           formatter: function() {
@@ -35,6 +36,7 @@ $(function () {
           pie: {
               allowPointSelect: true,
               cursor: 'pointer',
+              size: '80%',
               dataLabels: {
                   enabled: true,
                   color: '#000000',
@@ -48,7 +50,11 @@ $(function () {
       series: [{
           type: 'pie',
           name: '<%=t("Tenders Won/Lost")%>',
-          data: [ ['<%=t("Tenders Won")%>', <%= @numTendersWon %>],['<%=t("Tenders Lost")%>', <%= @numTendersLost %>],['<%=t("In Progress")%>', <%= @numTendersInProgress %>]]
+          data: [ ['<%=t("In Progress")%>', <%= @numTendersInProgress %>],
+                  ['<%=t("Lost")%>', <%= @numTendersLost %>],
+                  ['<%=t("Won")%>', <%= @numTendersWon %>],
+                  ['<%=t("Failed")%>', <%= @numTendersFail %>]
+                ]
       }]
     });
 
@@ -429,12 +435,18 @@ $(function () {
         <tr>
       <%end%>
         <td><%= link_to tender[:tenderCode], tender_path(tender[:id]) %></td> 
-        <% if tender[:status] == "Won" || tender[:status] == "Signed" %>
-          <td><font color="green"><strong><%=t(tender[:status])%></strong></font></td>
+        <% if tender[:status] == "Won" %>
+          <!-- 'Won' type of status -->
+          <td><span style="color:#67D450;"><strong><%=t(tender[:status])%></strong></span></td>
+        <% elsif tender[:status] == "Lost" %>
+          <!-- 'Lost' type of status -->
+          <td><span style="color:#434348;"><strong><%=t(tender[:status])%></strong></span></td>
         <% elsif tender[:status] == "No winner" || tender[:status] == "Fail" %>
-          <td><font color="red"><%=t(tender[:status])%></font></td>
+          <!-- 'Fail' type of status -->
+          <td><span style="color:#F07F1F;"><strong><%=t(tender[:status])%></strong></span></td>
         <% else %>
-          <td><font color="blue"><%=t(tender[:status])%></font></td>
+          <!-- 'In progress' type of status -->
+          <td><span style="color:#2C91F2;"><strong><%=t(tender[:status])%></strong></span></td>
         <% end %>
         <td><%= tender[:numBidders]%></td>
         <td><%= link_to tender[:procurerName], :controller => "organizations", :action => "show_procurer", :id => tender[:procurerID] %></td>

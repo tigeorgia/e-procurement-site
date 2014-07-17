@@ -2,7 +2,7 @@
 class OrganizationsController < ApplicationController
 
   helper_method :sort_column, :sort_direction
-  include GraphHelper 
+  include GraphHelper
   include ApplicationHelper
   include QueryHelper
 
@@ -13,7 +13,7 @@ class OrganizationsController < ApplicationController
     if params[:term]
       @suppliers = Organization.where("is_bidder = true AND name LIKE ?", "%#{params[:term]}%")
     end
- 
+
     render :json => @suppliers.map(&:name)
   end
 
@@ -29,20 +29,20 @@ class OrganizationsController < ApplicationController
   def search
     @params = params
 
-    results, searchParams = QueryHelper.buildSupplierSearchQuery(params)   
+    results, searchParams = QueryHelper.buildSupplierSearchQuery(params)
     @numResults = results.count
     @organizations = results.paginate(:page => params[:page]).order(sort_column + ' ' + sort_direction)
 
-    @searchType = "supplier" 
+    @searchType = "supplier"
     checkSavedSearch(searchParams, @searchType)
     @sort = params[:sort]
     @direction = params[:direction]
     respond_to do |format|
       format.html
-      format.csv {   
+      format.csv {
         sendCSV(results, "organizations")
       }
-    end 
+    end
   end
 
   def sendCSV( results, name )
@@ -71,10 +71,10 @@ class OrganizationsController < ApplicationController
     checkSavedSearch(searchParams, @searchType)
     respond_to do |format|
       format.html
-      format.csv {        
+      format.csv {
         sendCSV(results, "procurers")
       }
-    end 
+    end
   end
 
   def show_procurer
@@ -126,7 +126,7 @@ class OrganizationsController < ApplicationController
       tender[:cpvDescription] = cpvDescription
       if tender.inProgress
        tender[:status] = "active"
-      elsif failedStatuses.include?(tender.tender_status)    
+      elsif failedStatuses.include?(tender.tender_status)
        tender[:status] = "failed"
       else
         tender[:status] = "success"
@@ -141,7 +141,7 @@ class OrganizationsController < ApplicationController
 
       if tendersToHighlight.include?(tender.id.to_s)
         tender[:highlight] = true
-      end  
+      end
     end
 
     tendersPerCpv = tendersPerCpv.sort { |a,b| b[1][1] <=> a[1][1]}
@@ -204,7 +204,7 @@ class OrganizationsController < ApplicationController
     else
       @averageTenderDurationSimple = -1
     end
-    if electronicCount > 0 
+    if electronicCount > 0
       @averageTenderDurationElectronic = @averageTenderDurationElectronic.to_f / electronicCount
     else
       @averageTenderDurationElectronic = -1
@@ -219,7 +219,7 @@ class OrganizationsController < ApplicationController
     end
     @costVsEstimateSaving = costString
   end
-                          
+
   def download_proc_tenders
     respond_to do |format|
       format.csv{
@@ -231,7 +231,7 @@ class OrganizationsController < ApplicationController
 
   def download_org_tenders
     respond_to do |format|
-      format.csv{   
+      format.csv{
         allBids = Bidder.find_all_by_organization_id(params[:id])
         tenders = []
         allBids.each do |bid|
@@ -243,7 +243,7 @@ class OrganizationsController < ApplicationController
       }
     end
   end
-  
+
 
   def show
     id = params[:id]
@@ -311,7 +311,7 @@ class OrganizationsController < ApplicationController
         tendersPerCpv[tender.cpv_code] = 1
       end
     end
-    
+
     tendersPerCpv = tendersPerCpv.sort { |a,b| b[1] <=> a[1]}
     @topFiveCpvs = []
     count = 0
@@ -322,7 +322,7 @@ class OrganizationsController < ApplicationController
       end
       description = TenderCpvClassifier.where(:cpv_code => key).first.description_english
       @topFiveCpvs.push( [description,value] )
-    end 
+    end
 
     # We define here which tenders have been won by this organization
     tendersWon = {}
@@ -350,7 +350,7 @@ class OrganizationsController < ApplicationController
 
     #find all competitors
     @competitors = []
-    org_competitors = Competitor.where("organization_id = ?",id) 
+    org_competitors = Competitor.where("organization_id = ?",id)
     org_competitors.each do | competitor |
       info = []
       info.push(Organization.find(competitor.rival_org_id))
@@ -358,10 +358,82 @@ class OrganizationsController < ApplicationController
       @competitors.push( info )
     end
 
-    @numTenders = allTenders.count
-    @numTendersWon = tendersWon.size
+
+    @tenderInfo = []
     @numTendersLost = 0
+    @numTendersFail = 0
     @numTendersInProgress = 0
+    #@numTendersWon = tendersWon.size
+    @numTendersWon = 0
+
+    # We're looping over the tenders, to define their status, as well as some stats.
+    allTenders.each do |tender|
+      tenderDuration = (tender.bid_end_date - tender.bid_start_date).to_i
+      #create a hash with tasty info
+      infoItem = { :id => tender.id, :tenderCode => tender.tender_registration_number, :numBidders => tender.bidders.count,
+                   :bidDuration => tenderDuration, :highest_bid => nil, :lowest_bid => nil, :numBids => nil, :start_amount => tender.estimated_value,
+                   :won => false, :procurerName => nil, :procurerID => tender.procurring_entity_id, :tenderAnnouncementDate => tender.tender_announcement_date,
+                   :contract_value => tender.contract_value, :highlight => false}
+      infoItem[:procurerName] = Organization.find(tender.procurring_entity_id).name
+
+      tender_status_hash = {
+          "გამარჯვებული გამოვლენილია" => "Won",
+          "დასრულებულია უარყოფითი შედეგით" => "No winner",
+          "მიმდინარეობს ხელშეკრულების მომზადება" => "Prep contract",
+          "ტენდერი არ შედგა" => "Fail",
+          "ტენდერი გამოცხადებულია" => "Announced",
+          "ტენდერი შეწყვეტილია" => "Terminated",
+          "შერჩევა/შეფასება" => "Selection",
+          "წინადადებების მიღება დასრულებულია" => "Prop completed",
+          "წინადადებების მიღება დაწყებულია" => "Prop started",
+          "ხელშეკრულება დადებულია" => "Signed"
+      }
+
+      if tendersWon[tender.id]
+        infoItem[:status] = "Won"
+      else
+        # if the tender status is 'Signed', we need to see if an agreement was concluded with another company. In which case, the tender is lost for this current company.
+        # Otherwise the status remains "Signed", until the agreement is concluded with the other company
+        if tender_status_hash[tender.tender_status] == 'Signed'
+          agreement_with_other_company = Agreement.select(:organization_id).where(:tender_id => tender.id)
+          if agreement_with_other_company
+            infoItem[:status] = 'Lost'
+          else
+            infoItem[:status] = 'Signed'
+          end
+        else
+          infoItem[:status] = tender_status_hash[tender.tender_status]
+        end
+      end
+
+      if infoItem[:status] == 'Won'
+        @numTendersWon += 1
+      elsif infoItem[:status] == 'Lost'
+        @numTendersLost += 1
+      elsif infoItem[:status] == 'Fail' || infoItem[:status] == 'No winner'
+        @numTendersFail += 1
+      else
+        @numTendersInProgress += 1
+      end
+
+      if tendersToHighlight.include?(tender.id.to_s)
+        infoItem[:highlight] = true
+      end
+
+      allBids.each do |bid|
+        if bid.tender_id == tender.id
+          infoItem[:highest_bid] = bid.first_bid_amount
+          infoItem[:lowest_bid] = bid.last_bid_amount
+          infoItem[:numBids] = bid.number_of_bids
+          break
+        end
+      end
+      @tenderInfo.push(infoItem)
+    end
+
+    # Stats about the different states of the tenders.
+    @numTenders = allTenders.count
+
     @WLR = @numTendersWon.to_f()/@numTenders.to_f()
     @totalValueOfAllContracts = 0
     @totalEstimatedValueOfContractsWon = 0
@@ -397,49 +469,7 @@ class OrganizationsController < ApplicationController
       @EstimatedVActual = (@totalValueOfAllContracts/@totalEstimatedValueOfContractsWon) * 100
     end
 
-    @tenderInfo = []
-    #create a hash with tasty info
-    allTenders.each do |tender|
-      tenderDuration = (tender.bid_end_date - tender.bid_start_date).to_i
-      infoItem = { :id => tender.id, :tenderCode => tender.tender_registration_number, :numBidders => tender.bidders.count,
-                   :bidDuration => tenderDuration, :highest_bid => nil, :lowest_bid => nil, :numBids => nil, :start_amount => tender.estimated_value,
-                   :won => false, :procurerName => nil, :procurerID => tender.procurring_entity_id, :tenderAnnouncementDate => tender.tender_announcement_date,
-                   :contract_value => tender.contract_value, :highlight => false}
-      infoItem[:procurerName] = Organization.find(tender.procurring_entity_id).name
 
-      tender_status_hash = {
-          "გამარჯვებული გამოვლენილია" => "Won",
-          "დასრულებულია უარყოფითი შედეგით" => "No winner",
-          "მიმდინარეობს ხელშეკრულების მომზადება" => "Prep contract",
-          "ტენდერი არ შედგა" => "Fail",
-          "ტენდერი გამოცხადებულია" => "Announced",
-          "ტენდერი შეწყვეტილია" => "Terminated",
-          "შერჩევა/შეფასება" => "Selection",
-          "წინადადებების მიღება დასრულებულია" => "Prop completed",
-          "წინადადებების მიღება დაწყებულია" => "Prop started",
-          "ხელშეკრულება დადებულია" => "Signed"
-      }
-
-      if tendersWon[tender.id]
-        infoItem[:status] = "Won"
-      else
-        infoItem[:status] = tender_status_hash[tender.tender_status]
-      end
-
-      if tendersToHighlight.include?(tender.id.to_s)
-        infoItem[:highlight] = true
-      end
-
-      allBids.each do |bid|
-        if bid.tender_id == tender.id
-          infoItem[:highest_bid] = bid.first_bid_amount
-          infoItem[:lowest_bid] = bid.last_bid_amount
-          infoItem[:numBids] = bid.number_of_bids
-          break
-        end
-      end
-      @tenderInfo.push(infoItem)
-    end
     @tenderInfo.sort! { |a,b| (a[:status] == "won" ? -1 : 1) }
     tendersWon = tendersWon.sort { |a,b| a[1][1].tender_announcement_date <=> b[1][1].tender_announcement_date }
 
@@ -471,7 +501,7 @@ class OrganizationsController < ApplicationController
   def createTreeGraph(tenders)
     cpvAgreements = {}
     tenders.each do |tender|
-      if tender.sub_codes   
+      if tender.sub_codes
         codes = tender.sub_codes.split("#")
         codes.each do |code|
           cpvCode = TenderCpvClassifier.where(:cpv_code => code).first

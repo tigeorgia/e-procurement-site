@@ -129,7 +129,6 @@ ka:
   Country: ქვეყანა
   Total Revenue: სრული შემოსავალი
   Tenders Bid On: სატენდერო შეთავაზებები
-  Tenders Won: მოგებული ტენდერები 
   Organization type: ორგანიზაციის ტიპი
   Total spent: სულ დახარჯული
   Tenders Issued: გამოქვეყნებული ტენდერები
@@ -189,8 +188,11 @@ ka:
   Date Submitted: წარდგენის თარიღი
   Bidding Duration: შეთავაზებათა ხანგრძლივობა
   Procurer Estimate: შემსყიდველის შეფასება
-  Tenders Won Vs Tenders Lost: მოგებული ტენდერები Vs წაგებული ტენდერები
-  Tenders Lost: წაგებული ტენდერები
+  Tenders won, lost, failed, and in progress: მოგებული, წაგებული, არშემდგარი და მიმდინარე ტენდერები
+  Lost: წაგებული
+  Won: მოგებული
+  Failed: არშემდგარი
+  In Progress: მიმდინარე
   Simple Electronic Tender Activity: გამარტივებული ელექტრონული ტენდერის აქტივობა
   Electronic Tender Activity: ელექტრონული ტენდერი აქტივობა
   Tenders Bid On: სატენდერო შეთავაზებები
