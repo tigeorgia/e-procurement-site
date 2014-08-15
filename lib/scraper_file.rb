@@ -161,7 +161,7 @@ module ScraperFile
                   #store changed fields in hash
                   hash = ""
                   differences.each do |difference|
-                    hash += difference[:field]+"/"+difference[:old]+"#"
+                    hash += difference[:field].to_s+"/"+difference[:old].to_s+"#"
                   end
                   watch_tenders.each do | watch | 
                     watch.diff_hash = hash
@@ -202,6 +202,96 @@ module ScraperFile
       end#transaction
     end#file
   end #processTenders
+
+  def self.testDifferences
+    tender_file_path = "#{Rails.root}/public/system/testdiff.json"
+
+    File.open("#{Rails.root}/public/system/scrapeInfo.txt", "r") do |info|
+      #time should be on first line
+      scrapeStartTime = info.gets
+      @scrapeTime = DateTime.parse(scrapeStartTime)
+    end
+
+    File.open(tender_file_path, "r") do |infile|
+      count = 0
+      while(line = infile.gets)
+        count = count + 1
+        item = JSON.parse(line)
+        tender = Tender.new
+        # basic tender info
+        tender.url_id = item["tenderID"]
+        #tender.dataset_id = @newDataset.id
+        tender.tender_type = self.cleanString(item["tenderType"])
+
+        tender.tender_registration_number = item["tenderRegistrationNumber"]
+        tender.tender_status = self.cleanString(item["tenderStatus"])
+        tender.tender_announcement_date = Date.parse(item["tenderAnnouncementDate"])
+        tender.bid_start_date = Date.parse(item["bidsStartDate"])
+        tender.bid_end_date = Date.parse(item["bidsEndDate"])
+        tender.estimated_value = item["estimatedValue"]
+        tender.cpv_code = item["cpvCode"].split("-")[0]
+        tender.addition_info = item["info"]
+        tender.units_to_supply = item["amountToSupply"]
+        tender.supply_period = item["supplyPeriod"]
+        tender.offer_step = item["offerStep"]
+        tender.guarantee_amount = item["guaranteeAmount"]
+        tender.guarantee_period = item["guaranteePeriod"]
+        tender.num_bids = 0
+        tender.num_bidders = 0
+
+        organization = Organization.where("organization_url = ?",item["procuringEntityUrl"]).first
+        if organization
+          tender.procurring_entity_id = organization.id
+          tender.procurer_name = organization.name
+        end
+
+        #is there an old tender with this url?
+        oldTender = nil
+
+        #look at previous scraped data and see if we have the same tender
+        oldTender = Tender.where(:url_id => tender.url_id,:dataset_id => 1).first
+        puts "old tender was last updated at #{oldTender.updated_at}"
+
+        if oldTender
+          #see if we should update this tender at all
+          if oldTender.updated_at < @scrapeTime
+            puts "old tender is old"
+            #ignore all meta data when comparing
+            ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
+                       "risk_indicators","procurer_name","supplier_name","sub_codes"]
+
+            differences = oldTender.findDifferences(tender,ignores)
+            if differences.length > 0
+              puts "there are differences! #{differences}"
+              #check for tender watches
+              watch_tenders = WatchTender.where(:tender_url => tender.url_id)
+              puts "watch tender count: #{watch_tenders.count}"
+              if watch_tenders.count > 0
+                #store changed fields in hash
+                hash = ""
+                differences.each do |difference|
+                  hash += difference[:field].to_s+"/"+difference[:old].to_s+"#"
+                end
+                watch_tenders.each do | watch |
+                  puts "diff_hash: #{hash}"
+                  watch.diff_hash = hash
+                  watch.has_updated = true
+                end
+              end
+            else
+              puts "there is no diff. That sucks"
+              puts "tender updated after this scrape will NOT update #{oldTender.url_id.to_s}"
+            end
+          else
+            puts "old tender is not old - no changes to tender: " + oldTender.url_id.to_s
+          end
+        else
+          tender.is_new = true
+          puts "(not) saving new tender: " + tender.url_id.to_s
+        end
+      end #while
+    end#file
+  end
 
   def self.processOrganizations
     org_file_path = "#{Rails.root}/public/system/#{FILE_ORGANISATIONS}"

@@ -55,4 +55,8 @@ namespace :procurement do
     ScraperFile.generateBulkTenderData
   end
 
+  task:test_diffences => :environment do
+    ScraperFile.testDifferences
+  end
+
 end
