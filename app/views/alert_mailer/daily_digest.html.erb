@@ -59,6 +59,18 @@
 <hr>
 <%end%>
 
+<%if @cpvUpdates.count > 0 %>
+    <h2><%=t("digest_cpv_header")%></h2>
+    <% @cpvUpdates.each do |key, value|%>
+        <%=t("digest_cpv_message")%> <strong><%= key %></strong>: <br /><br />
+        <% value.each do |tender| %>
+            <%= link_to tender[:spa],  {:host => "tendermonitor.ge",:port =>"", :controller => "tenders", :action => "show", :id => tender[:id], :highlight => true} %>
+            <br>
+        <% end %>
+    <%end%>
+    <hr>
+<%end%>
+
 <%if @supplierUpdates.count > 0 %>
   <h2><%=t("digest_supplier_header")%></h2>
   <%@supplierUpdates.each do |supplierUpdate|%>

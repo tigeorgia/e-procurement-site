@@ -5,4 +5,5 @@ class CpvGroup < ActiveRecord::Base
   attr_accessible :id,
       :user_id
       :name
+      :tender_cpv_classifiers
 end

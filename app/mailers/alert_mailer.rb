@@ -46,12 +46,13 @@ class AlertMailer < ActionMailer::Base
     @supplierUpdates = []
     @tenderUpdates = []
     @procurerUpdates = []
+    @cpvUpdates = {}
 
     
     if updates[:searches]
       @searchUpdates = updates[:searches]
     end
-    
+
     if updates[:supplierWatches]
       updates[:supplierWatches].each do |watch|
         supplier = Organization.where(:id => watch.supplier_id).first
@@ -134,7 +135,17 @@ class AlertMailer < ActionMailer::Base
           @tenderUpdates.push(tenderObject)
         end
       end
+    end
 
+    if updates[:cpvWatches]
+      updates[:cpvWatches].each do |cpvTender|
+        if !@cpvUpdates[cpvTender.cpv_code]
+          @cpvUpdates[cpvTender.cpv_code] = []
+        end
+
+        tenderObject = {:id => cpvTender.id, :spa => cpvTender.tender_registration_number}
+        @cpvUpdates[cpvTender.cpv_code].push(tenderObject)
+      end
     end
 
     mail(:to => user.email, :subject => t("digest_subject"))
