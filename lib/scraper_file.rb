@@ -1396,9 +1396,11 @@ module ScraperFile
     updates = []
     cpvgroups.each do |cpv_group|
       classifier = cpv_group.tender_cpv_classifiers.first
-      updated_tenders = Tender.where("(cpv_code = ? OR sub_codes like ?) AND (updated = ? OR is_new = ?)", classifier.cpv_code, "%#{classifier.cpv_code}%", true, true)
-      updated_tenders.each do |updated_tender|
-        updates.push(updated_tender)
+      if classifier
+        updated_tenders = Tender.where("(cpv_code = ? OR sub_codes like ?) AND (updated = ? OR is_new = ?)", classifier.cpv_code, "%#{classifier.cpv_code}%", true, true)
+        updated_tenders.each do |updated_tender|
+          updates.push(updated_tender)
+        end
       end
     end
     return updates
