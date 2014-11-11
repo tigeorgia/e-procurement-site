@@ -8,7 +8,7 @@ BootstrapStarter::Application.routes.draw do
 		match '/admin', :to => 'admin#index', :as => :admin, :via => :get
     match '/user', :to => 'user#index', :as => :user, :via => :get
   
-		 devise_for :users, :controllers => { :sessions => "users/sessions", :registrations => "users/registrations" }, :path_names => { :sign_up => "register" }
+		devise_for :users, :controllers => { :sessions => "users/sessions", :registrations => "users/registrations" }, :path_names => { :sign_up => "register" }
 
     namespace :admin do
       resources :users
@@ -37,7 +37,8 @@ BootstrapStarter::Application.routes.draw do
     match ':controller/:action'
     match '/build_user_data', :to => 'root#build_user_data', :as => :build_user_data, :via => :get
     match '/generate_cpv_codes', :to => 'root#generate_cpv_codes', :as => :generate_cpv_codes, :via => :get
-    match '/:locale' => 'root#index'		
+    match '/:locale' => 'root#index'
+    #match '/maintenance', :to => redirect('/maintenance.html')
     root :to => 'root#index'
 	  
 	end
