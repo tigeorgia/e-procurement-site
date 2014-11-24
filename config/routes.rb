@@ -16,6 +16,12 @@ BootstrapStarter::Application.routes.draw do
 
     resources :tenders
     resources :organizations
+    #resources :simplified_procurement
+
+    match '/simplified_procurement' => 'simplified_procurement#index'
+    match '/simplified_procurement/index' => 'simplified_procurement#index'
+    match '/simplified_procurement/search' => 'simplified_procurement#search'
+    match '/simplified_procurement/:id', :to => 'simplified_procurement#show', :as => :simplified_tender, :via => :get
 
     match '/organization/search_procurer' => 'organizations#search_procurer'
     match '/organization/search' => 'organizations#search'

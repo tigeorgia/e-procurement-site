@@ -157,7 +157,8 @@ module QueryHelper
     builtQuery = Organization.where( query, *paramsList )
     return builtQuery, searchParams
   end
-  
+
+
   def self.buildProcurerSearchParamsFromString(searchString)
     fields = searchString.split("#")
     params = {
@@ -330,6 +331,42 @@ module QueryHelper
       query+= (queryAddition and count > 0 )? ")":""
     end
     builtQuery = Tender.where( query, *paramsList )
+    return builtQuery
+ end
+
+  def self.buildSimplifiedProcurementSearchQuery(params)
+    registration_number = params['registration_number']
+    status = params['procurement_status']
+    supplier_name = params['supplier']
+    procurer_name = params['procurer']
+
+    supplier_ids = Organization.where("name LIKE '#{supplier_name}'").map(&:id)
+    procurer_ids = Organization.where("name LIKE '#{procurer_name}'").map(&:id)
+
+    query = ""
+    paramsList = []
+    if registration_number
+      registration_number = "%"+registration_number+"%"
+      query = QueryHelper.addParamToQuery(query, registration_number, "registration_number", "LIKE",paramsList)
+    end
+    if status
+      status = "%"+status+"%"
+      query = QueryHelper.addParamToQuery(query, status, "status", "LIKE",paramsList)
+    end
+    if supplier_name
+      query = QueryHelper.addParamToQuery(query, supplier_ids, "supplier_id", "IN",paramsList)
+    end
+
+    if procurer_name
+      query = QueryHelper.addParamToQuery(query, procurer_ids, "procuring_entity_id", "IN",paramsList)
+    end
+
+    if query
+      builtQuery = SimplifiedTender.where( query, *paramsList )
+    else
+      builtQuery = SimplifiedTender.where(query)
+    end
+
     return builtQuery
   end
 end

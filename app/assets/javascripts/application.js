@@ -11,5 +11,7 @@
 
 //= require_tree ./site
 
-
+jQuery( function($) {
+    $('a').tooltip();
+});
 

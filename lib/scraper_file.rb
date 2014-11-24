@@ -13,6 +13,7 @@ module ScraperFile
   FILE_BLACK_LIST = "blackList.json"
   FILE_COMPLAINTS = "complaints.json"
   FILE_SCRAPE_INFO = "scrapeInfo.txt"
+  FILE_SIMPLIFIED_PROCUREMENTS = "simplified_procurements.json"
   BOM = "\uFEFF" #Byte Order Mark
 
   require 'csv'
@@ -1912,20 +1913,155 @@ module ScraperFile
     @liveDataset = Dataset.find(1)
     @newDataset = Dataset.find(2)
     @numDatasets = Dataset.find(:all).count
-    #self.storePreScrapeSearchResultsToFile
-    #self.cleanOldData(1)
-    #puts "processing json"
-    #self.process
-    #puts "diffing"
-    #self.diffData
-    #puts "storing tender results"
-    #tenderList = Tender.where("updated = true OR is_new = true")
-    #self.storeTenderContractValues(tenderList)
     self.cleanOrgNames
   end
 
   def self.generateBulkTenderData
     self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
+  end
+
+  #
+  def self.importSimplifiedProcurement
+    simplified_procurement_file_path = "#{Rails.root}/public/system/#{FILE_SIMPLIFIED_PROCUREMENTS}"
+    File.open(simplified_procurement_file_path, "r") do |infile|
+      while(line = infile.gets)
+        # cleaning the line, if it has square brackets at the beginning/end of it.
+        line.gsub!("\n",'')
+
+        if line[0] == '['
+          line[0] = ''
+        end
+
+        if line[line.length-1] == ']'
+          line[line.length-1] = ''
+        end
+
+        if line[line.length-1] == ','
+          line[line.length-1] = ''
+        end
+
+        # this is one line in the file, one simplified procurement
+        tender_line = JSON.parse(line)
+        registration_number = tender_line['pCMR']
+
+        # testing its existance
+        simplified_tender = SimplifiedTender.where(registration_number: registration_number).first
+
+        if simplified_tender.nil?
+          # It's a new simplified tender, we need to create it.
+          puts "Adding '#{registration_number}'"
+
+          simplified_tender = SimplifiedTender.new
+          simplified_tender.registration_number = registration_number
+          simplified_tender.status = tender_line['pStatus']
+          simplified_tender.contract_value = tender_line['pValueContract']
+          simplified_tender.contract_value_date = Date.strptime(tender_line['pValueDate'], '%d.%m.%Y')
+          document_info = tender_line['pDocument']
+          simplified_tender.doc_start_date = Date.strptime(document_info[document_info.length-2],'%d.%m.%Y')
+          simplified_tender.doc_end_date = Date.strptime(document_info[document_info.length-1],'%d.%m.%Y')
+          simplified_tender.agreement_amount = tender_line['pAgreementAmount']
+          simplified_tender.agreement_done = tender_line['pAgreementDone']
+          simplified_tender.web_id = tender_line['pWebID']
+          simplified_tender.financing_source = "#{tender_line['pFinancingSource'][0]} (#{tender_line['pFinancingSource'][1]})"
+          simplified_tender.procurement_base = tender_line['pProcurementBase']
+
+          # Referencing supplier
+          supplier_info = tender_line['pSupplier']
+          supplier_code = supplier_info[1]
+          supplier = Organization.where(code: supplier_code).first
+          if supplier.nil?
+            # We're creating this new organization
+            puts "Creating supplier '#{supplier_code}' for simplified tender '#{registration_number}'"
+            supplier = Organization.new(code: supplier_code, name: supplier_info[0])
+            supplier.save
+          end
+          # we're referencing this supplier in simplified_tender table
+          simplified_tender.supplier_id = supplier.id
+
+          # Referencing procuring entity
+          procurer_info = tender_line['pProcuringEntities']
+          procurer_code = procurer_info[2]
+          procurer = Organization.where(code: procurer_code).first
+          if procurer.nil?
+            # We're creating this new organization
+            puts "Creating procurer '#{procurer_code}' for simplified tender '#{registration_number}'"
+            procurer = Organization.new(code: procurer_code, name: procurer_info[0])
+            procurer.save
+          end
+          # we're referencing this supplier in simplified_tender table
+          simplified_tender.procuring_entity_id = procurer.id
+
+          if simplified_tender.save
+
+            tender_id = simplified_tender.id
+
+            # We can now create the associated main CPVs.
+            cpv_info = tender_line['pCPVCodesMain']
+            cpv_info.each do |cpv|
+              cpv_split = cpv.split(' - ')
+              if cpv_split.length == 2
+                simplified_cpv = SimplifiedCpv.where(code: cpv_split[0], title: cpv_split[1], cpv_type: 'main').first
+                if simplified_cpv.nil?
+                  simplified_cpv = SimplifiedCpv.new(title: cpv_split[1], code: cpv_split[0], cpv_type: 'main')
+                  simplified_cpv.save
+                else
+                  simplified_cpv.update_attributes(title: cpv_split[1], code: cpv_split[0], cpv_type: 'main')
+                end
+                # We also make sure that the simplified tender and the cpv are linked
+                simplified_cpv.simplified_tenders << simplified_tender
+                simplified_cpv.save
+              end
+            end
+
+            # Same thing with the detailed CPVs.
+            cpv_info = tender_line['pCPVCodesDetailed']
+            cpv_info.each do |cpv|
+              cpv_split = cpv.split(' - ')
+              if cpv_split.length == 2
+                simplified_cpv = SimplifiedCpv.where(code: cpv_split[0], title: cpv_split[1], cpv_type: 'detailed').first
+                if simplified_cpv.nil?
+                  simplified_cpv = SimplifiedCpv.new(title: cpv_split[1], code: cpv_split[0], cpv_type: 'detailed')
+                  simplified_cpv.save
+                else
+                  simplified_cpv.update_attributes(title: cpv_split[1], code: cpv_split[0], cpv_type: 'detailed')
+                end
+                # We also make sure that the simplified tender and the cpv are linked
+                simplified_cpv.simplified_tenders << simplified_tender
+                simplified_cpv.save
+              end
+            end
+
+            # We also need to take care of paid amounts, and attachments.
+            paid_amounts = tender_line['pAmountPaid']
+            paid_amounts_date = tender_line['pAmountPaidDate']
+            paid_amounts.each_with_index do |amount, index|
+              amount_date = Date.strptime(paid_amounts_date[index], '%d.%m.%Y')
+              paid_amount = SimplifiedPaidAmount.where(amount_paid: amount, amount_date: amount_date, simplified_tender_id: tender_id).first
+              if paid_amount.nil?
+                paid_amount = SimplifiedPaidAmount.new(amount_paid: amount, amount_date: amount_date, simplified_tender_id: tender_id)
+                paid_amount.save
+              end
+            end
+
+            # We finally take care of attachments.
+            attachments = tender_line['pAttachments']
+            attachments.each do |attachment|
+              attachment_info = SimplifiedAttachment.where(simplified_tender_id: tender_id, url: attachment[0], title: attachment[1]).first
+              if attachment_info.nil?
+                attachment_info = SimplifiedAttachment.new(simplified_tender_id: tender_id, url: attachment[0], title: attachment[1])
+                attachment_info.save
+              end
+            end
+
+          else
+            # We failed to create this simplified tender
+            puts "ERROR: Simplified tender '#{registration_number}' failed to be saved.."
+          end
+        end
+
+      end
+    end
+    puts "All done."
   end
 
   def self.checkForDups

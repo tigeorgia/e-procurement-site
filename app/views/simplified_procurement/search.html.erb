@@ -1,0 +1,40 @@
+<script>
+    $(document).ready(function() {
+        displayArrows("<%=@sort%>","<%=@direction%>");
+    });
+</script>
+
+<div class="page-header">
+  <h1><%=t '.title', :default => t("simplified_procurements") %></h1>
+</div>
+
+<%= t("Number Of simplified procurements found")%>: <%= @num_results %>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th class="arrow header-20"><%= sortable(@params, "registration_number", t("registration_number")) %></th>
+    <th class="arrow"><%= sortable(@params, "status", t("procurement_status")) %></th>
+    <th class="arrow"><%= sortable(@params, "procurer", t("Procurer")) %></th>
+    <th class="arrow"><%= sortable(@params, "supplier", t("Supplier")) %></th>
+    <th class="arrow"><%= sortable(@params, "contract_value", t("contract_value")) %></th>
+    <th class="arrow"><%= sortable(@params, "agreement_value", t("agreement_value")) %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <%= page_navigation_links @procurements %>
+  <% @procurements.each do |procurement| %>
+      <% highlightClass = '' %>
+      <tr>
+        <td <%=highlightClass%>><%= link_to procurement.registration_number, procurement %></td>
+        <td <%=highlightClass%>><%= procurement.status %></td>
+        <td <%=highlightClass%>><%= !procurement.procuring_entity.nil? ? procurement.procuring_entity.name : '' %></td>
+        <td <%=highlightClass%>><%= !procurement.supplier.nil? ? procurement.supplier.name : '' %></td>
+        <td <%=highlightClass%>><%= procurement.contract_value %></td>
+        <td <%=highlightClass%>><%= procurement.agreement_amount %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= page_navigation_links @procurements %>
