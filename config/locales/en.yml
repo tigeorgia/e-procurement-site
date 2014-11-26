@@ -172,14 +172,16 @@ en:
   simplified_procurement: Simplified Procurement
   search_simplified_proc: Search simplified procurements
   registration_number: Registration number
-  registration_number_descr: <Enter description for this field>
+  registration_number_descr: The unique code assigned to each simplified procurement, by the Competition and State Procurement Agency.
   procurement_status: Procurement status
-  procurement_status_descr: <Enter description for this field>
+  procurement_status_descr: The current status of each simplified procurement.
   contract_value: Contract value
   agreement_value: Agreement value
   check_also_our: Check also our
   procurement_link_tooltip: Make sure you've logged in to https://tenders.procurement.gov.ge/ in another tab, before you click on this link.
-
+  ongoing: Ongoing
+  fulfilled: Fulfilled
+  not_fulfilled: Not fulfilled
   link_to_simplified_procurement: Link to Simplified Procurement
   procurement_status: Procurement status
   procuring_entity: Procuring entity
@@ -191,7 +193,8 @@ en:
   procurement_agreement: Agreement
   procurement_paid_amounts: Paid amounts
   procurement_cpv_code: CPV codes
-  procurement_attachments: Procurement attachements
+  procurement_attachments: Procurement attachments
+  number_simplified_procurements_found: "Number of simplified procurements found: %{number}"
 
 
 
