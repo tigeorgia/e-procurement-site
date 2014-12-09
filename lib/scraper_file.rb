@@ -1920,9 +1920,27 @@ module ScraperFile
     self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
   end
 
+  
+  # looping over all simplified procurement files in the folder
+  def self.importSimplifiedProcurementJsonFiles
+    
+    filesFolder = "#{Rails.root}/public/system"
+    
+    Dir.glob( "#{filesFolder}/*.json") do |fileName|
+      
+      self.simplifiedProcurementsFileName = fileName
+      
+      puts "Importing #{fileName}"
+      
+      self.importSimplifiedProcurement
+      
+    end
+    
+  end
+  
   # This method imports the simplified procurement (from a JSON file) into the MySQL tender monitor database.
   def self.importSimplifiedProcurement
-    simplified_procurement_file_path = "#{Rails.root}/public/system/#{FILE_SIMPLIFIED_PROCUREMENTS}"
+    simplified_procurement_file_path = "#{Rails.root}/public/system/#{self.simplifiedProcurementsFileName}"
     File.open(simplified_procurement_file_path, "r") do |infile|
       while(line = infile.gets)
         # cleaning the line, if it has square brackets at the beginning/end of it.
