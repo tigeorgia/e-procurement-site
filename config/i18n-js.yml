@@ -16,7 +16,7 @@
 # If you're running an old version, you can use something
 # like this:
 #
-#   translations:
-#     - file: "public/javascripts/translations.js"
-#       only: "*"
+#  translations:
+#    file: "public/javascripts/translations.js"
+#    only: "*"
 #
