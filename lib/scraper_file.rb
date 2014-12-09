@@ -1915,7 +1915,7 @@ module ScraperFile
 
     Dir.glob( "#{filesFolder}/*.json") do |fileName|
 
-      puts "Importing #{fileName}"
+      puts "\n\nImporting #{fileName}\n\n"
 
       self.importSimplifiedProcurement( fileName)
 
