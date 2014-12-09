@@ -1920,7 +1920,7 @@ module ScraperFile
     self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
   end
 
-  #
+  # This method imports the simplified procurement (from a JSON file) into the MySQL tender monitor database.
   def self.importSimplifiedProcurement
     simplified_procurement_file_path = "#{Rails.root}/public/system/#{FILE_SIMPLIFIED_PROCUREMENTS}"
     File.open(simplified_procurement_file_path, "r") do |infile|
@@ -1995,7 +1995,7 @@ module ScraperFile
 
             tender_id = simplified_tender.id
 
-            # We can now create the associated main CPVs.
+            # Once the simplified procurement is saved, we can now create the associated main CPVs.
             cpv_info = tender_line['pCPVCodesMain']
             cpv_info.each do |cpv|
               cpv_split = cpv.split(' - ')
@@ -2031,7 +2031,7 @@ module ScraperFile
               end
             end
 
-            # We also need to take care of paid amounts, and attachments.
+            # We also need to take care of paid amounts.
             paid_amounts = tender_line['pAmountPaid']
             paid_amounts_date = tender_line['pAmountPaidDate']
             paid_amounts.each_with_index do |amount, index|
@@ -2043,7 +2043,7 @@ module ScraperFile
               end
             end
 
-            # We finally take care of attachments.
+            # And we finally take care of attachments.
             attachments = tender_line['pAttachments']
             attachments.each do |attachment|
               attachment_info = SimplifiedAttachment.where(simplified_tender_id: tender_id, url: attachment[0], title: attachment[1]).first
@@ -2057,11 +2057,19 @@ module ScraperFile
             # We failed to create this simplified tender
             puts "ERROR: Simplified tender '#{registration_number}' failed to be saved.."
           end
+        else
+          # This simplified procurement already exists.
+          # The contract value and the status are the 2 elements that can be amended.
+          simplified_tender.status = tender_line['pStatus']
+          simplified_tender.contract_value = tender_line['pValueContract']
+          simplified_tender.contract_value_date = Date.strptime(tender_line['pValueDate'], '%d.%m.%Y')
+
+          simplified_tender.save
         end
 
       end
     end
-    puts "All done."
+    puts 'All done.'
   end
 
   def self.checkForDups
