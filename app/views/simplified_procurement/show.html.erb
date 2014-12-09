@@ -1,0 +1,108 @@
+<div class="page-header">
+  <h1><%=t '.title', :default => t("simplified_procurement") %></h1>
+</div>
+
+<% if @procurement.status && @procurement.status != '' %>
+    <h3><%=@procurement.registration_number %>: <%= @procurement.status %></h3>
+<% else %>
+    <h3><%=@procurement.registration_number %></h3>
+<% end %>
+<br>
+<br>
+
+<!-- Procurement details - start -->
+<dl class="info-horizontal">
+
+  <dt><%=t("link_to_simplified_procurement")%>:</dt>
+  <dd><div class="leftCenter"><%=@procurement.registration_number %></div>
+    <%=image_tag("spa-logo.jpg", :size => "165x50",:class=>"rightCenter")%>
+    <%= link_to("","https://tenders.procurement.gov.ge/engine/ssp/ssp_controller.php?action=view&ssp_id=#{@procurement.web_id}&_=#{@timestamp}",
+                :class => "parentSize", :target => '_blank', :rel => "tooltip", :title => t("procurement_link_tooltip")) %>
+  </dd>
+
+  <dt><%=t("procurement_status") %>:</dt>
+  <dd><%= @procurement.status %></dd>
+
+  <dt><%=t("procuring_entity")%>:</dt>
+  <dd>
+    <% if @procurement.procuring_entity %>
+        <%= link_to @procurement.procuring_entity.name, :controller => "organizations", :action => "show_procurer", :id => @procurement.procuring_entity.id %>
+    <% end %>
+  </dd>
+
+  <dt> <%=t("procurement_supplier")%>:</dt>
+  <dd>
+    <% if @procurement.supplier %>
+        <%= link_to @procurement.supplier.name, :controller => "organizations", :action => "show", :id => @procurement.supplier.id %>
+    <% end %>
+  </dd>
+
+  <dt><%=t("procurement_contract_value")%>:</dt>
+  <dd><%= @procurement.contract_value %> (<%= @procurement.contract_value_date %>)</dd>
+
+  <dt><%=t("procurement_paid_amounts")%>:</dt>
+  <dd>
+    <% if @procurement.simplified_paid_amounts %>
+        <ul>
+          <% @procurement.simplified_paid_amounts.each do |amount| %>
+              <li>
+                <%= amount.amount_paid %> (<%= amount.amount_date %>)
+              </li>
+          <% end %>
+        </ul>
+    <% end %>
+  </dd>
+
+  <dt><%=t("procurement_financing_source")%>:</dt>
+  <dd><%= @procurement.financing_source %></dd>
+
+  <dt><%=t("procurement_base")%>:</dt>
+  <dd><%= @procurement.procurement_base.html_safe %></dd>
+
+  <dt><%= t("procurement_documentation")%>:</dt>
+  <dd><%= @procurement.doc_start_date %> - <%= @procurement.doc_end_date %></dd>
+
+  <dt><%=t("procurement_agreement")%>:</dt>
+  <dd><%= @procurement.agreement_amount %> - <%= @procurement.agreement_done %></dd>
+
+  <dt><%=t("procurement_cpv_code")%>:</dt>
+  <dd>
+     <% if @procurement.simplified_cpvs %>
+        <ul>
+        <% @procurement.simplified_cpvs.each do |cpv| %>
+           <li>
+             <% if cpv.cpv_type %>
+                 <%= cpv.code %> - <%= cpv.title %> (<%= cpv.cpv_type %>)
+             <% else %>
+                 <%= cpv.code %> - <%= cpv.title %>
+             <% end %>
+           </li>
+        <% end %>
+        </ul>
+     <% end %>
+  </dd>
+</dl>
+
+<!-- Procurement details - end -->
+
+<!-- Procurement attachments - start -->
+<% if @procurement.simplified_attachments && @procurement.simplified_attachments.length > 0 %>
+    <hr>
+    <table class="table table-striped">
+      <thead>
+      <h3><%=t("procurement_attachments")%></h3>
+      <tr>
+        <th><%=t("Title")%></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @procurement.simplified_attachments.each do |attachment| %>
+          <tr>
+            <td><%= link_to(attachment.title,"https://tenders.procurement.gov.ge/#{attachment.url}",
+                        :target => '_blank', :rel => "tooltip", :title => t("procurement_link_tooltip")) %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+<!-- Procurement attachments - start -->

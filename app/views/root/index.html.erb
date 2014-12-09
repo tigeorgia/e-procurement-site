@@ -50,7 +50,9 @@ $(document).ready(function() {
 
 
 </script>
-
+<div class="row-fluid">
+  <h2><strong><%= t('Tenders') %></strong> - <small><%= t('check_also_our') %> <%= link_to(t('simplified_procurements'), simplified_procurement_path) %></small></h2>
+</div>
 <%= button_to "Download All Tender Data", {:controller => "tender", :action => "download_all"}, :class => "submit-button" %>
 
 <div class="tabs tab-div" id="search-tabs">

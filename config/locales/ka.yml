@@ -209,6 +209,38 @@ ka:
   Estimated Value Of Tenders By Type: ტენდერის სავარაუდო ღირებულება კატეგორიის მიხედვით
   Tender Duration: ტენდერის ხანგრძლივობა
 
+  # locales for simplified procurement pages.
+  search_dropdown: ძებნა...
+  tenders_proc_supp: ტენდერები, შემსყიდველები, მიმწოდებლები
+  simplified_procurements: გამარტივებული შესყიდვები
+  simplified_procurement: გამარტივებული შესყიდვა
+  search_simplified_proc: მოძებნე გამარტივებული შესყიდვები
+  registration_number: რეგისტრაციის ნომერი
+  registration_number_descr: კონკურენციისა და შესყიდვების სააგენტოს მიერ მინიჭებული უნიკალური კოდი
+  procurement_status: შესყიდვის სტატუსი
+  procurement_status_descr: თითოეული შესყიდვის გამარტივებული შესყიდვის მიმდინარე სტატუსი
+  contract_value: კონტრაქტის ღირებულება
+  agreement_value: შეთანხმების ღირებულება
+  check_also_our: ნახეთ
+  procurement_link_tooltip: ამ ბმულის სანახავად შესული უნდა იყოთ საიტზე https://tenders.procurement.gov.ge/ როგორც რეგისტრირებული მომხმარებელი.
+  ongoing: მიმდინარე
+  fulfilled: შესრულებული
+  not_fulfilled: შეუსრულებელი
+  link_to_simplified_procurement: ბმული გამარტივებულ შესყიდვებზე გადასასვლელად
+  procurement_status: შესყიდვის სტატუსი
+  procuring_entity: შემსყიდველი
+  procurement_supplier: შემსყიდველი
+  procurement_contract_value: კონტრაქტის ღირებულება
+  procurement_financing_source: დაფინანსების წყარო
+  procurement_base: შესყიდვის საფუძველი
+  procurement_documentation: დოკუმენტაცია
+  procurement_agreement: შეთანხმება
+  procurement_paid_amounts: გადახდილი თანხა
+  procurement_cpv_code: CPV კოდი
+  procurement_attachments: მიმაგრებული ფაილები
+  number_simplified_procurements_found: მოიძებნა %{number} გამარტივებული შესყიდვა
+
+
   Won: გამარჯვებული
   No winner: უარყ. შედეგით
   Prep contract: ხელშ. მომზადება

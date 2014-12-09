@@ -55,6 +55,12 @@ namespace :procurement do
     ScraperFile.generateBulkTenderData
   end
 
+  desc "import simplified procurements"
+  task:import_simplified_procurements => :environment do
+    require "scraper_file"
+    ScraperFile.importSimplifiedProcurement
+  end
+
   task:test_diffences => :environment do
     ScraperFile.testDifferences
   end

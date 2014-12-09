@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130812114022) do
+ActiveRecord::Schema.define(:version => 20141124075950) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -188,13 +188,13 @@ ActiveRecord::Schema.define(:version => 20130812114022) do
   end
 
   create_table "organizations", :force => true do |t|
-    t.integer  "code",                         :limit => 8
+    t.string   "code"
     t.string   "organization_url"
     t.string   "name"
     t.string   "country"
     t.string   "org_type"
-    t.boolean  "is_bidder",                                 :default => false
-    t.boolean  "is_procurer",                               :default => false
+    t.boolean  "is_bidder",                    :default => false
+    t.boolean  "is_procurer",                  :default => false
     t.string   "city"
     t.string   "address"
     t.string   "phone_number"
@@ -252,6 +252,59 @@ ActiveRecord::Schema.define(:version => 20130812114022) do
     t.text     "new_ids"
     t.datetime "last_data_update"
   end
+
+  create_table "simplified_attachments", :force => true do |t|
+    t.integer  "simplified_tender_id"
+    t.string   "title"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "simplified_attachments", ["simplified_tender_id"], :name => "index_simplified_attachments_on_simplified_tender_id"
+
+  create_table "simplified_cpvs", :force => true do |t|
+    t.string   "title"
+    t.string   "cpv_type"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "simplified_paid_amounts", :force => true do |t|
+    t.integer  "simplified_tender_id"
+    t.string   "amount_paid"
+    t.date     "amount_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "simplified_paid_amounts", ["simplified_tender_id"], :name => "index_simplified_paid_amounts_on_simplified_tender_id"
+
+  create_table "simplified_tenders", :force => true do |t|
+    t.string   "registration_number"
+    t.string   "status"
+    t.integer  "procuring_entity_id"
+    t.integer  "supplier_id"
+    t.string   "contract_value"
+    t.date     "contract_value_date"
+    t.date     "doc_start_date"
+    t.date     "doc_end_date"
+    t.string   "agreement_amount"
+    t.string   "agreement_done"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "web_id"
+    t.string   "financing_source"
+    t.string   "procurement_base"
+  end
+
+  create_table "simplified_tenders_cpvs", :id => false, :force => true do |t|
+    t.integer "simplified_tender_id"
+    t.integer "simplified_cpv_id"
+  end
+
+  add_index "simplified_tenders_cpvs", ["simplified_tender_id"], :name => "index_simplified_tenders_cpvs_on_simplified_tender_id"
 
   create_table "supplier_watches", :force => true do |t|
     t.integer  "user_id"

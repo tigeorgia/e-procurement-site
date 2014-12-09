@@ -80,7 +80,21 @@
       <div class="container">
         <div class="row-fluid parent-block"> 
           <div class="span2-nav span2">
-            <%= link_to( t("Search Page"), root_path(:locale => I18n.locale),:class=>"nav-item") %>
+            <!-- <%= link_to( t("Search Page"), root_path(:locale => I18n.locale),:class=>"nav-item") %> -->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle nav-item" data-toggle="dropdown" >
+                <%= t("search_dropdown") %>
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <%= link_to t("tenders_proc_supp"), root_path %>
+                </li>
+                <li>
+                  <%= link_to t("simplified_procurements"), simplified_procurement_path %>
+                </li>
+              </ul>
+            </li>
           </div>
           <div class="span2 span2-nav">
             <%= link_to( t("Annual Data"), {:controller => '/analysis', :action => "index"}, :class=>"nav-item") %>

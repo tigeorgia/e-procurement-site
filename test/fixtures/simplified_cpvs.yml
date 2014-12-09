@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  simplified_tender: 
+  title: MyString
+  type: 
+  code: MyString
+
+two:
+  simplified_tender: 
+  title: MyString
+  type: 
+  code: MyString

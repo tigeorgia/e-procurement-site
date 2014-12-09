@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  simplified_tender: 
+  amount_paid: MyString
+  amount_date: 2014-11-12
+
+two:
+  simplified_tender: 
+  amount_paid: MyString
+  amount_date: 2014-11-12

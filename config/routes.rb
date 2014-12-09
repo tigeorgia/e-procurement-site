@@ -8,7 +8,7 @@ BootstrapStarter::Application.routes.draw do
 		match '/admin', :to => 'admin#index', :as => :admin, :via => :get
     match '/user', :to => 'user#index', :as => :user, :via => :get
   
-		 devise_for :users, :controllers => { :sessions => "users/sessions", :registrations => "users/registrations" }, :path_names => { :sign_up => "register" }
+		devise_for :users, :controllers => { :sessions => "users/sessions", :registrations => "users/registrations" }, :path_names => { :sign_up => "register" }
 
     namespace :admin do
       resources :users
@@ -16,6 +16,12 @@ BootstrapStarter::Application.routes.draw do
 
     resources :tenders
     resources :organizations
+    #resources :simplified_procurement
+
+    match '/simplified_procurement' => 'simplified_procurement#index'
+    match '/simplified_procurement/index' => 'simplified_procurement#index'
+    match '/simplified_procurement/search' => 'simplified_procurement#search'
+    match '/simplified_procurement/:id', :to => 'simplified_procurement#show', :as => :simplified_tender, :via => :get
 
     match '/organization/search_procurer' => 'organizations#search_procurer'
     match '/organization/search' => 'organizations#search'
@@ -37,7 +43,8 @@ BootstrapStarter::Application.routes.draw do
     match ':controller/:action'
     match '/build_user_data', :to => 'root#build_user_data', :as => :build_user_data, :via => :get
     match '/generate_cpv_codes', :to => 'root#generate_cpv_codes', :as => :generate_cpv_codes, :via => :get
-    match '/:locale' => 'root#index'		
+    match '/:locale' => 'root#index'
+    #match '/maintenance', :to => redirect('/maintenance.html')
     root :to => 'root#index'
 	  
 	end

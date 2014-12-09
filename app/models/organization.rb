@@ -5,6 +5,9 @@ class Organization < ActiveRecord::Base
   has_many :agreements, :dependent => :destroy
   has_many :competitors, :dependent => :destroy
 
+  has_many :supplied_simplified_tenders, :class_name => "SimplifiedTender"
+  has_many :procured_simplified_tenders, :class_name => "SimplifiedTender"
+
   belongs_to :dataset
   
   attr_accessible :id,
