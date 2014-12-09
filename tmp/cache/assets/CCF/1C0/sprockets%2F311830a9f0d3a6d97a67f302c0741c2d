@@ -1,41 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.0946584:@value{I"
-class:EFI"BundledAsset;
-FI"id;
-F"%78f2065af51398c7b79d1953cce85eacI"logical_path;
-FI"<bootstrap-datepicker/locales/bootstrap-datepicker.et.js;
-TI"pathname;
-FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.et.js;
-TI"content_type;
-FI"application/javascript;
-FI"
-mtime;
-FI"2014-12-08T13:46:46+04:00;
-FI"	body;
-FI"¢/**
- * Estonian translation for bootstrap-datepicker
- * Ando Roots <https://github.com/anroots>
- */
-
-;(function($){
-	$.fn.datepicker.dates['et'] = {
-		days: ["P√ºhap√§ev", "Esmasp√§ev", "Teisip√§ev", "Kolmap√§ev", "Neljap√§ev", "Reede", "Laup√§ev", "P√ºhap√§ev"],
-		daysShort: ["P√ºh", "Esm", "Tei", "Kol", "Nel", "Ree", "Lau", "Sun"],
-		daysMin: ["P", "E", "T", "K", "N", "R", "L", "P"],
-		months: ["Jaanuar", "Veebruar", "M√§rts", "Aprill", "Mai", "Juuni", "Juuli", "August", "September", "Oktoober", "November", "Detsember"],
-		monthsShort: ["Jaan", "Veeb", "M√§rts", "Apr", "Mai", "Juuni", "Juuli", "Aug", "Sept", "Okt", "Nov", "Dets"],
-		today: "T√§na"
-	};
-}(jQuery));
-;
-TI"asset_paths;
-F[I"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.et.js;
-TI"dependency_paths;
-F[{I"	path;
-FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.et.js;
-TI"
-mtime;
-FIu:	Time	≠Äñ´Ï∫
-:@_zoneI"GET;
-T:nano_numi›:nano_deni:submicro"":offseti@8I"hexdigest;
-F"%0e8bdb94bc803ccf10ea40c4a559217eI"_version;
-F"%0868aba5d4b750d3a9421721ea3d9b9c

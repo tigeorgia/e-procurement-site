@@ -1,41 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.200505:@value{I"
-class:EFI"BundledAsset;
-FI"id;
-F"%07a7ab20139640bbdc988bef8f4bd0c6I"logical_path;
-FI"Bbootstrap-datepicker/locales/bootstrap-datepicker.rs-latin.js;
-TI"pathname;
-FI"“/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.rs-latin.js;
-TI"content_type;
-FI"application/javascript;
-FI"
-mtime;
-FI"2014-12-08T13:46:46+04:00;
-FI"	body;
-FI"‚/**
- * Serbian latin translation for bootstrap-datepicker
- * Bojan MilosavleviÄ‡ <milboj@gmail.com>
- */
-
-;(function($){
-	$.fn.datepicker.dates['rs'] = {
-		days: ["Nedelja","Ponedeljak", "Utorak", "Sreda", "ÄŒetvrtak", "Petak", "Subota", "Nedelja"],
-		daysShort: ["Ned", "Pon", "Uto", "Sre", "ÄŒet", "Pet", "Sub", "Ned"],
-		daysMin: ["N", "Po", "U", "Sr", "ÄŒ", "Pe", "Su", "N"],
-		months: ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"],
-		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
-		today: "Danas"
-	};
-}(jQuery));
-;
-TI"asset_paths;
-F[I"“/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.rs-latin.js;
-TI"dependency_paths;
-F[{I"	path;
-FI"“/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.rs-latin.js;
-TI"
-mtime;
-FIu:	Time	­€–«ìº
-:@_zoneI"GET;
-T:nano_numiÝ:nano_deni:submicro"":offseti@8I"hexdigest;
-F"%9da5e69f2b6f5abd4ae7699353686bf2I"_version;
-F"%0868aba5d4b750d3a9421721ea3d9b9c

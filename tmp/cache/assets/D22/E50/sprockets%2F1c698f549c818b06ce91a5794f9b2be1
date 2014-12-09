@@ -1,20 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.4847019:@value{	I"length:EFi�I"digest;
-F"%fc4c282768d33527a4043b91915b72e3I"source;
-FI"�/**
- * Swedish translation for bootstrap-datepicker
- * Patrik Ragnarsson <patrik@starkast.net>
- */
-
-;(function($){
-	$.fn.datepicker.dates['sv'] = {
-		days: ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"],
-		daysShort: ["Sön", "Mån", "Tis", "Ons", "Tor", "Fre", "Lör", "Sön"],
-		daysMin: ["Sö", "Må", "Ti", "On", "To", "Fr", "Lö", "Sö"],
-		months: ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"],
-		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"],
-		today: "I Dag"
-	};
-}(jQuery));
-;
-TI"_version;
-F"%31962b138c91f712674fb922a5288f5b

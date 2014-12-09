@@ -1,41 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.1912804:@value{I"
-class:EFI"BundledAsset;
-FI"id;
-F"%637659cc269ad11bd75becb7b8421a99I"logical_path;
-FI"<bootstrap-datepicker/locales/bootstrap-datepicker.nb.js;
-TI"pathname;
-FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.nb.js;
-TI"content_type;
-FI"application/javascript;
-FI"
-mtime;
-FI"2014-12-08T13:46:46+04:00;
-FI"	body;
-FI"ô/**
- * Norwegian (bokm√•l) translation for bootstrap-datepicker
- * Fredrik Sundmyhr <http://github.com/fsundmyhr>
- */
-
-;(function($){
-	$.fn.datepicker.dates['nb'] = {
-		days: ["S√∏ndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "L√∏rdag", "S√∏ndag"],
-		daysShort: ["S√∏n", "Man", "Tir", "Ons", "Tor", "Fre", "L√∏r", "S√∏n"],
-		daysMin: ["S√∏", "Ma", "Ti", "On", "To", "Fr", "L√∏", "S√∏"],
-		months: ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"],
-		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Des"],
-		today: "I Dag"
-	};
-}(jQuery));
-;
-TI"asset_paths;
-F[I"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.nb.js;
-TI"dependency_paths;
-F[{I"	path;
-FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.nb.js;
-TI"
-mtime;
-FIu:	Time	≠ÄˆõÏ∫
-:@_zoneI"GET;
-T:nano_numi›:nano_deni:submicro"":offseti@8I"hexdigest;
-F"%e50c317d656836720cd64dcfa6a851d6I"_version;
-F"%0868aba5d4b750d3a9421721ea3d9b9c

@@ -1,20 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.3809206:@value{	I"length:EFi�I"digest;
-F"%e2618d51ca2341b644f245a63f454540I"source;
-FI"�/**
- * Estonian translation for bootstrap-datepicker
- * Ando Roots <https://github.com/anroots>
- */
-
-;(function($){
-	$.fn.datepicker.dates['et'] = {
-		days: ["P체hap채ev", "Esmasp채ev", "Teisip채ev", "Kolmap채ev", "Neljap채ev", "Reede", "Laup채ev", "P체hap채ev"],
-		daysShort: ["P체h", "Esm", "Tei", "Kol", "Nel", "Ree", "Lau", "Sun"],
-		daysMin: ["P", "E", "T", "K", "N", "R", "L", "P"],
-		months: ["Jaanuar", "Veebruar", "M채rts", "Aprill", "Mai", "Juuni", "Juuli", "August", "September", "Oktoober", "November", "Detsember"],
-		monthsShort: ["Jaan", "Veeb", "M채rts", "Apr", "Mai", "Juuni", "Juuli", "Aug", "Sept", "Okt", "Nov", "Dets"],
-		today: "T채na"
-	};
-}(jQuery));
-;
-TI"_version;
-F"%78f2065af51398c7b79d1953cce85eac

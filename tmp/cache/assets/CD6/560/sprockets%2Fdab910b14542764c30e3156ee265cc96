@@ -1,20 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.4897866:@value{	I"length:EFi{I"digest;
-F"%88ba703ad5ded15f2695ec4ebbbc6f71I"source;
-FI"{/**
- * Ukrainian translation for bootstrap-datepicker
- * Andrey Vityuk <andrey [dot] vityuk [at] gmail.com>
- */
-
-;(function($){
-	$.fn.datepicker.dates['uk'] = {
-		days: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя"],
-		daysShort: ["Нед", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Суб", "Нед"],
-		daysMin: ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"],
-		months: ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"],
-		monthsShort: ["Січ", "Лют", "Бер", "Кві", "Тра", "Чер", "Лип", "Сер", "Вер", "Жов", "Лис", "Гру"],
-		today: "Сьогодні"
-	};
-}(jQuery));
-;
-TI"_version;
-F"%f7882bccf97462903af09a0fef4e5cd4

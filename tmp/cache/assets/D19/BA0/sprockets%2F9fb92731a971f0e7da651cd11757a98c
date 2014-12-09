@@ -1,21 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.4262059:@value{	I"length:EFi�I"digest;
-F"%d3f78eed02ab2870ce88d96da27e01e6I"source;
-FI"�/**
- * Japanese translation for bootstrap-datepicker
- * Norio Suzuki <https://github.com/suzuki/>
- */
-
-;(function($){
-	$.fn.datepicker.dates['ja'] = {
-		days: ["日曜", "月曜", "火曜", "水曜", "木曜", "金曜", "土曜", "日曜"],
-		daysShort: ["日", "月", "火", "水", "木", "金", "土", "日"],
-		daysMin: ["日", "月", "火", "水", "木", "金", "土", "日"],
-		months: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
-		monthsShort: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
-		today: "今日",
-		format: "yyyy/mm/dd"
-	};
-}(jQuery));
-;
-TI"_version;
-F"%a8a003a76d5029685455a7dd8e84197e

@@ -1,27 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.5414693:@value{	I"length:EFi'I"digest;
-F"%81c8ae2e96fa60e5e94003b7eda030b2I"source;
-FI"'$(document).ready(function() {
-  $('#procurer_name').autocomplete({
-    source: $('#procurer_name').data('autocomplete-source'),
-    minLength: 2
-  });
-
-  $('#supplier_name').autocomplete({
-    source: $('#supplier_name').data('autocomplete-source'),
-    minLength: 2
-  });
-
-  $('#procurer_search_name').autocomplete({
-    source: $('#procurer_search_name').data('autocomplete-source'),
-    minLength: 2
-  });
-
-  $('#supplier_search_name').autocomplete({
-    source: $('#supplier_search_name').data('autocomplete-source'),
-    minLength: 2
-  });
-
-});
-;
-FI"_version;
-F"%3021ec24650368473c4eea181c974ae7

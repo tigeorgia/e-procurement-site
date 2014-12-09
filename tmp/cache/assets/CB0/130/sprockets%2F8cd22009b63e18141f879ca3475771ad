@@ -1,42 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.2494256:@value{I"
-class:EFI"BundledAsset;
-FI"id;
-F"%12c6f18966c04b41621de681760e84d0I"logical_path;
-FI"<bootstrap-datepicker/locales/bootstrap-datepicker.sw.js;
-TI"pathname;
-FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.sw.js;
-TI"content_type;
-FI"application/javascript;
-FI"
-mtime;
-FI"2014-12-08T13:46:46+04:00;
-FI"	body;
-FI"/**
- * Swahili translation for bootstrap-datepicker
- * Edwin Mugendi <https://github.com/edwinmugendi>
- * Source: http://scriptsource.org/cms/scripts/page.php?item_id=entry_detail&uid=xnfaqyzcku
- */
-
-;(function($){
-    $.fn.datepicker.dates['sw'] = {
-        days: ["Jumapili", "Jumatatu", "Jumanne", "Jumatano", "Alhamisi", "Ijumaa", "Jumamosi", "Jumapili"],
-        daysShort: ["J2", "J3", "J4", "J5", "Alh", "Ij", "J1", "J2"],
-        daysMin: ["2", "3", "4", "5", "A", "I", "1", "2"],
-        months: ["Januari", "Februari", "Machi", "Aprili", "Mei", "Juni", "Julai", "Agosti", "Septemba", "Oktoba", "Novemba", "Desemba"],
-        monthsShort: ["Jan", "Feb", "Mac", "Apr", "Mei", "Jun", "Jul", "Ago", "Sep", "Okt", "Nov", "Des"],
-        today: "Leo"
-    };
-}(jQuery));
-;
-FI"asset_paths;
-F[I"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.sw.js;
-TI"dependency_paths;
-F[{I"	path;
-FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.sw.js;
-TI"
-mtime;
-FIu:	Time	≠Äñ´Ï∫
-:@_zoneI"GET;
-T:nano_numi›:nano_deni:submicro"":offseti@8I"hexdigest;
-F"%fa3a383aba31df8f1880ba73bd695743I"_version;
-F"%0868aba5d4b750d3a9421721ea3d9b9c

@@ -1,48 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.31571:@value{I"
-class:EFI"BundledAsset;
-FI"id;
-F"%3021ec24650368473c4eea181c974ae7I"logical_path;
-FI"site/mainSearch.js;
-TI"pathname;
-FI"8$root/app/assets/javascripts/site/mainSearch.js.erb;
-TI"content_type;
-FI"application/javascript;
-FI"
-mtime;
-FI"2014-12-01T09:53:42+04:00;
-FI"	body;
-FI"'$(document).ready(function() {
-  $('#procurer_name').autocomplete({
-    source: $('#procurer_name').data('autocomplete-source'),
-    minLength: 2
-  });
-
-  $('#supplier_name').autocomplete({
-    source: $('#supplier_name').data('autocomplete-source'),
-    minLength: 2
-  });
-
-  $('#procurer_search_name').autocomplete({
-    source: $('#procurer_search_name').data('autocomplete-source'),
-    minLength: 2
-  });
-
-  $('#supplier_search_name').autocomplete({
-    source: $('#supplier_search_name').data('autocomplete-source'),
-    minLength: 2
-  });
-
-});
-;
-FI"asset_paths;
-F[I"8$root/app/assets/javascripts/site/mainSearch.js.erb;
-TI"dependency_paths;
-F[{I"	path;
-FI"8$root/app/assets/javascripts/site/mainSearch.js.erb;
-TI"
-mtime;
-FIu:	Time%¬€_¥Ö
-:@_zoneI"GET;
-T:nano_numiý:nano_deni:submicro"vP:offseti@8I"hexdigest;
-F"%81c8ae2e96fa60e5e94003b7eda030b2I"_version;
-F"%0868aba5d4b750d3a9421721ea3d9b9c

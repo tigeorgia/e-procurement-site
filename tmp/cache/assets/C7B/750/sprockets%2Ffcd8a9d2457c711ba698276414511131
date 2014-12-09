@@ -1,41 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.2024214:@value{I"
-class:EFI"BundledAsset;
-FI"id;
-F"%73921166ad9a7c777a2667107b50edabI"logical_path;
-FI"<bootstrap-datepicker/locales/bootstrap-datepicker.rs.js;
-TI"pathname;
-FI"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.rs.js;
-TI"content_type;
-FI"application/javascript;
-FI"
-mtime;
-FI"2014-12-08T13:46:46+04:00;
-FI"	body;
-FI"D/**
- * Serbian cyrillic translation for bootstrap-datepicker
- * Bojan Milosavlević <milboj@gmail.com>
- */
-
-;(function($){
-	$.fn.datepicker.dates['rs'] = {
-		days: ["Недеља","Понедељак", "Уторак", "Среда", "Четвртак", "Петак", "Субота", "Недеља"],
-		daysShort: ["Нед", "Пон", "Уто", "Сре", "Чет", "Пет", "Суб", "Нед"],
-		daysMin: ["Н", "По", "У", "Ср", "Ч", "Пе", "Су", "Н"],
-		months: ["Јануар", "Фебруар", "Март", "Април", "Мај", "Јун", "Јул", "Август", "Септембар", "Октобар", "Новембар", "Децембар"],
-		monthsShort: ["Јан", "Феб", "Мар", "Апр", "Мај", "Јун", "Јул", "Авг", "Сеп", "Окт", "Нов", "Дец"],
-		today: "Данас"
-	};
-}(jQuery));
-;
-TI"asset_paths;
-F[I"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.rs.js;
-TI"dependency_paths;
-F[{I"	path;
-FI"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.rs.js;
-TI"
-mtime;
-FIu:	Time	�����
-:@_zoneI"GET;
-T:nano_numi�:nano_deni:submicro"":offseti@8I"hexdigest;
-F"%7449577dfea8838fb941ac34469becc1I"_version;
-F"%0868aba5d4b750d3a9421721ea3d9b9c

@@ -1,21 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.4361649:@value{	I"length:EFiI"digest;
-F"%ac58e55291da3552f5fc948287b8dd0fI"source;
-FI"/**
- * Polish translation for bootstrap-datepicker
- * Robert <rtpm@gazeta.pl>
- */
-
-;(function($){
-        $.fn.datepicker.dates['pl'] = {
-                days: ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"],
-                daysShort: ["Nie", "Pn", "Wt", "Śr", "Czw", "Pt", "So", "Nie"],
-                daysMin: ["N", "Pn", "Wt", "Śr", "Cz", "Pt", "So", "N"],
-                months: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"],
-                monthsShort: ["Sty", "Lu", "Mar", "Kw", "Maj", "Cze", "Lip", "Sie", "Wrz", "Pa", "Lis", "Gru"],
-                today: "Dzisiaj",
-                weekStart: 1
-        };
-}(jQuery));
-;
-TI"_version;
-F"%5135966f0199490cf31cf12dbff665b6

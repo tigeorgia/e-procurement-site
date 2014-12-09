@@ -1,19 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.3862824:@value{	I"length:EFiVI"digest;
-F"%1029464dabd401216979ed47c948b0a6I"source;
-FI"V/**
- * Croatian localisation
- */
-
-;(function($){
-	$.fn.datepicker.dates['hr'] = {
-		days: ["Nedjelja", "Ponedjelja", "Utorak", "Srijeda", "Četrtak", "Petak", "Subota", "Nedjelja"],
-		daysShort: ["Ned", "Pon", "Uto", "Srr", "Čet", "Pet", "Sub", "Ned"],
-		daysMin: ["Ne", "Po", "Ut", "Sr", "Če", "Pe", "Su", "Ne"],
-		months: ["Siječanj", "Veljača", "Ožujak", "Travanj", "Svibanj", "Lipanj", "Srpanj", "Kolovoz", "Rujan", "Listopad", "Studeni", "Prosinac"],
-		monthsShort: ["Sije", "Velj", "Ožu", "Tra", "Svi", "Lip", "Jul", "Kol", "Ruj", "Lis", "Stu", "Pro"],
-		today: "Danas"
-	};
-}(jQuery));
-;
-TI"_version;
-F"%5b12b2fd83f3eb744efe4537f9a5ad1c

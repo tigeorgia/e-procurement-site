@@ -1,41 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.195529:@value{I"
-class:EFI"BundledAsset;
-FI"id;
-F"%4210a32435e99036098568735e3e3403I"logical_path;
-FI"?bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js;
-TI"pathname;
-FI"ê/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js;
-TI"content_type;
-FI"application/javascript;
-FI"
-mtime;
-FI"2014-12-08T13:46:46+04:00;
-FI"	body;
-FI"Ñ/**
- * Brazilian translation for bootstrap-datepicker
- * Cauan Cabral <cauan@radig.com.br>
- */
-
-;(function($){
-	$.fn.datepicker.dates['pt-BR'] = {
-		days: ["Domingo", "Segunda", "Ter√ßa", "Quarta", "Quinta", "Sexta", "S√°bado", "Domingo"],
-		daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "S√°b", "Dom"],
-		daysMin: ["Do", "Se", "Te", "Qu", "Qu", "Se", "Sa", "Do"],
-		months: ["Janeiro", "Fevereiro", "Mar√ßo", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-		monthsShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-		today: "Hoje"
-	};
-}(jQuery));
-;
-TI"asset_paths;
-F[I"ê/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js;
-TI"dependency_paths;
-F[{I"	path;
-FI"ê/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js;
-TI"
-mtime;
-FIu:	Time	≠ÄˆõÏ∫
-:@_zoneI"GET;
-T:nano_numi›:nano_deni:submicro"":offseti@8I"hexdigest;
-F"%d23f8c4e7a453c78950c78e02754984aI"_version;
-F"%0868aba5d4b750d3a9421721ea3d9b9c

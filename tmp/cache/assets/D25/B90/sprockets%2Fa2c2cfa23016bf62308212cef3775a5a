@@ -1,20 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.4341967:@value{	I"length:EFi�I"digest;
-F"%0ae745cc8d8a869328d2f1fd6cedbab5I"source;
-FI"�/**
- * Norwegian (bokmål) translation for bootstrap-datepicker
- * Fredrik Sundmyhr <http://github.com/fsundmyhr>
- */
-
-;(function($){
-	$.fn.datepicker.dates['nb'] = {
-		days: ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"],
-		daysShort: ["Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn"],
-		daysMin: ["Sø", "Ma", "Ti", "On", "To", "Fr", "Lø", "Sø"],
-		months: ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"],
-		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Des"],
-		today: "I Dag"
-	};
-}(jQuery));
-;
-TI"_version;
-F"%637659cc269ad11bd75becb7b8421a99

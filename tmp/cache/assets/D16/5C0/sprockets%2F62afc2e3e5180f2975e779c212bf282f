@@ -1,22 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.4292724:@value{	I"length:EFi�I"digest;
-F"%3e91cf0a182bf191a478c2fa66af686fI"source;
-FI"�/**
- * Lithuanian translation for bootstrap-datepicker
- * Šarūnas Gliebus <ssharunas@yahoo.co.uk>
- */
-
-
-;(function($){
-    $.fn.datepicker.dates['lt'] = {
-        days: ["Sekmadienis", "Pirmadienis", "Antradienis", "Trečiadienis", "Ketvirtadienis", "Penktadienis", "Šeštadienis", "Sekmadienis"],
-        daysShort: ["S", "Pr", "A", "T", "K", "Pn", "Š", "S"],
-        daysMin: ["Sk", "Pr", "An", "Tr", "Ke", "Pn", "Št", "Sk"],
-        months: ["Sausis", "Vasaris", "Kovas", "Balandis", "Gegužė", "Birželis", "Liepa", "Rugpjūtis", "Rugsėjis", "Spalis", "Lapkritis", "Gruodis"],
-        monthsShort: ["Sau", "Vas", "Kov", "Bal", "Geg", "Bir", "Lie", "Rugp", "Rugs", "Spa", "Lap", "Gru"],
-        today: "Šiandien",
-        weekStart: 1
-    };
-}(jQuery));
-;
-TI"_version;
-F"%b1ee69dcc787ac7b5db1a1858a760344
