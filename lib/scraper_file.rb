@@ -1925,7 +1925,7 @@ module ScraperFile
 
   # This method imports the simplified procurement (from a JSON file) into the MySQL tender monitor database.
   def self.importSimplifiedProcurement( simplifiedProcurementsFileName)
-    simplified_procurement_file_path = "#{Rails.root}/public/system/#{simplifiedProcurementsFileName}"
+    simplified_procurement_file_path = "#{simplifiedProcurementsFileName}"
     File.open(simplified_procurement_file_path, "r") do |infile|
       while(line = infile.gets)
         # cleaning the line, if it has square brackets at the beginning/end of it.
