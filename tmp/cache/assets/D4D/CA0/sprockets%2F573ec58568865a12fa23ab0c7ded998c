@@ -1,0 +1,37 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.3086202:@value{I"
+class:EFI"BundledAsset;
+FI"id;
+F"%97919d43fc21393ccad2cfdb202b619fI"logical_path;
+FI"site/jExpand.js;
+TI"pathname;
+FI"1$root/app/assets/javascripts/site/jExpand.js;
+TI"content_type;
+FI"application/javascript;
+FI"
+mtime;
+FI"2014-12-01T09:53:42+04:00;
+FI"	body;
+FI"„$(document).ready(function() {
+    var toggles = $("div.expansion").find("div.expandToggle");
+    var expandables = $("div.expansion").find("div.expandable");
+    expandables.hide();
+
+    toggles.click(function() {
+     $(this).parent().find(".arrow").toggleClass("up");
+     $(this).parents("div.expansion").find("div.expandable").slideToggle({duration:"slow"});
+    });
+});
+
+;
+FI"asset_paths;
+F[I"1$root/app/assets/javascripts/site/jExpand.js;
+TI"dependency_paths;
+F[{I"	path;
+FI"1$root/app/assets/javascripts/site/jExpand.js;
+TI"
+mtime;
+FIu:	Time%¬€“ ¥Ö
+:@_zoneI"GET;
+T:nano_numiý:nano_deni:submicro"vP:offseti@8I"hexdigest;
+F"%32125fa5b8f58ba18a74f929c5ad7e3fI"_version;
+F"%0868aba5d4b750d3a9421721ea3d9b9c

@@ -1,0 +1,42 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.2043633:@value{I"
+class:EFI"BundledAsset;
+FI"id;
+F"%b4c951c43cd52e3dfd64eba4cddd7b7cI"logical_path;
+FI"<bootstrap-datepicker/locales/bootstrap-datepicker.ru.js;
+TI"pathname;
+FI"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.ru.js;
+TI"content_type;
+FI"application/javascript;
+FI"
+mtime;
+FI"2014-12-08T13:46:46+04:00;
+FI"	body;
+FI"t/**
+ * Russian translation for bootstrap-datepicker
+ * Victor Taranenko <darwin@snowdale.com>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['ru'] = {
+		days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
+		daysShort: ["Вск", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Суб", "Вск"],
+		daysMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
+		months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+		monthsShort: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+		today: "Сегодня",
+		weekStart: 1
+	};
+}(jQuery));
+;
+TI"asset_paths;
+F[I"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.ru.js;
+TI"dependency_paths;
+F[{I"	path;
+FI"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.ru.js;
+TI"
+mtime;
+FIu:	Time	�����
+:@_zoneI"GET;
+T:nano_numi�:nano_deni:submicro"":offseti@8I"hexdigest;
+F"%06546212437150247f59114b749fbeecI"_version;
+F"%0868aba5d4b750d3a9421721ea3d9b9c

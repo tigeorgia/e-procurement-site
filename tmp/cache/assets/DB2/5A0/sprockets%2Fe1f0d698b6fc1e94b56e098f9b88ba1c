@@ -1,0 +1,22 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.3877997:@value{	I"length:EFi�I"digest;
+F"%8ce7dac75c6146494d5df2ea41ba6cd7I"source;
+FI"�/**
+ * Hungarian translation for bootstrap-datepicker
+ * Sotus László <lacisan@gmail.com>
+ */
+
+;(function($){
+  $.fn.datepicker.dates['hu'] = {
+		days: ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat", "Vasárnap"],
+		daysShort: ["Vas", "Hét", "Ked", "Sze", "Csü", "Pén", "Szo", "Vas"],
+		daysMin: ["Va", "Hé", "Ke", "Sz", "Cs", "Pé", "Sz", "Va"],
+		months: ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"],
+		monthsShort: ["Jan", "Feb", "Már", "Ápr", "Máj", "Jún", "Júl", "Aug", "Sze", "Okt", "Nov", "Dec"],
+		today: "Ma",
+		weekStart: 1,
+		format: "yyyy.mm.dd"
+	};
+}(jQuery));
+;
+TI"_version;
+F"%720937ee9045c25e841355957bfc2e05

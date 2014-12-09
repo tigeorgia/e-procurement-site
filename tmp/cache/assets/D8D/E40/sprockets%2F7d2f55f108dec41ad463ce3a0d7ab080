@@ -1,0 +1,21 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.4832003:@value{	I"length:EFi�I"digest;
+F"%44709b770d2bd6eb34ba40cc64b7bce4I"source;
+FI"�/**
+ * Albanian translation for bootstrap-datepicker
+ * Tomor Pupovci <http://www.github.com/ttomor>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['sq'] = {
+		days: ["E Diel", "E Hënë", "E martē", "E mërkurë", "E Enjte", "E Premte", "E Shtunë", "E Diel"],
+		daysShort: ["Die", "Hën", "Mar", "Mër", "Enj", "Pre", "Shtu", "Die"],
+		daysMin: ["Di", "Hë", "Ma", "Më", "En", "Pr", "Sht", "Di"],
+		months: ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"],
+		monthsShort: ["Jan", "Shk", "Mar", "Pri", "Maj", "Qer", "Korr", "Gu", "Sht", "Tet", "Nën", "Dhjet"],
+		today: "Sot"
+	};
+}(jQuery));
+
+;
+TI"_version;
+F"%322b13731bdee29872e12794cc166d4f

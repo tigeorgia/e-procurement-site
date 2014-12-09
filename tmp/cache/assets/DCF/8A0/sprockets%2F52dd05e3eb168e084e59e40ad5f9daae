@@ -1,0 +1,41 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.5970423:@value{I"
+class:EFI"BundledAsset;
+FI"id;
+F"%c5d6f8c794fbd9862aa3abab4f80a2a5I"logical_path;
+FI"ie7.css;
+TI"pathname;
+FI",$root/vendor/assets/stylesheets/ie7.css;
+TI"content_type;
+FI"text/css;
+FI"
+mtime;
+FI"2014-12-08T13:49:22+04:00;
+FI"	body;
+FI"ƒ/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+
+*/
+
+
+;
+FI"asset_paths;
+F[I"X/var/lib/gems/1.9.1/gems/formtastic-2.2.1/app/assets/stylesheets/formtastic_ie7.css;
+TI",$root/vendor/assets/stylesheets/ie7.css;
+TI"dependency_paths;
+F[{I"	path;
+FI",$root/vendor/assets/stylesheets/ie7.css;
+TI"
+mtime;
+FIu:	Time%¬€3$'×
+:@_zoneI"GET;
+T:nano_numiÁ:nano_deni:submicro"pP:offseti@8I"hexdigest;
+F"%62ac6bf164ce27090f68625bdc14559a{I"	path;
+FI"X/var/lib/gems/1.9.1/gems/formtastic-2.2.1/app/assets/stylesheets/formtastic_ie7.css;
+TI"
+mtime;
+FIu;	­€SžiÅ
+;I"GET;
+T;i®;i;"C;i@8I"hexdigest;
+F"%66f742d29b41796eb6e2f50965712c86I"_version;
+F"%0868aba5d4b750d3a9421721ea3d9b9c

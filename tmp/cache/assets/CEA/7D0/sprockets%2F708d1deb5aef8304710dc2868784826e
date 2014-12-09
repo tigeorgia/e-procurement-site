@@ -1,0 +1,40 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.1396976:@value{I"
+class:EFI"BundledAsset;
+FI"id;
+F"%df9719b1601a6659df879d26434a599cI"logical_path;
+FI"<bootstrap-datepicker/locales/bootstrap-datepicker.id.js;
+TI"pathname;
+FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.id.js;
+TI"content_type;
+FI"application/javascript;
+FI"
+mtime;
+FI"2014-12-08T13:46:46+04:00;
+FI"	body;
+FI"b/**
+ * Bahasa translation for bootstrap-datepicker
+ * Azwar Akbar <azwar.akbar@gmail.com>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['id'] = {
+		days: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"],
+		daysShort: ["Mgu", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Mgu"],
+		daysMin: ["Mg", "Sn", "Sl", "Ra", "Ka", "Ju", "Sa", "Mg"],
+		months: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"]
+	};
+}(jQuery));
+;
+FI"asset_paths;
+F[I"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.id.js;
+TI"dependency_paths;
+F[{I"	path;
+FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.id.js;
+TI"
+mtime;
+FIu:	Time	≠Äñ´Ï∫
+:@_zoneI"GET;
+T:nano_numi›:nano_deni:submicro"":offseti@8I"hexdigest;
+F"%64677eca8cedc26349e1cfe6cab1a9c7I"_version;
+F"%0868aba5d4b750d3a9421721ea3d9b9c

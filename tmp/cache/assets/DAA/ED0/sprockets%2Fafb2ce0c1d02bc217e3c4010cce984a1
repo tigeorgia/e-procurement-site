@@ -1,0 +1,17 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034111.280771:@value{I"
+class:EFI"StaticAsset;
+FI"id;
+F"%cb80fe8c2e0e387a2aaf1c09f4bd711aI"logical_path;
+FI"slovak_aid_logo.gif;
+TI"pathname;
+FI"0$root/app/assets/images/slovak_aid_logo.gif;
+TI"content_type;
+FI"image/gif;
+FI"
+mtime;
+FI"2014-12-01T09:53:41+04:00;
+FI"length;
+FI"	3000;
+FI"digest;
+F"%77e935165ded685a544a0728ac3ae9d7I"_version;
+F"%0868aba5d4b750d3a9421721ea3d9b9c

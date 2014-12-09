@@ -1,0 +1,16 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.5388558:@value{	I"length:EFi„I"digest;
+F"%32125fa5b8f58ba18a74f929c5ad7e3fI"source;
+FI"„$(document).ready(function() {
+    var toggles = $("div.expansion").find("div.expandToggle");
+    var expandables = $("div.expansion").find("div.expandable");
+    expandables.hide();
+
+    toggles.click(function() {
+     $(this).parent().find(".arrow").toggleClass("up");
+     $(this).parents("div.expansion").find("div.expandable").slideToggle({duration:"slow"});
+    });
+});
+
+;
+FI"_version;
+F"%97919d43fc21393ccad2cfdb202b619f

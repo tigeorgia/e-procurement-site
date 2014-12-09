@@ -1,0 +1,20 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.4241095:@value{	I"length:EFi�I"digest;
+F"%e480d15addd13c9193e0ab0aaa396c0bI"source;
+FI"�/**
+ * Icelandic translation for bootstrap-datepicker
+ * Hinrik Örn Sigurðsson <hinrik.sig@gmail.com>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['is'] = {
+		days: ["Sunnudagur", "Mánudagur", "Þriðjudagur", "Miðvikudagur", "Fimmtudagur", "Föstudagur", "Laugardagur", "Sunnudagur"],
+		daysShort: ["Sun", "Mán", "Þri", "Mið", "Fim", "Fös", "Lau", "Sun"],
+		daysMin: ["Su", "Má", "Þr", "Mi", "Fi", "Fö", "La", "Su"],
+		months: ["Janúar", "Febrúar", "Mars", "Apríl", "Maí", "Júní", "Júlí", "Ágúst", "September", "Október", "Nóvember", "Desember"],
+		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maí", "Jún", "Júl", "Ágú", "Sep", "Okt", "Nóv", "Des"],
+		today: "Í Dag"
+	};
+}(jQuery));
+;
+TI"_version;
+F"%8e267339ad80ef100ad23c47bfa41ff4

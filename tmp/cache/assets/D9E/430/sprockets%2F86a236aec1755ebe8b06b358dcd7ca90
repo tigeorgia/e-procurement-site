@@ -1,0 +1,41 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.1416264:@value{I"
+class:EFI"BundledAsset;
+FI"id;
+F"%8e267339ad80ef100ad23c47bfa41ff4I"logical_path;
+FI"<bootstrap-datepicker/locales/bootstrap-datepicker.is.js;
+TI"pathname;
+FI"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.is.js;
+TI"content_type;
+FI"application/javascript;
+FI"
+mtime;
+FI"2014-12-08T13:46:46+04:00;
+FI"	body;
+FI"�/**
+ * Icelandic translation for bootstrap-datepicker
+ * Hinrik Örn Sigurðsson <hinrik.sig@gmail.com>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['is'] = {
+		days: ["Sunnudagur", "Mánudagur", "Þriðjudagur", "Miðvikudagur", "Fimmtudagur", "Föstudagur", "Laugardagur", "Sunnudagur"],
+		daysShort: ["Sun", "Mán", "Þri", "Mið", "Fim", "Fös", "Lau", "Sun"],
+		daysMin: ["Su", "Má", "Þr", "Mi", "Fi", "Fö", "La", "Su"],
+		months: ["Janúar", "Febrúar", "Mars", "Apríl", "Maí", "Júní", "Júlí", "Ágúst", "September", "Október", "Nóvember", "Desember"],
+		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maí", "Jún", "Júl", "Ágú", "Sep", "Okt", "Nóv", "Des"],
+		today: "Í Dag"
+	};
+}(jQuery));
+;
+TI"asset_paths;
+F[I"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.is.js;
+TI"dependency_paths;
+F[{I"	path;
+FI"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.is.js;
+TI"
+mtime;
+FIu:	Time	�����
+:@_zoneI"GET;
+T:nano_numi�:nano_deni:submicro"":offseti@8I"hexdigest;
+F"%d6a641c9c17f05f4c5b9983c81cf13f9I"_version;
+F"%0868aba5d4b750d3a9421721ea3d9b9c

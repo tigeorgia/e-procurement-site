@@ -1,0 +1,41 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.0782056:@value{I"
+class:EFI"BundledAsset;
+FI"id;
+F"%0167029938c36ca4dc29c782dc9eb2cfI"logical_path;
+FI"<bootstrap-datepicker/locales/bootstrap-datepicker.bg.js;
+TI"pathname;
+FI"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.bg.js;
+TI"content_type;
+FI"application/javascript;
+FI"
+mtime;
+FI"2014-12-08T13:46:46+04:00;
+FI"	body;
+FI"E/**
+ * Bulgarian translation for bootstrap-datepicker
+ * Apostol Apostolov <apostol.s.apostolov@gmail.com>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['bg'] = {
+		days: ["Неделя", "Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота", "Неделя"],
+		daysShort: ["Нед", "Пон", "Вто", "Сря", "Чет", "Пет", "Съб", "Нед"],
+		daysMin: ["Н", "П", "В", "С", "Ч", "П", "С", "Н"],
+		months: ["Януари", "Февруари", "Март", "Април", "Май", "Юни", "Юли", "Август", "Септември", "Октомври", "Ноември", "Декември"],
+		monthsShort: ["Ян", "Фев", "Мар", "Апр", "Май", "Юни", "Юли", "Авг", "Сеп", "Окт", "Ное", "Дек"],
+		today: "днес"
+	};
+}(jQuery));
+;
+TI"asset_paths;
+F[I"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.bg.js;
+TI"dependency_paths;
+F[{I"	path;
+FI"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.bg.js;
+TI"
+mtime;
+FIu:	Time	�����
+:@_zoneI"GET;
+T:nano_numi�:nano_deni:submicro"":offseti@8I"hexdigest;
+F"%3913da6fa2314fb5071877a09ad4c076I"_version;
+F"%0868aba5d4b750d3a9421721ea3d9b9c

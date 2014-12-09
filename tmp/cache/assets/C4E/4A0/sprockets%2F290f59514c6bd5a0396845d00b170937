@@ -1,0 +1,43 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.1437755:@value{I"
+class:EFI"BundledAsset;
+FI"id;
+F"%2ccb0d8f51b810ce87d715287a2d9f33I"logical_path;
+FI"<bootstrap-datepicker/locales/bootstrap-datepicker.it.js;
+TI"pathname;
+FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.it.js;
+TI"content_type;
+FI"application/javascript;
+FI"
+mtime;
+FI"2014-12-08T13:46:46+04:00;
+FI"	body;
+FI"∑/**
+ * Italian translation for bootstrap-datepicker
+ * Enrico Rubboli <rubboli@gmail.com>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['it'] = {
+		days: ["Domenica", "Luned√¨", "Marted√¨", "Mercoled√¨", "Gioved√¨", "Venerd√¨", "Sabato", "Domenica"],
+		daysShort: ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"],
+		daysMin: ["Do", "Lu", "Ma", "Me", "Gi", "Ve", "Sa", "Do"],
+		months: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
+		monthsShort: ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"],
+		today: "Oggi",
+		weekStart: 1,
+		format: "dd/mm/yyyy"
+	};
+}(jQuery));
+;
+TI"asset_paths;
+F[I"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.it.js;
+TI"dependency_paths;
+F[{I"	path;
+FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.it.js;
+TI"
+mtime;
+FIu:	Time	≠ÄˆõÏ∫
+:@_zoneI"GET;
+T:nano_numi›:nano_deni:submicro"":offseti@8I"hexdigest;
+F"%44c0b600aaa7a549a58b663206f24de6I"_version;
+F"%0868aba5d4b750d3a9421721ea3d9b9c

@@ -1,0 +1,20 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.481721:@value{	I"length:EFi…I"digest;
+F"%ac972948b4de28fd5c48019e9812af65I"source;
+FI"…/**
+ * Slovene translation for bootstrap-datepicker
+ * Gregor Rudolf <gregor.rudolf@gmail.com>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['sl'] = {
+		days: ["Nedelja", "Ponedeljek", "Torek", "Sreda", "ÄŒetrtek", "Petek", "Sobota", "Nedelja"],
+		daysShort: ["Ned", "Pon", "Tor", "Sre", "ÄŒet", "Pet", "Sob", "Ned"],
+		daysMin: ["Ne", "Po", "To", "Sr", "ÄŒe", "Pe", "So", "Ne"],
+		months: ["Januar", "Februar", "Marec", "April", "Maj", "Junij", "Julij", "Avgust", "September", "Oktober", "November", "December"],
+		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"],
+		today: "Danes"
+	};
+}(jQuery));
+;
+TI"_version;
+F"%073107bf09b0d9ac71b84e367c4533b7

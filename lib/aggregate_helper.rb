@@ -212,9 +212,9 @@ module AggregateHelper
     stats.each do |key, stat|
       stat[:tenderStats].calcAverages()
       bidDurationVsBidders = stat[:bidDurationVsBidders]
-      stat[:bid_data].each do |key, bidData|  
+      stat[:bid_data].each do |bidKey, bidData|  
         average = bidData[0].to_f / bidData[1].to_f
-        dataPoint = [key,average,bidData[1].to_f]
+        dataPoint = [bidKey,average,bidData[1].to_f]
         #if this average is made up of atleast %1 of all tenders
         if bidData[1] > stat[:tenderStats].getSuccessCount() / 100
           bidDurationVsBidders.push( dataPoint )

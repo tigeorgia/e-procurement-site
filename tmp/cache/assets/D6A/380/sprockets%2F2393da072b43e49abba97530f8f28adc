@@ -1,0 +1,41 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.2546167:@value{I"
+class:EFI"BundledAsset;
+FI"id;
+F"%f7882bccf97462903af09a0fef4e5cd4I"logical_path;
+FI"<bootstrap-datepicker/locales/bootstrap-datepicker.uk.js;
+TI"pathname;
+FI"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.uk.js;
+TI"content_type;
+FI"application/javascript;
+FI"
+mtime;
+FI"2014-12-08T13:46:46+04:00;
+FI"	body;
+FI"{/**
+ * Ukrainian translation for bootstrap-datepicker
+ * Andrey Vityuk <andrey [dot] vityuk [at] gmail.com>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['uk'] = {
+		days: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя"],
+		daysShort: ["Нед", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Суб", "Нед"],
+		daysMin: ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"],
+		months: ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"],
+		monthsShort: ["Січ", "Лют", "Бер", "Кві", "Тра", "Чер", "Лип", "Сер", "Вер", "Жов", "Лис", "Гру"],
+		today: "Сьогодні"
+	};
+}(jQuery));
+;
+TI"asset_paths;
+F[I"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.uk.js;
+TI"dependency_paths;
+F[{I"	path;
+FI"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.uk.js;
+TI"
+mtime;
+FIu:	Time	�����
+:@_zoneI"GET;
+T:nano_numi�:nano_deni:submicro"":offseti@8I"hexdigest;
+F"%7e77339a73c16ebb6416c00b2d438ae4I"_version;
+F"%0868aba5d4b750d3a9421721ea3d9b9c

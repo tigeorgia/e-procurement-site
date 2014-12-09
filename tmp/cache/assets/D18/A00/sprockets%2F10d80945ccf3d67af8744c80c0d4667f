@@ -1,0 +1,41 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.2472546:@value{I"
+class:EFI"BundledAsset;
+FI"id;
+F"%31962b138c91f712674fb922a5288f5bI"logical_path;
+FI"<bootstrap-datepicker/locales/bootstrap-datepicker.sv.js;
+TI"pathname;
+FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.sv.js;
+TI"content_type;
+FI"application/javascript;
+FI"
+mtime;
+FI"2014-12-08T13:46:46+04:00;
+FI"	body;
+FI"ã/**
+ * Swedish translation for bootstrap-datepicker
+ * Patrik Ragnarsson <patrik@starkast.net>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['sv'] = {
+		days: ["S√∂ndag", "M√•ndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "L√∂rdag", "S√∂ndag"],
+		daysShort: ["S√∂n", "M√•n", "Tis", "Ons", "Tor", "Fre", "L√∂r", "S√∂n"],
+		daysMin: ["S√∂", "M√•", "Ti", "On", "To", "Fr", "L√∂", "S√∂"],
+		months: ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"],
+		monthsShort: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"],
+		today: "I Dag"
+	};
+}(jQuery));
+;
+TI"asset_paths;
+F[I"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.sv.js;
+TI"dependency_paths;
+F[{I"	path;
+FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.sv.js;
+TI"
+mtime;
+FIu:	Time	≠Äñ´Ï∫
+:@_zoneI"GET;
+T:nano_numi›:nano_deni:submicro"":offseti@8I"hexdigest;
+F"%24c816471fd8cc9b1ae17d26983f890eI"_version;
+F"%0868aba5d4b750d3a9421721ea3d9b9c

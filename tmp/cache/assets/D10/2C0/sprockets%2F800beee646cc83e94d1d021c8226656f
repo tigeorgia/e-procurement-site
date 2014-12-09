@@ -1,0 +1,43 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.1376686:@value{I"
+class:EFI"BundledAsset;
+FI"id;
+F"%720937ee9045c25e841355957bfc2e05I"logical_path;
+FI"<bootstrap-datepicker/locales/bootstrap-datepicker.hu.js;
+TI"pathname;
+FI"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.hu.js;
+TI"content_type;
+FI"application/javascript;
+FI"
+mtime;
+FI"2014-12-08T13:46:46+04:00;
+FI"	body;
+FI"�/**
+ * Hungarian translation for bootstrap-datepicker
+ * Sotus László <lacisan@gmail.com>
+ */
+
+;(function($){
+  $.fn.datepicker.dates['hu'] = {
+		days: ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat", "Vasárnap"],
+		daysShort: ["Vas", "Hét", "Ked", "Sze", "Csü", "Pén", "Szo", "Vas"],
+		daysMin: ["Va", "Hé", "Ke", "Sz", "Cs", "Pé", "Sz", "Va"],
+		months: ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"],
+		monthsShort: ["Jan", "Feb", "Már", "Ápr", "Máj", "Jún", "Júl", "Aug", "Sze", "Okt", "Nov", "Dec"],
+		today: "Ma",
+		weekStart: 1,
+		format: "yyyy.mm.dd"
+	};
+}(jQuery));
+;
+TI"asset_paths;
+F[I"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.hu.js;
+TI"dependency_paths;
+F[{I"	path;
+FI"�/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.hu.js;
+TI"
+mtime;
+FIu:	Time	�����
+:@_zoneI"GET;
+T:nano_numi�:nano_deni:submicro"":offseti@8I"hexdigest;
+F"%1bbba5de98377a8d22d111b733d2f773I"_version;
+F"%0868aba5d4b750d3a9421721ea3d9b9c

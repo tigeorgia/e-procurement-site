@@ -1,0 +1,20 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.4387991:@value{	I"length:EFi�I"digest;
+F"%f988285271cccc94c98408569499ec29I"source;
+FI"�/**
+ * Portuguese translation for bootstrap-datepicker
+ * Original code: Cauan Cabral <cauan@radig.com.br>
+ * Tiago Melo <tiago.blackcode@gmail.com>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['pt'] = {
+		days: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"],
+		daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
+		daysMin: ["Do", "Se", "Te", "Qu", "Qu", "Se", "Sa", "Do"],
+		months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+		monthsShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
+	};
+}(jQuery));
+;
+TI"_version;
+F"%9a8bb4574b25b7b3d6396b8f4190c8c9

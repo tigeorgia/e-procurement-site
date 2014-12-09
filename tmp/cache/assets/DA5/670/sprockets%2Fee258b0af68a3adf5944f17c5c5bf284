@@ -1,0 +1,43 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.0966027:@value{I"
+class:EFI"BundledAsset;
+FI"id;
+F"%af51be22ddf083222791dcaa5e46ffa9I"logical_path;
+FI"<bootstrap-datepicker/locales/bootstrap-datepicker.fi.js;
+TI"pathname;
+FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.fi.js;
+TI"content_type;
+FI"application/javascript;
+FI"
+mtime;
+FI"2014-12-08T13:46:46+04:00;
+FI"	body;
+FI"◊/**
+ * Finnish translation for bootstrap-datepicker
+ * Jaakko Salonen <https://github.com/jsalonen>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['fi'] = {
+		days: ["sunnuntai", "maanantai", "tiistai", "keskiviikko", "torstai", "perjantai", "lauantai", "sunnuntai"],
+		daysShort: ["sun", "maa", "tii", "kes", "tor", "per", "lau", "sun"],
+		daysMin: ["su", "ma", "ti", "ke", "to", "pe", "la", "su"],
+		months: ["tammikuu", "helmikuu", "maaliskuu", "huhtikuu", "toukokuu", "kes√§kuu", "hein√§kuu", "elokuu", "syyskuu", "lokakuu", "marraskuu", "joulukuu"],
+		monthsShort: ["tam", "hel", "maa", "huh", "tou", "kes", "hei", "elo", "syy", "lok", "mar", "jou"],
+		today: "t√§n√§√§n",
+		weekStart: 1,
+		format: "d.m.yyyy"
+	};
+}(jQuery));
+;
+TI"asset_paths;
+F[I"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.fi.js;
+TI"dependency_paths;
+F[{I"	path;
+FI"ç/var/lib/gems/1.9.1/gems/bootstrap-datepicker-rails-1.1.0.1/vendor/assets/javascripts/bootstrap-datepicker/locales/bootstrap-datepicker.fi.js;
+TI"
+mtime;
+FIu:	Time	≠ÄˆõÏ∫
+:@_zoneI"GET;
+T:nano_numi›:nano_deni:submicro"":offseti@8I"hexdigest;
+F"%ad21931f7a2173aac99e28cc057886b7I"_version;
+F"%0868aba5d4b750d3a9421721ea3d9b9c

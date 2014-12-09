@@ -1,0 +1,21 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1418034110.440141:@value{	I"length:EFi�I"digest;
+F"%ecdd5f70bd057ad6f15c81c4606d409dI"source;
+FI"�/**
+ * Romanian translation for bootstrap-datepicker
+ * Cristian Vasile <cristi.mie@gmail.com>
+ */
+
+;(function($){
+	$.fn.datepicker.dates['ro'] = {
+		days: ["Duminică", "Luni", "Marţi", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică"],
+		daysShort: ["Dum", "Lun", "Mar", "Mie", "Joi", "Vin", "Sâm", "Dum"],
+		daysMin: ["Du", "Lu", "Ma", "Mi", "Jo", "Vi", "Sâ", "Du"],
+		months: ["Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie", "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie"],
+		monthsShort: ["Ian", "Feb", "Mar", "Apr", "Mai", "Iun", "Iul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+		today: "Astăzi",
+		weekStart: 1
+	};
+}(jQuery));
+;
+TI"_version;
+F"%46d5179a147e9d8e9d700438f1c62d31

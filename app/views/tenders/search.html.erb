@@ -1,76 +1,77 @@
 <script>
-  $(document).ready(function() {
-    displayArrows("<%=@sort%>","<%=@direction%>");
-  });
+	$(document).ready(function() {
+displayArrows("<%= @sort%>","<%= @direction%>
+	");
+	});
 </script>
 
-<%- model_class = Tender -%>
+<% - model_class = Tender -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => t("Tenders") %></h1>
+	<h1><%= t '.title', :default => t("Tenders") %></h1>
 </div>
 
 <% if user_signed_in? %>
-  <div class="search_serialization">
-    <% if @searchIsSaved %>
-      <%= render "user/remove_form" %>
-    <% else %>
-      <%= render "user/save_form" %>
-    <% end %>
-  </div>
-  <br>
+<div class="search_serialization">
+	<% if @searchIsSaved %>
+	<%= render "user/remove_form" %>
+	<% else %>
+	<%= render "user/save_form" %>
+	<% end %>
+</div>
+<br>
 <% end %>
-  
-  <% csvParams = @params.clone%>
-  <% csvParams[:format] = "csv" %>
-  <% csvParams[:controller] = "tender" %>
-  <% csvParams[:action] = "download" %>
 
-  <%= t("Number of Tenders")%> : <%= @numResults %>
-  <%if not Rails.application.config.live_deploy%>
-    <%= button_to t("Download CSV"),  csvParams, :class => "submit-button" %>
-  <%end%>
-    <hr>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th class="header-10 arrow"><%= sortable(@params, "tender_registration_number", t("Tender")) %></th>
-          <th class="header-20 arrow"><%= sortable(@params, "procurer_name", t("Procurer")) %></th>
-          <th class="header-10 arrow"><%= sortable(@params, "supplier_name", t("Supplier")) %></th>
-          <th class="arrow"><%= sortable(@params, "tender_announcement_date", t("Date")) %></th>
-          <th class="arrow"><%= sortable(@params, "cpv_code", t("CPV"))%></th>
-          <th class="arrow"><%= sortable(@params, "tender_type", t("Type")) %></th> 
-          <th class="arrow"><%= sortable(@params, "tender_status", t("Status")) %></th>
-          <th class="arrow"><%= sortable(@params, "estimated_value", t("Est Value")) %></th>
-          <th class="header-10 arrow"><%= sortable(@params, "contract_value", t("Actual Value"))%></th>
-          <th class="header-7 arrow"><%= sortable(@params, "num_bidders", t("Bidders"))%></th>
-        </tr>
-      </thead>
-      
-      <tbody>
-        <%= page_navigation_links @tenders %>
-        <% @tenders.each do |tender| %>
-          <% highlightClass = 'class="no-overflow"'.html_safe %>
-          <% if @search and @search.new_ids and @search.new_ids.index(tender.id.to_s) != nil %>
-            <% highlightClass = 'class="no-overflow highlight"'.html_safe %>
-          <% end %>
-          <tr>
-            <td <%=highlightClass%>><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
-            <td <%=highlightClass%>><%= link_to tender.procurer_name, :controller => "organizations", :action => "show_procurer", :id => tender.procurring_entity_id %></td>
+<% csvParams = @params.clone%>
+<% csvParams[:format] = "csv" %>
+<% csvParams[:controller] = "tender" %>
+<% csvParams[:action] = "download" %>
 
-            <% if @tendersInfo[tender.id] && @tendersInfo[tender.id][:winningOrgName] %>
-              <td <%=highlightClass%>><%= link_to @tendersInfo[tender.id][:winningOrgName], :controller => "organizations", :action => "show", :id => @tendersInfo[tender.id][:winningOrgId] %></td>
-            <% else %>
-              <td <%=highlightClass%>>N/A</td>
-            <% end %>
-            <td <%=highlightClass%>><%= tender.tender_announcement_date %></td>
-            <td <%=highlightClass%>><%= tender.cpv_code %></td>
-            <td <%=highlightClass%>><%= t(tender.tender_type.strip()) %></td>
-            <td <%=highlightClass%>><%= t(tender.tender_status) %></td>
-            <td <%=highlightClass%>><%= tender.estimated_value %></td>
-            <td <%=highlightClass%>><% if @tendersInfo[tender.id] && @tendersInfo[tender.id][:tenderActualValue] %><%= @tendersInfo[tender.id][:tenderActualValue] %><%else%>N/A<%end%></td>
-            <td <%=highlightClass%>><%= tender.num_bidders %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <%= page_navigation_links @tenders %>
+<%= t("Number of Tenders")%> : <%= @numResults %>
+<%if not Rails.application.config.live_deploy%>
+<%= button_to t("Download CSV"),  csvParams, :class => "submit-button" %>
+<%end%>
+<hr>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th class="header-10 arrow"><%= sortable(@params, "tender_registration_number", t("Tender")) %></th>
+			<th class="header-20 arrow"><%= sortable(@params, "procurer_name", t("Procurer")) %></th>
+			<th class="header-10 arrow"><%= sortable(@params, "supplier_name", t("Supplier")) %></th>
+			<th class="arrow"><%= sortable(@params, "tender_announcement_date", t("Date")) %></th>
+			<th class="arrow"><%= sortable(@params, "cpv_code", t("CPV"))%></th>
+			<th class="arrow"><%= sortable(@params, "tender_type", t("Type")) %></th>
+			<th class="arrow"><%= sortable(@params, "tender_status", t("Status")) %></th>
+			<th class="arrow"><%= sortable(@params, "estimated_value", t("Est Value")) %></th>
+			<th class="header-10 arrow"><%= sortable(@params, "contract_value", t("Actual Value"))%></th>
+			<th class="header-7 arrow"><%= sortable(@params, "num_bidders", t("Bidders"))%></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<%= page_navigation_links @tenders %>
+		<% @tenders.each do |tender| %>
+		<% highlightClass = 'class="no-overflow"'.html_safe %>
+		<% if @search and @search.new_ids and @search.new_ids.index(tender.id.to_s) != nil %>
+		<% highlightClass = 'class="no-overflow highlight"'.html_safe %>
+		<% end %>
+		<tr>
+			<td <%= highlightClass%>><%= link_to tender.tender_registration_number, tender_path(tender) %></td>
+			<td <%= highlightClass%>><%= link_to tender.procurer_name, :controller => "organizations", :action => "show_procurer", :id => tender.procurring_entity_id %></td>
+
+			<% if @tendersInfo[tender.id] && @tendersInfo[tender.id][:winningOrgName] %>
+			<td <%= highlightClass%>><%= link_to @tendersInfo[tender.id][:winningOrgName], :controller => "organizations", :action => "show", :id => @tendersInfo[tender.id][:winningOrgId] %></td>
+			<% else %>
+			<td <%= highlightClass%>>N/A</td>
+			<% end %>
+			<td <%= highlightClass%>><%= tender.tender_announcement_date %></td>
+			<td <%= highlightClass%>><%= tender.cpv_code %></td>
+			<td <%= highlightClass%>><%= t(tender.tender_type.strip()) %></td>
+			<td <%= highlightClass%>><%= t(tender.tender_status) %></td>
+			<td <%= highlightClass%>><%= tender.estimated_value %></td>
+			<td <%= highlightClass%>><% if @tendersInfo[tender.id] && @tendersInfo[tender.id][:tenderActualValue] %><%= @tendersInfo[tender.id][:tenderActualValue] %><%else%>N/A<%end%></td>
+			<td <%= highlightClass%>><%= tender.num_bidders %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<%= page_navigation_links @tenders %>
