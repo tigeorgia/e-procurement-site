@@ -1,5 +1,0 @@
-class WatchTenderController < ApplicationController
-
-
-
-end 

@@ -1,8 +1,0 @@
-class Dataset < ActiveRecord::Base
-  has_many :tenders, :dependent => :destroy
-  has_many :organizations, :dependent => :destroy
-  
-  attr_accessible :id,
-      :date,
-      :is_live,
-end
