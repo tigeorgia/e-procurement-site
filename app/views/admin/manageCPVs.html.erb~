@@ -1,3 +1,0 @@
-<h2>Global CPV categories</h2>
-<br>
-<%= render "user/cpvGroups"%>

@@ -1,4 +1,0 @@
-$(function () {
-  $(".supplier_subscription").html("<%= escape_javascript( button_to "Save to Profile", {:controller => :user, :action => "add_supplier_watch", :supplier_watch_id => @organization.id }, :remote => true, :class => "user-button") %>");
-  return false;
-});

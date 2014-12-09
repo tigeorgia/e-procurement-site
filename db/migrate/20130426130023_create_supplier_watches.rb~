@@ -1,8 +1,0 @@
-class CreateSupplierWatches < ActiveRecord::Migration
-  def change
-    create_table :supplier_watches do |t|
-
-      t.timestamps
-    end
-  end
-end

@@ -1,9 +1,0 @@
-<br>
-
-<%if @alreadyUnSubscribed %>
-<h2><%=t("You have already unsubscribed, you will continue to not receive email alerts")%></h2>
-<%else%>
-<h2><%=t("You will now not receive email alerts")%></h2>
-<%end%>
-
-t("Clic") <%= link_to t("Here"), {:controller => "user", :action => "index"} %> t("to view your profile")

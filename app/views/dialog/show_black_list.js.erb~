@@ -1,8 +1,0 @@
-$(function() {
-      $( ".modal" ).dialog({
-          resizable: false,
-          height:200,
-          modal: true
-    });
-  return true;
-});

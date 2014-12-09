@@ -1,3 +1,0 @@
-<%= form_tag( {:controller => :dialog, :action => "showWhiteList", :id => 462}, :remote => true) do %>
-  <%= submit_tag( "test") %>
-<% end %>

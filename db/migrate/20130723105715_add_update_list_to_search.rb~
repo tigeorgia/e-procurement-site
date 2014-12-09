@@ -1,5 +1,0 @@
-class AddUpdateListToSearch < ActiveRecord::Migration
-  def change
-    change_column :searches, :new_ids, :text
-  end
-end

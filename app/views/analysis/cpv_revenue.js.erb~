@@ -1,7 +1,0 @@
-$(function () {
-  $("#results").html('<%= escape_javascript( render :partial => "cpv_revenue" ) %>');
-  $(document).ready(function() {
-   
-  });
-  return false;
-});
