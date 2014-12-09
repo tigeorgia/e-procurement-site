@@ -152,7 +152,7 @@ module ScraperFile
             if oldTender.updated_at < @scrapeTime
               #ignore all meta data when comparing
               ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
-                         "risk_indicators","procurer_name","supplier_name","sub_codes"]
+                "risk_indicators","procurer_name","supplier_name","sub_codes"]
 
               differences = oldTender.findDifferences(tender,ignores)
               if differences.length > 0
@@ -260,7 +260,7 @@ module ScraperFile
             puts "old tender is old"
             #ignore all meta data when comparing
             ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
-                       "risk_indicators","procurer_name","supplier_name","sub_codes"]
+              "risk_indicators","procurer_name","supplier_name","sub_codes"]
 
             differences = oldTender.findDifferences(tender,ignores)
             if differences.length > 0
@@ -337,14 +337,14 @@ module ScraperFile
                 if watches.count > 0
                   #ignore all meta data when comparing
                   ignores = ["is_procurer", "is_bidder","translation","total_won_contract_value",
-                             "total_bid_tenders","total_won_tenders","total_offered_contract_value",
-                             "total_offered_tenders","total_success_tenders","bw_list"]
+                    "total_bid_tenders","total_won_tenders","total_offered_contract_value",
+                    "total_offered_tenders","total_success_tenders","bw_list"]
                   differences = oldOrganization.findDifferences(organization, ignores)
                   watches.each do |watch|
-                    #set hash to empty so the orgs get cleaned out everytime before processing 
+                    #set hash to empty so the orgs get cleaned out everytime before processing
                     hash = ""
                     if differences.length > 0
-                      #store changed fields in hash                   
+                      #store changed fields in hash
                       differences.each do |difference|
                         hash += difference[:field]+"/"+difference[:old]+"#"
                       end
@@ -376,7 +376,6 @@ module ScraperFile
       end#transaction
     end#do
   end#process org
-
 
   def self.processBidders
     bidder_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_BIDDERS}"
@@ -465,7 +464,7 @@ module ScraperFile
           puts "bidders: #{count}"
         end#transaction
       end
-    end#file  
+    end#file
   end#processBidders
 
   def self.processAgreements
@@ -494,7 +493,7 @@ module ScraperFile
                 agreement.documentation_url = item["documentUrl"]
 
                 if agreement.documentation_url == "disqualifed" or agreement.documentation_url == "bidder refused agreement"
-                  #puts "disqualifed agreement"        
+                  #puts "disqualifed agreement"
                   #org is stored as a name not an id in this case
                   organization = Organization.where(:name => item["OrgUrl"].gsub("&amp;","&")).first
                   if organization
@@ -619,7 +618,7 @@ module ScraperFile
           end#while
         end#transaction
       end
-    end#file 
+    end#file
   end
 
   #deprecated
@@ -658,7 +657,7 @@ module ScraperFile
           end#while
         end#transaction
       end
-    end#file 
+    end#file
   end
 
   def self.processDocuments
@@ -709,7 +708,6 @@ module ScraperFile
     end #file
   end #processDocuments
 
-
   #setup cpv codes
   #go through all tenders and find all unqiue cpv codes
   def self.createCPVCodes
@@ -734,37 +732,36 @@ module ScraperFile
     end
   end#createcpv
 
-
   def self.georgianToDate( dateString )
     elements = dateString.split()
     month = elements[1]
     monthInt = -1
 
     case month
-      when "იანვარი"
-        monthInt = "1"
-      when "თებერვალი"
-        monthInt = "2"
-      when "მარტი"
-        monthInt = "3"
-      when "აპრილი"
-        monthInt = "4"
-      when "მაისი"
-        monthInt = "5"
-      when "ივნისი"
-        monthInt = "6"
-      when "ივლისი"
-        monthInt = "7"
-      when "აგვისტო"
-        monthInt = "8"
-      when "სექტემბერი"
-        monthInt = "9"
-      when "ოქტომბერი"
-        monthInt = "10"
-      when "ნოემბერი"
-        monthInt = "11"
-      when "დეკემბერი"
-        monthInt = "12"
+    when "იანვარი"
+      monthInt = "1"
+    when "თებერვალი"
+      monthInt = "2"
+    when "მარტი"
+      monthInt = "3"
+    when "აპრილი"
+      monthInt = "4"
+    when "მაისი"
+      monthInt = "5"
+    when "ივნისი"
+      monthInt = "6"
+    when "ივლისი"
+      monthInt = "7"
+    when "აგვისტო"
+      monthInt = "8"
+    when "სექტემბერი"
+      monthInt = "9"
+    when "ოქტომბერი"
+      monthInt = "10"
+    when "ნოემბერი"
+      monthInt = "11"
+    when "დეკემბერი"
+      monthInt = "12"
     end
 
     monthString = elements[2]+"/"+monthInt+"/"+elements[0]
@@ -874,7 +871,7 @@ module ScraperFile
       #get last agreement
       lastAgreement = nil
       agreements.each do |agreement|
-        #hack for now, need to add amendment numbers to disqualifactions 
+        #hack for now, need to add amendment numbers to disqualifactions
         if (lastAgreement and lastAgreement.amendment_number) or (not lastAgreement) or (agreement.amendment_number and lastAgreement.amendment_number < agreement.amendment_number)
           lastAgreement = agreement
         end
@@ -940,7 +937,6 @@ module ScraperFile
     AggregateHelper.generateAndStoreAggregateData
   end#process aggregate data
 
-
   def self.createUsers
     #NEEDS TO BE REMOVED LATER
     myAdminAccount = User.where(:id => 1).first
@@ -960,7 +956,6 @@ module ScraperFile
       allGroup.name = "All"
       allGroup.save
     end
-
 
     #create risky special cpv group
     if not CpvGroup.where( :id => 2).first
@@ -1034,7 +1029,7 @@ module ScraperFile
     if not majorPlayerIndicator
       majorPlayerIndicator = CorruptionIndicator.new
       majorPlayerIndicator.name = "Major players not competiting"
-      majorPlayerIndicator.id = 5     
+      majorPlayerIndicator.id = 5
       majorPlayerIndicator.weight = 2
       majorPlayerIndicator.description = "Only one major player has been a bid on this contract"
       majorPlayerIndicator.save
@@ -1206,7 +1201,6 @@ module ScraperFile
     end
   end
 
-
   def self.contractAmendmentAssessment(indicator)
     Tender.find_each(:conditions => "num_bidders > 1") do |tender|
       #look at the latest agreement and check the price vs other bidders
@@ -1242,7 +1236,6 @@ module ScraperFile
       end
     end
   end
-
 
   #tough one
   def self.majorPlayerCompetitionAssessment(indicator)
@@ -1364,7 +1357,6 @@ module ScraperFile
       procurerWatches = self.checkProcurerWatches(user)
       cpvWatches = self.checkCpvWatches(user)
 
-
       if searches.length > 0
         updates[:searches] = searches
       end
@@ -1406,7 +1398,6 @@ module ScraperFile
     end
     return updates
   end
-
 
   def self.checkTenderWatches(user)
     #go through all saved Tenders and alert user to changes
@@ -1521,7 +1512,6 @@ module ScraperFile
     return updateList
   end
 
-
   #this function is to be run by the live server as a scrape begins
   #it writes all search results to file so that after the scrape this file can be compared to the post-scrape search results
   def self.storePreScrapeSearchResultsToFile
@@ -1564,7 +1554,6 @@ module ScraperFile
       end
     end
   end
-
 
   def self.generateOrganizationNameTranslation( organization )
 =begin    orgName = organization.name
@@ -1838,7 +1827,6 @@ module ScraperFile
     end
   end
 
-
   def self.generateMetaData
     Rails.logger.info "setting up users"
     self.createUsers
@@ -1920,27 +1908,24 @@ module ScraperFile
     self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
   end
 
-  
   # looping over all simplified procurement files in the folder
   def self.importSimplifiedProcurementJsonFiles
-    
+
     filesFolder = "#{Rails.root}/public/system"
-    
+
     Dir.glob( "#{filesFolder}/*.json") do |fileName|
-      
-      self.simplifiedProcurementsFileName = fileName
-      
+
       puts "Importing #{fileName}"
-      
-      self.importSimplifiedProcurement
-      
+
+      self.importSimplifiedProcurement( fileName)
+
     end
-    
+
   end
-  
+
   # This method imports the simplified procurement (from a JSON file) into the MySQL tender monitor database.
-  def self.importSimplifiedProcurement
-    simplified_procurement_file_path = "#{Rails.root}/public/system/#{self.simplifiedProcurementsFileName}"
+  def self.importSimplifiedProcurement( simplifiedProcurementsFileName)
+    simplified_procurement_file_path = "#{Rails.root}/public/system/#{simplifiedProcurementsFileName}"
     File.open(simplified_procurement_file_path, "r") do |infile|
       while(line = infile.gets)
         # cleaning the line, if it has square brackets at the beginning/end of it.
