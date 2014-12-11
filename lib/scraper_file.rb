@@ -1925,9 +1925,13 @@ module ScraperFile
 
   # This method imports the simplified procurement (from a JSON file) into the MySQL tender monitor database.
   def self.importSimplifiedProcurement( simplifiedProcurementsFileName)
+    
     simplified_procurement_file_path = "#{simplifiedProcurementsFileName}"
+    
     File.open(simplified_procurement_file_path, "r") do |infile|
+    
       while(line = infile.gets)
+      
         # cleaning the line, if it has square brackets at the beginning/end of it.
         line.gsub!("\n",'')
 
@@ -1943,8 +1947,14 @@ module ScraperFile
           line[line.length-1] = ''
         end
 
-        # this is one line in the file, one simplified procurement
-        tender_line = JSON.parse(line)
+        # if a line has errors or is in any way faulty, we should not exit the whole program
+        begin
+          # this is one line in the file, one simplified procurement
+          tender_line = JSON.parse(line)
+        rescue
+          next
+        end
+        
         registration_number = tender_line['pCMR']
 
         # testing its existance
