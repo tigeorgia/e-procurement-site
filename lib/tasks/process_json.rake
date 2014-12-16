@@ -61,6 +61,12 @@ namespace :procurement do
     ScraperFile.importSimplifiedProcurementJsonFiles
   end
 
+  desc "import simplified procurements"
+  task:update_simplified_procurements => :environment do
+    require "scraper_file"
+    ScraperFile.modifyAmounts
+  end
+
   task:test_diffences => :environment do
     ScraperFile.testDifferences
   end

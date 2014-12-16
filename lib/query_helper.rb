@@ -339,6 +339,7 @@ module QueryHelper
     status = params['procurement_status']
     supplier_name = params['supplier']
     procurer_name = params['procurer']
+    contract_value = params['contract_value']
 
     supplier_ids = Organization.where("name LIKE '#{supplier_name}'").map(&:id)
     procurer_ids = Organization.where("name LIKE '#{procurer_name}'").map(&:id)
@@ -360,6 +361,14 @@ module QueryHelper
     if procurer_name
       query = QueryHelper.addParamToQuery(query, procurer_ids, "procuring_entity_id", "IN",paramsList)
     end
+
+    #if contract_value
+      #if contract_value == 'less-5000'
+        #query = QueryHelper.addParamToQuery(query, 5000, "contract_value", "<",paramsList)
+      #elsif contract_value == '5000-more'
+        #query = QueryHelper.addParamToQuery(query, 5000, "contract_value", ">=",paramsList)
+      #end
+    #end
 
     if query
       builtQuery = SimplifiedTender.where( query, *paramsList )

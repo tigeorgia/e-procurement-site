@@ -1967,12 +1967,26 @@ module ScraperFile
           simplified_tender = SimplifiedTender.new
           simplified_tender.registration_number = registration_number
           simplified_tender.status = tender_line['pStatus']
-          simplified_tender.contract_value = tender_line['pValueContract']
+          contract_value = tender_line['pValueContract']
+          if contract_value && contract_value != ''
+            contract_value_array = contract_value.split(' ')
+            if contract_value_array.length == 2
+              simplified_tender.contract_value = contract_value_array[0]
+              simplified_tender.currency = contract_value_array[1]
+            end
+          end
           simplified_tender.contract_value_date = Date.strptime(tender_line['pValueDate'], '%d.%m.%Y')
           document_info = tender_line['pDocument']
           simplified_tender.doc_start_date = Date.strptime(document_info[document_info.length-2],'%d.%m.%Y')
           simplified_tender.doc_end_date = Date.strptime(document_info[document_info.length-1],'%d.%m.%Y')
-          simplified_tender.agreement_amount = tender_line['pAgreementAmount']
+          agreement_value = tender_line['pAgreementAmount']
+          if agreement_value && agreement_value != ''
+            agreement_value_array = agreement_value.split(' ')
+            if agreement_value_array.length == 2
+              simplified_tender.agreement_amount = agreement_value_array[0]
+              simplified_tender.currency = agreement_value_array[1]
+            end
+          end
           simplified_tender.agreement_done = tender_line['pAgreementDone']
           simplified_tender.web_id = tender_line['pWebID']
           simplified_tender.financing_source = "#{tender_line['pFinancingSource'][0]} (#{tender_line['pFinancingSource'][1]})"
@@ -2083,6 +2097,38 @@ module ScraperFile
       end
     end
     puts 'All done.'
+  end
+
+  def self.modifyAmounts
+    count = 0
+    SimplifiedTender.find_in_batches do |group|
+      group.each{ |procurement|
+        contract_value = procurement.contract_value
+        if contract_value && contract_value != ''
+          contract_value_array = contract_value.split(' ')
+          if contract_value_array.length == 2
+            procurement.contract_value = contract_value_array[0]
+            procurement.currency = contract_value_array[1]
+          end
+        end
+
+        agreement_value = procurement.agreement_amount
+        if agreement_value && agreement_value != ''
+          agreement_value_array = agreement_value.split(' ')
+          if agreement_value_array.length == 2
+            procurement.agreement_amount = agreement_value_array[0]
+            procurement.currency = agreement_value_array[1]
+          end
+        end
+
+        procurement.save
+        count += 1
+
+        if count % 1000 == 0
+          puts count
+        end
+      }
+    end
   end
 
   def self.checkForDups

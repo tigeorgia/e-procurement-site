@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141216074509) do
+ActiveRecord::Schema.define(:version => 20141216111804) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -297,6 +297,7 @@ ActiveRecord::Schema.define(:version => 20141216074509) do
     t.integer  "web_id"
     t.string   "financing_source"
     t.string   "procurement_base"
+    t.string   "currency"
   end
 
   add_index "simplified_tenders", ["status"], :name => "index_simplified_tenders_on_status"
