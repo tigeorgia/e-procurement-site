@@ -8,8 +8,8 @@
     </ul>
     <div id="tabs-1" class="expansion top-tab" >
       <%= form_tag({:controller => "simplified_procurement", :action => "search"}, :method => "get") do %>
-          <div class="row-fluid">
 
+          <div class="row-fluid">
             <!-- Procurement registration number -->
             <div class="span6">
               <label for="registration_number" class="search"><%=t("registration_number")%></label>
@@ -19,14 +19,13 @@
 
             <!-- Procurement status -->
             <div class="span6">
-              <label for="status" class="search"><%=t("procurement_status")%> </label>
+              <label for="status" class="search"><%=t("procurement_status")%></label>
               <a href="#" class="info-tip">&nbsp;<span><%=t("procurement_status_descr")%></span></a>
-              <%= select_tag(:procurement_status,  options_for_select(@procurement_status),{:include_blank => true})  %>
+              <%= select_tag(:procurement_status,  options_for_select(@procurement_status),{:include_blank => false})  %>
             </div>
-
           </div>
-          <div class="row-fluid">
 
+          <div class="row-fluid">
             <!-- Supplier -->
             <div class="span6">
               <label for="supplier" class="search"><%=t("Supplier")%></label>
@@ -40,7 +39,6 @@
               <a href="#" class="info-tip">&nbsp;<span><%=t("procurer_description")%></span></a>
               <%=text_field_tag( 'procurer_name', nil, :class => "large-textfield", :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getProcurers") } ) %>
             </div>
-
           </div>
 
           <div class="row-fluid">
