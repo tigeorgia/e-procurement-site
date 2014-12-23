@@ -41,6 +41,22 @@
             </div>
           </div>
 
+
+          <div class="row-fluid">
+            <div class="control-group">
+                <label for="procurer" class="control-label" style="padding-top: 10px"><%= t('search_contract_value') %></label>
+                <div class="controls" style="padding-top: 9px">
+                    <label class="radio">
+                        <%= radio_button_tag 'contract_value', 'less-5000', true %><%= t('less_than_1000') %>
+                    </label>
+                    <span style="padding-right: 4px"></span>
+                    <label class="radio">
+                        <%= radio_button_tag 'contract_value', '5000-more' %><%= t('1000_and_more') %>
+                    </label>
+                </div>
+            </div>
+          </div>
+
           <div class="row-fluid">
             <div class="right-align">
               <%= submit_tag( t('Search'), :class => "submit-button") %>

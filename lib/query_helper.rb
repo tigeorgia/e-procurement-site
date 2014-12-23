@@ -351,8 +351,8 @@ module QueryHelper
       query = QueryHelper.addParamToQuery(query, registration_number, "registration_number", "LIKE",paramsList)
     end
     if status
-      status = "%"+status+"%"
-      query = QueryHelper.addParamToQuery(query, status, "status", "LIKE",paramsList)
+      #status = "%"+status+"%"
+      query = QueryHelper.addParamToQuery(query, status, "status", "=",paramsList)
     end
     if supplier_name
       query = QueryHelper.addParamToQuery(query, supplier_ids, "supplier_id", "IN",paramsList)
@@ -362,13 +362,13 @@ module QueryHelper
       query = QueryHelper.addParamToQuery(query, procurer_ids, "procuring_entity_id", "IN",paramsList)
     end
 
-    #if contract_value
-      #if contract_value == 'less-5000'
-        #query = QueryHelper.addParamToQuery(query, 5000, "contract_value", "<",paramsList)
-      #elsif contract_value == '5000-more'
-        #query = QueryHelper.addParamToQuery(query, 5000, "contract_value", ">=",paramsList)
-      #end
-    #end
+    if contract_value
+      if contract_value == 'less-5000'
+        query = QueryHelper.addParamToQuery(query, 1000.00, "contract_value", "<", paramsList)
+      elsif contract_value == '5000-more'
+        query = QueryHelper.addParamToQuery(query, 1000.00, "contract_value", ">=", paramsList)
+      end
+    end
 
     if query
       builtQuery = SimplifiedTender.where( query, *paramsList )

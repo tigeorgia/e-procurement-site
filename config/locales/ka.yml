@@ -239,6 +239,9 @@ ka:
   procurement_cpv_code: CPV კოდი
   procurement_attachments: მიმაგრებული ფაილები
   number_simplified_procurements_found: მოიძებნა %{number} გამარტივებული შესყიდვა
+  less_than_1000: 1000 ლარზე ნაკლები
+  1000_and_more: 1000 ლარზე მეტი
+  search_contract_value: ხელშეკრულების ღირებულება
 
 
   Won: გამარჯვებული

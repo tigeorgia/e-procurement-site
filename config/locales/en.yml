@@ -195,7 +195,9 @@ en:
   procurement_cpv_code: CPV codes
   procurement_attachments: Procurement attachments
   number_simplified_procurements_found: "Number of simplified procurements found: %{number}"
-
+  less_than_1000: less than 1000 GEL
+  1000_and_more: 1000 GEL and more
+  search_contract_value: Contract value
 
 
   Number of Tenders Bid on: Number of Tenders Bid on
