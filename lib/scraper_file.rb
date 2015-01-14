@@ -2155,7 +2155,7 @@ module ScraperFile
 
     File.open( "#{filesFolder}/tender_update.txt", "w" ) do |fileDesc|
 
-      SimplifiedTender.where.not(status: 'Fulfilled').find_each do |tender|
+      SimplifiedTender.where.not(:status => 'Fulfilled').find_each do |tender|
       
         fileDesc.puts "#{tender.web_id}\n"
       
