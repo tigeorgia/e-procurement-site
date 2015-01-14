@@ -2160,6 +2160,12 @@ module ScraperFile
         fileDesc.puts "#{tender.web_id}\n"
       
       end
+      
+      # we would also like the maximum value of web_id in the database, so we do not re-scrape the same stuff
+      SimplifiedTender.maximum( 'web_id') do |tender|
+        fileDesc.puts "#{tender.web_id}\n"
+      end
+     
     
     end
     
