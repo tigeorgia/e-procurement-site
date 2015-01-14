@@ -1965,7 +1965,7 @@ module ScraperFile
           puts "Adding '#{registration_number}'"
 
           simplified_tender = SimplifiedTender.new
-          simplified_tender.registration_number = registration_number
+          simplified_tenderegistration_numberr.registration_number = 
           simplified_tender.status = tender_line['pStatus']
           contract_value = tender_line['pValueContract']
           if contract_value && contract_value != ''
@@ -2147,5 +2147,25 @@ module ScraperFile
     end
   end
 
+  # extracting tenders which should be re-scraped because their status is not completed
+  
+  def self.extractSimplifiedProcurementsToUpdate
+    
+    filesFolder = "#{Rails.root}/public/system"
+
+    File.open( "#{filesFolder}/tender_update.txt", "w" ) do |fileDesc|
+
+      SimplifiedTender.where.not(status: 'Fulfilled').find_each do |tender|
+      
+        fileDesc.puts "#{tender.web_id}\n"
+      
+      end
+    
+    end
+    
+  end
+  
 end
+
+
 

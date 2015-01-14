@@ -1,4 +1,11 @@
 namespace :procurement do
+
+  desc "Extract simplified tenders with status other than fulfilled for a re-scrape"
+  task: extract_for_update => :environment do
+  	require "scraper_file"
+  	ScraperFile.extractSimplifiedProcurementsToUpdate
+  end
+
   desc "Processes Json data retrived from a web scrape and inputs results into a database"
   task:full_scrape => :environment do
     require "scraper_file"

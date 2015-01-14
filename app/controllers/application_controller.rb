@@ -83,16 +83,12 @@ logger.debug "////////////////////////// BROWSER TEST NOT REQUIRED"
 
   #######################
 	def render_not_found(exception)
-		ExceptionNotifier::Notifier
-		  .exception_notification(request.env, exception)
-		  .deliver
+		ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
 		render :file => "#{Rails.root}/public/404.html", :status => 404
 	end
 
 	def render_error(exception)
-		ExceptionNotifier::Notifier
-		  .exception_notification(request.env, exception)
-		  .deliver
+		ExceptionNotifier::Notifier.exception_notification(request.env, exception).deliver
 		render :file => "#{Rails.root}/public/500.html", :status => 500
 	end
 
