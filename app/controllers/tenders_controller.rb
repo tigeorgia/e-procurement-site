@@ -137,10 +137,10 @@ class TendersController < ApplicationController
 
   private
   def sort_column
-    params[:sort] || "updated_at"
+    Tender.column_names.include?(params[:sort_by]) ? params[:sort_by] : 'updated_at'
   end
 
   def sort_direction
-    params[:direction] || "desc"
+    %w{asc desc}.include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

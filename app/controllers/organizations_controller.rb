@@ -195,7 +195,7 @@ class OrganizationsController < ApplicationController
       totalBidders += tender.num_bidders
     end
 
-    tenderList = Tender.where("procurring_entity_id = "+id.to_s+" AND winning_org_id IS NOT NULL" )
+    tenderList = Tender.where("procurring_entity_id = ? AND winning_org_id IS NOT NULL", id.to_s)
     createTreeGraph(tenderList)
 
     @successfulTenders = @successfulTenders.sort{|a,b| a[0] <=> b[0]}
@@ -531,11 +531,11 @@ class OrganizationsController < ApplicationController
   end
 
   def sort_column
-    params[:sort] || "name"
+    Organization.column_names.include?(params[:sort]) ? params[:sort] : 'name'
   end
 
   def sort_direction
-    params[:direction] || "asc"
+    %w{asc desc}.include?(params[:direction]) ? params[:direction] : 'asc'
   end
 
 end

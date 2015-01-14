@@ -30,11 +30,11 @@ class SimplifiedProcurementController < ApplicationController
   private
 
   def sort_column
-    params[:sort] || "registration_number"
+    SimplifiedTender.column_names.include?(params[:sort_by]) ? params[:sort_by] : 'registration_number'
   end
 
   def sort_direction
-    params[:direction] || "asc"
+    %w{asc desc}.include?(params[:direction]) ? params[:direction] : 'asc'
   end
 
 end

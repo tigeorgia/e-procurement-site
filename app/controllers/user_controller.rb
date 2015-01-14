@@ -21,7 +21,7 @@ class UserController < ApplicationController
   def save_search
     newSearch = Search.new
     newSearch.user_id = current_user.id
-    newSearch.searchtype = params[:searchtype]
+    newSearch.searchtype = %w{tender procurer supplier}.include?(params[:searchtype]) ? params[:searchtype] : nil
     newSearch.search_string = params[:search_string]
     newSearch.name = params[:name]
     newSearch.count = params[:count]
@@ -42,7 +42,7 @@ class UserController < ApplicationController
       search = Search.find(params[:search_id])
       search.destroy
     else
-      searchList = Search.where( :user_id => current_user.id, :searchtype => params[:searchtype], :name => params[:name], :search_string => params[:search_string] )
+      searchList = Search.where(["user_id = ? AND searchtype = ? AND name = ? AND search_string = ?", current_user.id, params[:searchtype], params[:name], params[:search_string]])
       searchList.each do |search|
         search.destroy
       end
@@ -153,7 +153,7 @@ class UserController < ApplicationController
   end
 
   def remove_tender_watch
-    tenders = WatchTender.where( :tender_url => params[:tender_url], :user_id => current_user.id )
+    tenders = WatchTender.where( "tender_url = ? AND user_id = ?", params[:tender_url], current_user.id )
     tenders.each do |watch_tender|
       watch_tender.destroy
     end

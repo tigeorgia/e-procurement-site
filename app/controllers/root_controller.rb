@@ -10,7 +10,7 @@ class RootController < ApplicationController
     organizations = {}
 
     year = params[:year]
-    yearStat = AggregateStatistic.where(:year => year).first
+    yearStat = AggregateStatistic.where(["year = ?", year]).first
 
     cpvAggregates = nil
     sqlString = ''
@@ -85,7 +85,7 @@ class RootController < ApplicationController
     else
       year = @selectedYear
     end
-    yearStat = AggregateStatistic.where(:year => year).first
+    yearStat = AggregateStatistic.where(["year = ?", year]).first
     cpvGroups.each do |cpvGroup|
       if cpvGroup.id == 1
         next
