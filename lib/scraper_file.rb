@@ -1965,7 +1965,7 @@ module ScraperFile
           puts "Adding '#{registration_number}'"
 
           simplified_tender = SimplifiedTender.new
-          simplified_tenderegistration_numberr.registration_number = 
+          simplified_tender.registration_number = registration_number
           simplified_tender.status = tender_line['pStatus']
           contract_value = tender_line['pValueContract']
           if contract_value && contract_value != ''
