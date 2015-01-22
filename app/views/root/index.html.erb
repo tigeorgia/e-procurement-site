@@ -63,6 +63,7 @@ $(document).ready(function() {
   </ul>
   <div id="tabs-1" class="expansion top-tab" >
     <%= form_tag({:controller => "tender", :action => "search"}, :method => "get") do %>
+      <!-- Supplier and Procurer - start -->
       <div class="row-fluid">
         <div class="span5" >
           <label for="supplier" class="search"><%=t("Supplier")%></label>
@@ -75,11 +76,15 @@ $(document).ready(function() {
           <%=text_field_tag( 'procurer_name', nil, :class => "large-textfield", :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getProcurers") } ) %>
         </div>
       </div>
-      <br>
+      <!-- Supplier and Procurer - end -->
+
+        <br>
+
+      <!-- Tender status, category, risk indicator and type - start -->
       <div class="row-fluid">
         <div class="span3">
           <label for="tender_status" class="search"><%=t("Status")%></label>
-          <a href="#" class="info-tip">&nbsp;<span><%=t("status_description")%></span></a>
+          <a href="#" class="info-tip">&nbsp;<span><%=t('status_description')%></span></a>
           <% options = [] %>
           <% @uniqueStatus.each do |status| %>
             <% options.push(item = [t(status),status]) %>
@@ -106,6 +111,9 @@ $(document).ready(function() {
           <%= select_tag(:tender_type,  options_for_select(options),{:include_blank => true})  %>
         </div>
       </div>
+      <!-- Tender status, category, risk indicator and type - end -->
+
+      <!-- Registration code - start -->
       <div class="row-fluid">
       	<label for="tender_registration_number" class="search"><%=t("Registration Code")%></label>
          <a href="#" class="info-tip">&nbsp;<span><%=t("reg_code_description")%></span></a>
@@ -117,8 +125,10 @@ $(document).ready(function() {
           <%= submit_tag( t('Search'), :class => "submit-button") %>
         </div>
       </div>
-      
-      <div class="row-fluid expandable">    
+      <!-- Registration code - end -->
+
+      <!-- Advanced search - start -->
+      <div class="row-fluid expandable">
         <hr>      
         <div class="span3 offset1">
           <label for="min_estimate" class="search"><%=t("Minimum Cost Estimate")%></label>
@@ -162,6 +172,8 @@ $(document).ready(function() {
 
         </div>
       </div>
+      <!-- Advanced search - end -->
+
     <% end %>
   </div>
   <div id="tabs-2" class="expansion top-tab">

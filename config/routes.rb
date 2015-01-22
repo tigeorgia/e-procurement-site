@@ -49,6 +49,6 @@ BootstrapStarter::Application.routes.draw do
 	  
 	end
 
-	match '', :to => redirect("/#{I18n.default_locale}") # handles /
+	match '', :to => redirect("/ka") # handles /
 	
 end
