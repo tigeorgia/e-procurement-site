@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141216111804) do
+ActiveRecord::Schema.define(:version => 20150122115830) do
 
   create_table "aggregate_bid_statistics", :force => true do |t|
     t.integer  "aggregate_statistic_type_id"
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(:version => 20141216111804) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "translation"
   end
 
   create_table "cpv_groups", :force => true do |t|

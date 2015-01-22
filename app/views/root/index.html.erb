@@ -53,7 +53,7 @@ $(document).ready(function() {
 <div class="row-fluid">
   <h2><strong><%= t('Tenders') %></strong> - <small><%= t('check_also_our') %> <%= link_to(t('simplified_procurements'), simplified_procurement_path) %></small></h2>
 </div>
-<%= button_to "Download All Tender Data", {:controller => "tender", :action => "download_all"}, :class => "submit-button" %>
+<%= button_to t('download_all_tenders'), {:controller => "tender", :action => "download_all"}, :class => "submit-button" %>
 
 <div class="tabs tab-div" id="search-tabs">
   <ul>
@@ -99,7 +99,12 @@ $(document).ready(function() {
         <div class="span3">
           <label for="risk_indicator" class="search"><%=t("Risk Indicator")%> </label>
          <a href="#" class="info-tip">&nbsp;<span><%=t("risk_description")%></span></a>
-          <%= select_tag(:risk_indicator,  options_from_collection_for_select(@indicators,:id,:name),{:include_blank => true})  %>
+          <% if I18n.locale == :ka %>
+              <%= select_tag(:risk_indicator,  options_from_collection_for_select(@indicators,:id,:translation),{:include_blank => true})  %>
+          <% else %>
+              <%= select_tag(:risk_indicator,  options_from_collection_for_select(@indicators,:id,:name),{:include_blank => true})  %>
+          <% end %>
+
         </div>
         <div class="span3">
           <label for="type" class="search"><%=t("Type")%> </label>
