@@ -51,8 +51,17 @@ module QueryHelper
     maxBidders = data[:max_num_bidders]
 
     #need to remove %'s coming in from a saved search
-    procurer = "%"+data[:procurer_name].gsub('%','')+"%"
-    supplier = "%"+data[:supplier_name].gsub('%','')+"%"
+    if !is_number?data[:procurer_name]
+      procurer = "%"+data[:procurer_name].gsub('%','')+"%"
+    else
+      procurer = data[:procurer_name]
+    end
+
+    if !is_number?data[:supplier_name]
+      supplier = "%"+data[:supplier_name].gsub('%','')+"%"
+    else
+      supplier = data[:supplier_name]
+    end
     cpv_code = "%"+data[:cpv_code].gsub('%','')+"%"
 
     translated_status =  "%%"
@@ -128,7 +137,10 @@ module QueryHelper
     searchParams.push(bw_list)
     
     willSearchName = name.length > 0
-    name = "%"+name+"%"
+
+    if !is_number?(name)
+      name = "%"+name+"%"
+    end
     code = "%"+code+"%"
     city = "%"+city+"%"
     address = "%"+address+"%"
@@ -150,9 +162,16 @@ module QueryHelper
       query = QueryHelper.addParamToQuery(query, 'საქართველო', "country", "NOT LIKE",paramsList)
     end
     if willSearchName
-      query += " AND ( name LIKE ? OR translation LIKE ? )"
-      paramsList.push(name)
-      paramsList.push(name)
+      if !is_number?(name)
+        # We search for a name
+        query += " AND ( name LIKE ? OR translation LIKE ? )"
+        paramsList.push(name)
+        paramsList.push(name)
+      else
+        # We search for the ID
+        query += " AND ( id LIKE ? )"
+        paramsList.push(name)
+      end
     end
     builtQuery = Organization.where( query, *paramsList )
     return builtQuery, searchParams
@@ -190,7 +209,9 @@ module QueryHelper
 
     willSearchName = name.length > 0
 
-    name = "%"+name+"%"
+    if !is_number?(name)
+      name = "%"+name+"%"
+    end
     code = "%"+code+"%"
     #dirty hack remove this scrape side
     if org_type == "50% მეტი სახ წილ საწარმო"
@@ -206,9 +227,15 @@ module QueryHelper
     end
     
     if willSearchName
-      conditions += " AND ( name LIKE ? OR translation LIKE ? )"
-      queryParams.push(name)
-      queryParams.push(name)
+      if !is_number?(name)
+        conditions += " AND ( name LIKE ? OR translation LIKE ? )"
+        queryParams.push(name)
+        queryParams.push(name)
+      else
+        # We search for the ID
+        conditions += " AND ( id LIKE ? )"
+        queryParams.push(name)
+      end
     end
 
     query = Organization.where(conditions,*queryParams)    
@@ -260,6 +287,17 @@ module QueryHelper
     end
     return query
   end
+
+  def self.addNestedParamToQuery(query, param, clause, paramsList)
+    if param and param != "" and param != "%%"
+      if query.length > 0
+        query+= " AND "
+      end
+      query+= clause
+      paramsList.push(param)
+    end
+    return query
+  end
   
 
  def self.buildTenderSearchQuery(params)
@@ -278,8 +316,19 @@ module QueryHelper
     query = self.addParamToQuery(query, params[:min_num_bidders], "num_bidders", ">=", paramsList)
     query = self.addParamToQuery(query, params[:max_num_bidders], "num_bidders", "<=", paramsList)
     query = self.addParamToQuery(query, params[:risk_indicator], "risk_indicators", "LIKE", paramsList)
-    query = self.addParamToQuery(query, params[:procurer], "procurer_name", "LIKE", paramsList)
-    query = self.addParamToQuery(query, params[:supplier], "supplier_name", "LIKE", paramsList)
+
+    if is_number?(params[:procurer])
+      query = self.addNestedParamToQuery(query, params[:procurer].to_i, "procurer_name IN (select name from organizations where id = ?)", paramsList)
+    else
+      query = self.addParamToQuery(query, params[:procurer], "procurer_name", "LIKE", paramsList)
+    end
+
+    if is_number?(params[:supplier])
+      query = self.addNestedParamToQuery(query, params[:supplier].to_i, "supplier_name IN (select name from organizations where id = ?)", paramsList)
+    else
+      query = self.addParamToQuery(query, params[:supplier], "supplier_name", "LIKE", paramsList)
+    end
+
     query = self.addParamToQuery(query, params[:cpv_code], "sub_codes", "LIKE", paramsList)
 
 
@@ -378,4 +427,9 @@ module QueryHelper
 
     return builtQuery
   end
+
+  def self.is_number?(object)
+    true if Float(object) rescue false
+  end
+
 end

@@ -68,12 +68,12 @@
         <div class="span6" >
           <label for="supplier" class="search"><%=t("Supplier")%></label>
           <a href="#" class="info-tip">&nbsp;<span><%=t("supplier_description")%></span></a>
-          <%=text_field_tag( 'supplier_name', nil,  :class => "large-textfield", :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getSuppliers") } ) %>
+          <%= text_field_tag( 'supplier_name', nil,  :class => "large-textfield", :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getSuppliers") } ) %>
         </div>
         <div class="span6" >
           <label for="procurer" class="search"><%=t("Procurer")%></label>
           <a href="#" class="info-tip">&nbsp;<span><%=t("procurer_description")%></span></a>
-          <%=text_field_tag( 'procurer_name', nil, :class => "large-textfield", :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getProcurers") } ) %>
+          <%= text_field_tag( 'procurer_name', nil, :class => "large-textfield", :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getProcurers") } ) %>
         </div>
       </div>
       <!-- Supplier and Procurer - end -->
@@ -213,7 +213,7 @@
   <%= form_tag({:controller => "organization", :action => "search"}, :method => "get") do %>
       <div class="row-fluid">
         <div class="span4">
-          <label for="name" class="search"><%=t("Name")%></label>
+          <label for="name" class="search"><%=t("name_id")%></label>
           <a href="#" class="info-tip">&nbsp;<span><%=t("supplier_name_description")%></span></a>
           <%=text_field_tag( 'supplier_search_name', nil, :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getSuppliers") } ) %>
         </div>
@@ -281,7 +281,7 @@
   <%= form_tag({:controller => "organization", :action => "search_procurer"}, :method => "get") do %>
       <div class="row-fluid">
         <div class="span4">
-          <label for="name" class="search"><%=t("Name")%></label>
+          <label for="name" class="search"><%=t("name_id")%></label>
           <a href="#" class="info-tip">&nbsp;<span><%=t("procurer_name_description")%></span></a>
           <%=text_field_tag( 'procurer_search_name', nil, :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getProcurers") } ) %>
         </div>
