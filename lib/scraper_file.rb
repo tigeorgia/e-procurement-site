@@ -2167,5 +2167,32 @@ module ScraperFile
     end
   end
 
+  # extracting tenders which should be re-scraped because their status is not completed
+  
+  def self.extractSimplifiedProcurementsToUpdate
+    
+    filesFolder = "#{Rails.root}/public/system"
+
+    File.open( "#{filesFolder}/tender_update.txt", "w" ) do |fileDesc|
+
+      SimplifiedTender.where('status = ?', 'Ongoing contract').find_each do |tender|
+      
+        fileDesc.puts "#{tender.web_id}\n"
+      
+      end
+      
+      # we would also like the maximum value of web_id in the database, so we do not re-scrape the same stuff
+      max_present_id = SimplifiedTender.maximum( 'web_id')
+      
+      fileDesc.puts "#{max_present_id}\n"
+      
+     
+    
+    end
+    
+  end
+  
 end
+
+
 
