@@ -872,7 +872,7 @@ module ScraperFile
       lastAgreement = nil
       agreements.each do |agreement|
         #hack for now, need to add amendment numbers to disqualifactions
-        if (lastAgreement and lastAgreement.amendment_number) or (not lastAgreement) or (agreement.amendment_number and lastAgreement.amendment_number < agreement.amendment_number)
+        if (lastAgreement and lastAgreement.amendment_number) or (not lastAgreement) or (agreement.amendment_number and lastAgreement and lastAgreement.amendment_number and lastAgreement.amendment_number < agreement.amendment_number)
           lastAgreement = agreement
         end
       end
