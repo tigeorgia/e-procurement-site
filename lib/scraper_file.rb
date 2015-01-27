@@ -1745,7 +1745,12 @@ module ScraperFile
       maxBidders = maxBidderObject.num_bidders
       maxBidderObject.attributes.each do |attribute|
         if not ignores.include?(attribute[0])
-          column_header.push(attribute[0])
+          if (attribute[0] == 'cpv_code')
+            column_header.push('cpv_code_and_description')
+          else
+            column_header.push(attribute[0])
+          end
+
         end
       end
 
@@ -1782,7 +1787,22 @@ module ScraperFile
                 values.push(attribute[1])
               end
             else
-              values.push(attribute[1])
+              if (attribute[0] == "cpv_code")
+                cpv_description = ''
+                cpvcode = TenderCpvCode.where(:cpv_code => attribute[1].to_i).first
+                if cpvcode
+                  cpv_description = cpvcode.description
+                end
+                if cpv_description != ''
+                  values.push("#{attribute[1]} - #{cpv_description}")
+                else
+                  values.push(attribute[1])
+                end
+
+              else
+                values.push(attribute[1])
+              end
+
             end
           end
         end
