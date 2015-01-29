@@ -27,7 +27,11 @@
       <% highlightClass = '' %>
       <tr>
         <td <%=highlightClass%>><%= link_to procurement.registration_number, procurement %></td>
-        <td <%=highlightClass%>><%= procurement.status %></td>
+        <% if procurement.status != '' %>
+            <td <%=highlightClass%>><%= t(procurement.status) %></td>
+        <% else %>
+            <td <%=highlightClass%>><%= t('no_status_yet') %></td>
+        <% end %>
         <td <%=highlightClass%>><%= !procurement.procuring_entity.nil? ? procurement.procuring_entity.name : '' %></td>
         <td <%=highlightClass%>><%= !procurement.supplier.nil? ? procurement.supplier.name : '' %></td>
         <td <%=highlightClass%>><%= procurement.contract_value %></td>

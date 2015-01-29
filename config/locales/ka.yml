@@ -233,6 +233,9 @@ ka:
   procurement_link_tooltip: ამ ბმულის სანახავად შესული უნდა იყოთ საიტზე https://tenders.procurement.gov.ge/ როგორც რეგისტრირებული მომხმარებელი.
   ongoing: მიმდინარე
   no_status_yet: სტატუსი არ არის მინიჭებულ
+  Ongoing contract: მიმდინარე ხელშეკრულება
+  Not fulfilled contract: შეუსრულებელი ხელშეკრულება
+  Fulfilled contract: შესრულებული ხელშეკრულება
   fulfilled: შესრულებული
   not_fulfilled: შეუსრულებელი
   link_to_simplified_procurement: ბმული გამარტივებულ შესყიდვებზე გადასასვლელად

@@ -189,6 +189,9 @@ en:
   procurement_link_tooltip: Make sure you've logged in to https://tenders.procurement.gov.ge/ in another tab, before you click on this link.
   ongoing: Ongoing
   no_status_yet: No status yet
+  Ongoing contract: Ongoing contract
+  Not fulfilled contract: Not fulfilled contract
+  Fulfilled contract: Fulfilled contract
   fulfilled: Fulfilled
   not_fulfilled: Not fulfilled
   link_to_simplified_procurement: Link to Simplified Procurement
