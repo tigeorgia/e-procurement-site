@@ -3,67 +3,91 @@
 </div>
 
 <div class="tabs tab-div" id="search-tabs">
-    <ul>
-      <li><a href="#tabs-1"><%=t("search_simplified_proc")%></a></li>
-    </ul>
-    <div id="tabs-1" class="expansion top-tab" >
-      <%= form_tag({:controller => "simplified_procurement", :action => "search"}, :method => "get") do %>
+  <ul>
+    <li><a href="#tabs-1"><%=t("search_simplified_proc")%></a></li>
+  </ul>
+  <div id="tabs-1" class="expansion top-tab" >
+    <%= form_tag({:controller => "simplified_procurement", :action => "search"}, :method => "get") do %>
 
-          <div class="row-fluid">
-            <!-- Procurement registration number -->
-            <div class="span6">
-              <label for="registration_number" class="search"><%=t("registration_number")%></label>
-              <a href="#" class="info-tip">&nbsp;<span><%=t("registration_number_descr")%></span></a>
-              <%=text_field_tag( 'registration_number', nil,  :class => "large-textfield" ) %>
-            </div>
-
-            <!-- Procurement status -->
-            <div class="span6">
-              <label for="status" class="search"><%=t("procurement_status")%></label>
-              <a href="#" class="info-tip">&nbsp;<span><%=t("procurement_status_descr")%></span></a>
-              <%= select_tag(:procurement_status,  options_for_select(@procurement_status),{:include_blank => false})  %>
-            </div>
+        <div class="row-fluid">
+          <!-- Procurement registration number -->
+          <div class="span6">
+            <label for="registration_number" class="search"><%=t("registration_number")%></label>
+            <a href="#" class="info-tip">&nbsp;<span><%=t("registration_number_descr")%></span></a>
+            <%=text_field_tag( 'registration_number', nil,  :class => "large-textfield" ) %>
           </div>
 
-          <div class="row-fluid">
-            <!-- Supplier -->
-            <div class="span6">
-              <label for="supplier" class="search"><%=t("Supplier")%></label>
-              <a href="#" class="info-tip">&nbsp;<span><%=t("supplier_description")%></span></a>
-              <%=text_field_tag( 'supplier_name', nil,  :class => "large-textfield", :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getSuppliers") } ) %>
-            </div>
+          <!-- Procurement status -->
+          <div class="span6">
+            <label for="status" class="search"><%=t("procurement_status")%></label>
+            <a href="#" class="info-tip">&nbsp;<span><%=t("procurement_status_descr")%></span></a>
+            <%= select_tag(:procurement_status,  options_for_select(@procurement_status),{:include_blank => false})  %>
+          </div>
+        </div>
 
-            <!-- Procurer -->
-            <div class="span6">
-              <label for="procurer" class="search"><%=t("Procurer")%></label>
-              <a href="#" class="info-tip">&nbsp;<span><%=t("procurer_description")%></span></a>
-              <%=text_field_tag( 'procurer_name', nil, :class => "large-textfield", :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getProcurers") } ) %>
-            </div>
+        <div class="row-fluid">
+          <!-- Supplier -->
+          <div class="span6">
+            <label for="supplier" class="search"><%=t("Supplier")%></label>
+            <a href="#" class="info-tip">&nbsp;<span><%=t("supplier_description")%></span></a>
+            <%=text_field_tag( 'supplier_name', nil,  :class => "large-textfield", :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getSuppliers") } ) %>
           </div>
 
+          <!-- Procurer -->
+          <div class="span6">
+            <label for="procurer" class="search"><%=t("Procurer")%></label>
+            <a href="#" class="info-tip">&nbsp;<span><%=t("procurer_description")%></span></a>
+            <%=text_field_tag( 'procurer_name', nil, :class => "large-textfield", :data => {autocomplete_source: url_for(:controller => "organizations", :action => "getProcurers") } ) %>
+          </div>
+        </div>
 
-          <div class="row-fluid">
-            <div class="control-group">
-                <label for="procurer" class="control-label" style="padding-top: 10px"><%= t('search_contract_value') %></label>
-                <div class="controls" style="padding-top: 9px">
-                    <label class="radio">
-                        <%= radio_button_tag 'contract_value', 'less-5000', true %><%= t('less_than_1000') %>
-                    </label>
-                    <span style="padding-right: 4px"></span>
-                    <label class="radio">
-                        <%= radio_button_tag 'contract_value', '5000-more' %><%= t('1000_and_more') %>
-                    </label>
-                </div>
+
+        <!-- Contract value -->
+        <div class="row-fluid">
+          <div class="span12">
+            <label class="search" style="padding-top: 10px"><%= t('search_contract_value') %></label>
+            <a href="#" class="info-tip">&nbsp;<span><%=t("contract_value_help")%></span></a>
+            <div class="controls span12" style="padding-top: 6px">
+              <label class="radio">
+                <%= radio_button_tag 'contract_value', 'less-1000', true %><%= t('less_than_1000') %>
+              </label>
+              <span style="padding-right: 4px"></span>
+              <label class="radio">
+                <%= radio_button_tag 'contract_value', '1000-more' %><%= t('1000_and_more') %>
+              </label>
             </div>
           </div>
+        </div>
 
-          <div class="row-fluid">
-            <div class="right-align">
-              <%= submit_tag( t('Search'), :class => "submit-button") %>
+        <!-- Date range -->
+        <div class="row-fluid">
+          <div class="span12">
+            <label class="search" style="padding-top: 10px"><%= t('date_range') %></label>
+            <a href="#" class="info-tip">&nbsp;<span><%=t("date_range_help")%></span></a>
+            <div class="controls span12">
+              <label for="start_date" class="search"><%= t('start_date_preposition') %></label>
+              <%= text_field_tag( 'start_date', nil ) %>
+              <label for="end_date" class="search"><%= t('end_date_preposition') %></label>
+              <%= text_field_tag( 'end_date', nil ) %>
+              <label class="search"><%= t('geo_end_date_preposition') %></label>
             </div>
           </div>
+        </div>
 
-      <% end %>
-    </div>
+        <div class="row-fluid">
+          <div class="right-align">
+            <%= submit_tag( t('Search'), :class => "submit-button") %>
+          </div>
+        </div>
+
+    <% end %>
+  </div>
 
 </div>
+
+<script>
+    $(function() {
+        $( "#start_date" ).datepicker();
+        $( "#end_date" ).datepicker();
+    });
+</script>

@@ -139,7 +139,11 @@ module QueryHelper
     willSearchName = name.length > 0
 
     if !is_number?(name)
-      name = "%"+name+"%"
+      if I18n.locale == :en
+        name = "%"+transliterate_from_eng_to_geo(name.downcase)+"%"
+      else
+        name = "%"+name+"%"
+      end
     end
     code = "%"+code+"%"
     city = "%"+city+"%"
@@ -210,7 +214,11 @@ module QueryHelper
     willSearchName = name.length > 0
 
     if !is_number?(name)
-      name = "%"+name+"%"
+      if I18n.locale == :en
+        name = "%"+transliterate_from_eng_to_geo(name.downcase)+"%"
+      else
+        name = "%"+name+"%"
+      end
     end
     code = "%"+code+"%"
     #dirty hack remove this scrape side
@@ -278,12 +286,22 @@ module QueryHelper
   end
 
   def self.addParamToQuery(query, param, sql_field, operator, paramsList)
-    if param and param != "" and param != "%%"
+    if (param and param != "" and param != "%%") || (sql_field == 'status' && param and param != "%%"  )
       if query.length > 0
         query+= " AND "
       end
       query+= sql_field+" "+operator+" ?"
       paramsList.push(param)
+    end
+    return query
+  end
+
+  def self.addDateToQuery(query, clause)
+    if clause and clause != "" and clause != "%%"
+      if query.length > 0
+        query+= " AND "
+      end
+      query+= clause
     end
     return query
   end
@@ -389,6 +407,8 @@ module QueryHelper
     supplier_name = params['supplier']
     procurer_name = params['procurer']
     contract_value = params['contract_value']
+    start_date = params['start_date']
+    end_date = params['end_date']
 
     supplier_ids = Organization.where("name LIKE '#{supplier_name}'").map(&:id)
     procurer_ids = Organization.where("name LIKE '#{procurer_name}'").map(&:id)
@@ -400,7 +420,9 @@ module QueryHelper
       query = QueryHelper.addParamToQuery(query, registration_number, "registration_number", "LIKE",paramsList)
     end
     if status
-      #status = "%"+status+"%"
+      if status == 'none'
+        status = ''
+      end
       query = QueryHelper.addParamToQuery(query, status, "status", "=",paramsList)
     end
     if supplier_name
@@ -411,10 +433,18 @@ module QueryHelper
       query = QueryHelper.addParamToQuery(query, procurer_ids, "procuring_entity_id", "IN",paramsList)
     end
 
+    if start_date && start_date != ''
+      query = QueryHelper.addDateToQuery(query, "doc_start_date >= STR_TO_DATE('#{start_date}','%m/%d/%Y')")
+    end
+
+    if end_date && end_date != ''
+      query = QueryHelper.addDateToQuery(query, "doc_start_date <= STR_TO_DATE('#{end_date}','%m/%d/%Y')")
+    end
+
     if contract_value
-      if contract_value == 'less-5000'
+      if contract_value == 'less-1000'
         query = QueryHelper.addParamToQuery(query, 1000.00, "contract_value", "<", paramsList)
-      elsif contract_value == '5000-more'
+      elsif contract_value == '1000-more'
         query = QueryHelper.addParamToQuery(query, 1000.00, "contract_value", ">=", paramsList)
       end
     end
@@ -431,5 +461,55 @@ module QueryHelper
   def self.is_number?(object)
     true if Float(object) rescue false
   end
+
+  def self.transliterate_from_geo_to_eng(word)
+    dict = {
+        'ა' => 'a', 'ბ' => 'b', 'გ' => 'g', 'დ' => 'd', 'ე' => 'e', 'ვ' => 'v', 'ზ' => 'z', 'თ' => 't', 'ი' => 'i', 'კ' => 'k',
+        'ლ' => 'l', 'მ' => 'm', 'ნ' => 'n', 'ო' => 'o', 'პ' => 'p', 'ჟ' => 'zh', 'რ' => 'r', 'ს' => 's', 'ტ' => 't', 'უ' => 'u',
+        'ფ' => 'f', 'ქ' => 'q', 'ღ' => 'gh', 'ყ' => 'q', 'შ' => 'sh', 'ჩ' => 'ch', 'ც' => 'ts', 'ძ' => 'dz', 'წ' => 'ts','ჭ' => 'ch',
+        'ხ' => 'kh', 'ჯ' => 'j', 'ჰ' => 'h'
+    }
+
+    result = ''
+    if word && word.length > 0
+      word.split('').each do |character|
+        if dict[character] && dict[character] != ''
+          result += dict[character]
+        elsif character == ' ' || is_number?(character)
+          result += character
+        else
+          result += '_'
+        end
+      end
+    end
+
+    return result
+
+  end
+
+  def self.transliterate_from_eng_to_geo(word)
+    dict = {
+        'a' => 'ა', 'b' => 'ბ', 'g' => 'გ', 'd' => 'დ', 'e' => 'ე', 'v' => 'ვ', 'z' => 'ზ', 'i' => 'ი', 'k' => 'კ', 'l' => 'ლ',
+        'm' => 'მ', 'n' => 'ნ', 'o' => 'ო', 'p' => 'პ', 'zh' => 'ჟ', 'r' => 'რ',  's' => 'ს', 'u' => 'უ', 'f' => 'ფ',
+        'gh' => 'ღ', 'sh' => 'შ', 'dz' => 'ძ', 'kh' => 'ხ', 'j' => 'ჯ', 'h' => 'ჰ'
+    }
+
+    result = ''
+    if word && word.length > 0
+      word.split('').each do |character|
+        if dict[character] && dict[character] != ''
+          result += dict[character]
+        elsif character == ' ' || is_number?(character)
+          result += character
+        else
+          result += '_'
+        end
+      end
+    end
+
+    return result
+
+  end
+
 
 end

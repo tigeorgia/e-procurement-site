@@ -188,6 +188,7 @@ en:
   check_also_our: Check also our
   procurement_link_tooltip: Make sure you've logged in to https://tenders.procurement.gov.ge/ in another tab, before you click on this link.
   ongoing: Ongoing
+  no_status_yet: No status yet
   fulfilled: Fulfilled
   not_fulfilled: Not fulfilled
   link_to_simplified_procurement: Link to Simplified Procurement
@@ -206,6 +207,12 @@ en:
   less_than_1000: less than 1000 GEL
   1000_and_more: 1000 GEL and more
   search_contract_value: Contract value
+  contract_value_help: The contract value of the simplified procurement.
+  date_range_help: This date range contains the simplified procurement's contract starting date.
+  date_range: Date range
+  start_date_preposition: Between
+  end_date_preposition: and
+  geo_end_date_preposition: ''
 
 
   Number of Tenders Bid on: Number of Tenders Bid on

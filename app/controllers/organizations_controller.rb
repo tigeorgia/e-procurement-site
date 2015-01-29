@@ -20,7 +20,18 @@ class OrganizationsController < ApplicationController
   def getProcurers
     @procurers = []
     if params[:term]
-      @procurers = Organization.where("is_procurer = true AND name LIKE ?", "%#{params[:term]}%")
+      search_word = params[:term]
+      if I18n.locale == :en
+        search_word = QueryHelper.transliterate_from_eng_to_geo(params[:term].downcase)
+      end
+      @procurers = Organization.where("is_procurer = true AND name LIKE ?", "%#{search_word}%")
+
+      if I18n.locale == :en
+        @procurers.each do |procurer|
+          procurer.name = QueryHelper.transliterate_from_geo_to_eng(procurer.name)
+        end
+      end
+
     end
 
     render :json => @procurers.map(&:name)

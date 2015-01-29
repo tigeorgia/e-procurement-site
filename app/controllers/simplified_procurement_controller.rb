@@ -5,7 +5,7 @@ class SimplifiedProcurementController < ApplicationController
   include QueryHelper
 
   def index
-    @procurement_status = [[t('ongoing'),'Ongoing contract'],[t('fulfilled'),'Fulfilled contract'],[t('not_fulfilled'),'Not fulfilled contract']]
+    @procurement_status = [[t('ongoing'),'Ongoing contract'],[t('fulfilled'),'Fulfilled contract'],[t('not_fulfilled'),'Not fulfilled contract'],[t('no_status_yet'),'none']]
 
   end
 

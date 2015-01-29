@@ -35,7 +35,8 @@ html,body {
 
 
 a.info-tip {
-    text-decoration: none
+    text-decoration: none;
+    vertical-align: 4px;
 }
 a.info-tip:hover {
     cursor: help;
@@ -463,6 +464,7 @@ table, td, th
 
 .search {
   display: inline-block;
+  vertical-align: 4px;
 }
 
 .search-input[type="text"]{

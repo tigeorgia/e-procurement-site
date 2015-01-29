@@ -232,6 +232,7 @@ ka:
   check_also_our: ნახეთ
   procurement_link_tooltip: ამ ბმულის სანახავად შესული უნდა იყოთ საიტზე https://tenders.procurement.gov.ge/ როგორც რეგისტრირებული მომხმარებელი.
   ongoing: მიმდინარე
+  no_status_yet: სტატუსი არ არის მინიჭებულ
   fulfilled: შესრულებული
   not_fulfilled: შეუსრულებელი
   link_to_simplified_procurement: ბმული გამარტივებულ შესყიდვებზე გადასასვლელად
@@ -250,6 +251,12 @@ ka:
   less_than_1000: 1000 ლარზე ნაკლები
   1000_and_more: 1000 ლარზე მეტი
   search_contract_value: ხელშეკრულების ღირებულება
+  contract_value_help: გამარტივებული შესყიდვის ხელშეკრულების ღირებულება
+  date_range_help: ხელშეკრულების ძალაში შესვლის თარიღი
+  date_range: თარიღი
+  start_date_preposition: ''
+  end_date_preposition: -დან
+  geo_end_date_preposition: -მდე
 
 
   Won: გამარჯვებული

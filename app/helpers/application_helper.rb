@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 module ApplicationHelper
   BOM = "\uFEFF" #Byte Order Mark
   def dropZeros( string )
@@ -215,4 +218,5 @@ module ApplicationHelper
   def page_navigation_links(pages)
     will_paginate(pages, :class => 'pagination', :inner_window => 2, :outer_window => 0, :renderer => BootstrapLinkRenderer, :previous_label => '&larr;'.html_safe, :next_label => '&rarr;'.html_safe)
   end
+
 end
