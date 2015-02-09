@@ -2125,7 +2125,7 @@ module ScraperFile
         simplified_tender = SimplifiedTender.where(registration_number: registration_number).first
 
         if simplified_tender.nil?
-=begin
+
           # It's a new simplified tender, we need to create it.
           puts "Adding '#{registration_number}'"
 
@@ -2144,6 +2144,7 @@ module ScraperFile
           document_info = tender_line['pDocument']
           simplified_tender.doc_start_date = Date.strptime(document_info[document_info.length-2],'%d.%m.%Y')
           simplified_tender.doc_end_date = Date.strptime(document_info[document_info.length-1],'%d.%m.%Y')
+          simplified_tender.contract_signing_date = Date.strptime(document_info[document_info.length-3],'%d.%m.%Y')
           agreement_value = tender_line['pAgreementAmount']
           if agreement_value && agreement_value != ''
             agreement_value_array = agreement_value.split(' ')
@@ -2225,14 +2226,15 @@ module ScraperFile
             # We failed to create this simplified tender
             puts "ERROR: Simplified tender '#{registration_number}' failed to be saved.."
           end
-=end
         else
           # This simplified procurement already exists.
           # The contract value and the status are the 2 elements that can be amended.
 
-          #simplified_tender.status = tender_line['pStatus']
-          #simplified_tender.contract_value = tender_line['pValueContract']
-          #simplified_tender.contract_value_date = Date.strptime(tender_line['pValueDate'], '%d.%m.%Y')
+          simplified_tender.status = tender_line['pStatus']
+          simplified_tender.contract_value = tender_line['pValueContract']
+          simplified_tender.contract_value_date = Date.strptime(tender_line['pValueDate'], '%d.%m.%Y')
+          document_info = tender_line['pDocument']
+          simplified_tender.contract_signing_date = Date.strptime(document_info[document_info.length-3],'%d.%m.%Y')
 
           if (simplified_tender.supplier_id.nil? || simplified_tender.procuring_entity_id.nil?)
             simplified_tender = setProcurerSupplierToProcurement(tender_line, simplified_tender)
