@@ -3,6 +3,7 @@ class SimplifiedProcurementController < ApplicationController
   helper_method :sort_column, :sort_direction
   include ApplicationHelper
   include QueryHelper
+  protect_from_forgery except: :download_all
 
   def index
     @procurement_status = [[t('ongoing'),'Ongoing contract'],[t('fulfilled'),'Fulfilled contract'],[t('not_fulfilled'),'Not fulfilled contract'],[t('no_status_yet'),'none']]
@@ -25,6 +26,11 @@ class SimplifiedProcurementController < ApplicationController
   def show
     @procurement = SimplifiedTender.find(params[:id])
     @timestamp = Time.now.strftime('%m%d%H%M%S%L')
+  end
+
+  def download_all
+    filePath = "./public/AllSimplifiedProcurements.zip"
+    send_file filePath
   end
 
   private

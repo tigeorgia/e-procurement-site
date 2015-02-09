@@ -28,7 +28,8 @@ ka:
   spa_logo_link: http://procurement.gov.ge/index.php?sec_id=1&lang_id=GEO
   logo_path: logo-ka.png
   logo_url: http://www.transparency.ge
-  download_all_tenders: ყველა სატენდერი მონაცემის გადმოწერა
+  download_all_tenders: ყველა სატენდერო მონაცემის გადმოწერა
+  download_all_simplified_procurements: ყველა გამარტივებული შესყიდვის  მონაცემების გადმოწერა
 
   # Footer with TIG information
   contact_us: დაგვიკავშირდით

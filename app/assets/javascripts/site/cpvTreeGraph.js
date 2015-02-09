@@ -118,10 +118,12 @@ function createD3Graphs( root )
       .attr("y", 6 - labelHeight)
       .attr("dy", ".75em");
             
-               
-  initialize(root);
-  layout(root);
-  display(root);
+  if (root != null && root != ''){
+      initialize(root);
+      layout(root);
+      display(root);
+  }
+
 
   function initialize(root) {
     root.x = root.y = 0;

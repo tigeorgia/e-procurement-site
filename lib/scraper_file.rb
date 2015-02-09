@@ -1756,6 +1756,9 @@ module ScraperFile
 
       column_header.push("procurer_code")
       column_header.push("winner_code")
+
+      column_header.push("number_of_amendments")
+
       for num in 0..maxBidders do
         column_header.push("bidder_"+num.to_s+"_name")
         column_header.push("bidder_"+num.to_s+"_id")
@@ -1784,21 +1787,25 @@ module ScraperFile
               elsif (attribute[0] == "supplier_name")
                 values.push(additionalInfo[:supplier_name])
               else
-                values.push(attribute[1])
-              end
-            else
-              if (attribute[0] == "cpv_code")
-                cpv_description = ''
-                cpvcode = TenderCpvCode.where(:cpv_code => attribute[1].to_i).first
-                if cpvcode
-                  cpv_description = cpvcode.description
-                end
-                if cpv_description != ''
-                  values.push("#{attribute[1]} - #{cpv_description}")
+                if (attribute[0] == "cpv_code")
+                  cpvcode = TenderCpvCode.where(:cpv_code => attribute[1]).first
+                  if cpvcode
+                    values.push("#{attribute[1]} - #{cpvcode.description}")
+                  else
+                    values.push(attribute[1])
+                  end
                 else
                   values.push(attribute[1])
                 end
-
+              end
+            else
+              if (attribute[0] == "cpv_code")
+                cpvcode = TenderCpvCode.where(:cpv_code => attribute[1]).first
+                if cpvcode
+                  values.push("#{attribute[1]} - #{cpvcode.description}")
+                else
+                  values.push(attribute[1])
+                end
               else
                 values.push(attribute[1])
               end
@@ -1829,6 +1836,13 @@ module ScraperFile
         end
 
         values.push(winningCode)
+
+        amendment_count = Agreement.where(:tender_id => tender.id).count
+        if amendment_count > 0
+          amendment_count = amendment_count - 1
+        end
+        values.push(amendment_count)
+
         tempBidders.each do |data|
           values.push(data)
         end
@@ -1836,6 +1850,97 @@ module ScraperFile
       end
     end
   end
+
+  def self.buildSimplifiedProcurementCsv(ignores,filepath)
+    CSV.open(filepath,'w') do |csv|
+      csv << [BOM]
+      #use the first object to get the column names
+      column_header = []
+      simplified_procurement = SimplifiedTender.first
+      simplified_procurement.attributes.each do |attribute|
+          if not ignores.include?(attribute[0])
+            column_header.push(attribute[0])
+          end
+      end
+
+      column_header.push('supplier_name')
+      column_header.push('supplier_code')
+      column_header.push('procurer_name')
+      column_header.push('procurer_code')
+      column_header.push('main_cpv_codes')
+      column_header.push('detailed_cpv_codes')
+      column_header.push('paid_amounts')
+
+      csv << column_header
+      #now go through each object and print out the column values
+      simplified_data = SimplifiedTender.where("contract_value_date >= '2013-01-01' AND contract_value_date <= '2014-12-31'")
+      simplified_data.each do |procurement|
+
+        values = []
+
+        procurement.attributes.each do |attribute|
+          if not ignores.include?(attribute[0])
+            values.push(attribute[1])
+          end
+        end
+
+        # Supplier name and code
+        supplier = procurement.supplier
+        if supplier.nil?
+          values.push('')
+          values.push('')
+        else
+          values.push(supplier.name)
+          values.push(supplier.code)
+        end
+
+        # Procurer name and code
+        procurer = procurement.procuring_entity
+        if procurer.nil?
+          values.push('')
+          values.push('')
+        else
+          values.push(procurer.name)
+          values.push(procurer.code)
+        end
+
+        # CPV codes tied to this simplified procurement
+        main_cpv_codes_array = []
+        detailed_cpv_codes_array = []
+        procurement.simplified_cpvs.each do |cpv|
+          # we need to get the cpv in georgian, from tender_cpv_codes
+          geo_cpv_code = TenderCpvCode.where(cpv_code: cpv.code).first
+          title_to_use = cpv.title
+          if geo_cpv_code
+            title_to_use = geo_cpv_code.description
+          end
+          if cpv.cpv_type == 'main'
+            main_cpv_codes_array << "#{cpv.code} #{title_to_use}"
+          elsif cpv.cpv_type == 'detailed'
+            detailed_cpv_codes_array << "#{cpv.code} #{title_to_use}"
+          end
+        end
+
+        values.push(main_cpv_codes_array.join(' - '))
+        values.push(detailed_cpv_codes_array.join(' - '))
+
+        # Paid amounts for this simplified procurement
+        paid_amounts = []
+        procurement.simplified_paid_amounts.each do |amount|
+          paid_amounts << "#{amount.amount_paid} (#{amount.amount_date})"
+        end
+
+        values.push(paid_amounts.join(' - '))
+
+        csv << values
+      end
+    end
+  end
+
+  def self.generate_procurement_csv_file
+    buildSimplifiedProcurementCsv(['created_at','updated_at'],'AllSimplifiedProcurements.csv')
+  end
+
 
   def self.cleanOrgNames
     Organization.all.each do |org|
@@ -1935,7 +2040,7 @@ module ScraperFile
 
     Dir.glob( "#{filesFolder}/*.json") do |fileName|
 
-      puts "\n\nImporting #{fileName}\n\n"
+      puts "\n\n----Importing #{fileName}\n\n"
 
       self.importSimplifiedProcurement( fileName)
 
@@ -1943,15 +2048,54 @@ module ScraperFile
 
   end
 
+  def self.setProcurerSupplierToProcurement(tender_line, simplified_tender)
+    if simplified_tender.supplier_id.nil?
+      # Referencing supplier
+      supplier_info = tender_line['pSupplier']
+      supplier_code = supplier_info[1]
+      supplier = Organization.where(code: supplier_code).first
+      if supplier.nil?
+        # We're creating this new organization
+        #puts "Creating supplier '#{supplier_code}' name: #{supplier_info[0]}"
+        supplier = Organization.new(organization_url: '999999', code: supplier_code, name: supplier_info[0])
+        supplier.save
+      end
+      # we're referencing this supplier in simplified_tender table
+      simplified_tender.supplier_id = supplier.id
+    end
+
+    if simplified_tender.procuring_entity_id.nil?
+      # Referencing procuring entity
+      procurer_info = tender_line['pProcuringEntities']
+      procurer_code = procurer_info[2]
+      procurer = Organization.where(code: procurer_code).first
+      if procurer.nil?
+        # We're creating this new organization
+        #puts "Creating procurer '#{procurer_code}' name: #{procurer_info[0]}"
+        procurer = Organization.new(organization_url: '999999', code: procurer_code, name: procurer_info[0])
+        procurer.save
+      end
+      # we're referencing this supplier in simplified_tender table
+      simplified_tender.procuring_entity_id = procurer.id
+    end
+
+    return simplified_tender
+  end
+
   # This method imports the simplified procurement (from a JSON file) into the MySQL tender monitor database.
   def self.importSimplifiedProcurement( simplifiedProcurementsFileName)
     
     simplified_procurement_file_path = "#{simplifiedProcurementsFileName}"
-    
+    count_line = 0
     File.open(simplified_procurement_file_path, "r") do |infile|
     
       while(line = infile.gets)
-      
+
+        # counter
+        if (count_line % 1000 == 0)
+          puts "Imported #{count_line}"
+        end
+
         # cleaning the line, if it has square brackets at the beginning/end of it.
         line.gsub!("\n",'')
 
@@ -1981,6 +2125,7 @@ module ScraperFile
         simplified_tender = SimplifiedTender.where(registration_number: registration_number).first
 
         if simplified_tender.nil?
+=begin
           # It's a new simplified tender, we need to create it.
           puts "Adding '#{registration_number}'"
 
@@ -2012,31 +2157,7 @@ module ScraperFile
           simplified_tender.financing_source = "#{tender_line['pFinancingSource'][0]} (#{tender_line['pFinancingSource'][1]})"
           simplified_tender.procurement_base = tender_line['pProcurementBase']
 
-          # Referencing supplier
-          supplier_info = tender_line['pSupplier']
-          supplier_code = supplier_info[1]
-          supplier = Organization.where(code: supplier_code).first
-          if supplier.nil?
-            # We're creating this new organization
-            puts "Creating supplier '#{supplier_code}' for simplified tender '#{registration_number}'"
-            supplier = Organization.new(code: supplier_code, name: supplier_info[0])
-            supplier.save
-          end
-          # we're referencing this supplier in simplified_tender table
-          simplified_tender.supplier_id = supplier.id
-
-          # Referencing procuring entity
-          procurer_info = tender_line['pProcuringEntities']
-          procurer_code = procurer_info[2]
-          procurer = Organization.where(code: procurer_code).first
-          if procurer.nil?
-            # We're creating this new organization
-            puts "Creating procurer '#{procurer_code}' for simplified tender '#{registration_number}'"
-            procurer = Organization.new(code: procurer_code, name: procurer_info[0])
-            procurer.save
-          end
-          # we're referencing this supplier in simplified_tender table
-          simplified_tender.procuring_entity_id = procurer.id
+          simplified_tender = setProcurerSupplierToProcurement(tender_line,simplified_tender)
 
           if simplified_tender.save
 
@@ -2104,15 +2225,22 @@ module ScraperFile
             # We failed to create this simplified tender
             puts "ERROR: Simplified tender '#{registration_number}' failed to be saved.."
           end
+=end
         else
           # This simplified procurement already exists.
           # The contract value and the status are the 2 elements that can be amended.
-          simplified_tender.status = tender_line['pStatus']
-          simplified_tender.contract_value = tender_line['pValueContract']
-          simplified_tender.contract_value_date = Date.strptime(tender_line['pValueDate'], '%d.%m.%Y')
 
-          simplified_tender.save
+          #simplified_tender.status = tender_line['pStatus']
+          #simplified_tender.contract_value = tender_line['pValueContract']
+          #simplified_tender.contract_value_date = Date.strptime(tender_line['pValueDate'], '%d.%m.%Y')
+
+          if (simplified_tender.supplier_id.nil? || simplified_tender.procuring_entity_id.nil?)
+            simplified_tender = setProcurerSupplierToProcurement(tender_line, simplified_tender)
+            simplified_tender.save
+          end
         end
+
+        count_line += 1
 
       end
     end

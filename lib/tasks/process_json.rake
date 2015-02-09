@@ -74,6 +74,14 @@ namespace :procurement do
     ScraperFile.modifyAmounts
   end
 
+  desc "generate simplified procurements CSV file"
+  task:generate_procurement_csv => :environment do
+    require "scraper_file"
+    ScraperFile.generate_procurement_csv_file
+  end
+
+
+
   task:test_diffences => :environment do
     ScraperFile.testDifferences
   end
