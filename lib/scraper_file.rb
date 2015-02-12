@@ -2132,6 +2132,7 @@ module ScraperFile
           simplified_tender = SimplifiedTender.new
           simplified_tender.registration_number = registration_number
           simplified_tender.status = tender_line['pStatus']
+          simplified_tender.contract_type = tender_line['pContractType']
           contract_value = tender_line['pValueContract']
           if contract_value && contract_value != ''
             contract_value_array = contract_value.split(' ')
@@ -2235,6 +2236,7 @@ module ScraperFile
           simplified_tender.contract_value_date = Date.strptime(tender_line['pValueDate'], '%d.%m.%Y')
           document_info = tender_line['pDocument']
           simplified_tender.contract_signing_date = Date.strptime(document_info[document_info.length-3],'%d.%m.%Y')
+          simplified_tender.contract_type = tender_line['pContractType']
 
           if (simplified_tender.supplier_id.nil? || simplified_tender.procuring_entity_id.nil?)
             simplified_tender = setProcurerSupplierToProcurement(tender_line, simplified_tender)
