@@ -1747,6 +1747,9 @@ module ScraperFile
         if not ignores.include?(attribute[0])
           if (attribute[0] == 'cpv_code')
             column_header.push('cpv_code_and_description')
+          elsif (attribute[0] == 'contract_value')
+            column_header.push(attribute[0])
+            column_header.push('currency')
           else
             column_header.push(attribute[0])
           end
@@ -1771,7 +1774,7 @@ module ScraperFile
       Tender.find_each do |tender|
         values = []
 
-        additionalInfo = Agreement.select("organization_id, amount").where(:tender_id => tender.id, :amendment_number => 0 ).first
+        additionalInfo = Agreement.select("organization_id, amount, currency").where(:tender_id => tender.id, :amendment_number => 0 ).first
         if additionalInfo && additionalInfo[:organization_id]
           thisOrg = Organization.select("name").where(:id => additionalInfo[:organization_id]).first
           additionalInfo[:supplier_name] = thisOrg.name
@@ -1782,6 +1785,12 @@ module ScraperFile
             if additionalInfo
               if (attribute[0] == "contract_value")
                 values.push(additionalInfo[:amount].to_i)
+                if (additionalInfo[:currency] == 'NONE' || additionalInfo[:currency] == 'NULL')
+                  values.push('ლარი')
+                else
+                  values.push(additionalInfo[:currency])
+                end
+
               elsif (attribute[0] == "winning_org_id")
                 values.push(additionalInfo[:organization_id])
               elsif (attribute[0] == "supplier_name")
@@ -1873,7 +1882,7 @@ module ScraperFile
 
       csv << column_header
       #now go through each object and print out the column values
-      simplified_data = SimplifiedTender.where("contract_value_date >= '2013-01-01' AND contract_value_date <= '2014-12-31'")
+      simplified_data = SimplifiedTender.where("doc_start_date >= '2013-01-01' AND doc_start_date <= '2014-12-31' AND (contract_type = 'simplified purchase' OR contract_type IS NULL)")
       simplified_data.each do |procurement|
 
         values = []
@@ -2092,7 +2101,7 @@ module ScraperFile
       while(line = infile.gets)
 
         # counter
-        if (count_line % 1000 == 0)
+        if (count_line % 200 == 0)
           puts "Imported #{count_line}"
         end
 
@@ -2118,7 +2127,26 @@ module ScraperFile
         rescue
           next
         end
-        
+
+        if (tender_line['pContractType'] != 'simplified purchase')
+
+          registration_number = tender_line['pCMR']
+
+          # testing its existance
+          simplified_tender = SimplifiedTender.where(registration_number: registration_number).first
+
+          if simplified_tender && (simplified_tender.contract_signing_date.nil? || simplified_tender.contract_type.nil?)
+
+            document_info = tender_line['pDocument']
+            simplified_tender.contract_signing_date = Date.strptime(document_info[document_info.length-3],'%d.%m.%Y')
+            simplified_tender.contract_type = tender_line['pContractType']
+            simplified_tender.save
+
+          end
+        end
+
+        count_line += 1
+
         registration_number = tender_line['pCMR']
 
         # testing its existance
@@ -2227,7 +2255,8 @@ module ScraperFile
             # We failed to create this simplified tender
             puts "ERROR: Simplified tender '#{registration_number}' failed to be saved.."
           end
-        else
+
+        elsif simplified_tender.contract_signing_date.nil?
           # This simplified procurement already exists.
           # The contract value and the status are the 2 elements that can be amended.
 
@@ -2235,21 +2264,60 @@ module ScraperFile
           simplified_tender.contract_value = tender_line['pValueContract']
           simplified_tender.contract_value_date = Date.strptime(tender_line['pValueDate'], '%d.%m.%Y')
           document_info = tender_line['pDocument']
-          simplified_tender.contract_signing_date = Date.strptime(document_info[document_info.length-3],'%d.%m.%Y')
-          simplified_tender.contract_type = tender_line['pContractType']
+          simplified_tender.contract_signing_date = Date.strptime(document_info[(document_info.length)-3],'%d.%m.%Y')
 
           if (simplified_tender.supplier_id.nil? || simplified_tender.procuring_entity_id.nil?)
             simplified_tender = setProcurerSupplierToProcurement(tender_line, simplified_tender)
-            simplified_tender.save
           end
+
+          simplified_tender = correctSupplier(tender_line, simplified_tender)
+
+          simplified_tender.contract_type = tender_line['pContractType']
+          simplified_tender.save
         end
 
         count_line += 1
-
       end
+
     end
     puts 'All done.'
   end
+
+  def self.correctSupplier(tender_line, simplified_tender)
+
+    if simplified_tender.supplier.nil?
+      # Referencing supplier
+      supplier_info = tender_line['pSupplier']
+      supplier_code = supplier_info[1]
+      supplier_name = supplier_info[0]
+      supplier = Organization.where(code: supplier_code, name: supplier_name).first
+      if supplier.nil?
+        # We're creating this new organization
+        #puts "Creating supplier '#{supplier_code}' name: #{supplier_info[0]}"
+        supplier = Organization.new(organization_url: '999999', code: supplier_code, name: supplier_name)
+        supplier.save
+      end
+      # we're referencing this supplier in simplified_tender table
+      simplified_tender.supplier_id = supplier.id
+
+    else
+      saved_supplier_name = simplified_tender.supplier.name
+
+      supplier_info = tender_line['pSupplier']
+      supplier_name = supplier_info[0]
+      supplier_code = supplier_info[1]
+
+      if saved_supplier_name != supplier_name
+        supplier = Organization.new(organization_url: '999999', code: supplier_code, name: supplier_name)
+        supplier.save
+        simplified_tender.supplier_id = supplier.id
+      end
+    end
+
+    return simplified_tender
+
+  end
+
 
   def self.modifyAmounts
     count = 0
