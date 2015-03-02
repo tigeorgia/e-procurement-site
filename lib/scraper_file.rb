@@ -1782,44 +1782,56 @@ module ScraperFile
 
         tender.attributes.each do |attribute|
           if not ignores.include?(attribute[0])
-            if additionalInfo
+
               if (attribute[0] == "contract_value")
-                values.push(additionalInfo[:amount].to_i)
-                if (additionalInfo[:currency] == 'NONE' || additionalInfo[:currency] == 'NULL')
-                  values.push('ლარი')
-                else
-                  values.push(additionalInfo[:currency])
+                amount = ''
+                currency = ''
+
+                if additionalInfo && additionalInfo[:amount] && additionalInfo[:amount] != ''
+                  amount = additionalInfo[:amount].to_i
+                end
+                if additionalInfo && additionalInfo[:currency] && additionalInfo[:currency] != ''
+                  if (additionalInfo[:currency] == 'NONE' || additionalInfo[:currency] == 'NULL')
+                    currency = 'ლარი'
+                  else
+                    currency = additionalInfo[:currency]
+                  end
                 end
 
+                values.push(amount)
+                values.push(currency)
+
               elsif (attribute[0] == "winning_org_id")
-                values.push(additionalInfo[:organization_id])
+                winning_org = ''
+                if additionalInfo && additionalInfo[:organization_id] && additionalInfo[:organization_id] != ''
+                  winning_org = additionalInfo[:organization_id]
+                end
+                values.push(winning_org)
               elsif (attribute[0] == "supplier_name")
-                values.push(additionalInfo[:supplier_name])
-              else
-                if (attribute[0] == "cpv_code")
+                supplier = ''
+                if additionalInfo && additionalInfo[:supplier_name] && additionalInfo[:supplier_name] != ''
+                  supplier = additionalInfo[:supplier_name]
+                end
+                values.push(supplier)
+              elsif (attribute[0] == "cpv_code")
                   cpvcode = TenderCpvCode.where(:cpv_code => attribute[1]).first
                   if cpvcode
                     values.push("#{attribute[1]} - #{cpvcode.description}")
                   else
-                    values.push(attribute[1])
+                    cpv_val = ''
+                    if attribute[1] && attribute[1] != ''
+                      cpv_val = attribute[1]
+                    end
+                    values.push(cpv_val)
                   end
-                else
-                  values.push(attribute[1])
-                end
-              end
-            else
-              if (attribute[0] == "cpv_code")
-                cpvcode = TenderCpvCode.where(:cpv_code => attribute[1]).first
-                if cpvcode
-                  values.push("#{attribute[1]} - #{cpvcode.description}")
-                else
-                  values.push(attribute[1])
-                end
               else
-                values.push(attribute[1])
+                val = ''
+                if attribute[1] && attribute[1] != ''
+                  val = attribute[1]
+                end
+                values.push(val)
               end
 
-            end
           end
         end
 

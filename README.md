@@ -14,3 +14,7 @@ Transparency International Georgia listing of public procurement issued by the G
 
 * Added functionality:
  * Extension of the tender database to include Simplified Direct Procurements.
+
+# License
+
+Tender monitor is released under the terms of [GNU General Public License (V2)](http://www.gnu.org/licenses/gpl-2.0.html).
