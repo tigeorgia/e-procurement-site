@@ -9,8 +9,7 @@ Transparency International Georgia listing of public procurement issued by the G
 
 # Release Plan
 
-* Version: 1.1.0
-* Planned reseale date: March 2015
+* Latest release: 02/25/2015 - Improved capabilities of simplified procurement scraper.
 
 * Added functionality:
  * Extension of the tender database to include Simplified Direct Procurements.
