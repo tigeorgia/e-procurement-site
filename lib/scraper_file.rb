@@ -1894,7 +1894,7 @@ module ScraperFile
 
       csv << column_header
       #now go through each object and print out the column values
-      simplified_data = SimplifiedTender.where("doc_start_date >= '2013-01-01' AND doc_start_date <= '2014-12-31' AND (contract_type = 'simplified purchase' OR contract_type IS NULL)")
+      simplified_data = SimplifiedTender.where("doc_start_date >= '2010-01-01' AND doc_start_date <= '#{Date.today.to_s}' AND (contract_type = 'simplified purchase' OR contract_type IS NULL)")
       simplified_data.each do |procurement|
 
         values = []
