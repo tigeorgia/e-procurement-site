@@ -1468,40 +1468,43 @@ module ScraperFile
       #something has been changed lets load the saved search data for this search and check the ids
       if results.count != oldCount
         data = nil
-        File.open("#{Rails.root}/pre-scrape-data/"+searchPath, "r") do |searchFile|
-          while(line = searchFile.gets)
-            item = JSON.parse(line)
-            if item["id"].to_s == search.id.to_s
-              data = item
-              break
-            end
-          end
-        end#file open
-
-        newItems = []
-        if data
-          s = (data["items"]).to_set
-          results.find_in_batches do |resultbatch|
-            resultbatch.each do |result|
-              if not s.include?(result.id)
-                #new item lets store it!
-                newItems.push(result.id)
+        filepath = "#{Rails.root}/pre-scrape-data/"+searchPath
+        if File.exist?(filepath)
+          File.open(filepath, "r") do |searchFile|
+            while(line = searchFile.gets)
+              item = JSON.parse(line)
+              if item["id"].to_s == search.id.to_s
+                data = item
+                break
               end
             end
-          end
-        else
-          #this search must have been created while the scrape was running so no need to update it
-        end
+          end#file open
 
-        if newItems.length > 0
-          search.has_updated = true
-          id_string = ""
-          newItems.each do |id|
-            id_string += "#"+"#{id}"
+          newItems = []
+          if data
+            s = (data["items"]).to_set
+            results.find_in_batches do |resultbatch|
+              resultbatch.each do |result|
+                if not s.include?(result.id)
+                  #new item lets store it!
+                  newItems.push(result.id)
+                end
+              end
+            end
+          else
+            #this search must have been created while the scrape was running so no need to update it
           end
-          search.new_ids = id_string
-          search.save
-          updateList.push({:search => search,:newResults => newItems})
+
+          if newItems.length > 0
+            search.has_updated = true
+            id_string = ""
+            newItems.each do |id|
+              id_string += "#"+"#{id}"
+            end
+            search.new_ids = id_string
+            search.save
+            updateList.push({:search => search,:newResults => newItems})
+          end
         end
       else
         #no changes this scrape set new ids to empty
