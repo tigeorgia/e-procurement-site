@@ -1896,69 +1896,87 @@ module ScraperFile
       column_header.push('paid_amounts')
 
       csv << column_header
-      #now go through each object and print out the column values
-      simplified_data = SimplifiedTender.where("doc_start_date >= '2010-01-01' AND doc_start_date <= '#{Date.today.to_s}' AND (contract_type = 'simplified purchase' OR contract_type IS NULL)")
-      simplified_data.each do |procurement|
-
-        values = []
-
-        procurement.attributes.each do |attribute|
-          if not ignores.include?(attribute[0])
-            values.push(attribute[1])
-          end
-        end
-
-        # Supplier name and code
-        supplier = procurement.supplier
-        if supplier.nil?
-          values.push('')
-          values.push('')
+      # Now go through each object and print out the column values
+      # As there are many simplified procurement, we'll perform a query for each year since 2010.
+      starting_year = 2010
+      final_year = Date.today.year
+      for i in starting_year..final_year
+        current_year = i.to_s
+        puts "Processing data for year #{current_year}"
+        if i < final_year
+          simplified_data = SimplifiedTender.where("doc_start_date >= '#{current_year}-01-01' AND doc_start_date <= '#{current_year}-12-31' AND (contract_type = 'simplified purchase' OR contract_type IS NULL)")
         else
-          values.push(supplier.name)
-          values.push(supplier.code)
+          simplified_data = SimplifiedTender.where("doc_start_date >= '#{current_year}-01-01' AND doc_start_date <= '#{Date.today.to_s}' AND (contract_type = 'simplified purchase' OR contract_type IS NULL)")
         end
 
-        # Procurer name and code
-        procurer = procurement.procuring_entity
-        if procurer.nil?
-          values.push('')
-          values.push('')
-        else
-          values.push(procurer.name)
-          values.push(procurer.code)
-        end
+        simplified_data.find_in_batches do |data_group|
 
-        # CPV codes tied to this simplified procurement
-        main_cpv_codes_array = []
-        detailed_cpv_codes_array = []
-        procurement.simplified_cpvs.each do |cpv|
-          # we need to get the cpv in georgian, from tender_cpv_codes
-          geo_cpv_code = TenderCpvCode.where(cpv_code: cpv.code).first
-          title_to_use = cpv.title
-          if geo_cpv_code
-            title_to_use = geo_cpv_code.description
+          data_group.each do |procurement|
+
+            values = []
+            procurement.attributes.each do |attribute|
+              if not ignores.include?(attribute[0])
+                values.push(attribute[1])
+              end
+            end
+
+            # Supplier name and code
+            supplier = procurement.supplier
+            if supplier.nil?
+              values.push('')
+              values.push('')
+            else
+              values.push(supplier.name)
+              values.push(supplier.code)
+            end
+
+            # Procurer name and code
+            procurer = procurement.procuring_entity
+            if procurer.nil?
+              values.push('')
+              values.push('')
+            else
+              values.push(procurer.name)
+              values.push(procurer.code)
+            end
+
+            # CPV codes tied to this simplified procurement
+            main_cpv_codes_array = []
+            detailed_cpv_codes_array = []
+            procurement.simplified_cpvs.each do |cpv|
+              # we need to get the cpv in georgian, from tender_cpv_codes
+              geo_cpv_code = TenderCpvCode.where(cpv_code: cpv.code).first
+              title_to_use = cpv.title
+              if geo_cpv_code
+                title_to_use = geo_cpv_code.description
+              end
+              if cpv.cpv_type == 'main'
+                main_cpv_codes_array << "#{cpv.code} #{title_to_use}"
+              elsif cpv.cpv_type == 'detailed'
+                detailed_cpv_codes_array << "#{cpv.code} #{title_to_use}"
+              end
+            end
+
+            values.push(main_cpv_codes_array.join(' - '))
+            values.push(detailed_cpv_codes_array.join(' - '))
+
+            # Paid amounts for this simplified procurement
+            paid_amounts = []
+            procurement.simplified_paid_amounts.each do |amount|
+              paid_amounts << "#{amount.amount_paid} (#{amount.amount_date})"
+            end
+
+            values.push(paid_amounts.join(' - '))
+
+            csv << values
           end
-          if cpv.cpv_type == 'main'
-            main_cpv_codes_array << "#{cpv.code} #{title_to_use}"
-          elsif cpv.cpv_type == 'detailed'
-            detailed_cpv_codes_array << "#{cpv.code} #{title_to_use}"
-          end
+
         end
 
-        values.push(main_cpv_codes_array.join(' - '))
-        values.push(detailed_cpv_codes_array.join(' - '))
-
-        # Paid amounts for this simplified procurement
-        paid_amounts = []
-        procurement.simplified_paid_amounts.each do |amount|
-          paid_amounts << "#{amount.amount_paid} (#{amount.amount_date})"
-        end
-
-        values.push(paid_amounts.join(' - '))
-
-        csv << values
       end
+
     end
+
   end
 
   def self.generate_procurement_csv_file
