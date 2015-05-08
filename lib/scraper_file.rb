@@ -152,7 +152,7 @@ module ScraperFile
             if oldTender.updated_at < @scrapeTime
               #ignore all meta data when comparing
               ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
-                "risk_indicators","procurer_name","supplier_name","sub_codes"]
+                         "risk_indicators","procurer_name","supplier_name","sub_codes"]
 
               differences = oldTender.findDifferences(tender,ignores)
               if differences.length > 0
@@ -260,7 +260,7 @@ module ScraperFile
             puts "old tender is old"
             #ignore all meta data when comparing
             ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
-              "risk_indicators","procurer_name","supplier_name","sub_codes"]
+                       "risk_indicators","procurer_name","supplier_name","sub_codes"]
 
             differences = oldTender.findDifferences(tender,ignores)
             if differences.length > 0
@@ -337,8 +337,8 @@ module ScraperFile
                 if watches.count > 0
                   #ignore all meta data when comparing
                   ignores = ["is_procurer", "is_bidder","translation","total_won_contract_value",
-                    "total_bid_tenders","total_won_tenders","total_offered_contract_value",
-                    "total_offered_tenders","total_success_tenders","bw_list"]
+                             "total_bid_tenders","total_won_tenders","total_offered_contract_value",
+                             "total_offered_tenders","total_success_tenders","bw_list"]
                   differences = oldOrganization.findDifferences(organization, ignores)
                   watches.each do |watch|
                     #set hash to empty so the orgs get cleaned out everytime before processing
@@ -738,30 +738,30 @@ module ScraperFile
     monthInt = -1
 
     case month
-    when "იანვარი"
-      monthInt = "1"
-    when "თებერვალი"
-      monthInt = "2"
-    when "მარტი"
-      monthInt = "3"
-    when "აპრილი"
-      monthInt = "4"
-    when "მაისი"
-      monthInt = "5"
-    when "ივნისი"
-      monthInt = "6"
-    when "ივლისი"
-      monthInt = "7"
-    when "აგვისტო"
-      monthInt = "8"
-    when "სექტემბერი"
-      monthInt = "9"
-    when "ოქტომბერი"
-      monthInt = "10"
-    when "ნოემბერი"
-      monthInt = "11"
-    when "დეკემბერი"
-      monthInt = "12"
+      when "იანვარი"
+        monthInt = "1"
+      when "თებერვალი"
+        monthInt = "2"
+      when "მარტი"
+        monthInt = "3"
+      when "აპრილი"
+        monthInt = "4"
+      when "მაისი"
+        monthInt = "5"
+      when "ივნისი"
+        monthInt = "6"
+      when "ივლისი"
+        monthInt = "7"
+      when "აგვისტო"
+        monthInt = "8"
+      when "სექტემბერი"
+        monthInt = "9"
+      when "ოქტომბერი"
+        monthInt = "10"
+      when "ნოემბერი"
+        monthInt = "11"
+      when "დეკემბერი"
+        monthInt = "12"
     end
 
     monthString = elements[2]+"/"+monthInt+"/"+elements[0]
@@ -1786,54 +1786,54 @@ module ScraperFile
         tender.attributes.each do |attribute|
           if not ignores.include?(attribute[0])
 
-              if (attribute[0] == "contract_value")
-                amount = ''
-                currency = ''
+            if (attribute[0] == "contract_value")
+              amount = ''
+              currency = ''
 
-                if additionalInfo && additionalInfo[:amount] && additionalInfo[:amount] != ''
-                  amount = additionalInfo[:amount].to_i
-                end
-                if additionalInfo && additionalInfo[:currency] && additionalInfo[:currency] != ''
-                  if (additionalInfo[:currency] == 'NONE' || additionalInfo[:currency] == 'NULL')
-                    currency = 'ლარი'
-                  else
-                    currency = additionalInfo[:currency]
-                  end
-                end
-
-                values.push(amount)
-                values.push(currency)
-
-              elsif (attribute[0] == "winning_org_id")
-                winning_org = ''
-                if additionalInfo && additionalInfo[:organization_id] && additionalInfo[:organization_id] != ''
-                  winning_org = additionalInfo[:organization_id]
-                end
-                values.push(winning_org)
-              elsif (attribute[0] == "supplier_name")
-                supplier = ''
-                if additionalInfo && additionalInfo[:supplier_name] && additionalInfo[:supplier_name] != ''
-                  supplier = additionalInfo[:supplier_name]
-                end
-                values.push(supplier)
-              elsif (attribute[0] == "cpv_code")
-                  cpvcode = TenderCpvCode.where(:cpv_code => attribute[1]).first
-                  if cpvcode
-                    values.push("#{attribute[1]} - #{cpvcode.description}")
-                  else
-                    cpv_val = ''
-                    if attribute[1] && attribute[1] != ''
-                      cpv_val = attribute[1]
-                    end
-                    values.push(cpv_val)
-                  end
-              else
-                val = ''
-                if attribute[1] && attribute[1] != ''
-                  val = attribute[1]
-                end
-                values.push(val)
+              if additionalInfo && additionalInfo[:amount] && additionalInfo[:amount] != ''
+                amount = additionalInfo[:amount].to_i
               end
+              if additionalInfo && additionalInfo[:currency] && additionalInfo[:currency] != ''
+                if (additionalInfo[:currency] == 'NONE' || additionalInfo[:currency] == 'NULL')
+                  currency = 'ლარი'
+                else
+                  currency = additionalInfo[:currency]
+                end
+              end
+
+              values.push(amount)
+              values.push(currency)
+
+            elsif (attribute[0] == "winning_org_id")
+              winning_org = ''
+              if additionalInfo && additionalInfo[:organization_id] && additionalInfo[:organization_id] != ''
+                winning_org = additionalInfo[:organization_id]
+              end
+              values.push(winning_org)
+            elsif (attribute[0] == "supplier_name")
+              supplier = ''
+              if additionalInfo && additionalInfo[:supplier_name] && additionalInfo[:supplier_name] != ''
+                supplier = additionalInfo[:supplier_name]
+              end
+              values.push(supplier)
+            elsif (attribute[0] == "cpv_code")
+              cpvcode = TenderCpvCode.where(:cpv_code => attribute[1]).first
+              if cpvcode
+                values.push("#{attribute[1]} - #{cpvcode.description}")
+              else
+                cpv_val = ''
+                if attribute[1] && attribute[1] != ''
+                  cpv_val = attribute[1]
+                end
+                values.push(cpv_val)
+              end
+            else
+              val = ''
+              if attribute[1] && attribute[1] != ''
+                val = attribute[1]
+              end
+              values.push(val)
+            end
 
           end
         end
@@ -1876,99 +1876,114 @@ module ScraperFile
   end
 
   def self.buildSimplifiedProcurementCsv(ignores,filepath)
-    CSV.open(filepath,'w') do |csv|
-      csv << [BOM]
-      #use the first object to get the column names
-      column_header = []
-      simplified_procurement = SimplifiedTender.first
-      simplified_procurement.attributes.each do |attribute|
-          if not ignores.include?(attribute[0])
-            column_header.push(attribute[0])
-          end
+
+    line_count = 100001
+    file_index = 0
+
+    # Now go through each object and print out the column values
+    # As there are many simplified procurement, we'll perform a query for each year since 2010.
+    starting_year = 2010
+    final_year = Date.today.year
+    for i in starting_year..final_year
+      current_year = i.to_s
+      puts "Processing data for year #{current_year}"
+      if i < final_year
+        simplified_data = SimplifiedTender.where("doc_start_date >= '#{current_year}-01-01' AND doc_start_date <= '#{current_year}-12-31' AND (contract_type = 'simplified purchase' OR contract_type IS NULL)")
+      else
+        simplified_data = SimplifiedTender.where("doc_start_date >= '#{current_year}-01-01' AND doc_start_date <= '#{Date.today.to_s}' AND (contract_type = 'simplified purchase' OR contract_type IS NULL)")
       end
 
-      column_header.push('supplier_name')
-      column_header.push('supplier_code')
-      column_header.push('procurer_name')
-      column_header.push('procurer_code')
-      column_header.push('main_cpv_codes')
-      column_header.push('detailed_cpv_codes')
-      column_header.push('paid_amounts')
+      simplified_data.find_in_batches do |data_group|
 
-      csv << column_header
-      # Now go through each object and print out the column values
-      # As there are many simplified procurement, we'll perform a query for each year since 2010.
-      starting_year = 2010
-      final_year = Date.today.year
-      for i in starting_year..final_year
-        current_year = i.to_s
-        puts "Processing data for year #{current_year}"
-        if i < final_year
-          simplified_data = SimplifiedTender.where("doc_start_date >= '#{current_year}-01-01' AND doc_start_date <= '#{current_year}-12-31' AND (contract_type = 'simplified purchase' OR contract_type IS NULL)")
-        else
-          simplified_data = SimplifiedTender.where("doc_start_date >= '#{current_year}-01-01' AND doc_start_date <= '#{Date.today.to_s}' AND (contract_type = 'simplified purchase' OR contract_type IS NULL)")
-        end
+        data_group.each do |procurement|
 
-        simplified_data.find_in_batches do |data_group|
+          if line_count > 100000
 
-          data_group.each do |procurement|
+            file_index += 1
+            line_count = 0
 
-            values = []
-            procurement.attributes.each do |attribute|
-              if not ignores.include?(attribute[0])
-                values.push(attribute[1])
+            CSV.open("#{filepath}_#{file_index}.csv",'w') do |csv|
+              csv << [BOM]
+              #use the first object to get the column names
+              column_header = []
+              simplified_procurement = SimplifiedTender.first
+              simplified_procurement.attributes.each do |attribute|
+                if not ignores.include?(attribute[0])
+                  column_header.push(attribute[0])
+                end
               end
+
+              column_header.push('supplier_name')
+              column_header.push('supplier_code')
+              column_header.push('procurer_name')
+              column_header.push('procurer_code')
+              column_header.push('main_cpv_codes')
+              column_header.push('detailed_cpv_codes')
+              column_header.push('paid_amounts')
+
+              csv << column_header
             end
 
-            # Supplier name and code
-            supplier = procurement.supplier
-            if supplier.nil?
-              values.push('')
-              values.push('')
-            else
-              values.push(supplier.name)
-              values.push(supplier.code)
+          end
+
+          values = []
+          procurement.attributes.each do |attribute|
+            if not ignores.include?(attribute[0])
+              values.push(attribute[1])
             end
+          end
 
-            # Procurer name and code
-            procurer = procurement.procuring_entity
-            if procurer.nil?
-              values.push('')
-              values.push('')
-            else
-              values.push(procurer.name)
-              values.push(procurer.code)
+          # Supplier name and code
+          supplier = procurement.supplier
+          if supplier.nil?
+            values.push('')
+            values.push('')
+          else
+            values.push(supplier.name)
+            values.push(supplier.code)
+          end
+
+          # Procurer name and code
+          procurer = procurement.procuring_entity
+          if procurer.nil?
+            values.push('')
+            values.push('')
+          else
+            values.push(procurer.name)
+            values.push(procurer.code)
+          end
+
+          # CPV codes tied to this simplified procurement
+          main_cpv_codes_array = []
+          detailed_cpv_codes_array = []
+          procurement.simplified_cpvs.each do |cpv|
+            # we need to get the cpv in georgian, from tender_cpv_codes
+            geo_cpv_code = TenderCpvCode.where(cpv_code: cpv.code).first
+            title_to_use = cpv.title
+            if geo_cpv_code
+              title_to_use = geo_cpv_code.description
             end
-
-            # CPV codes tied to this simplified procurement
-            main_cpv_codes_array = []
-            detailed_cpv_codes_array = []
-            procurement.simplified_cpvs.each do |cpv|
-              # we need to get the cpv in georgian, from tender_cpv_codes
-              geo_cpv_code = TenderCpvCode.where(cpv_code: cpv.code).first
-              title_to_use = cpv.title
-              if geo_cpv_code
-                title_to_use = geo_cpv_code.description
-              end
-              if cpv.cpv_type == 'main'
-                main_cpv_codes_array << "#{cpv.code} #{title_to_use}"
-              elsif cpv.cpv_type == 'detailed'
-                detailed_cpv_codes_array << "#{cpv.code} #{title_to_use}"
-              end
+            if cpv.cpv_type == 'main'
+              main_cpv_codes_array << "#{cpv.code} #{title_to_use}"
+            elsif cpv.cpv_type == 'detailed'
+              detailed_cpv_codes_array << "#{cpv.code} #{title_to_use}"
             end
+          end
 
-            values.push(main_cpv_codes_array.join(' - '))
-            values.push(detailed_cpv_codes_array.join(' - '))
+          values.push(main_cpv_codes_array.join(' - '))
+          values.push(detailed_cpv_codes_array.join(' - '))
 
-            # Paid amounts for this simplified procurement
-            paid_amounts = []
-            procurement.simplified_paid_amounts.each do |amount|
-              paid_amounts << "#{amount.amount_paid} (#{amount.amount_date})"
-            end
+          # Paid amounts for this simplified procurement
+          paid_amounts = []
+          procurement.simplified_paid_amounts.each do |amount|
+            paid_amounts << "#{amount.amount_paid} (#{amount.amount_date})"
+          end
 
-            values.push(paid_amounts.join(' - '))
+          values.push(paid_amounts.join(' - '))
 
+          CSV.open("#{filepath}_#{file_index}.csv",'a') do |csv|
             csv << values
+            line_count += 1
           end
 
         end
@@ -1980,7 +1995,7 @@ module ScraperFile
   end
 
   def self.generate_procurement_csv_file
-    buildSimplifiedProcurementCsv(['created_at','updated_at'],'AllSimplifiedProcurements.csv')
+    buildSimplifiedProcurementCsv(['created_at','updated_at'],'AllSimplifiedProcurements')
   end
 
 
@@ -2126,11 +2141,11 @@ module ScraperFile
 
   # This method imports the simplified procurement (from a JSON file) into the MySQL tender monitor database.
   def self.importSimplifiedProcurement( simplifiedProcurementsFileName)
-    
+
     simplified_procurement_file_path = "#{simplifiedProcurementsFileName}"
     count_line = 0
     File.open(simplified_procurement_file_path, "r") do |infile|
-    
+
       while(line = infile.gets)
 
         # counter
@@ -2401,30 +2416,30 @@ module ScraperFile
   end
 
   # extracting tenders which should be re-scraped because their status is not completed
-  
+
   def self.extractSimplifiedProcurementsToUpdate
-    
+
     filesFolder = "#{Rails.root}/public/system"
 
     File.open( "#{filesFolder}/tender_update.txt", "w" ) do |fileDesc|
 
       SimplifiedTender.where('status = ?', 'Ongoing contract').find_each do |tender|
-      
+
         fileDesc.puts "#{tender.web_id}\n"
-      
+
       end
-      
+
       # we would also like the maximum value of web_id in the database, so we do not re-scrape the same stuff
       max_present_id = SimplifiedTender.maximum( 'web_id')
-      
+
       fileDesc.puts "#{max_present_id}\n"
-      
-     
-    
+
+
+
     end
-    
+
   end
-  
+
 end
 
 
