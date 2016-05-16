@@ -20,7 +20,9 @@ module AggregateHelper
     end
     def addStats(tender)
       @count = @count + 1
-      @value = @value + tender.estimated_value
+      if tender.estimated_value
+        @value = @value + tender.estimated_value
+      end
      
       biddingPeriod = (tender.bid_end_date - tender.bid_start_date).to_i
       warningPeriod = (tender.bid_start_date - tender.tender_announcement_date).to_i

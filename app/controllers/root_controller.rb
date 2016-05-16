@@ -204,7 +204,9 @@ class RootController < ApplicationController
     @orgTypes = []
     orgs =  Organization.where(:is_bidder => 1).select("DISTINCT(ORG_TYPE)")
     orgs.each do |org|
-      @orgTypes.push(org["ORG_TYPE"])
+      if !org["ORG_TYPE"].empty?
+        @orgTypes.push(org["ORG_TYPE"])
+      end
     end
 
     @procTypes = []  

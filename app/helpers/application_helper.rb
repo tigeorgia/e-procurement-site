@@ -29,7 +29,7 @@ module ApplicationHelper
     direction = (column == sort_column && sort_direction == "desc") ? "asc" : "desc"
     myParams[:sort] = column
     myParams[:direction] = direction
-    link_to title, myParams, :class => cssClass + " "+column
+    link_to title, myParams, :class => cssClass + " " + column
   end
 
   def checkSavedSearch( attributes, type )

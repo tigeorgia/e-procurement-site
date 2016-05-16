@@ -102,7 +102,7 @@ module ScraperFile
     File.open(tender_file_path, "r") do |infile|
       count = 0
       Tender.transaction do
-        while(line = infile.gets)
+        while (line = infile.gets)
           count = count + 1
           item = JSON.parse(line)
           tender = Tender.new
@@ -130,7 +130,7 @@ module ScraperFile
           tender.num_bids = 0
           tender.num_bidders = 0
 
-          organization = Organization.where("organization_url = ?",item["procuringEntityUrl"]).first
+          organization = Organization.where("organization_url = ?", item["procuringEntityUrl"]).first
           if organization
             tender.procurring_entity_id = organization.id
             tender.procurer_name = organization.name
@@ -144,17 +144,17 @@ module ScraperFile
           oldTender = nil
           if @numDatasets > 1
             #look at previous scraped data and see if we have the same tender
-            oldTender = Tender.where(:url_id => tender.url_id,:dataset_id => @liveDataset.id).first
+            oldTender = Tender.where(:url_id => tender.url_id, :dataset_id => @liveDataset.id).first
           end
 
           if oldTender
             #see if we should update this tender at all
             if oldTender.updated_at < @scrapeTime
               #ignore all meta data when comparing
-              ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
-                         "risk_indicators","procurer_name","supplier_name","sub_codes"]
+              ignores = ["num_bids", "num_bidders", "contract_value", "winning_org_id",
+                         "risk_indicators", "procurer_name", "supplier_name", "sub_codes"]
 
-              differences = oldTender.findDifferences(tender,ignores)
+              differences = oldTender.findDifferences(tender, ignores)
               if differences.length > 0
                 #check for tender watches
                 watch_tenders = WatchTender.where(:tender_url => tender.url_id)
@@ -164,7 +164,7 @@ module ScraperFile
                   differences.each do |difference|
                     hash += difference[:field].to_s+"/"+difference[:old].to_s+"#"
                   end
-                  watch_tenders.each do | watch |
+                  watch_tenders.each do |watch|
                     watch.diff_hash = hash
                     watch.has_updated = true
                     watch.last_data_update = @liveDataset.data_valid_from
@@ -201,9 +201,11 @@ module ScraperFile
             end
           end
         end #while
-      end#transaction
-    end#file
-  end #processTenders
+      end #transaction
+    end #file
+  end
+
+  #processTenders
 
   def self.testDifferences
     tender_file_path = "#{Rails.root}/public/system/testdiff.json"
@@ -216,7 +218,7 @@ module ScraperFile
 
     File.open(tender_file_path, "r") do |infile|
       count = 0
-      while(line = infile.gets)
+      while (line = infile.gets)
         count = count + 1
         item = JSON.parse(line)
         tender = Tender.new
@@ -241,7 +243,7 @@ module ScraperFile
         tender.num_bids = 0
         tender.num_bidders = 0
 
-        organization = Organization.where("organization_url = ?",item["procuringEntityUrl"]).first
+        organization = Organization.where("organization_url = ?", item["procuringEntityUrl"]).first
         if organization
           tender.procurring_entity_id = organization.id
           tender.procurer_name = organization.name
@@ -251,7 +253,7 @@ module ScraperFile
         oldTender = nil
 
         #look at previous scraped data and see if we have the same tender
-        oldTender = Tender.where(:url_id => tender.url_id,:dataset_id => 1).first
+        oldTender = Tender.where(:url_id => tender.url_id, :dataset_id => 1).first
         puts "old tender was last updated at #{oldTender.updated_at}"
 
         if oldTender
@@ -259,10 +261,10 @@ module ScraperFile
           if oldTender.updated_at < @scrapeTime
             puts "old tender is old"
             #ignore all meta data when comparing
-            ignores = ["num_bids","num_bidders","contract_value","winning_org_id",
-                       "risk_indicators","procurer_name","supplier_name","sub_codes"]
+            ignores = ["num_bids", "num_bidders", "contract_value", "winning_org_id",
+                       "risk_indicators", "procurer_name", "supplier_name", "sub_codes"]
 
-            differences = oldTender.findDifferences(tender,ignores)
+            differences = oldTender.findDifferences(tender, ignores)
             if differences.length > 0
               puts "there are differences! #{differences}"
               #check for tender watches
@@ -274,7 +276,7 @@ module ScraperFile
                 differences.each do |difference|
                   hash += difference[:field].to_s+"/"+difference[:old].to_s+"#"
                 end
-                watch_tenders.each do | watch |
+                watch_tenders.each do |watch|
                   puts "diff_hash: #{hash}"
                   watch.diff_hash = hash
                   watch.has_updated = true
@@ -292,7 +294,7 @@ module ScraperFile
           puts "(not) saving new tender: " + tender.url_id.to_s
         end
       end #while
-    end#file
+    end #file
   end
 
   def self.processOrganizations
@@ -300,12 +302,12 @@ module ScraperFile
     File.open(org_file_path, "r") do |infile|
       count = 0
       Organization.transaction do
-        while(line = infile.gets)
+        while (line = infile.gets)
           count = count + 1
           item = JSON.parse(line)
 
           #don't process if we have already dealt with this org this time
-          organization = Organization.where("organization_url = ? AND dataset_id = ?",item["OrgUrl"],@newDataset.id).first
+          organization = Organization.where("organization_url = ? AND dataset_id = ?", item["OrgUrl"], @newDataset.id).first
           if !organization
             organization = Organization.new
             if count%100 == 0
@@ -336,9 +338,9 @@ module ScraperFile
                 watches = suppliersWatches + procurerWatches
                 if watches.count > 0
                   #ignore all meta data when comparing
-                  ignores = ["is_procurer", "is_bidder","translation","total_won_contract_value",
-                             "total_bid_tenders","total_won_tenders","total_offered_contract_value",
-                             "total_offered_tenders","total_success_tenders","bw_list"]
+                  ignores = ["is_procurer", "is_bidder", "translation", "total_won_contract_value",
+                             "total_bid_tenders", "total_won_tenders", "total_offered_contract_value",
+                             "total_offered_tenders", "total_success_tenders", "bw_list"]
                   differences = oldOrganization.findDifferences(organization, ignores)
                   watches.each do |watch|
                     #set hash to empty so the orgs get cleaned out everytime before processing
@@ -369,13 +371,15 @@ module ScraperFile
               organization.save
               puts "saving org: " + organization.id.to_s
               #now we know everything is sorted we can run a name translation
-              self.generateOrganizationNameTranslation( organization )
+              self.generateOrganizationNameTranslation(organization)
             end
-          end#if
-        end#while
-      end#transaction
-    end#do
-  end#process org
+          end #if
+        end #while
+      end #transaction
+    end #do
+  end
+
+  #process org
 
   def self.processBidders
     bidder_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_BIDDERS}"
@@ -383,10 +387,10 @@ module ScraperFile
       count = 0
       batch_size = 100
       complete = false
-      while(not complete)
+      while (not complete)
         Bidder.transaction do
           batch_count = 0
-          while(not complete and batch_count < batch_size )
+          while (not complete and batch_count < batch_size)
             line = infile.gets
             if not line
               complete = true
@@ -413,7 +417,7 @@ module ScraperFile
               end
               bidder.number_of_bids = item["numberOfBids"]
 
-              organization = Organization.where("organization_url = ?",item["OrgUrl"]).first
+              organization = Organization.where("organization_url = ?", item["OrgUrl"]).first
               if organization == nil
                 #wtf where is the org?
               else
@@ -450,22 +454,24 @@ module ScraperFile
                   end
                 end
                 tender.save
-              end#if org
+              end #if org
             else
               #tender not found investigate later
               bidder.organization_url = item["OrgUrl"]
               puts "not found tender_url = "+item["OrgUrl"]
               bidder.tender_id = -1
               bidder.save
-            end#if tender
+            end #if tender
             count = count + 1
             batch_count = batch_count + 1
-          end#while
+          end #while
           puts "bidders: #{count}"
-        end#transaction
+        end #transaction
       end
-    end#file
-  end#processBidders
+    end #file
+  end
+
+  #processBidders
 
   def self.processAgreements
     agreement_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_AGREEMENTS}"
@@ -473,10 +479,10 @@ module ScraperFile
       count = 0
       batch_size = 100
       complete = false
-      while(not complete)
+      while (not complete)
         Agreement.transaction do
           batch_count = 0
-          while(not complete and batch_count < batch_size )
+          while (not complete and batch_count < batch_size)
             line = infile.gets
             if not line
               complete = true
@@ -495,7 +501,7 @@ module ScraperFile
                 if agreement.documentation_url == "disqualifed" or agreement.documentation_url == "bidder refused agreement"
                   #puts "disqualifed agreement"
                   #org is stored as a name not an id in this case
-                  organization = Organization.where(:name => item["OrgUrl"].gsub("&amp;","&")).first
+                  organization = Organization.where(:name => item["OrgUrl"].gsub("&amp;", "&")).first
                   if organization
                     agreement.organization_url = organization.organization_url
                     agreement.organization_id = organization.id
@@ -563,7 +569,7 @@ module ScraperFile
                   watch.last_data_update = @liveDataset.data_valid_from
                   watch.save
                 end
-              end#if this agreement is actually new
+              end #if this agreement is actually new
             else
               #tender not found when it should have been
               agreement.tender_id = item["tenderID"]
@@ -573,12 +579,14 @@ module ScraperFile
             end
             count = count + 1
             batch_count = batch_count + 1
-          end#while
+          end #while
           puts "agreement: #{count}"
-        end#transaction
-      end#while not complete
-    end#file
-  end#processAgreements
+        end #transaction
+      end #while not complete
+    end #file
+  end
+
+  #processAgreements
 
   def self.addSubCPVCodes
     cpv_file_path = "#{Rails.root}/public/system/#{FILE_TENDER_CPV_CODES}"
@@ -586,17 +594,17 @@ module ScraperFile
       count = 0
       batch_size = 100
       complete = false
-      while(not complete)
+      while (not complete)
         batch_count = 0
         Tender.transaction do
-          while(not complete and batch_count < batch_size )
+          while (not complete and batch_count < batch_size)
             line = infile.gets
             if not line
               complete = true
               break
             end
             item = JSON.parse(line)
-            urlID =  item["tenderID"]
+            urlID = item["tenderID"]
             puts "codes : "+item["cpvCode"]
             tender = Tender.where(:url_id => urlID).first
             #only update if this tender needed to be updated
@@ -615,10 +623,10 @@ module ScraperFile
             else
               puts "tender for subcpv not found urlID: #{urlID}"
             end
-          end#while
-        end#transaction
+          end #while
+        end #transaction
       end
-    end#file
+    end #file
   end
 
   #deprecated
@@ -628,10 +636,10 @@ module ScraperFile
       count = 0
       batch_size = 100
       complete = false
-      while(not complete)
+      while (not complete)
         batch_count = 0
         TenderCpvCode.transaction do
-          while(not complete and batch_count < batch_size )
+          while (not complete and batch_count < batch_size)
             line = infile.gets
             if not line
               complete = true
@@ -643,7 +651,7 @@ module ScraperFile
             oldCode = TenderCpvCode.where(:tender_id => item["tenderID"], :cpv_code => item["cpvCode"]).first
             if not oldCode
               cpvCode = TenderCpvCode.new
-              tender = Tender.where("url_id = ?",item["tenderID"]).first
+              tender = Tender.where("url_id = ?", item["tenderID"]).first
               cpvCode.tender_id = tender.id
               cpvCode.cpv_code = item["cpvCode"]
               cpvCode.description = item["description"]
@@ -654,10 +662,10 @@ module ScraperFile
             end
             count = count + 1
             batch_count = batch_count +1
-          end#while
-        end#transaction
+          end #while
+        end #transaction
       end
-    end#file
+    end #file
   end
 
   def self.processDocuments
@@ -667,10 +675,10 @@ module ScraperFile
       count = 0
       complete = false
       batch_size = 100
-      while(not complete)
+      while (not complete)
         Document.transaction do
           batch_count = 0
-          while(not complete and batch_count < batch_size )
+          while (not complete and batch_count < batch_size)
             line = infile.gets
             if not line
               complete = true
@@ -678,7 +686,7 @@ module ScraperFile
             end
             item = JSON.parse(line)
             document = Document.new
-            tender = Tender.where("url_id = ?",item["tenderID"]).first
+            tender = Tender.where("url_id = ?", item["tenderID"]).first
             if tender
               document.tender_id = tender.id
               document.document_url = item["documentUrl"]
@@ -701,12 +709,14 @@ module ScraperFile
               count = count + 1
               batch_count = batch_count +1
             end
-          end#while
+          end #while
           puts "document: #{count}"
-        end#transaction
-      end#while not complete
+        end #transaction
+      end #while not complete
     end #file
-  end #processDocuments
+  end
+
+  #processDocuments
 
   #setup cpv codes
   #go through all tenders and find all unqiue cpv codes
@@ -730,9 +740,11 @@ module ScraperFile
       end
       cpvCode.save
     end
-  end#createcpv
+  end
 
-  def self.georgianToDate( dateString )
+  #createcpv
+
+  def self.georgianToDate(dateString)
     elements = dateString.split()
     month = elements[1]
     monthInt = -1
@@ -773,11 +785,11 @@ module ScraperFile
     File.open(white_list_file_path, "r") do |infile|
       WhiteListItem.transaction do
         WhiteListItem.delete_all
-        while(line = infile.gets)
+        while (line = infile.gets)
           item = JSON.parse(line)
           whiteListItem = WhiteListItem.new
           whiteListItem.organization_id = nil
-          org = Organization.where("code = ?",item["orgID"]).first
+          org = Organization.where("code = ?", item["orgID"]).first
           if org
             whiteListItem.organization_id = org.id
             org.bw_list_flag = "W"
@@ -798,11 +810,11 @@ module ScraperFile
     File.open(black_list_file_path, "r") do |infile|
       BlackListItem.transaction do
         BlackListItem.delete_all
-        while(line = infile.gets)
+        while (line = infile.gets)
           item = JSON.parse(line)
           blackListItem = BlackListItem.new
           blackListItem.organization_id = nil
-          org = Organization.where("code = ?",item["orgID"]).first
+          org = Organization.where("code = ?", item["orgID"]).first
           if org
             blackListItem.organization_id = org.id
             org.bw_list_flag = "B"
@@ -812,11 +824,11 @@ module ScraperFile
           blackListItem.issue_date = self.georgianToDate(item["issueDate"])
           blackListItem.procurer_id = nil
           procurer_name = self.cleanString(item["procurer"])
-          org = Organization.where("name = ?",procurer_name).first
+          org = Organization.where("name = ?", procurer_name).first
           if org
             blackListItem.procurer_id = org.id
           end
-          blackListItem.procurer_name  = procurer_name
+          blackListItem.procurer_name = procurer_name
           blackListItem.tender_id = item["tenderID"]
           blackListItem.tender_number = item["tenderNum"]
           blackListItem.reason = item["reason"]
@@ -831,11 +843,11 @@ module ScraperFile
     File.open(complaints_file_path, "r") do |infile|
       Complaint.transaction do
         Complaint.delete_all
-        while(line = infile.gets)
+        while (line = infile.gets)
           item = JSON.parse(line)
           complaintItem = Complaint.new
           complaintItem.organization_id = nil
-          org = Organization.where("code = ?",item["orgID"]).first
+          org = Organization.where("code = ?", item["orgID"]).first
           if org
             complaintItem.organization_id = org.id
           end
@@ -935,20 +947,22 @@ module ScraperFile
   def self.processAggregateData
     #store data for yearly stats
     AggregateHelper.generateAndStoreAggregateData
-  end#process aggregate data
+  end
+
+  #process aggregate data
 
   def self.createUsers
     #NEEDS TO BE REMOVED LATER
     myAdminAccount = User.where(:id => 1).first
     if not myAdminAccount
-      myAdminAccount = User.create!({:email => "chris@transparency.ge", :role => "admin", :password => "password84", :password_confirmation => "password84" })
+      myAdminAccount = User.create!({:email => "chris@transparency.ge", :role => "admin", :password => "password84", :password_confirmation => "password84"})
       myAdminAccount.save
     end
 
     #Get special profile account cpv groups
-    profileAccount = User.where( :role => "profile" ).first
+    profileAccount = User.where(:role => "profile").first
     if not profileAccount
-      profileAccount = User.create!({:email => "profile@transparency.ge", :role => "profile", :password => "67V9vP7647VVw14", :password_confirmation => "67V9vP7647VVw14" })
+      profileAccount = User.create!({:email => "profile@transparency.ge", :role => "profile", :password => "67V9vP7647VVw14", :password_confirmation => "67V9vP7647VVw14"})
       #create special cpv group
       allGroup = CpvGroup.new
       allGroup.id = 1
@@ -958,7 +972,7 @@ module ScraperFile
     end
 
     #create risky special cpv group
-    if not CpvGroup.where( :id => 2).first
+    if not CpvGroup.where(:id => 2).first
       risky = CpvGroup.new
       risky.id = 2
       risky.user_id = profileAccount.id
@@ -968,16 +982,16 @@ module ScraperFile
   end
 
   #take a string  and remove special characters and whitespace
-  def self.cleanString( string )
-    string = string.gsub(",,","")
-    string = string.gsub("„","")
-    string = string.gsub("”","")
-    string = string.gsub("'","")
-    string = string.gsub('"',"")
-    string = string.gsub("“",'')
-    string = string.gsub("&amp;","&")
-    string = string.gsub("<br>","\n")
-    string = string.gsub("<span>"," ")
+  def self.cleanString(string)
+    string = string.gsub(",,", "")
+    string = string.gsub("„", "")
+    string = string.gsub("”", "")
+    string = string.gsub("'", "")
+    string = string.gsub('"', "")
+    string = string.gsub("“", '')
+    string = string.gsub("&amp;", "&")
+    string = string.gsub("<br>", "\n")
+    string = string.gsub("<span>", " ")
     string = string.strip
     return string
   end
@@ -1088,8 +1102,8 @@ module ScraperFile
     self.addRiskIndicatorsToTenders
   end
 
-  def self.addToRiskTotal( tender, val )
-    totalScore = TenderCorruptionFlag.where(:corruption_indicator_id => 100,:tender_id => tender.id ).first
+  def self.addToRiskTotal(tender, val)
+    totalScore = TenderCorruptionFlag.where(:corruption_indicator_id => 100, :tender_id => tender.id).first
     if not totalScore
       totalScore = TenderCorruptionFlag.new
       totalScore.tender_id = tender.id
@@ -1127,8 +1141,8 @@ module ScraperFile
         conjuction = ""
       end
       sql = sql + conjuction
-      holidayStart = Date.new(year,12,30).to_s
-      holidayEnd = Date.new(year+1,1,11).to_s
+      holidayStart = Date.new(year, 12, 30).to_s
+      holidayEnd = Date.new(year+1, 1, 11).to_s
 
       sql = sql + "(tender_announcement_date BETWEEN '"+holidayStart+"' AND '"+holidayEnd+"')"
     end
@@ -1160,20 +1174,25 @@ module ScraperFile
       #now check the lowest bid and compare this to the estimated value
       lowestBid = nil
       tender.bidders.each do |bidder|
-        if not lowestBid or lowestBid > bidder.last_bid_amount
-          lowestBid = bidder.last_bid_amount
+        if bidder.last_bid_amount
+          if not lowestBid or lowestBid > bidder.last_bid_amount
+            lowestBid = bidder.last_bid_amount
+          end
         end
       end
       if lowestBid
-        savingsPercentage = 1 - lowestBid/tender.estimated_value
-        if savingsPercentage <= 0.02
-          #risky tender!
-          corruptionFlag = TenderCorruptionFlag.new
-          corruptionFlag.tender_id = tender.id
-          corruptionFlag.corruption_indicator_id = indicator.id
-          corruptionFlag.value = 1 #could have more for %1 and %0.5 etc
-          corruptionFlag.save
-          self.addToRiskTotal(tender, (corruptionFlag.value*indicator.weight))
+        if tender.estimated_value
+          savingsPercentage = 1 - lowestBid/tender.estimated_value
+          if savingsPercentage <= 0.02
+            #risky tender!
+            corruptionFlag = TenderCorruptionFlag.new
+            corruptionFlag.tender_id = tender.id
+            corruptionFlag.corruption_indicator_id = indicator.id
+            corruptionFlag.value = 1 #could have more for %1 and %0.5 etc
+            corruptionFlag.save
+
+            self.addToRiskTotal(tender, (corruptionFlag.value*indicator.weight))
+          end
         end
       end
     end
@@ -1196,7 +1215,7 @@ module ScraperFile
         corruptionFlag.corruption_indicator_id = indicator.id
         corruptionFlag.value = 1 #perhaps we could add different values for different codes
         corruptionFlag.save
-        self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
+        self.addToRiskTotal(tender, (corruptionFlag.value*indicator.weight))
       end
     end
   end
@@ -1226,7 +1245,7 @@ module ScraperFile
                   corruptionFlag.corruption_indicator_id = indicator.id
                   corruptionFlag.value = 1
                   corruptionFlag.save
-                  self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
+                  self.addToRiskTotal(tender, (corruptionFlag.value*indicator.weight))
                   break
                 end
               end
@@ -1255,7 +1274,7 @@ module ScraperFile
         corruptionFlag.corruption_indicator_id = indicator.id
         corruptionFlag.value = 1
         corruptionFlag.save
-        self.addToRiskTotal( tender, (corruptionFlag.value*indicator.weight)  )
+        self.addToRiskTotal(tender, (corruptionFlag.value*indicator.weight))
       end
     end
   end
@@ -1272,24 +1291,24 @@ module ScraperFile
         if not orgs[winning_org_id]
           nodeID+=1
           newOrg = Organization.find(winning_org_id)
-          orgs[winning_org_id] = [newOrg, nodeID,{}]
+          orgs[winning_org_id] = [newOrg, nodeID, {}]
         end
         ids.each do |competitor_id|
           if not competitor_id == winning_org_id
             if not orgs[competitor_id]
               nodeID+=1
               newOrg = Organization.find(competitor_id)
-              orgs[competitor_id] = [newOrg, nodeID,{}]
+              orgs[competitor_id] = [newOrg, nodeID, {}]
             end
             #create link
             if not orgs[winning_org_id][2][nodeID]
               orgs[winning_org_id][2][nodeID] = 0
             end
             orgs[winning_org_id][2][nodeID] += 1
-          end#if not same org
-        end#for all orgs
+          end #if not same org
+        end #for all orgs
       end
-    end#for all tenders
+    end #for all tenders
   end
 
   def self.findCompetitors
@@ -1313,12 +1332,12 @@ module ScraperFile
             end
             count = count + 1
             companies[org_id][competitor_id] = count
-          end#if not same org
-        end#for all competitor ids
-      end#for all orgs
-    end#for all tenders
+          end #if not same org
+        end #for all competitor ids
+      end #for all orgs
+    end #for all tenders
 
-    def self.competitorSort(a,b)
+    def self.competitorSort(a, b)
       if a[1] < b[1]
         return 1
       else
@@ -1329,7 +1348,7 @@ module ScraperFile
     # we now have a list of companies each with a list of companies they have competed with
     # go through each company find its top 3 competitors and store this in the db
     companies.each do |org_id, competitors|
-      competitors = competitors.sort {|a,b| self.competitorSort(a,b) }
+      competitors = competitors.sort { |a, b| self.competitorSort(a, b) }
       #store top 3
       count = 0
       competitors.each do |competitor_id, value|
@@ -1437,7 +1456,7 @@ module ScraperFile
     return updates
   end
 
-  def self.checkSearchWatches( user )
+  def self.checkSearchWatches(user)
     #rerun search and check for new results
     searches = Search.where(:user_id => user.id)
     updates = []
@@ -1471,14 +1490,14 @@ module ScraperFile
         filepath = "#{Rails.root}/pre-scrape-data/"+searchPath
         if File.exist?(filepath)
           File.open(filepath, "r") do |searchFile|
-            while(line = searchFile.gets)
+            while (line = searchFile.gets)
               item = JSON.parse(line)
               if item["id"].to_s == search.id.to_s
                 data = item
                 break
               end
             end
-          end#file open
+          end #file open
 
           newItems = []
           if data
@@ -1503,7 +1522,7 @@ module ScraperFile
             end
             search.new_ids = id_string
             search.save
-            updateList.push({:search => search,:newResults => newItems})
+            updateList.push({:search => search, :newResults => newItems})
           end
         end
       else
@@ -1521,7 +1540,7 @@ module ScraperFile
     File.open("#{Rails.root}/pre-scrape-data/tenderSearches.txt", "w") do |tenders|
       File.open("#{Rails.root}/pre-scrape-data/procurerSearches.txt", "w") do |procurers|
         File.open("#{Rails.root}/pre-scrape-data/supplierSearches.txt", "w") do |suppliers|
-          Search.all.each do | search |
+          Search.all.each do |search|
             ids = []
             results = nil
             writeFile = nil
@@ -1558,7 +1577,7 @@ module ScraperFile
     end
   end
 
-  def self.generateOrganizationNameTranslation( organization )
+  def self.generateOrganizationNameTranslation(organization)
 =begin    orgName = organization.name
     puts "translating: " + orgName
     translations = TranslationHelper.findStringTranslations(orgName)
@@ -1580,7 +1599,7 @@ module ScraperFile
     File.open("#{Rails.root}/public/system/scrapeInfo.txt", "r") do |info|
       #time should be on first line
       scrapeStartTime = info.gets
-      @scrapeTime = DateTime.parse(scrapeStartTime)
+      @scrapeTime = DateTime.now
       #while the information is valid from when the scrape started the update time will be now when the data process is ending (sometimes up to 8 hours later) so to inform the user when they will next receive an update we need to take the time as of now and add a day
       nextEstimatedTime = DateTime.now.next_day
       @liveDataset.data_valid_from = @scrapeTime
@@ -1590,7 +1609,7 @@ module ScraperFile
   end
 
   def self.createLiveTenderList
-    standardNonActiveList = ["დასრულებულია უარყოფითი შედეგით","ტენდერი არ შედგა","ტენდერი შეწყვეტილია","ხელშეკრულება დადებულია"]
+    standardNonActiveList = ["დასრულებულია უარყოფითი შედეგით", "ტენდერი არ შედგა", "ტენდერი შეწყვეტილია", "ხელშეკრულება დადებულია"]
     consolidatedNonActiveList = standardNonActiveList + ["გამარჯვებული გამოვლენილია"]
     File.open("#{Rails.root}/public/system/stalledTenders.txt", "w+") do |stallFile|
       File.open("#{Rails.root}/public/system/liveTenders.txt", "w+") do |liveFile|
@@ -1622,7 +1641,7 @@ module ScraperFile
     file_path = "#{Rails.root}/public/system/numbers.txt"
     orgs = {}
     File.open(file_path, "r") do |infile|
-      while(line = infile.gets)
+      while (line = infile.gets)
         orgCode = line.strip()
         org = Organization.where(:code => orgCode).first
         if org and org.total_won_contract_value > 0
@@ -1631,12 +1650,12 @@ module ScraperFile
       end
     end
 
-    orgs = orgs.sort{ |x, y| y[1][:total_won_contract_value] <=> x[1][:total_won_contract_value] }
+    orgs = orgs.sort { |x, y| y[1][:total_won_contract_value] <=> x[1][:total_won_contract_value] }
 
     csv_data = CSV.generate() do |csv|
-      csv << ["Name","Code","Revenue"]
-      orgs.each do |index,org|
-        csv << [org.name,org.code,org.total_won_contract_value]
+      csv << ["Name", "Code", "Revenue"]
+      orgs.each do |index, org|
+        csv << [org.name, org.code, org.total_won_contract_value]
       end
     end
     File.open("app/assets/data/revenues.csv", "w+") do |file|
@@ -1687,7 +1706,7 @@ module ScraperFile
 
     info_file_path = "#{Rails.root}/public/system/#{FILE_SCRAPE_INFO}"
     File.open(info_file_path, "r") do |infile|
-      while(line = infile.gets)
+      while (line = infile.gets)
         if line.index("StartTime: ")
           index = line.index(":") + 2
           @scrapeTime = line[index..-1].to_datetime
@@ -1739,8 +1758,8 @@ module ScraperFile
   end
 
   #this is a expensive process that will combine all tender information including bidders and agreements and store each tender on a single csv row
-  def self.buildTenderInfoCSVString(ignores, filePath )
-    csv_string = CSV.open(filePath,'w') do |csv|
+  def self.buildTenderInfoCSVString(ignores, filePath)
+    csv_string = CSV.open(filePath, 'w') do |csv|
       csv << [BOM]
       #use the first object to get the column names
       column_header = []
@@ -1777,7 +1796,7 @@ module ScraperFile
       Tender.find_each do |tender|
         values = []
 
-        additionalInfo = Agreement.select("organization_id, amount, currency").where(:tender_id => tender.id, :amendment_number => 0 ).first
+        additionalInfo = Agreement.select("organization_id, amount, currency").where(:tender_id => tender.id, :amendment_number => 0).first
         if additionalInfo && additionalInfo[:organization_id]
           thisOrg = Organization.select("name").where(:id => additionalInfo[:organization_id]).first
           additionalInfo[:supplier_name] = thisOrg.name
@@ -1875,7 +1894,7 @@ module ScraperFile
     end
   end
 
-  def self.buildSimplifiedProcurementCsv(ignores,filepath)
+  def self.buildSimplifiedProcurementCsv(ignores, filepath)
 
     line_count = 100001
     file_index = 0
@@ -1902,7 +1921,7 @@ module ScraperFile
             file_index += 1
             line_count = 0
 
-            CSV.open("#{filepath}_#{file_index}.csv",'w') do |csv|
+            CSV.open("#{filepath}_#{file_index}.csv", 'w') do |csv|
               csv << [BOM]
               #use the first object to get the column names
               column_header = []
@@ -1981,7 +2000,7 @@ module ScraperFile
 
           values.push(paid_amounts.join(' - '))
 
-          CSV.open("#{filepath}_#{file_index}.csv",'a') do |csv|
+          CSV.open("#{filepath}_#{file_index}.csv", 'a') do |csv|
             csv << values
             line_count += 1
           end
@@ -1995,7 +2014,7 @@ module ScraperFile
   end
 
   def self.generate_procurement_csv_file
-    buildSimplifiedProcurementCsv(['created_at','updated_at'],'AllSimplifiedProcurements')
+    buildSimplifiedProcurementCsv(['created_at', 'updated_at'], 'AllSimplifiedProcurements')
   end
 
 
@@ -2087,7 +2106,7 @@ module ScraperFile
   end
 
   def self.generateBulkTenderData
-    self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv" )
+    self.buildTenderInfoCSVString(["addition_info", "units_to_supply", "supply_period"], "AllTenders.csv")
   end
 
   # looping over all simplified procurement files in the folder
@@ -2095,11 +2114,11 @@ module ScraperFile
 
     filesFolder = "#{Rails.root}/public/system"
 
-    Dir.glob( "#{filesFolder}/*.json") do |fileName|
+    Dir.glob("#{filesFolder}/*.json") do |fileName|
 
       puts "\n\n----Importing #{fileName}\n\n"
 
-      self.importSimplifiedProcurement( fileName)
+      self.importSimplifiedProcurement(fileName)
 
     end
 
@@ -2140,13 +2159,13 @@ module ScraperFile
   end
 
   # This method imports the simplified procurement (from a JSON file) into the MySQL tender monitor database.
-  def self.importSimplifiedProcurement( simplifiedProcurementsFileName)
+  def self.importSimplifiedProcurement(simplifiedProcurementsFileName)
 
     simplified_procurement_file_path = "#{simplifiedProcurementsFileName}"
     count_line = 0
     File.open(simplified_procurement_file_path, "r") do |infile|
 
-      while(line = infile.gets)
+      while (line = infile.gets)
 
         # counter
         if (count_line % 200 == 0)
@@ -2154,7 +2173,7 @@ module ScraperFile
         end
 
         # cleaning the line, if it has square brackets at the beginning/end of it.
-        line.gsub!("\n",'')
+        line.gsub!("\n", '')
 
         if line[0] == '['
           line[0] = ''
@@ -2186,7 +2205,7 @@ module ScraperFile
           if simplified_tender && (simplified_tender.contract_signing_date.nil? || simplified_tender.contract_type.nil?)
 
             document_info = tender_line['pDocument']
-            simplified_tender.contract_signing_date = Date.strptime(document_info[document_info.length-3],'%d.%m.%Y')
+            simplified_tender.contract_signing_date = Date.strptime(document_info[document_info.length-3], '%d.%m.%Y')
             simplified_tender.contract_type = tender_line['pContractType']
             simplified_tender.save
 
@@ -2219,9 +2238,9 @@ module ScraperFile
           end
           simplified_tender.contract_value_date = Date.strptime(tender_line['pValueDate'], '%d.%m.%Y')
           document_info = tender_line['pDocument']
-          simplified_tender.doc_start_date = Date.strptime(document_info[document_info.length-2],'%d.%m.%Y')
-          simplified_tender.doc_end_date = Date.strptime(document_info[document_info.length-1],'%d.%m.%Y')
-          simplified_tender.contract_signing_date = Date.strptime(document_info[document_info.length-3],'%d.%m.%Y')
+          simplified_tender.doc_start_date = Date.strptime(document_info[document_info.length-2], '%d.%m.%Y')
+          simplified_tender.doc_end_date = Date.strptime(document_info[document_info.length-1], '%d.%m.%Y')
+          simplified_tender.contract_signing_date = Date.strptime(document_info[document_info.length-3], '%d.%m.%Y')
           agreement_value = tender_line['pAgreementAmount']
           if agreement_value && agreement_value != ''
             agreement_value_array = agreement_value.split(' ')
@@ -2235,7 +2254,7 @@ module ScraperFile
           simplified_tender.financing_source = "#{tender_line['pFinancingSource'][0]} (#{tender_line['pFinancingSource'][1]})"
           simplified_tender.procurement_base = tender_line['pProcurementBase']
 
-          simplified_tender = setProcurerSupplierToProcurement(tender_line,simplified_tender)
+          simplified_tender = setProcurerSupplierToProcurement(tender_line, simplified_tender)
 
           if simplified_tender.save
 
@@ -2312,7 +2331,7 @@ module ScraperFile
           simplified_tender.contract_value = tender_line['pValueContract']
           simplified_tender.contract_value_date = Date.strptime(tender_line['pValueDate'], '%d.%m.%Y')
           document_info = tender_line['pDocument']
-          simplified_tender.contract_signing_date = Date.strptime(document_info[(document_info.length)-3],'%d.%m.%Y')
+          simplified_tender.contract_signing_date = Date.strptime(document_info[(document_info.length)-3], '%d.%m.%Y')
 
           if (simplified_tender.supplier_id.nil? || simplified_tender.procuring_entity_id.nil?)
             simplified_tender = setProcurerSupplierToProcurement(tender_line, simplified_tender)
@@ -2370,7 +2389,7 @@ module ScraperFile
   def self.modifyAmounts
     count = 0
     SimplifiedTender.find_in_batches do |group|
-      group.each{ |procurement|
+      group.each { |procurement|
         contract_value = procurement.contract_value
         if contract_value && contract_value != ''
           contract_value_array = contract_value.split(' ')
@@ -2421,7 +2440,7 @@ module ScraperFile
 
     filesFolder = "#{Rails.root}/public/system"
 
-    File.open( "#{filesFolder}/tender_update.txt", "w" ) do |fileDesc|
+    File.open("#{filesFolder}/tender_update.txt", "w") do |fileDesc|
 
       SimplifiedTender.where('status = ?', 'Ongoing contract').find_each do |tender|
 
@@ -2430,10 +2449,9 @@ module ScraperFile
       end
 
       # we would also like the maximum value of web_id in the database, so we do not re-scrape the same stuff
-      max_present_id = SimplifiedTender.maximum( 'web_id')
+      max_present_id = SimplifiedTender.maximum('web_id')
 
       fileDesc.puts "#{max_present_id}\n"
-
 
 
     end

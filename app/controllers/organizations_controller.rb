@@ -174,7 +174,9 @@ class OrganizationsController < ApplicationController
           value = tender.contract_value
         end
         @actualCost += value
-        @totalEstimate += tender.estimated_value
+        if tender.estimated_value
+          @totalEstimate += tender.estimated_value
+        end
         @numAgreements += 1
         date = tender.tender_announcement_date.to_time.to_i/86400
         if tender.tender_type.strip == "გამარტივებული ელექტრონული ტენდერი"
@@ -191,9 +193,11 @@ class OrganizationsController < ApplicationController
           #this tender was announced on the same day as another tender and we can only go as far as per day on the graph
           #so lets pick the most important tender and ignore the other one :(
           old = @successfulTenders[date]
-          if old[0].estimated_value < tender.estimated_value
-            #overwrite old data
-            @successfulTenders[date] = [tender, value]
+          if tender.estimated_value and old[0].estimated_value
+            if old[0].estimated_value < tender.estimated_value
+              #overwrite old data
+              @successfulTenders[date] = [tender, value]
+            end
           end
         end
       elsif tender[:status] == "active"
@@ -452,7 +456,9 @@ class OrganizationsController < ApplicationController
     procuringEntities = {}
     tendersWon.each do |key, tender|
       @totalValueOfAllContracts += tender[0]
-      @totalEstimatedValueOfContractsWon += tender[1].estimated_value
+      if tender[1].estimated_value
+        @totalEstimatedValueOfContractsWon += tender[1].estimated_value
+      end
       @averageNumBiddersOnContractsWon += tender[1].bidders.count
       procuringID = tender[1].procurring_entity_id
       if procuringEntities[procuringID]

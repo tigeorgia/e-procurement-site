@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/wr0ngway/graylog2_exceptions.git
-  revision: 797924acd1aa89852605230812d8cfd27da90969
-  specs:
-    graylog2_exceptions (1.3.0)
-      gelf (~> 1.3)
-
-GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
   revision: 494f752b8eb8350f33841c822a67d014c869219f
   specs:
@@ -13,16 +6,23 @@ GIT
       jquery-rails
 
 GIT
-  remote: https://github.com/jilion/useragent.git
-  revision: 9fd0f887527850994c543caa7cf5327bd635dc02
+  remote: git://github.com/wr0ngway/graylog2_exceptions.git
+  revision: 797924acd1aa89852605230812d8cfd27da90969
   specs:
-    useragent (0.2.3)
+    graylog2_exceptions (1.3.0)
+      gelf (~> 1.3)
 
 GIT
   remote: https://github.com/davidray/nested_form.git
   revision: c97d280b75af661eb36279c04e420fb8098ad60d
   specs:
     nested_form (0.1.1)
+
+GIT
+  remote: https://github.com/jilion/useragent.git
+  revision: 9fd0f887527850994c543caa7cf5327bd635dc02
+  specs:
+    useragent (0.2.3)
 
 GEM
   remote: http://rubygems.org/
@@ -299,3 +299,6 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   useragent!
   will_paginate (>= 3.0.3)
+
+BUNDLED WITH
+   1.11.2
