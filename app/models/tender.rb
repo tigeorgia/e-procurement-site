@@ -35,7 +35,7 @@
 
   validates :url_id, :tender_type, :tender_registration_number, :tender_status, :presence => true
   
-  scope :recent, order("tender_announcement_date desc").limit(5)
+  scope :recent, -> { order("tender_announcement_date desc").limit(5) }
   
   # number of items per page for pagination
   self.per_page = 100

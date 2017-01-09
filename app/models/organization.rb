@@ -29,8 +29,8 @@ class Organization < ActiveRecord::Base
 
   validates :organization_url, :presence => true
   
-  scope :order_by_name, order("name desc")
-  scope :recent, order("name desc").limit(5)
+  scope :order_by_name, -> { order("name desc") }
+  scope :recent, -> { order("name desc").limit(5) }
   
   # number of items per page for pagination
 	self.per_page = 20

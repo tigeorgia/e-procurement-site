@@ -13,8 +13,8 @@ class SimplifiedTender < ActiveRecord::Base
   belongs_to :supplier, :class_name => "Organization"
   belongs_to :procuring_entity, :class_name => "Organization"
 
-  scope :order_by_name, order("regitration_number desc")
-  scope :recent, order("regitration_number desc").limit(5)
+  scope :order_by_name,-> { order("regitration_number desc") }
+  scope :recent, ->{ order("regitration_number desc").limit(5) }
 
   # number of items per page for pagination
   self.per_page = 20
