@@ -2048,7 +2048,7 @@ module ScraperFile
   end
 
   def self.processScrape
-    @numDatasets = Dataset.find(:all).count
+    @numDatasets = Dataset.all.count
     @liveDataset = nil
     @newDataset = nil
     #if we have 1 dataset already lets create a new one to hold the new data
@@ -2070,7 +2070,7 @@ module ScraperFile
       @liveDataset = @newDataset
     end
     #update dataset num
-    @numDatasets = Dataset.find(:all).count
+    @numDatasets = Dataset.all.count
 
     #destroy any left over data from last process
     #anything left with a dataset_id the same as newDataset mustn't have been processed fully
@@ -2101,7 +2101,7 @@ module ScraperFile
   def self.testProcess
     @liveDataset = Dataset.find(1)
     @newDataset = Dataset.find(2)
-    @numDatasets = Dataset.find(:all).count
+    @numDatasets = Dataset.all.count
     self.cleanOrgNames
   end
 
