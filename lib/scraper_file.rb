@@ -21,6 +21,15 @@ module ScraperFile
   require "query_helper"
   require "translation_helper"
   require "aggregate_helper"
+  
+  def self.uri?(string)
+	uri = URI.parse(string)
+        %w( http https ).include?(uri.scheme)
+  rescue URI::BadURIError
+         false
+  rescue URI::InvalidURIError
+         false
+  end  
 
   def self.cleanOldData(mode)
     if mode == 0
@@ -298,6 +307,7 @@ module ScraperFile
   end
 
   def self.processOrganizations
+    require 'uri'
     org_file_path = "#{Rails.root}/public/system/#{FILE_ORGANISATIONS}"
     File.open(org_file_path, "r") do |infile|
       count = 0
@@ -314,7 +324,11 @@ module ScraperFile
               puts "organization: #{count}"
             end
             organization.dataset_id = @newDataset.id
-            organization.organization_url = item["OrgUrl"]
+            if uri?(item["OrgUrl"])
+              organization.organization_url = item["OrgUrl"]
+            else
+               organization.organization_url = 'null'
+            end
             organization.code = item["OrgID"]
             organization.name = self.cleanString(item["Name"])
             organization.country = self.cleanString(item["Country"])
