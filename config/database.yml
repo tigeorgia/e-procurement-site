@@ -1,6 +1,6 @@
 development:
   adapter: mysql2
-  database: ti_tender_remote
+  database: ti_tender_local
   username: root
   password: 1q2w3e4r
   encoding: utf8
@@ -11,7 +11,7 @@ development:
 
 production:
   adapter: mysql2
-  database: ti_tender_remote
+  database: ti_tender_local
   username: root
   password: 1q2w3e4r
   encoding: utf8
